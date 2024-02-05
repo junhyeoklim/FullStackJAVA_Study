@@ -2,8 +2,9 @@ class Good
 {
 	public static void main(String[] args)
 	{
-		System.out.println("안녕하세요");
-		System.out.println("Good");
-		System.out.println("Moring");
+		for(int i = 0; i < 3; i++)
+		{
+			System.out.println(i + "Hi");
+		}
 	}
 }
