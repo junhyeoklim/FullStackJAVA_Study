@@ -1,0 +1,11 @@
+다른 브런치에서 pull 하기 : https://info-lab.tistory.com/118
+
+깃 설치후 할것
+1. git init
+2. git clone (git주소) or git remote add (git주소)
+
+
+다른 브런치 연결 하는 법
+1.  git pull origin DB
+2.  git branch --set-upstream-to=origin/DB master -> 만약 main이면 master 대신 main으로 쓰기
+3.  git pull origin DB --allow-unrelated-histories
