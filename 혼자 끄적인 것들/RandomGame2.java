@@ -24,8 +24,7 @@ class RandomGame2
 		{
 		    if(flag.equals("y"))
 		      {
-			System.out.println();
-			System.out.println("선택 하세요 가위:1 바위:2 보:3");
+			System.out.println("\n"+"선택 하세요 가위:1 바위:2 보:3");
 			user = scan.nextInt();
 			cpu = random.nextInt(3)+1;
 
@@ -62,34 +61,29 @@ class RandomGame2
 
 			if(user == 1 && cpu == 1 || user == 2 && cpu == 2 || user == 3 && cpu == 3)
 			{
-				System.out.println();
-				System.out.println("user : " + chuser + "  "+ "cpu : " + chcpu);
-				System.out.println("비겼다..");
+				System.out.println("\n"+"user : " + chuser + "  "+ "cpu : " + chcpu);
+				System.out.println("비겼다.."+"\n");
 				System.out.println();
 			}
 
 			else if(user == 1 && cpu == 2 || user == 2 && cpu == 3 || user == 3 && cpu == 1)
 			{
 				cpcnt++;
-				System.out.println();
-				System.out.println("user : " + chuser + "  "+ "cpu : " + chcpu);
-				System.out.println("졌다ㅠㅠ");
+				System.out.println("\n"+"user : " + chuser + "  "+ "cpu : " + chcpu);
+				System.out.println("졌다ㅠㅠ"+"\n");
 			}
 	
 			else if(user == 1 && cpu == 3 || user == 2 && cpu == 1 || user == 3 && cpu == 2)
 			{
 				uscnt++;
-				System.out.println();
-				System.out.println("user : " + chuser + "  "+ "cpu : " + chcpu);
-				System.out.println("이겼다!!");
-				System.out.println();
+				System.out.println("\n"+"user : " + chuser + "  "+ "cpu : " + chcpu);
+				System.out.println("이겼다!!"+"\n");
 			}
 		     }
 
 		    else if(flag.equals("n"))
 		     {
-         		            System.out.println();
-			System.out.println("게임을 종료합니다!");
+			System.out.println("\n"+"게임을 종료합니다!");
 			System.out.println("user win : "+uscnt+" "+" cpu win : "+cpcnt);
 			break;
 		     }
@@ -97,8 +91,7 @@ class RandomGame2
 		    //flag에 y,n이외에 값이 들어 오면 재입력 받는 else문
 		    else
 		     {
-		        System.out.println();
-		        System.out.println("y 또는 n을 입력 해주세요!");   		
+		        System.out.println("\n"+"y 또는 n을 입력 해주세요!");   		
 		      }
 
                              System.out.println("계속 하시겠습니까? y,n");
