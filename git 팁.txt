@@ -17,3 +17,12 @@
 
 - 다른 브런치에서 pull 하기 : git pull origin <branch명>
 - 다른 브런치로 이동하기 : git checkout <branch명>
+
+커밋 메시지 수정하기
+
+- https://data-study-clip.tistory.com/237 
+
+
+Updates were rejected because a pushed branch tip is behind its remote counterpart. 오류가 날때
+
+- https://donggu1105.tistory.com/21
