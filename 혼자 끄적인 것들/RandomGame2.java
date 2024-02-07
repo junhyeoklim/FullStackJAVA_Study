@@ -10,15 +10,16 @@ class RandomGame2
 
 		int cpu= 0,user=0,uscnt=0,cpcnt=0;
 
-		//게임 진행 여부 판별 하는 플래그 변수 선언 및 y로 초기화
+		//게임 진행 여부 판별 하는 플래그 변수 선언 및 처음 진행을 위해 y로 초기화
 		String flag = "y";
 
-		//user와 cpu에 들어 있는 숫자를 문자로 바꾸기 위한 문자열 선언 및 null초기화
+		//user와 cpu에 들어 있는 숫자를 문자로 바꾸기 위한 문자열 선언 및 null 값으로 초기화
 		String chuser = null,chcpu = null;
 
 
 		System.out.println("!!!가위바위보 게임!!!");
 		
+		//flag에 'n'값이 입력 되기 전 까지 무한 반복하는 while문
 		while(true)
 		{
 		    if(flag.equals("y"))
@@ -66,13 +67,15 @@ class RandomGame2
 				System.out.println("비겼다..");
 				System.out.println();
 			}
+
 			else if(user == 1 && cpu == 2 || user == 2 && cpu == 3 || user == 3 && cpu == 1)
 			{
 				cpcnt++;
 				System.out.println();
 				System.out.println("user : " + chuser + "  "+ "cpu : " + chcpu);
 				System.out.println("졌다ㅠㅠ");
-			}	
+			}
+	
 			else if(user == 1 && cpu == 3 || user == 2 && cpu == 1 || user == 3 && cpu == 2)
 			{
 				uscnt++;
@@ -90,6 +93,8 @@ class RandomGame2
 			System.out.println("user win : "+uscnt+" "+" cpu win : "+cpcnt);
 			break;
 		     }
+
+		    //flag에 y,n이외에 값이 들어 오면 재입력 받는 else문
 		    else
 		     {
 		        System.out.println();
