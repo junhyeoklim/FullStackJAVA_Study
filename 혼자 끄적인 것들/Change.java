@@ -46,6 +46,7 @@ class Change
 
 	public void setNumber(int a,int n,int d)
 	{
+		//a : 첫 항, n : 총 출력할 갯수, d : 공차
 		this.a = a;
 		this.n = n;
 		this.d = d;
