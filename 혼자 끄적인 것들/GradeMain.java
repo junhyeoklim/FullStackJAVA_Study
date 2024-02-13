@@ -1,11 +1,8 @@
 import java.util.Scanner;
-import java.text.DecimalFormat;
 
 class Grade
 {
-	double sub1,sub2,sub3,avg;
-	String avgresult;
-	DecimalFormat df = new DecimalFormat("0.00"); 
+	double sub1,sub2,sub3,avg,avgresult;
 
 	public void gradeGet(double num1,double num2,double num3)
 	{
@@ -20,15 +17,16 @@ class Grade
 	public void gradeAverage()
 	{
 		avg = (sub1+sub2+sub3)/3;
-		avgresult = df.format(avg);
+		//소수점 둘째자리까지 표시
+		avgresult = Math.round(avg*100)/100.0;
 	}
 
 	public void printGrade()
 	{
-		System.out.println("\n국어 점수 : " + sub1);
-		System.out.println("수학 점수 : " + sub2);
-		System.out.println("영어 점수 : " + sub3+"\n");
-
+		//입력 받은 과목 소수점 제거 
+		System.out.printf("\n국어 점수 : %.0f\n",sub1);
+		System.out.printf("수학 점수 : %.0f\n",sub2);
+		System.out.printf("영어 점수 : %.0f\n\n",sub3);
 		System.out.println("평균 : "+avgresult);
 	}
 }
