@@ -12,9 +12,6 @@ class Testt
 
 		for(;;)
 		{
-
-
-
 			if(num/2 == 1)
 			{
 				System.out.println("테스트2"+num/2);
