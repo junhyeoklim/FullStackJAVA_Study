@@ -9,9 +9,9 @@ class RecursiveMethod
 
 	public static void reHi(int num)
 	{
-		if(num == 0) return;
+		if(num == 6) return;
 		System.out.println("Hi");
-		reHi(num-1);
+		reHi(num+1);
 		System.out.println("Bye");
 	}
 }
