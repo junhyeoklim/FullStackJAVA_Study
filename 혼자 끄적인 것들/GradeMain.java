@@ -1,0 +1,60 @@
+import java.util.Scanner;
+import java.text.DecimalFormat;
+
+class Grade
+{
+	double sub1,sub2,sub3,avg;
+	String avgresult;
+	DecimalFormat df = new DecimalFormat("0.00"); 
+
+	public void gradeGet(double num1,double num2,double num3)
+	{
+		sub1 = num1;
+		sub2 = num2;
+		sub3 = num3;
+
+		gradeAverage();
+		printGrade();
+	}
+
+	public void gradeAverage()
+	{
+		avg = (sub1+sub2+sub3)/3;
+		avgresult = df.format(avg);
+	}
+
+	public void printGrade()
+	{
+		System.out.println("\n국어 점수 : " + sub1);
+		System.out.println("수학 점수 : " + sub2);
+		System.out.println("영어 점수 : " + sub3+"\n");
+
+		System.out.println("평균 : "+avgresult);
+	}
+}
+
+class GradeMain
+{
+	public static void main(String[] args)
+	{
+		double sub1 = 0,sub2 = 0,sub3 = 0;
+
+		Scanner sc = new Scanner(System.in);
+		Grade gd = new Grade();
+
+
+		System.out.println("국어 점수를 입력 해주세요.");
+		System.out.print("점수 : ");
+		sub1 = sc.nextInt();	
+
+		System.out.println("\n수학 점수를 입력 해주세요.");
+		System.out.print("점수 : ");
+		sub2 = sc.nextInt();
+
+		System.out.println("\n영어 점수를 입력 해주세요.");
+		System.out.print("점수 : ");
+		sub3 = sc.nextInt();
+
+		gd.gradeGet(sub1,sub2,sub3);
+	}
+}
