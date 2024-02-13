@@ -2,18 +2,18 @@ class Triangle
 {
 	int height,bottom,width;
 
-	public void TriangleDefine(int num1,int num2)
+	public void triangleDefine(int num1,int num2)
 	{
 		bottom = num1;
 		height = num2;
 	}
 
-	public void TriangleWidth()
+	public void triangleWidth()
 	{
 		width = (height*bottom)/2;
 	}
 
-	public void TriangleState()
+	public void triangleState()
 	{
 		System.out.println("밑변 : "+bottom+" 높이 : "+height+" 넓이 : "+width+"\n");
 	}
