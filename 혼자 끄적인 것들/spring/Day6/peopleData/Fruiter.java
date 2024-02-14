@@ -6,7 +6,7 @@ public class Fruiter {
 	
 	DataGetSet fruiter = new DataGetSet();	
 	
-	public void fruiterDefine(int price,int fcnt,int fmoney)
+	public Fruiter(int price,int fcnt,int fmoney)
 	{
 		fruiter.setPrice(price);
 		fruiter.setCnt(fcnt);
