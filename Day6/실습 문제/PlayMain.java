@@ -26,6 +26,12 @@ class Child
 
 	public int lose(int cnt)
 	{
+		if(this.cnt < cnt)
+		{
+			int temp = this.cnt;
+			this.cnt = 0;
+			return temp;
+		}
 		this.cnt -= cnt;
 		return cnt;
 	}
@@ -45,7 +51,7 @@ class PlayMain
 		Child c2 = new Child("어린이2",7);
 
 
-		c1.win(c2,2);
+		c1.win(c2,8);
 
 		c1.childStatus();
 		c2.childStatus();
