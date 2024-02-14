@@ -1,0 +1,28 @@
+깃 설치후 할것
+1. git init
+2. git clone (git주소) or git remote add (git주소)
+
+
+깃 유저 및 이메일 등록
+1. 유저 등록 방법 : git config --global user.name "이름 넣기"
+2. 이메일 등록 방법 : git config --global user.email "email"
+* 처음 git 쓰게 되면 이메일 등록시 아마도 로그인 창이 뜨는데 로그인 하면 됨
+
+
+다른 브런치 연결 하는 법
+1.  git pull origin <branch명>
+2.  git branch --set-upstream-to=origin/<branch명> master -> 만약 main이면 master 대신 main으로 쓰기
+3.  git pull origin <branch명> --allow-unrelated-histories
+
+
+- 다른 브런치에서 pull 하기 : git pull origin <branch명>
+- 다른 브런치로 이동하기 : git checkout <branch명>
+
+커밋 메시지 수정하기
+
+- https://data-study-clip.tistory.com/237 
+
+
+Updates were rejected because a pushed branch tip is behind its remote counterpart. 오류가 날때
+
+- https://donggu1105.tistory.com/21
