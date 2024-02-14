@@ -10,7 +10,7 @@ class Circle
  
 	public void circleRound()
 	{
-		round = 2*r*PI;
+		round = 2.0*r*PI;
 	}
 
 	public void circleArea()
