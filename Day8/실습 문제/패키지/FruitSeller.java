@@ -1,4 +1,6 @@
-class FruitSeller
+package orange.seller;
+
+public class FruitSeller
 {
 	int numOfApple;
 	int myMoney;

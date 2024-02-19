@@ -1,4 +1,7 @@
-class FruitBuyer
+package orange.buyer;
+import orange.seller.FruitSeller;
+
+public class FruitBuyer
 {
 	int myMoney;
 	int numOfApple;
