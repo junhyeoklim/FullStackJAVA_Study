@@ -1,0 +1,56 @@
+/* 도스창에서 클래스 패스 설정하는 법
+set classpath=.;.\sub;
+
+* package를 같이 만들면서 컴파일 하는 옵션
+javac -d . Circle.java
+패키지가 있으면 현재폴더에 패키지를 만들면서 컴파일
+*/
+
+// ====== 저번주 목요일날 수업 내용 =======
+public 클래스의 문법적인 특징
+1. public 클래스와 자바파일 이름은 대소문자 하나까지 똑같아야 한다.
+
+예1)
+public class Test{} // 자바파일 이름 Test.java 문법적으로 이상없다.
+public class Hello{}	// 자바파일 이름 hello.java 문법적으로 에러.
+
+2. public 클래스는 자바파일에서 하나만 존재해야 한다.
+
+// Test.java
+public class Test{}
+public class Hello{}
+
+// 에러 Test.java 두 개의 public 클래스가 존재해서 에러.
+
+// Test.java
+public class Test{}
+class Hello{}
+// 에러 없음
+
+// Test.java
+class Test{}
+class Hello{}
+// 에러 없음
+
+
+
+
+
+1.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
