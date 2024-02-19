@@ -2,7 +2,7 @@ class SimpleNumber
 {
 	int num=0;
 	private static SimpleNumber snInst;
-	private SimpleNumber() {}	// 생성자 private
+	private SimpleNumber() {}	// 생성자 private 혹시 모를 상황을 대비 하기 위해서 강제로 제한 하는 것
 	public void addNum(int n) { num += n; }
 	public void showNum() 
 	{ 
