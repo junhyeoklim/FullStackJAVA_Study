@@ -63,6 +63,8 @@ class StringTest
 		String str3 = null;
 		String str4 = null;
 		String str5 = null;
+		String temp = null;		
+
 
 		System.out.println("첫 번째 문자열을 입력 해주세요!");
 		str1 = sc.nextLine();
