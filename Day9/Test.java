@@ -41,7 +41,7 @@ class Test
 			System.out.println("입력한 값은 영문,숫자가 아닙니다.");
 		}
 	}
-}*/
+}
 
 import java.util.Scanner;
 
@@ -78,4 +78,44 @@ class Test
 			System.out.println("영문자를 입력 해주세요!");
 		}
 	}
+}*/
+
+import java.util.Scanner;
+
+class Test
+{
+	public static void main(String[] args)
+	{
+		Scanner sc = new Scanner(System.in);
+		int num = 0;
+		String str = null;
+		String s1 = "00000000000000000000000000000000";
+
+		System.out.println("숫자를 입력해주세요!");
+		num = sc.nextInt();
+		str = Integer.toBinaryString(num);
+
+		String str2 = s1 + str;
+
+		/*str = String.format("%032d",Integer.parseInt(Integer.toBinaryString(num)));*/
+		
+
+		System.out.println("4byte 이진수로 변환");
+		System.out.print(str2.substring(str.length()));
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
