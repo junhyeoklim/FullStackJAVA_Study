@@ -180,7 +180,7 @@ class Test
 {
 	public static void main(String[] args)
 	{
-		//14번 문제 : Math.round 메소드는 소수점을 버리고 정수 부분만 리턴 해주는 메소드이다.
+		//14번 문제 : Math.round 메소드는 소수점 첫째 자리를 반올림 해주는 메소드이다.
 		double dob1 = 2.1444;
 		double dob2 = 2.1454;
 
@@ -210,7 +210,7 @@ public class Test
 {
 	public static void main(String[] args)
 	{
-		//15번 문제 : 메소드 오버로딩이란 이름이 같으면서 매개변수,반환 값이 다른 메소드를 뜻 한다
+		//15번 문제 : 메소드 오버로딩이란 이름이 같으면서 매개변수 자료형, 개수가 다른 메소드를 뜻 한다
 		Test1.test(2);
 		Test1.test(2.0);
 		Test1.test("안녕");
@@ -224,10 +224,10 @@ class Test
 {
 	public static void main(String[] args)
 	{
-		//17번 문제 : Math.random()메서드는 소수점 이하의 랜덤한 숫자를 발생 시키는 메서드 이다.
+		//17번 문제 : Math.random()메서드는 0이상 1미만 랜덤한 숫자를 발생 시키는 메서드 이다.
 		int num = (int)(Math.random()*10);
 		System.out.println("0~9까지의 랜덤한 정수 : "+ num);
 	}
 }
 
-//18번 문제 : java.lang api를 사용하면 문자열 변경이 가능하다
+//18번 문제 : 불가능
