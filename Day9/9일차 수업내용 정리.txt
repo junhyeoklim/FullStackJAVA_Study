@@ -1,3 +1,6 @@
 1. char형의 단항 연산자가 쓰일 경우 숫자를 높이는게 아니라 자기 자신을 높이거나 낮추는거다
  ex): char ch = 'A';
       Systemout.println(++ch); ->A를 1증가 시킨 B가 출력 된다
+
+2. 메소드 체인 
+  - 메소드 반환 값이 주소일 경우에만 연속적으로 쓸수 있다.(ex : strBuf.append('Y').append(true);)
