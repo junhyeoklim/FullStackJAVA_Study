@@ -165,13 +165,13 @@ class Chapter4
 			sum+=i;
 			
 		}
-		/* 답안지 풀이(내 방식도 맞긴 한데 출제자의 의도 파악을 하면 이게 정답)
+		답안지 풀이(내 방식도 맞긴 한데 출제자의 의도 파악을 하면 이게 정답)
 		whil(num>0)
 		{
 			sum += num%10;
 			num /= 10;
 		}
-		*/
+		
 		System.out.println("sum="+sum);
 
 
@@ -193,27 +193,45 @@ class Chapter4
 
 		
 
-
+		
 
 
 		//4-12
-		int i =1,j=1;
-
+		int num1=1,num2=1;
+		
 		for(int h = 0; h<=2;h++)
 		{
-			for(j=1;j<=3;j++)
+			for(int j=1;j<=3;j++)
 			{
 				for(int z= 2+3*h; z<=4+3*h; z++)
 				{
 					if(z<10)
-						System.out.print(z+"*"+j+"="+(z*j)+"\t");					
+						System.out.print(z+"*"+j+"="+(z*j)+"\t");
 				}
 				System.out.println();
 			}
-				System.out.println();
+			System.out.println();
+			System.out.println();
+		}
+
+		for(int i =0;i<9;i++)
+		{
+			num2 = i%3 + 1;
+			for(int j=0;j<3;j++)
+			{
+				num1 = i/3*3+2+j;
+				if(num1 > 9)
+					break;
+
+				System.out.print(num1+"*"+num2+"="+(num1*num2)+"\t");
+				
+			}
+			System.out.println();
+
+			if((i+1)%3 == 0)
 				System.out.println();
 		}
-		
+				
 		//4-13 코드가 어떻게 돌아가는지 한번 생각 해보자
 		String value = "12o54";
 		char ch = ' ';
@@ -270,7 +288,7 @@ class Chapter4
 
 		} while(true); // 무한반복문
 		
-		*/
+		
 		//4-15
 		int number = 12321;
 		int tmp = number;
@@ -282,7 +300,7 @@ class Chapter4
 		if(number == result)
 		System.out.println( number + "는 회문수 입니다 ."); 
 		else
-		System.out.println( number + "는 회문수가 아닙니다 ."); 
+		System.out.println( number + "는 회문수가 아닙니다 ."); */
 		}
 
 }
