@@ -31,7 +31,7 @@ class ArrayTest1
 			System.out.print(num[i]+"\t");*/
 
 
-		//버블 정렬
+		//버블 정렬?
 		for(int i = 0; i < num.length;i++)
 		{
 			System.out.println(i+1+"번째 숫자를 입력 해주세요!");
