@@ -36,3 +36,21 @@ github default 브랜치 명 변경 방법
 
 서로 관련이 없는 두 프로젝트를 병합할때 오류 해결 방법
 :https://somjang.tistory.com/entry/Git-fatal-refusing-to-merge-unrelated-histories-%ED%95%B4%EA%B2%B0-%EB%B0%A9%EB%B2%95
+
+
+
+
+- git bash로 브랜치 생성 방법 -
+
+1. 깃 설치 후 할것,사용자 등록을 한다
+
+2. 만약 gitbash가 master인데 github가 main인 경우 git branch -m maste main으로 바꿔준다 (반대도 마찬가지)
+   *fatal: Not a valid object name 오류가 뜬 경우는 commit을 한 번도 안 해서 뜨므로 
+   대충 새로운 브런치에 올릴 파일을 add 한 후에 commit -m을 하자
+
+3. git branch "새로운 브런치 이름"
+
+4. git checkout "새로운 브런치 이름" 해서 브런치를 변경 해준다 (브런치가 생성 됐는지 확인 할려면 git branch)
+
+5. 이미 git commit -m 한 파일이 있으므로 이 상태에서 git push를 해준다
+    * git push --set-upstream origin 하라는 내용이 나오면 그대로 해준다
