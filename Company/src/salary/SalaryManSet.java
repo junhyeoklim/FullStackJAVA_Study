@@ -46,6 +46,7 @@ public class SalaryManSet {
 			}			
 		}		
 	}
+	
 	public void searchJob(String job)
 	{
 		//입력한 값에 해당 되는 값을 전부 다 찾아서 출력하는 반복문
@@ -75,9 +76,9 @@ public class SalaryManSet {
 				//입력한 값이 배열에 저장된 값과 일치 하지 않는 경우 카운트
 				cnt++;
 			}	
-		}	
-
+		}
 	}
+	
 	public void searchLevel(String level)
 	{
 		//입력한 값에 해당 되는 값을 전부 다 찾아서 출력하는 반복문
