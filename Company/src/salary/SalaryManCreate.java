@@ -25,8 +25,6 @@ public class SalaryManCreate {
 	}
 	public static void searchSalaryMan()
 	{
-		
-
 		int flag = 0;
 		String check = "y";		
 
