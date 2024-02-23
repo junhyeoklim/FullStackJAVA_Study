@@ -17,3 +17,13 @@
 3. for-each
  - 동작 원리를 알고 싶다면 메모리 구조를 한번 그려보고 지역 변수가 어떤 값을 받는지를 생각 하고
    데이터 타입을 정하자
+
+*3. class MainParam
+    {
+	public static void main(String[] args)
+	{
+		for(String e:args)
+			System.out.println(e);
+	}
+    }
+	이 클래스 어떻게 돌아가는지 꼭 알기!

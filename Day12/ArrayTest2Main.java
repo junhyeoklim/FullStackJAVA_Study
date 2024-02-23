@@ -2,6 +2,56 @@ import java.util.Scanner;
 
 class ArrayTest2Main
 {
+	public static void addOneDArr(int[] arr, int add)
+	{
+		int cnt = 0;
+
+		for(int i : arr)
+		{	
+			i += add;	
+			arr[cnt] = i;
+			cnt++;
+		}
+	}
+
+	public static void addTwoDArr(int[][] arr, int add) 
+	{ 
+		int i = 0;
+		for(int[] e: arr)
+		{
+			addOneDArr(e,add);
+		}
+	 }
+
+	public static void main(String[] args)
+	{
+
+		int[][] array = new int[2][3];
+
+		for(int i=0;i<array.length;i++)
+		{
+			for(int  j=0; j<array[i].length;j++)
+			{
+				array[i][j] = i+j;
+			}
+		}
+
+		addTwoDArr(array,5);
+
+		for(int i=0;i<array.length;i++)
+		{
+			for(int  j=0; j<array[i].length;j++)
+			{
+				System.out.print(array[i][j]);
+			}
+			System.out.println("");
+		}
+	}
+}
+
+
+/*class ArrayTest2Main
+{
 	public static void main(String[] args)
 	{
 		//int i = 0;
@@ -21,7 +71,7 @@ class ArrayTest2Main
 
 	}
 }
-
+*/
 
 /*class ArrayTest2Main
 {
@@ -59,46 +109,7 @@ class ArrayTest2Main
 
 }*/
 
-/*class ArrayTest2Main
-{
-	public static void addOneDArr(int[] arr, int add)
-	{
-		for(int i : arr)
-			arr[i] += add;
-	}
 
-	public static void addTwoDArr(int[][] arr, int add) 
-	{ 
-		for(int[] e: arr)
-			addOneDArr(arr[e],add);	
-	 }
-
-	public static void main(String[] args)
-	{
-
-		int[][] array = new int[2][3];
-
-		for(int i=0;i<array.length;i++)
-		{
-			for(int  j=0; j<array[i].length;j++)
-			{
-				array[i][j] = i+j;
-			}
-		}
-
-		addTwoDArr(array,5);
-
-		for(int i=0;i<array.length;i++)
-		{
-			for(int  j=0; j<array[i].length;j++)
-			{
-				System.out.print(array[i][j]);
-			}
-			System.out.println("");
-		}
-	}
-}
-*/
 
 /*class ArrayTest2Main
 {
