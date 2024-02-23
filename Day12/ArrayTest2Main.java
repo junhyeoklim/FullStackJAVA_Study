@@ -1,14 +1,113 @@
 import java.util.Scanner;
 
-
 class ArrayTest2Main
+{
+	public static void main(String[] args)
+	{
+		//int i = 0;
+		int num[][] = {
+				{10,20,30},
+				{40,50,60}
+			     };
+
+		for(int[] e:num)
+		{
+			for(int i:e)
+			{
+				System.out.print(i);			
+			}
+			System.out.println();
+		}
+
+	}
+}
+
+
+/*class ArrayTest2Main
+{
+
+	public static int minValue(int[] arr)
+	{
+		int min = arr[0];
+		for(int e: arr)
+			if(min>e) min = e;
+		return min;
+	}
+
+	public static int maxValue(int[] arr)
+	{
+		int max = arr[0];
+		for(int e:arr)
+			if(max<e) max = e;
+		return max;
+	}
+
+	public static void main(String[] args)
+	{
+		Scanner sc = new Scanner(System.in);
+		int[] arr = new int[5];
+
+		System.out.println("숫자 " + arr.length + "개를 입력하세요.");
+		for(int i=0;i<arr.length;i++)
+			arr[i] = sc.nextInt();
+
+		System.out.println("가장 작은 수는 " + minValue(arr));
+		System.out.println("가장 큰 수는 " + maxValue(arr));
+
+	}
+
+
+}*/
+
+/*class ArrayTest2Main
+{
+	public static void addOneDArr(int[] arr, int add)
+	{
+		for(int i : arr)
+			arr[i] += add;
+	}
+
+	public static void addTwoDArr(int[][] arr, int add) 
+	{ 
+		for(int[] e: arr)
+			addOneDArr(arr[e],add);	
+	 }
+
+	public static void main(String[] args)
+	{
+
+		int[][] array = new int[2][3];
+
+		for(int i=0;i<array.length;i++)
+		{
+			for(int  j=0; j<array[i].length;j++)
+			{
+				array[i][j] = i+j;
+			}
+		}
+
+		addTwoDArr(array,5);
+
+		for(int i=0;i<array.length;i++)
+		{
+			for(int  j=0; j<array[i].length;j++)
+			{
+				System.out.print(array[i][j]);
+			}
+			System.out.println("");
+		}
+	}
+}
+*/
+
+/*class ArrayTest2Main
 {
 	/*public static void swapOneDArr(int[] arr)
 	{
 
 
 
-	}*/
+	}
 	public static void swapTwoDArr(int[][] arr)
 	{
 		int[] lastAdd = arr[arr.length-1];
@@ -43,7 +142,7 @@ class ArrayTest2Main
 	}
 }
 
-
+*/
 /*class ArrayTest2Main
 {
 	public static void addOneDArr(int[] arr, int add)
