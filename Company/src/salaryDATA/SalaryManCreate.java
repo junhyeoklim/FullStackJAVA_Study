@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class SalaryManCreate {
 	
-	private static SalaryManSet slm = new SalaryManSet();
+	
 	private static String name;
 	private static String job;
 	private static String level;
@@ -30,7 +30,8 @@ public class SalaryManCreate {
 			System.out.println("연봉을 입력해주세요!");
 			System.out.print("연봉 : ");
 			salary = sc.nextLine();
-			slm.setSalaryMan(name, job, level, salary);
+			
+			SalaryManSet.setSalary().setSalaryMan(name, job, level, salary);
 
 		
 	}

@@ -16,11 +16,9 @@ public class SalaryManModule {
 	 * salary;
 	 */
 
-
-
 	public static void searchSalaryMan()
 	{
-		SalaryManSet slm = new SalaryManSet();
+		
 
 		int flag = 0;
 		String check = "y";		
@@ -47,34 +45,28 @@ public class SalaryManModule {
 				case NAME: {			
 					System.out.println("\n이름 입력");
 					String str = sc.nextLine();	
-					slm.searchName(str);
+					SalaryManSet.setSalary().searchName(str);
 					break;
 				}
 				case JOB: {			
 					System.out.println("\n부서 입력");
 					String str = sc.nextLine();	
-					slm.searchJob(str);
+					SalaryManSet.setSalary().searchJob(str);
 					break;
 				}
 				case LEVEL: {
 					System.out.println("\n직급 입력");
 					String str = sc.nextLine();	
-					slm.searchLevel(str);
+					SalaryManSet.setSalary().searchLevel(str);
 					break;
 				}
 				case SALARY: {			
 					System.out.println("\n연봉 입력");
 					String str = sc.nextLine();	
-					slm.searchSalary(str);
+					SalaryManSet.setSalary().searchSalary(str);
 					break;
 				}				
-				case LISt:
-				{
-					System.out.println("\n 등록된 사원 전체 출력");
-					String str = sc.nextLine();	
-					slm.salaryManeList();;
-					break;
-				}
+
 				default:
 					System.out.println("\n숫자를 입력 해주세요!");			
 				}
@@ -90,7 +82,6 @@ public class SalaryManModule {
 			}
 			else
 			{
-
 				System.out.println("다시 입력 해주세요!");
 				check = sc.nextLine();
 

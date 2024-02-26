@@ -4,7 +4,8 @@
 
 import salaryDATA.SalaryManCreate;
 import salaryDATA.SalaryManModule;
-import salaryUI.SalaryUserInterface;
+import salaryDATA.SalaryManSet;
+import salaryUI.SalaryUI;
 	
 	public class SalaryManMain {
 	
@@ -22,7 +23,7 @@ import salaryUI.SalaryUserInterface;
 			
 			while(true)
 			{
-				SalaryUserInterface.printMenu();
+				SalaryUI.printMenu();
 				choice = sc.nextInt();
 				sc.nextLine();
 				
@@ -39,7 +40,7 @@ import salaryUI.SalaryUserInterface;
 				
 				 case SALARYMAN_LIST: 
 				 {			
-					SalaryManModule.searchSalaryMan();
+					 SalaryManSet.setSalary().salaryManeList();
 					  break;
 				  }
 				case END:

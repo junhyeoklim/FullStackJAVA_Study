@@ -1,6 +1,6 @@
 package salaryUI;
 
-public class SalaryUserInterface {
+public class SalaryUI {
 	
 	public static void printMenu()
 	{
