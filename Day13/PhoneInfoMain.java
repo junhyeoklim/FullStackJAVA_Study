@@ -37,14 +37,16 @@ class Manager
 		user[1][cnt] = phoneNumber;
 		user[2][cnt] = birthday;		
 		cnt++;
-
+		System.out.println("배열 확인하기1 :  "+user[0][0]);
 		System.out.println("데이터 입력이 완료되었습니다. ");
 	}
 
 	public void searchPhoneInfo(String name)
 	{
+		System.out.println("배열 확인하기1 :  "+user[0][0]);
 		for(int i =0; i<user[0].length;i++)
 		{
+		System.out.println("배열 확인하기1 :  "+user[0][0]);
 			if(name.equals(user[0][i]))
 			{
 				System.out.println("이름 : "+user[0][i]);
