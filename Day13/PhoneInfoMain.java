@@ -18,17 +18,11 @@ class PhoneInfo
 				System.out.println("휴대폰 번호 : "+user[1][i]);
 				System.out.println("생년월일 : "+user[2][i]);
 				System.out.println();
-			
-				if(user[0][i].equals(null))
-					break;
 			} catch (NullPointerException e) {	
 				
 			}			
 		}		
 	}
-
-	
-
 }
 
 class Manager
