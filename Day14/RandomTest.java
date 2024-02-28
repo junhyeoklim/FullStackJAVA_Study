@@ -10,7 +10,7 @@ class CreateCPU
 {
 	private static int cpu;
 
-	public static int cpuNum()
+	public static int cpuNum(int level)
 	{
 		Check chk = new Check();
 		Random random = new Random();
@@ -161,41 +161,7 @@ class RandomTest
 
 
 
-/*class RandomTest
-{
 
-	public static void main(String[] args)
-	{	//1번
-		int[] lotto = new int[6];
-		int num = 0;
-		Random random = new Random();
-
-
-		for(int i=0; i<lotto.length-1;i++)
-		{
-			System.out.print((char)('A'+i)+" 자 동"+"\t");
-
-
-
-			for(int y=0; y<lotto.length-1;y++)
-			{
-				lotto[y] = random.nextInt(45)+1;
-
-				if(lotto[i] == lotto[y+1])
-					i--;
-				else
-				{
-					Arrays.sort(lotto);
-					System.out.print(lotto[y] + "\t");
-				}
-			}
-			System.out.println();
-		}
-
-	}
-}
-
-*/
 
 
 /*class RandomNum
