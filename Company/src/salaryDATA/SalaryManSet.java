@@ -1,134 +1,161 @@
-package salaryDATA;
+package SalaryDATA;
 
 
 public class SalaryManSet {
 
-	private String[][] man = new String[4][2];	
-	private String str = "";
-	private int check = 0,cnt= 0;
+	private SalaryManInfo[] man;
+	private int cnt;
 	private static SalaryManSet sms;
-	
-	//싱글톤 사용
-	private SalaryManSet(){};
-	
-	public static SalaryManSet setSalary()
+
+	//싱글톤 사용이유 : 검색 하거나 데이터 입력을 할때마다 새로운 객체가 생성 되는지 배열에 널값이 들어감
+	private SalaryManSet(int size)
+	{
+		man = new SalaryManInfo[size];
+	};
+
+	public static SalaryManSet getSalary(int size)
 	{
 		if(sms == null)
-			sms = new SalaryManSet();
+			sms = new SalaryManSet(size);
 		return sms;
 	}
-	
-	public void setSalaryMan(String name, String job, String level, String salary)
+
+	public void setSalaryMan(String name, String department, String rank, String salary)
 	{		
-		man[0][cnt] = name;
-		man[1][cnt] = job;
-		man[2][cnt] = level;
-		man[3][cnt] = salary;	
-		cnt++;		
+		man[cnt++] = new SalaryManInfo(name,department,rank,salary);				
 	}
-	
+
 	public void searchName(String name)
 	{		
-		//입력한 값에 해당 되는 값을 전부 다 찾아서 출력하는 반복문
-		for(int i =0;i<man[0].length;i++)
-		{			
-		
-			if(name.equals(man[0][i]))
-			{		
-				//조건이 참이면 입력한 이름에 해당 되는 데이터를 출력
-				System.out.println("부서: " + man[1][i]);
-				System.out.println("직급: " + man[2][i]);
-				System.out.println("연봉: " + man[3][i]);	
-				System.out.println();
-				break;
-			}		
-			else
-			{
-				System.out.println("일치하는 데이터가 존재하지 않습니다.");
-				break;
-			}
-		}		
-	}
-
-	public void searchJob(String job)
-	{
-		//입력한 값에 해당 되는 값을 전부 다 찾아서 출력하는 반복문
-		for(int i =0;i<man[1].length;i++)
+		try 
 		{
-	
-			if(job.equals(man[1][i]))
-			{
-				//조건이 참이면 입력한 부서에 해당 되는 데이터를 출력
-				System.out.println();
-				System.out.println("이름: " + man[0][i]);				
-				System.out.println("직급: " + man[2][i]);
-				System.out.println("연봉: " + man[3][i]);				
+			//입력한 값에 해당 되는 값을 전부 다 찾아서 출력하는 반복문
+			for(int i =0;i<man.length;i++)
+			{			
+
+				if(name.equals(man[i].getName()))
+				{		
+					//조건이 참이면 입력한 이름에 해당 되는 데이터를 출력
+					System.out.println("부서: " + man[i].getRank());
+					System.out.println("직급: " + man[i].getDepartment());
+					System.out.println("연봉: " + man[i].getSalary());	
+					System.out.println();
+
+				}		
+				else if( !(name.equals(man[i].getName())) && i == man.length)		
+				{					
+					break;
+				}
+
 			}	
-			else
-			{
-				System.out.println("일치하는 데이터가 존재하지 않습니다.");
-				break;
-			}
+		}	
+		catch (NullPointerException e) {
+
 		}
+
 	}
 
-	public void searchLevel(String level)
+
+	public void searchDepartment(String department)
 	{
-		//입력한 값에 해당 되는 값을 전부 다 찾아서 출력하는 반복문
-		for(int i =0;i<man[2].length;i++)
+		try 
 		{
-			if(level.equals(man[2][i]))
+			//입력한 값에 해당 되는 값을 전부 다 찾아서 출력하는 반복문
+			for(int i =0;i<man.length;i++)
 			{
-				//조건이 참이면 입력한 직급에 해당 되는 데이터를 출력
-				System.out.println();
-				System.out.println("이름: " + man[0][i]);
-				System.out.println("부서: " + man[1][i]);		
-				System.out.println("연봉: " + man[3][i]);			
-			}
-			else
-			{
-				System.out.println("일치하는 데이터가 존재하지 않습니다.");
-				break;
+
+				if(department.equals(man[i].getDepartment()))
+				{
+					//조건이 참이면 입력한 부서에 해당 되는 데이터를 출력
+					System.out.println();
+					System.out.println("이름: " + man[i].getName());				
+					System.out.println("직급: " + man[i].getRank());
+					System.out.println("연봉: " + man[i].getSalary());				
+				}	
+				else if( !(department.equals(man[i].getDepartment())) && i == man.length)		
+				{					
+					break;
+				}
 			}
 		}	
+		catch (NullPointerException e) {
+
+		}
+
+	}
+
+	public void searchRank(String rank)
+	{
+		try 
+		{
+			//입력한 값에 해당 되는 값을 전부 다 찾아서 출력하는 반복문
+			for(int i =0;i<man.length;i++)
+			{
+				if(rank.equals(man[i].getRank()))
+				{
+					//조건이 참이면 입력한 직급에 해당 되는 데이터를 출력
+					System.out.println();
+					System.out.println("이름: " + man[i].getName());
+					System.out.println("부서: " + man[i].getDepartment());		
+					System.out.println("연봉: " + man[i].getSalary());			
+				}
+				else if( !(rank.equals(man[i].getRank())) && i == man.length)		
+				{					
+					break;
+				}
+			}	
+		}	
+		catch (NullPointerException e) {
+
+		}
 
 	}
 	public void searchSalary(String salary)
 	{
-		//입력한 값에 해당 되는 값을 전부 다 찾아서 출력하는 반복문
-		for(int i=0;i<man[3].length;i++)
+		try 
 		{
-			if(salary.equals(man[3][i]))
+			//입력한 값에 해당 되는 값을 전부 다 찾아서 출력하는 반복문
+			for(int i=0;i<man.length;i++)
 			{
-				//조건이 참이면 입력한 연봉에 해당 되는 데이터를 출력
-				System.out.println();
-				System.out.println("이름: " + man[0][i]);
-				System.out.println("부서: " + man[1][i]);
-				System.out.println("직급: " + man[2][i]);					
-			}	
-			else
-			{
-				System.out.println("일치하는 데이터가 존재하지 않습니다.");
-				break;
+				if(salary.equals(man[i].getSalary()))
+				{
+					//조건이 참이면 입력한 연봉에 해당 되는 데이터를 출력
+					System.out.println();
+					System.out.println("이름: " + man[i].getName());
+					System.out.println("부서: " + man[i].getDepartment());
+					System.out.println("직급: " + man[i].getRank());					
+				}
+				else if( !(salary.equals(man[i].getRank())) && i == man.length)		
+				{					
+					break;
+				}
 			}
-		}	
+		}		
+		catch (NullPointerException e) {
 
+		}
 	}
 	//등록도니 사원 전부를 출력하는 메소드
 	public void salaryManeList()
 	{
-		for(int i =0;i<man[0].length;i++)
-		{			
-			try {
-				System.out.println("이름 : "+man[0][i]);
-				System.out.println("부서 : "+man[1][i]);
-				System.out.println("직급 : "+man[2][i]);
-				System.out.println("연봉 : "+man[2][i]);
-				System.out.println();
-			} catch (NullPointerException e) {	
+		try 
+		{
+			for(int i =0;i<man.length;i++)
+			{		
+				if(man[i].equals(null))									
+					break;
 
-			}			
-		}		
+				System.out.println("이름 : "+man[i].getName());
+				System.out.println("부서 : "+man[i].getDepartment());
+				System.out.println("직급 : "+man[i].getRank());
+				System.out.println("연봉 : "+man[i].getSalary());
+				System.out.println();
+			}
+
+		}	
+		catch (NullPointerException e) {
+
+		}
 	}
 
 }
