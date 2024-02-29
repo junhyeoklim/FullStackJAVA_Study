@@ -14,6 +14,9 @@ class PhoneInfo
 		for(int i =0;i<user[0].length;i++)
 		{			
 			try {
+				if(user[0][i].equals(null))									
+					break;
+
 				System.out.println("이름 : "+user[0][i]);
 				System.out.println("휴대폰 번호 : "+user[1][i]);
 				System.out.println("생년월일 : "+user[2][i]);
