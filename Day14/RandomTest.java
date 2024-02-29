@@ -10,7 +10,7 @@ class CreateCPU
 {
 	private static int cpu;
 
-	public static int cpuNum(int level)
+	public static cpuNum(int level)
 	{
 		Check chk = new Check();
 		Random random = new Random();
@@ -99,7 +99,7 @@ class GameStart
 
 
 
-	public void start()
+	public static void start()
 	{
 		Check chk = new Check();
 		Scanner sc = new Scanner(System.in);
@@ -144,9 +144,8 @@ class RandomTest
 {
 	public static void main(String[] args)
 	{
-		GameStart gs = new GameStart();
 
-		gs.start();
+		GameStart.start();
 	}
 }
 
