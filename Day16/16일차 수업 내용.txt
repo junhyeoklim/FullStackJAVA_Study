@@ -1,0 +1,6 @@
+//배열 ballArr의 앞에서 3개의 수를 배열 ball3'로 복사한다.    
+System.arraycopy(ballArr,0, ball3,0,3);
+
+// trim() 으로 answer의 좌우 공백을 제거한 후, equals 로 word[i]와 비교
+if(words[i].equals(answer.trim()))
+System.out.printf(" 맞았습니다.%n%n"); 

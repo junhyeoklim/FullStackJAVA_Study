@@ -53,7 +53,7 @@ class Chpater6
 		int[] result = shuffle(original);
 		System.out.println(java.util.Arrays.toString(result));
 
-	}
+	
 
 	public static int[] shuffle(int[] num)
 	{
@@ -67,12 +67,145 @@ class Chpater6
 			num[idx] = temp;
 		}
 		return num;
-	}	
+
+
+		//21번 문제
+		MyTv t = new MyTv();
+		t.channel = 100;
+		t.volume = 0;
+		System.out.println("CH:"+t.channel+", VOL:"+ t.volume);
+		t.channelDown();
+		t.volumeDown();
+		System.out.println("CH:"+t.channel+", VOL:"+ t.volume);
+		t.volume = 100;
+		t.channelUp();
+		t.volumeUp();
+		System.out.println("CH:"+t.channel+", VOL:"+ t.volume);
+
+
+
+		//22번 문제
+		String str = "123";
+		System.out.println(str+"는 숫자입니까? "+isNumber(str));
+
+		str = "1234o";
+		System.out.println(str+"는 숫자입니까? "+isNumber(str));
+
+
+
+
+	}
+	public static boolean isNumber(String str)
+	{
+
+		for(int i =0;i<str.length();i++)
+		{
+			char ch = str.charAt(i);
+
+			if(!(ch >= '0' && ch <= '9'))
+				return false;
+			else if(ch == 0)
+				return false;
+		}
+		return true;
+
+	}
+	
+		//23번 문제
+		int[] data = {3,2,9,4,7};
+		System.out.println(java.util.Arrays.toString(data));
+		System.out.println("최대값:"+max(data));
+		System.out.println("최대값:"+max(null));
+		System.out.println("최대값:"+max(new int[]{}));
+
+
+
+	public static int max(int[] arr)
+	{
+		try{
+		int maxNum = arr[0];
+
+		if(!(arr.length == 0 || arr.equals(null)))
+		{		
+			for(int i=0; i<arr.length;i++)
+			{
+				if(maxNum < arr[i])
+					maxNum = arr[i];
+			}
+		}
+			return maxNum;
+		}
+		catch (Exception e) {
+			return -999999;
+		}
+
+	}
 	*/
 
-	//21번 문제
+		//24번 문제
+		int value = 5;
+		System.out.println(value+"의 절대값:"+abs(value));
+		value = -10;
+		System.out.println(value+"의 절대값:"+abs(value));
+	}
+
+
+	public static int abs(int value)
+	{
+
+		if(value < 0)
+			return value*(-1);
+		else 
+			return value;
+	}
 }
+
+
 /*
+class MyTv
+{
+	boolean isPowerOn;
+	int	channel;
+	int	volume;
+
+	final int MAX_VOLUME = 100;
+	final int MIN_VOLUME = 0;
+	final int MAX_CHANNEL = 100;
+	final int MIN_CHANNEL = 1;
+
+	void turnOnOff()
+	{
+		if(isPowerOn)
+			isPowerOn = false;
+		else
+			isPowerOn = true;
+	}
+	void volumeUp()
+	{
+		if(volume < MAX_VOLUME)
+			volume ++;
+	}
+	void volumeDown()
+	{
+		if(volume > MIN_VOLUME)
+			volume --;
+	}
+	void channelUp()
+	{
+		channel ++;
+		if(channel > MAX_CHANNEL)
+			channel = MIN_CHANNEL;
+	}
+	void channelDown()
+	{
+		channel --;
+		if(channel < MIN_CHANNEL)
+			channel = MAX_CHANNEL;
+	}
+
+}
+
+
 class MyPoint
 {
 	//6~7번 문제
