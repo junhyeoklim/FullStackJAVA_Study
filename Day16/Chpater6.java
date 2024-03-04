@@ -9,7 +9,7 @@ class Chpater6
 		- 지역변수 : k,n
 
 		9번 문제
-		답 : static을 붙여야 하는 변수는 weapon,armor이다.
+		답 : static을 붙여야 하는 변수는 weapon,armor,static void weaponUp(),void armorUo()이다.
 		     그 이유는 모든 병사들의 공격력과 방어력이 같아야 하므로 
 		     모든 병사 객체들이 참조 할수 있어야 하기 때문이다.
 
@@ -17,7 +17,7 @@ class Chpater6
 		답 : e
 
 		11번 문제
-		답 : b,a
+		답 : b
 
 		12번 문제
 		답 : c,d
