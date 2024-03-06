@@ -14,12 +14,11 @@ class PhoneInfo
 	public void showPhoneInfo()
 	{}
 
-	public String phoneNameGet()
-	{
+	public String getName() {
 		return name;
 	}
-	public String phoneNumberGet()
-	{
+
+	public String getPhoneNumber() {
 		return phoneNumber;
 	}
 }
@@ -28,24 +27,23 @@ class PhoneUnivInfo extends PhoneInfo
 {
 	private String major;
 	private int year;
-	private PhoneInfo phi;
+	private PhoneInfo phi = new PhoneInfo(major, major);
 
 
 	public PhoneUnivInfo(String name,String phoneNumber,String major,int year)
 	{
-		new PhoneInfo(name,phoneNumber);
+		super(name,phoneNumber);
 		this.major = major;
 		this.year = year;
 	}
 	public void showPhoneInfo()
 	{
-		System.out.println("이름 : "+phi.phoneNameGet());
-		System.out.println("전화번호 : "+phi.phoneNumberGet());
+		System.out.println("이름 : "+super.getName());
+		System.out.println("전화번호 : "+super.getPhoneNumber());
 		System.out.println("전공 : "+major);
 		System.out.println("학년 : "+year);
 
 	}
-
 }
 
 class PhoneCompanyInfo extends PhoneInfo
@@ -55,13 +53,13 @@ class PhoneCompanyInfo extends PhoneInfo
 
 	public PhoneCompanyInfo(String name,String phoneNumber,String company)
 	{
-		new PhoneInfo(name,phoneNumber);
+		super(name,phoneNumber);
 		this.company = company;
 	}
 	public void showPhoneInfo()
 	{
-		System.out.println("이름 : "+phi.phoneNameGet());
-		System.out.println("전화번호 : "+phi.phoneNumberGet());
+		System.out.println("이름 : "+super.getName());
+		System.out.println("전화번호 : "+super.getPhoneNumber());
 		System.out.println("회사 : "+company);
 	}
 }
