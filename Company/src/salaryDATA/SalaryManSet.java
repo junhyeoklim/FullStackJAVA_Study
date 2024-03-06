@@ -6,7 +6,8 @@ public class SalaryManSet {
 	private SalaryManInfo[] man;
 	private int cnt;
 	private static SalaryManSet sms;
-
+	 //관리자,일반 사용자 구분
+	
 	//싱글톤 사용이유 : 검색 하거나 데이터 입력을 할때마다 새로운 객체가 생성 되는지 배열에 널값이 들어감
 	private SalaryManSet(int size)
 	{

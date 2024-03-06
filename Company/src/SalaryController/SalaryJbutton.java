@@ -1,4 +1,4 @@
-package SalaryView;
+package SalaryController;
 
 import java.awt.BorderLayout;
 import java.awt.Button;
@@ -18,7 +18,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import SalaryController.CenterLocation;
+import SalaryDATA.SalaryManSet;
 
 public class SalaryJbutton extends JFrame {
 	private JTextField Tf1,Tf2,Tf3;
@@ -27,7 +27,7 @@ public class SalaryJbutton extends JFrame {
 	private JButton btn1;	
 	private int WIDTH = 500;
 	private int HEIGHT = 140;
-	
+	private SalaryManSet sms;
 	
 	public SalaryJbutton() {
 		setTitle("사원 정보 관리 시스템");
@@ -36,16 +36,15 @@ public class SalaryJbutton extends JFrame {
 		
 		Tf1 = new JTextField(10);
 		Tf2 = new JTextField(10);
-		Tf3 = new JTextField(10);
-		Lab1 = new JLabel("성명: ");
-		Lab2 = new JLabel("전화번호: ");
-		Lab3 = new JLabel("주소: ");
+		
+		Lab1 = new JLabel("ID: ");
+		Lab2 = new JLabel("PWD: ");
+		
 		btn1 = new JButton("로그인");
 		
 		
 		Pan1 = new JPanel();
-		Pan2 = new JPanel();
-		Pan3 = new JPanel();
+		Pan2 = new JPanel();		
 		Pan4 = new JPanel();
 		
 		
@@ -55,19 +54,28 @@ public class SalaryJbutton extends JFrame {
 		Pan2.add(Lab2);
 		Pan2.add(Tf2);
 		
-		Pan3.add(Lab3);
-		Pan3.add(Tf3);
 		
 		add("North",Pan1);
 		add("Center",Pan2);
 		add("South",Pan3);
 		
 		Pan4.add(btn1);		
-		
+		btn1.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				
+			}
+		});
 		
 	
 		add("East",Pan4);
-
+		
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		CenterLocation.location(WIDTH, HEIGHT);
+		setBounds(CenterLocation.getX(),CenterLocation.getY(),WIDTH,HEIGHT);
+		setVisible(true);
 		}
 	
 	
