@@ -2,15 +2,15 @@ import java.util.Scanner;
 
 class Friend
 {
-	 String name;
-	 String phone;
-	 String addres;
+	private static String name;
+	private static String phone;
+	private static String addres;
 
-	public Friend(String name,String phone,String addres)
+	public static void test(String name,String phone,String addres)
 	{
-		this.name = name;
-		this.phone = phone;
-		this.addres = addres;	
+		name = name;
+		phone = phone;
+		addres = addres;	
 	}
 
 	public void showData()
@@ -30,7 +30,7 @@ class HighFriend extends Friend
 
 	public HighFriend(String name,String phone,String addres,String job)
 	{
-		super(name,phone,addres);
+		Friend.test(name,phone,addres);
 		this.job = job;
 	}
 
@@ -42,7 +42,7 @@ class HighFriend extends Friend
 
 	public void showBasicInfo()
 	{
-		System.out.println("이름 : "+name);
+		System.out.println("이름 : "+super.name);
 		System.out.println("직장 : "+job);
 	}
 
@@ -54,7 +54,7 @@ class UnivFriend extends Friend
 
 	public UnivFriend(String name,String phone,String addres,String major)
 	{
-		super(name,phone,addres);
+		Friend.test(name,phone,addres);
 		this.major = major;
 	}
 
