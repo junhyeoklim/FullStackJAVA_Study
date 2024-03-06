@@ -1,0 +1,28 @@
+1. 상속 관계에서 final을 쓰는 의미
+ : 더 이상 메소드 오버라이딩을 하지 않겠다.
+
+2.
+
+class AAA
+{
+	public void hi(){}
+}
+
+class BBB extends AAA
+{}
+
+class CCC
+{
+	public void hi(double num){}
+}
+
+calss Main
+{
+	main(){
+		AAA ccc = new CCC(); ccc.hi(4.5); ->오류가 나므로 형 변환을 해줘야 한다 ((CCC)ccc).hi(4.5);
+	}
+}
+
+
+
+3. abstrack -> 객체 생성 불가 (몸통이 있는 메소드 오버라이딩을 안 할거면 추상 클래스로 무조건 선언)
