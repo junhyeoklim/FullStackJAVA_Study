@@ -342,11 +342,49 @@ class Test
 
 		//12번 문제
 		Scanner sc = new Scanner(System.int);
-		int user = 0;
+		int bcnt = 0; scnt =0;
+		int cpu = 0;
+		String cpuStr = "";
+
+		while(true)
+		{
+			cpu = (int)(Math.random(900)+100);
+			cpuStr = String.valueOf(cpu);
+
+			if(checkNum(cpuStr))
+				break;
+		}
+
+		System.out.println("!!재밌는 숫자 야구 게임!!");
+
+		while(true)
+		{
+			System.out.println("!!숫자를 입력 해주세요!!");
+			user = sc.nextLine();
 
 
+			for(int i =0; i<cpuStr.length(); i++)
+			{
+				
+			}
 
-	
+		}
+
+
+	}
+
+
+	public static boolean checkNum(char[] ch)
+	{
+		for(int i=0; i< ch.length-1;i++)
+		{
+			for(int j=i+1;j<ch.length; j++)
+			{
+				if(ch[i] == ch[j])
+					return false;
+			}
+		}
+		return true;
 	}
 
 	
