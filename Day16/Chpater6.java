@@ -26,13 +26,13 @@ class Chpater6
 		답 : b,c,d
 
 		14번 문제
-		답 : c,d,e
+		답 : c,e
 
 		15번 문제
-		답 : c
+		답 : a
 
 		16번 문제
-		답 : a,c
+		답 : a,e
 
 		17번 문제
 		답 : b
@@ -175,10 +175,7 @@ class MyTv
 
 	void turnOnOff()
 	{
-		if(isPowerOn)
-			isPowerOn = false;
-		else
-			isPowerOn = true;
+		isPowerOn = !isPowerOn;
 	}
 	void volumeUp()
 	{
