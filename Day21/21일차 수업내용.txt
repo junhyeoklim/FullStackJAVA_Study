@@ -1,0 +1,4 @@
+1. trey -catch 문에서 catch 문 없이 예외 처리가 생길 경우
+ throws "예외로 던질 부분" 이것을 메소드 뒤에다가 명시 해줘야 한다 
+
+2 clone => cloneNotSupportedException
