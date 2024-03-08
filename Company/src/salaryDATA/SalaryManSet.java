@@ -22,40 +22,64 @@ public class SalaryManSet {
 	}
 
 	public void setSalaryMan(String name, String department, String rank, String salary)
-	{		
-		man[cnt++] = new SalaryManInfo(name,department,rank,salary);				
+	{	
+		int i = 0, j=0;
+		SalaryManInfo smi = new SalaryManInfo(name,department,rank,salary);
+		
+		if(cnt >= man.length)
+		{
+			System.out.println("더 이상 저장할 수 없습니다.");
+			return;
+		}
+
+		for(i=0;i<cnt;i++)
+		{
+			if(man[i].getName().compareTo(smi.getName()) > 0)
+			{
+				for(j=cnt-1;j>=i;j--)
+				{
+					man[j+1] = man[j];
+				}
+				break;
+			}
+		}
+		
+		man[i] = smi;
+		cnt++;
 	}
 
 	public void searchName(String name)
 	{		
-		try 
-		{
-			//입력한 값에 해당 되는 값을 전부 다 찾아서 출력하는 반복문
-			for(int i =0;i<man.length;i++)
-			{			
-
-				if(name.equals(man[i].getName()))
-				{		
-					//조건이 참이면 입력한 이름에 해당 되는 데이터를 출력
-					System.out.println("부서: " + man[i].getRank());
-					System.out.println("직급: " + man[i].getDepartment());
-					System.out.println("연봉: " + man[i].getSalary());	
-					System.out.println();
-
-				}		
-				else if( !(name.equals(man[i].getName())) && i == man.length)		
-				{					
-					break;
-				}
-
-			}	
-		}	
-		catch (NullPointerException e) {
-
-		}
+		int result = search(name);
+		if(result != -1)
+			man[result].showManAllInfo();
+		else
+			System.out.println("찾으시는 사용자 정보가 없습니다.");
 
 	}
+	
+	public int search(String name)
+	{
+		int first = 0;
+		int last = man.length-1;
+		int mid = (first+last)/2;
 
+
+		while(first<=last)
+		{
+			if(man[mid].getName().compareTo(name) > 0)
+				last = mid-1;
+
+			else if(man[mid].getName().compareTo(name) < 0)
+				first = mid+1;
+
+			else
+				return mid;
+
+			mid = (first+last)/2;
+		}
+		return -1;		
+	}
 
 	public void searchDepartment(String department)
 	{

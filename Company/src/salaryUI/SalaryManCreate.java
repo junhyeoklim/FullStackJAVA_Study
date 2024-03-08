@@ -6,7 +6,7 @@ import SalaryDATA.SalaryManSet;
 
 public class SalaryManCreate {
 
-	private static SalaryManSet salarySet = SalaryManSet.getSalary(100);
+	private static SalaryManSet salarySet = SalaryManSet.getSalary(2);
 	private static String name;
 	private	static String department;
 	private	static String rank;

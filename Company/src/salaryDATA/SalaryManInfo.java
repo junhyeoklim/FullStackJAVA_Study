@@ -35,4 +35,36 @@ public class SalaryManInfo {
 	public String getSalary() {
 		return salary;
 	}	
+	
+	public void showManAllInfo()
+	{
+		System.out.println("이름 : "+name);
+		System.out.println("부서 : "+department);
+		System.out.println("직급 : "+rank);
+		System.out.println("연봉 : "+salary);
+	}
+	
+	public void showManDepartment()
+	{
+		System.out.println("이름 : "+name);
+		System.out.println("직급 : "+rank);
+		System.out.println("연봉 : "+salary);
+	}
+	
+	public void showManRank()
+	{
+		System.out.println("이름 : "+name);
+		System.out.println("부서 : "+department);
+		System.out.println("연봉 : "+salary);
+		
+	}
+	
+	public void showManSalary()
+	{
+		System.out.println("이름 : "+name);
+		System.out.println("부서 : "+department);
+		System.out.println("직급 : "+rank);
+	}
 }
+
+
