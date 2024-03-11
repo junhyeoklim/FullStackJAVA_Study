@@ -3,10 +3,6 @@ package salaryUI;
 
 import java.util.Scanner;
 
-import SalaryDATA.SalaryManCreate;
-import SalaryDATA.SalaryManHandler;
-import SalaryDATA.SalaryManInfo;
-
 public class SalaryManMain {
 
 	private static final int SALARYMAN_CREATE = 1;
@@ -44,17 +40,17 @@ public class SalaryManMain {
 
 			switch (choice) {
 			case SALARYMAN_CREATE:{
-				SalaryManCreate.createSalaryMan();
+				SalaryUI.salraryCreate();
 				break;
 			}
 			case SALARYMAN_SEARCH:{
-				SalaryManCreate.searchSalaryMan();
+				SalaryUI.salrarySearch();
 				break;
 			}
 
 			case SALARYMAN_LIST: 
 			{			
-				SalaryManCreate.salaryList();
+				SalaryUI.salaryList();
 				break;
 			}
 			case END:

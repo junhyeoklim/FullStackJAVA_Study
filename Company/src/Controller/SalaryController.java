@@ -1,4 +1,4 @@
-package SalaryView;
+package Controller;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -15,7 +15,7 @@ import javax.swing.JTextField;
 
 import SalaryDATA.IdPwdDATA;
 
-public class SalaryJbutton extends JFrame {
+public class SalaryController extends JFrame {
 	private JTextField ID;
 	private JPasswordField PWD;
 	private JPanel Pan1,Pan2;
@@ -25,7 +25,7 @@ public class SalaryJbutton extends JFrame {
 	private int HEIGHT = 120;	
 	private IdPwdDATA id = new IdPwdDATA();
 
-	public SalaryJbutton() {
+	public SalaryController() {
 
 		
 		setTitle("사원 정보 관리 시스템");
@@ -59,11 +59,17 @@ public class SalaryJbutton extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				String password = new String(PWD.getPassword());				
 				
-				if(id.login(ID.getText(), password))
+				if(id.adminLogin(ID.getText(), password))
 				{
 					System.out.println("관리자 모드로 진입합니다.");
 					dispose();
-					new WindowTwo();
+					new AdminController();
+				}
+				else if(id.userLogin(ID.getText(), password))
+				{
+					System.out.println("사용자 모드로 진입합니다.");
+					dispose();
+					new UserController();
 				}
 				else
 					JOptionPane.showMessageDialog(null, "아이디 혹은 비밀번호가 일치 하지 않습니다","ERROR",JOptionPane.ERROR_MESSAGE);
@@ -82,7 +88,7 @@ public class SalaryJbutton extends JFrame {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		new SalaryJbutton();
+		new SalaryController();
 	}
 
 }
