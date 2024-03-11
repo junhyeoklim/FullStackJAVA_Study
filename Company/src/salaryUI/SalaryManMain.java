@@ -3,7 +3,9 @@ package salaryUI;
 
 import java.util.Scanner;
 
-import SalaryDATA.SalaryManSet;
+import SalaryDATA.SalaryManCreate;
+import SalaryDATA.SalaryManHandler;
+import SalaryDATA.SalaryManInfo;
 
 public class SalaryManMain {
 
@@ -17,17 +19,18 @@ public class SalaryManMain {
 		int choice = 0;
 
 		Scanner sc = new Scanner(System.in);
-
+		
+		
 
 		while(true)
 		{	
 			SalaryUI.printMenu();
-			
+
 			//숫자 이외에 다른 데이터 타입이 들어 올 경우를 대비한 예외 처리
 			while(true)
 			{
 				Scanner sc1 = new Scanner(System.in);
-				
+
 				try {							
 					choice = sc1.nextInt();
 					sc1.nextLine();
@@ -37,8 +40,8 @@ public class SalaryManMain {
 					SalaryUI.printMenu();
 				}
 			}
-			
-			
+
+
 			switch (choice) {
 			case SALARYMAN_CREATE:{
 				SalaryManCreate.createSalaryMan();

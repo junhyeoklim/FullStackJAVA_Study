@@ -1,12 +1,10 @@
-package salaryUI;
+package SalaryDATA;
 
 import java.util.Scanner;
 
-import SalaryDATA.SalaryManSet;
-
 public class SalaryManCreate {
 
-	private static SalaryManSet salarySet = SalaryManSet.getSalary(2);
+	private static SalaryManHandler salarySet = SalaryManHandler.getSalary(2);
 	private static String name;
 	private	static String department;
 	private	static String rank;
@@ -20,7 +18,7 @@ public class SalaryManCreate {
 	public static void createSalaryMan() {
 
 		Scanner sc = new Scanner(System.in);
-		
+
 		System.out.println();
 		System.out.println("사원 정보 입력하기!");
 
@@ -38,7 +36,7 @@ public class SalaryManCreate {
 
 		System.out.println("연봉을 입력해주세요!");
 		System.out.print("연봉 : ");
-		salary = sc.nextLine();
+		salary = sc.nextLine();		
 		System.out.println();
 		salarySet.setSalaryMan(name, department, rank, salary);			
 

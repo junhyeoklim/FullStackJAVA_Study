@@ -1,23 +1,23 @@
 package SalaryDATA;
 
 
-public class SalaryManSet {
+public class SalaryManHandler {
 
 	private SalaryManInfo[] man;
 	private int cnt;
-	private static SalaryManSet sms;
-	 //관리자,일반 사용자 구분
-	
+	private static SalaryManHandler sms;
+	//관리자,일반 사용자 구분
+
 	//싱글톤 사용이유 : 검색 하거나 데이터 입력을 할때마다 새로운 객체가 생성 되는지 배열에 널값이 들어감
-	private SalaryManSet(int size)
+	private SalaryManHandler(int size)
 	{
 		man = new SalaryManInfo[size];
 	};
 
-	public static SalaryManSet getSalary(int size)
+	public static SalaryManHandler getSalary(int size)
 	{
 		if(sms == null)
-			sms = new SalaryManSet(size);
+			sms = new SalaryManHandler(size);
 		return sms;
 	}
 
@@ -25,7 +25,7 @@ public class SalaryManSet {
 	{	
 		int i = 0, j=0;
 		SalaryManInfo smi = new SalaryManInfo(name,department,rank,salary);
-		
+
 		if(cnt >= man.length)
 		{
 			System.out.println("더 이상 저장할 수 없습니다.");
@@ -43,7 +43,7 @@ public class SalaryManSet {
 				break;
 			}
 		}
-		
+
 		man[i] = smi;
 		cnt++;
 	}
@@ -57,13 +57,12 @@ public class SalaryManSet {
 			System.out.println("찾으시는 사용자 정보가 없습니다.");
 
 	}
-	
+
 	public int search(String name)
 	{
 		int first = 0;
 		int last = man.length-1;
 		int mid = (first+last)/2;
-
 
 		while(first<=last)
 		{
@@ -78,30 +77,29 @@ public class SalaryManSet {
 
 			mid = (first+last)/2;
 		}
-		return -1;		
-	}
+		return -1;
+
+	}   
 
 	public void searchDepartment(String department)
-	{
+	{   
+
 		try 
 		{
 			//입력한 값에 해당 되는 값을 전부 다 찾아서 출력하는 반복문
 			for(int i =0;i<man.length;i++)
 			{
-
 				if(department.equals(man[i].getDepartment()))
 				{
 					//조건이 참이면 입력한 부서에 해당 되는 데이터를 출력
 					System.out.println();
-					System.out.println("이름: " + man[i].getName());				
-					System.out.println("직급: " + man[i].getRank());
-					System.out.println("연봉: " + man[i].getSalary());				
-				}	
+					man[i].showManDepartment();		
+				}
 				else if( !(department.equals(man[i].getDepartment())) && i == man.length)		
 				{					
 					break;
 				}
-			}
+			}	
 		}	
 		catch (NullPointerException e) {
 
@@ -119,10 +117,7 @@ public class SalaryManSet {
 				if(rank.equals(man[i].getRank()))
 				{
 					//조건이 참이면 입력한 직급에 해당 되는 데이터를 출력
-					System.out.println();
-					System.out.println("이름: " + man[i].getName());
-					System.out.println("부서: " + man[i].getDepartment());		
-					System.out.println("연봉: " + man[i].getSalary());			
+					man[i].showManRank();				
 				}
 				else if( !(rank.equals(man[i].getRank())) && i == man.length)		
 				{					
@@ -145,10 +140,7 @@ public class SalaryManSet {
 				if(salary.equals(man[i].getSalary()))
 				{
 					//조건이 참이면 입력한 연봉에 해당 되는 데이터를 출력
-					System.out.println();
-					System.out.println("이름: " + man[i].getName());
-					System.out.println("부서: " + man[i].getDepartment());
-					System.out.println("직급: " + man[i].getRank());					
+					man[i].showManSalary();
 				}
 				else if( !(salary.equals(man[i].getRank())) && i == man.length)		
 				{					
@@ -160,7 +152,7 @@ public class SalaryManSet {
 
 		}
 	}
-	//등록도니 사원 전부를 출력하는 메소드
+	//등록된 사원 전부를 출력하는 메소드
 	public void salaryManeList()
 	{
 		try 
@@ -170,10 +162,7 @@ public class SalaryManSet {
 				if(man[i].equals(null))									
 					break;
 
-				System.out.println("이름 : "+man[i].getName());
-				System.out.println("부서 : "+man[i].getDepartment());
-				System.out.println("직급 : "+man[i].getRank());
-				System.out.println("연봉 : "+man[i].getSalary());
+				man[i].showManAllInfo();
 				System.out.println();
 			}
 

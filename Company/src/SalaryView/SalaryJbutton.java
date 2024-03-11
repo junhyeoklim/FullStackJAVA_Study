@@ -1,78 +1,85 @@
 package SalaryView;
 
 import java.awt.BorderLayout;
-import java.awt.Button;
-import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Frame;
-import java.awt.Label;
-import java.awt.Panel;
-import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-import SalaryController.CenterLocation;
+import SalaryDATA.IdPwdDATA;
 
 public class SalaryJbutton extends JFrame {
-	private JTextField Tf1,Tf2,Tf3;
-	private JPanel Pan1,Pan2,Pan3,Pan4;
-	private JLabel Lab1,Lab2,Lab3;
+	private JTextField ID;
+	private JPasswordField PWD;
+	private JPanel Pan1,Pan2;
+	private JLabel Lab1,Lab2;
 	private JButton btn1;	
-	private int WIDTH = 500;
-	private int HEIGHT = 140;
-	
-	
+	private int WIDTH = 450;
+	private int HEIGHT = 120;	
+	private IdPwdDATA id = new IdPwdDATA();
+
 	public SalaryJbutton() {
+
+		
 		setTitle("사원 정보 관리 시스템");
-		setLayout(new BorderLayout());
+		setLayout(new BorderLayout(0,0));
 		
+		ID = new JTextField(10);
+		PWD = new JPasswordField(10);		
 		
-		Tf1 = new JTextField(10);
-		Tf2 = new JTextField(10);
-		Tf3 = new JTextField(10);
-		Lab1 = new JLabel("성명: ");
-		Lab2 = new JLabel("전화번호: ");
-		Lab3 = new JLabel("주소: ");
+		Lab1 = new JLabel("ID: ",JLabel.CENTER);
+		Lab2 = new JLabel("PWD: ",JLabel.CENTER);
+		
 		btn1 = new JButton("로그인");
-		
+		btn1.setPreferredSize(new Dimension(100,20));
 		
 		Pan1 = new JPanel();
-		Pan2 = new JPanel();
-		Pan3 = new JPanel();
-		Pan4 = new JPanel();
-		
-		
-		Pan1.add(Lab1);
-		Pan1.add(Tf1);
-		
-		Pan2.add(Lab2);
-		Pan2.add(Tf2);
-		
-		Pan3.add(Lab3);
-		Pan3.add(Tf3);
-		
-		add("North",Pan1);
-		add("Center",Pan2);
-		add("South",Pan3);
-		
-		Pan4.add(btn1);		
-		
-		
-	
-		add("East",Pan4);
+		Pan2 = new JPanel();		
 
-		}
-	
-	
-	
-	
+		Pan1.add(Lab1);
+		Pan1.add(ID);
+		Pan1.add(Lab2);
+		Pan1.add(PWD);
+		
+		Pan2.add(btn1);
+
+		add("Center",Pan1);
+		add("East",Pan2);
+
+		btn1.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String password = new String(PWD.getPassword());				
+				
+				if(id.login(ID.getText(), password))
+				{
+					System.out.println("관리자 모드로 진입합니다.");
+					dispose();
+					new WindowTwo();
+				}
+				else
+					JOptionPane.showMessageDialog(null, "아이디 혹은 비밀번호가 일치 하지 않습니다","ERROR",JOptionPane.ERROR_MESSAGE);
+
+			}
+		});
+
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		CenterLocation.location(WIDTH, HEIGHT);
+		setBounds(CenterLocation.getX(),CenterLocation.getY(),WIDTH,HEIGHT);
+		setVisible(true);
+	}
+
+
+
+
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		new SalaryJbutton();
