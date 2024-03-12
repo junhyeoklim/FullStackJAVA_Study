@@ -1,4 +1,4 @@
-package SalaryDATA;
+package salaryDATA;
 
 public class SalaryManInfo {
 

@@ -11,15 +11,17 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
-import SalaryView.SalaryDeleteView;
-import SalaryView.SalaryInsertView;
-import SalaryView.SalarySearchView;
+import salaryView.SalaryDeleteView;
+import salaryView.SalaryInsertView;
+import salaryView.SalaryListView;
+import salaryView.SalarySearchView;
 
 
 public class AdminController extends JFrame {
 	private static final Component SalaryInsertView = null;
 	private static final Component SalarySearchView = null;
 	private static final Component SalaryDeleteView = null;
+	private static final Component SalaryListView = null;
 	private int WIDTH = 700;
 	private int HEIGHT = 500;
 	private JButton btn1;
@@ -35,16 +37,27 @@ public class AdminController extends JFrame {
 		pan = new JPanel();
 		
 
-		tab.add("사원추가",SalaryInsertView);
-		
+		tab.add("사원추가",SalaryInsertView);		
 		tab.add("사원검색",SalarySearchView); 
 		tab.add("사원삭제",SalaryDeleteView);
-		 
+		tab.add("사원목록",SalaryListView);
+		
+		pan.add(btn1);
+		
+		btn1.addActionListener(new ActionListener() {
 			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("로그아웃에 성공하였습니다.");
+				dispose();
+				new SalaryController();
+				
+			}
+		});
 		
 		add(tab);
 		
-		add("East",btn1);
+		add("North",btn1);
 		
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);

@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-import SalaryDATA.IdPwdDATA;
+import salaryDATA.IdPwdDATA;
 
 public class SalaryController extends JFrame {
 	private JTextField ID;

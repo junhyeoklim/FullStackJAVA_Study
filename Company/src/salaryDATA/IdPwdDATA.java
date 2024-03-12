@@ -1,6 +1,7 @@
-package SalaryDATA;
+package salaryDATA;
 
 public class IdPwdDATA {
+	//관리자,일반 사용자 구분
 	private String adminName = "admin";
 	private String pwd = "1234";
 	private String user = "user";

@@ -1,4 +1,4 @@
-package SalaryView;
+package salaryView;
 
 import java.awt.LayoutManager;
 

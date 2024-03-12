@@ -1,4 +1,4 @@
-package SalaryView;
+package salaryView;
 
 import javax.swing.JPanel;
 
