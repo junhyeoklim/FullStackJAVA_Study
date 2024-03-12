@@ -4,4 +4,4 @@
 <br><br>
 <b>Java api 사이트 : </b>https://docs.oracle.com/javase/8/docs/api/
 <br><br>
-<b>사원 관리 미니 프로젝트 : https://github.com/junhyeoklim/FullStackJAVA_Study/tree/JavaTest</b>
+<b>사원 관리 미니 프로젝트 : </b>https://github.com/junhyeoklim/FullStackJAVA_Study/tree/JavaTest
