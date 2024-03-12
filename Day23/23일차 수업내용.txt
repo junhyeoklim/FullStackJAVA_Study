@@ -48,3 +48,12 @@ Chapter 07
 
 
 //17번 문제
+
+//20번 문제
+답 : p.x = 200 -> 자식 객체 주소 참조 한거 아니였나
+     Child Method
+     p.x = 200
+     Child Method
+
+//21번 문제
+답 : x,y

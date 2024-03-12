@@ -171,66 +171,136 @@ package chapter07;
 //			action(arr[i]);
 //	}
 //}
-class Exercise7_1 {
-	public static void main(String args[]) {
-		Buyer b = new Buyer();
-		b.buy(new Tv());
-		b.buy(new Computer());
-		b.buy(new Tv());
-		b.buy(new Audio());
-		b.buy(new Computer());
-		b.buy(new Computer());
-		b.buy(new Computer());
-		b.summary();
+//class Exercise7_1 {
+//	//19번 문제
+//	public static void main(String args[]) {
+//		Buyer b = new Buyer();
+//		b.buy(new Tv());
+//		b.buy(new Computer());
+//		b.buy(new Tv());
+//		b.buy(new Audio());
+//		b.buy(new Computer());
+//		b.buy(new Computer());
+//		b.buy(new Computer());
+//		b.summary();
+//	}
+//}
+//class Buyer {
+//	int money = 1000;
+//	Product[] cart = new Product[3]; // 구입한 제품을 저장하기 위한 배열
+//	int i = 0; // Product cart index 배열 에 사용될
+//	void buy(Product p) {
+//		if(money < p.price)
+//			return;
+//		else
+//		{
+//			money -= p.price;
+//			add(p);
+//		}
+//	}
+//	void add(Product p) {
+//		if(i >= cart.length)
+//		{
+//			Product[] newcart = new Product[cart.length*2];
+//			System.arraycopy(cart, 0, newcart, 0, cart.length);
+//			cart = newcart;
+//		}		
+//			cart[i++] = p;
+//
+//	} // add(Product p)
+//	void summary() {
+//		int sum = 0;
+//		String itemList = "";
+//		
+//		for(int j=0;j<cart.length;j++)
+//		{
+//			itemList += cart[j]+","; 
+//			sum += cart[j].price;
+//		}
+//		System.out.println("구입한 물건 : "+itemList);
+//		System.out.println("구입한 총 금액 : "+sum);
+//		System.out.println("남은 금액 : "+money);
+//	} // summary()
+//}
+//class Product {
+//	int price; // 제품의 가격
+//	Product(int price) {
+//		this.price = price;
+//	}
+//}
+//class Tv extends Product {
+//	Tv() { super(100); }
+//	public String toString() { return "Tv"; }
+//}
+//class Computer extends Product {
+//	Computer() { super(200); }
+//	public String toString() { return "Computer";}
+//}
+//class Audio extends Product {
+//	Audio() { super(50); }
+//	public String toString() { return "Audio"; }
+//}
+
+//class Exercise7_1 {
+	//20번 문제
+//	public static void main(String[] args) {
+//		Parent p = new Child();
+//		Child c = new Child();
+//		System.out.println("p.x = " + p.x);
+//		p.method();
+//		System.out.println("c.x = " + c.x);
+//		c.method();
+//	}
+//}
+//class Parent {
+//	int x = 100;
+//	
+//	void method() {
+//		
+//		System.out.println("Parent Method");
+//	}
+//}
+//class Child extends Parent {
+//	int x = 200;
+//	void method() {
+//		System.out.println("Child Method");
+//	}
+//}
+
+abstract class Shape {
+	Point p;
+	Shape() {
+		this(new Point(0,0));
+	}
+	Shape(Point p) {
+		this.p = p;
+	}
+	abstract double calcArea(); // 도형의 면적을 계산해서 반환하는 메서드
+	Point getPosition() {
+		return p;
+	}
+	void setPosition(Point p) {
+		this.p = p;
 	}
 }
-class Buyer {
-	int money = 1000;
-	Product[] cart = new Product[3]; // 구입한 제품을 저장하기 위한 배열
-	int i = 0; // Product cart index 배열 에 사용될
-	void buy(Product p) {
-		if(money < p.price)
-			return;
-		else
-		{
-			money -= p.price;
-			add(p);
-		}
+class Point {
+	int x;
+	int y;
+	Point() {
+		this(0,0);
 	}
-	void add(Product p) {
-		if(i >= cart.length)
-		{
-			Product[] newcart = new Product[cart.length*2];
-
-			for(int j=0;j<cart.length;j++)
-			{
-				newcart[j] = cart[j]; 
-			}
-			newcart[cart.length-1+(i++)] = p;
-		}
-		else
-			cart[i++] = p;
-
-	} // add(Product p)
-	void summary() {
-
-	} // summary()
-}
-class Product {
-	int price; // 제품의 가격
-	Product(int price) {
-		this.price = price;
+	Point(int x, int y) {
+		this.x=x;
+		this.y=y;
+	}
+	public String toString() {
+		return "["+x+","+y+"]";
 	}
 }
-class Tv extends Product {
-	Tv() { super(100); }
-	public String toString() { return "Tv"; }
-}
-class Computer extends Product {
-	Computer() { super(200); }
-	public String toString() { return "Computer";}
-}
-class Audio extends Product {
-	Audio() { super(50); }
-	public String toString() { return "Audio"; }
+
+abstract class Circle extends Shape
+{
+	public Circle(double r) {
+		super();
+	}
 }
