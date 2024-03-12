@@ -36,12 +36,6 @@ public class SalaryManInfo {
 		return salary;
 	}	
 
-	
-	
-	
-
-
-
 	public void showManAllInfo()
 	{
 		System.out.println("이름 : "+name);

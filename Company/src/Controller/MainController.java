@@ -15,7 +15,7 @@ import javax.swing.JTextField;
 
 import salaryDATA.IdPwdDATA;
 
-public class SalaryController extends JFrame {
+public class MainController extends JFrame {
 	private JTextField ID;
 	private JPasswordField PWD;
 	private JPanel Pan1,Pan2;
@@ -25,7 +25,7 @@ public class SalaryController extends JFrame {
 	private int HEIGHT = 120;	
 	private IdPwdDATA id = new IdPwdDATA();
 
-	public SalaryController() {
+	public MainController() {
 
 		
 		setTitle("사원 정보 관리 시스템");
@@ -88,7 +88,7 @@ public class SalaryController extends JFrame {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		new SalaryController();
+		new MainController();
 	}
 
 }

@@ -42,7 +42,7 @@ public class UserController extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("로그아웃에 성공하였습니다.");
 				dispose();
-				new SalaryController();
+				new MainController();
 				
 			}
 		});
