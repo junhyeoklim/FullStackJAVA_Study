@@ -1,6 +1,6 @@
 깃 설치후 할것
 1. git init
-2. git clone (git주소) or git remote add (git주소)
+2. git clone (git주소) or git remote add origin (git주소)
 
 
 깃 유저 및 이메일 등록
