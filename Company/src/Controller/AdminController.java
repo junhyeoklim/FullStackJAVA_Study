@@ -1,7 +1,6 @@
 package Controller;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -21,7 +20,7 @@ public class AdminController extends JFrame {
 	private static final Component SalaryInsertView = null;
 	private static final Component SalaryDeleteView = null;
 	private static final Component SalaryListView = null;
-	private SalarySearchView searchPan;
+	SalarySearchView searchPan;
 	private int WIDTH = 700;
 	private int HEIGHT = 500;
 	private JButton btn1;
@@ -30,12 +29,13 @@ public class AdminController extends JFrame {
 	public AdminController()
 	{
 		setTitle("관리자 모드");
+		searchPan = new SalarySearchView();
 		JTabbedPane tab = new JTabbedPane(JTabbedPane.TOP);
 		JButton btnSearch = searchPan.getBtnSearch();
 		btnSearch.addActionListener(btnL);
 		
 		
-		searchPan = new SalarySearchView();
+		
 		setLayout(new BorderLayout());
 		btn1 = new JButton("로그아웃");
 		pan = new JPanel();
@@ -63,7 +63,7 @@ public class AdminController extends JFrame {
 		
 		add(tab);
 		
-		add("North",btn1);
+		//add("North",btn1);
 		
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
