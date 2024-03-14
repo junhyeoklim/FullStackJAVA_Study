@@ -20,6 +20,7 @@ public class SalarySearchView extends JPanel {
 	JTable table;
 	DefaultTableModel model;
 	//ArrayList<BookVO> bookVOList;
+	private 
 	String[] header = {"도서번호","도서명","출판사","저자명","도서가격","카테고리"};
 	JLabel lbl;
 	JTextField textSearch;
@@ -46,13 +47,13 @@ public class SalarySearchView extends JPanel {
 	}
 	
 	public void initView() {
-		model = new DefaultTableModel(header,bookVOList.size()) {
-		@Override
-		public boolean isCellEditable(int row,int colum) {
-			return false;
-		}
-		
-	};
+//		model = new DefaultTableModel(header,bookVOList.size()) {
+//		@Override
+//		public boolean isCellEditable(int row,int colum) {
+//			return false;
+//		}
+//		
+//	};
 	
 	table = new JTable(model);
 	//테이블의 컬럼의 너비를 조절

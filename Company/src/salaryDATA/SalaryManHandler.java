@@ -1,12 +1,14 @@
 package salaryDATA;
 
 import java.util.Vector;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class SalaryManHandler {
 
 	private Vector<SalaryManInfo> man;
 	private int cnt;
-//	private static SalaryManHandler sms;
+	//	private static SalaryManHandler sms;
 	private static SalaryManHandler sms;	
 
 	//싱글톤 사용이유 : 검색 하거나 데이터 입력을 할때마다 새로운 객체가 생성 되는지 배열에 널값이 들어감
@@ -26,27 +28,27 @@ public class SalaryManHandler {
 	{	
 		int i = 0, j=0;		
 		int manLength = man.size();
-//		if(cnt >= man.length)
-//		{
-//			System.out.println("더 이상 저장할 수 없습니다.");
-//			return;
-//		}
-		
+		//		if(cnt >= man.length)
+		//		{
+		//			System.out.println("더 이상 저장할 수 없습니다.");
+		//			return;
+		//		}
+
 
 		for(i=0;i<manLength;i++)
 		{
 			if(man.get(i).getName().compareTo(smi.getName()) > 0)
 			{
-//				for(j=cnt-1;j>=i;j--)
-//				{
-//					man[j+1] = man[j];
-//				}
+				//				for(j=cnt-1;j>=i;j--)
+				//				{
+				//					man[j+1] = man[j];
+				//				}
 				break;
 			}
 		}
 
 		man.add(i, smi);
-//		cnt++;
+		//		cnt++;
 	}
 
 	public void searchName(String name)
@@ -62,9 +64,19 @@ public class SalaryManHandler {
 	public int search(String name)
 	{
 		int manLength = man.size();
-		
+		//기존에 사용하던 알고리즘
+//		for (int i = 0; i < manLength; i++) {
+//			if(man.get(i).getName().compareTo(name) == 0)
+//				return i;
+//		}
+//		return -1;
+
+		//Pattern 사용 알고리즘
+		Pattern p = Pattern.compile(name);
+
 		for (int i = 0; i < manLength; i++) {			
-			if (man.get(i).getName().compareTo(name) == 0)
+			Matcher m = p.matcher(man.get(i).getName());			
+			if(m.matches())
 				return i;
 		}
 		return -1;
