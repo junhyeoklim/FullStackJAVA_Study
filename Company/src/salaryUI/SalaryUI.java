@@ -16,21 +16,23 @@ public class SalaryUI {
 	private static final int DEPARTMENT = 2;
 	private static final int RANK = 3;
 	private static final int SALARY = 4;
+	private static Scanner sc = new Scanner(System.in);
 
 
 	public static void printMenu()
 	{
 		System.out.println("선택하세요...");
 		System.out.println("1. 사원 정보 입력");
-		System.out.println("2. 사원 정보 검색");		
-		System.out.println("3. 모든 사원정보 보기");
-		System.out.println("4. 프로그램 종료");
+		System.out.println("2. 사원 정보 검색");
+		System.out.println("3. 사원 정보 변경");
+		System.out.println("4. 모든 사원정보 보기");
+		System.out.println("5. 프로그램 종료");
 		System.out.print("선택 : ");
 	}
 
 	public static void salraryCreate()
 	{
-		Scanner sc = new Scanner(System.in);
+		
 
 		System.out.println();
 		System.out.println("사원 정보 입력하기!");
@@ -60,7 +62,7 @@ public class SalaryUI {
 		String check = "y";	
 		while(true)
 		{
-			Scanner sc = new Scanner(System.in);
+			
 
 			if(check.equals("y"))
 			{
@@ -74,7 +76,8 @@ public class SalaryUI {
 						sc1.nextLine();						
 						break;
 					} catch (Exception e) {
-						System.out.println("숫자를 입력 해주세요!\n");				
+						System.out.println("숫자를 입력 해주세요!\n");
+						sc.nextLine();
 					}	
 
 				}
@@ -129,5 +132,15 @@ public class SalaryUI {
 	public static void salaryList()
 	{
 		salarySet.salaryManeList();
+	}
+	
+	public static void salaryUpdateUI()
+	{
+		System.out.println("사원정보 변경을 시작합니다.");
+		System.out.println("변경하고자 하는 사원 이름을 입력 해주세요");
+		
+		System.out.print("이믈:");
+		name = sc.nextLine();
+		salarySet.updateSalaryMan(name);
 	}
 }

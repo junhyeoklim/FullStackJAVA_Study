@@ -140,6 +140,24 @@ public class SalaryManHandler {
 		if(!check)
 			System.out.println("찾으시는 사용자 정보가 없습니다.");
 	}
+	public void updateSalaryMan(String name)
+	{
+		int manLength = man.size();
+		int idx = 0;
+		Pattern p = Pattern.compile(name);
+
+		for (int i = 0; i < manLength; i++) {			
+			Matcher m = p.matcher(man.get(i).getName());
+				if(m.matches())
+				{
+					check = true;
+					idx = i;
+					break;					
+				}				
+			}
+		if(!check)
+			System.out.println("찾으시는 사용자 정보가 없습니다.");
+	}
 	//등록된 사원 전부를 출력하는 메소드
 	public void salaryManeList()
 	{
@@ -156,8 +174,7 @@ public class SalaryManHandler {
 				man.get(i).showManAllInfo();
 				System.out.println();			
 
-			}	
-			
+			}				
 
 	}
 
