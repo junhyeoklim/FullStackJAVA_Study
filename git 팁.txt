@@ -44,7 +44,7 @@ github default 브랜치 명 변경 방법
 
 1. 깃 설치 후 할것,사용자 등록을 한다
 
-2. 만약 gitbash가 master인데 github가 main인 경우 git branch -m maste main으로 바꿔준다 (반대도 마찬가지)
+2. 만약 gitbash가 master인데 github가 main인 경우 git branch -m master main으로 바꿔준다 (반대도 마찬가지)
    *fatal: Not a valid object name 오류가 뜬 경우는 commit을 한 번도 안 해서 뜨므로 
    대충 새로운 브런치에 올릴 파일을 add 한 후에 commit -m을 하자
 
