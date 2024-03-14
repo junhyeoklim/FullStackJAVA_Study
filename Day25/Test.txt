@@ -1,0 +1,57 @@
+*Test1*
+
+3번 문제
+답 : 오버라이딩 할려는 메서드의 이름,매개변수가 똑같아야 한다
+
+4번 문제
+답 : Product클래스에 기본 생성자 Product()가 없기 때문에 에러 발생
+
+5번 문제
+답 : public - protect - defualt- private
+
+6번 문제
+답 : 클래스 -> 상속 새로운 멤버 추가 x
+      메서드 -> 오버라이딩 x
+     멤버변수 -> 상수,값 변경x
+     지역변수 -> 값 변경x
+
+11번 문제
+답 : 100
+     Child Method
+     200
+     Child Method
+
+12번 문제
+답 : 매개 변수 -> null, Movalbe
+
+18번 문제
+답 :  method1() in Child
+      method2() in MyInterface
+      staticMethod() in MyInterface		-> 실행 결과  method2() in MyInterface 가 아니라 method2() in Parent가 나
+      staticMethod() in MyInterface2
+
+
+
+*Test2*
+1번 문제
+답 : 1
+      4		-> 4x 3 o
+      5
+     1
+     2
+     5
+     6
+
+2번 문제
+답 :   3
+       5
+
+3번 문제
+답 :  1
+      1
+      2	-> 실행 결과 1
+      5
+      6
+
+6번 문제
+답 : 
