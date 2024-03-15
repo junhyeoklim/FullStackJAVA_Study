@@ -3,13 +3,9 @@ package salaryUI;
 
 import java.util.Scanner;
 
-public class SalaryManMain {
+import salaryDATA.SalaryConstatnt;
 
-	private static final int SALARYMAN_CREATE = 1;
-	private static final int SALARYMAN_SEARCH = 2;
-	private static final int SALARYMAN_UPDATE = 3;
-	private static final int SALARYMAN_LIST = 4;	
-	private static final int END = 5;
+public class SalaryManMain {
 
 	public static void main(String[] args) {
 
@@ -40,27 +36,26 @@ public class SalaryManMain {
 
 
 			switch (choice) {
-			case SALARYMAN_CREATE:{
+			case SalaryConstatnt.SALARYMAN_CREATE:{
 				SalaryUI.salraryCreate();
 				break;
 			}
-			case SALARYMAN_SEARCH:{
+			case SalaryConstatnt.SALARYMAN_SEARCH:{
 				SalaryUI.salrarySearch();
 				break;
 			}
-			case SALARYMAN_UPDATE:{
-				SalaryUI.salaryUpdateUI();
+			case SalaryConstatnt.SALARYMAN_UPDATE:{
+				SalaryUI.salaryUpdateUI();				
 				break;
 			}
-			case SALARYMAN_LIST: 
+			case SalaryConstatnt.SALARYMAN_LIST: 
 			{			
 				SalaryUI.salaryList();
 				break;
 			}
-			case END:
+			case SalaryConstatnt.END:
 			{
 				System.out.println("프로그램을 종료합니다!");
-
 				return;
 			}
 			default:

@@ -14,12 +14,14 @@ import javax.swing.JTabbedPane;
 
 
 import salaryView.SalarySearchView;
+import salaryView.SalaryUpdateView;
 
 
 public class AdminController extends JFrame {
 	private static final Component SalaryInsertView = null;
 	private static final Component SalaryDeleteView = null;
-	private static final Component SalaryListView = null;
+	private static final Component SalaryListView = null;	
+	private static final Component SalaryUpdateView = null;
 	SalarySearchView searchPan;
 	private int WIDTH = 700;
 	private int HEIGHT = 500;
@@ -44,9 +46,10 @@ public class AdminController extends JFrame {
 		combo = searchPan.getCombo();
 		
 		tab.add("사원추가",SalaryInsertView);		
-		tab.add("사원검색",searchPan); 
+		tab.add("사원검색",searchPan);
+		tab.add("사원정보변경",SalaryUpdateView);
 		tab.add("사원삭제",SalaryDeleteView);
-		tab.add("사원목록",SalaryListView);
+		tab.add("사원목록조회",SalaryListView);
 		
 		pan.add(btn1);
 		
