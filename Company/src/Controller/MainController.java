@@ -27,19 +27,19 @@ public class MainController extends JFrame {
 
 	public MainController() {
 
-		
+
 		setTitle("사원 정보 관리 시스템");
 		setLayout(new BorderLayout(0,0));
-		
+
 		ID = new JTextField(10);
 		PWD = new JPasswordField(10);		
-		
+
 		Lab1 = new JLabel("ID: ",JLabel.CENTER);
 		Lab2 = new JLabel("PWD: ",JLabel.CENTER);
-		
+
 		btn1 = new JButton("로그인");
 		btn1.setPreferredSize(new Dimension(100,20));
-		
+
 		Pan1 = new JPanel();
 		Pan2 = new JPanel();		
 
@@ -47,7 +47,7 @@ public class MainController extends JFrame {
 		Pan1.add(ID);
 		Pan1.add(Lab2);
 		Pan1.add(PWD);
-		
+
 		Pan2.add(btn1);
 
 		add("Center",Pan1);
@@ -59,20 +59,24 @@ public class MainController extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				String password = new String(PWD.getPassword());				
 				
-				if(id.adminLogin(ID.getText(), password))
+				if(id.adminLogin(ID.getText().trim(), password))
 				{
 					System.out.println("관리자 모드로 진입합니다.");
 					dispose();
 					new AdminController();
 				}
-				else if(id.userLogin(ID.getText(), password))
+				else if(id.userLogin(ID.getText().trim(), password))
 				{
 					System.out.println("사용자 모드로 진입합니다.");
 					dispose();
 					new UserController();
 				}
 				else
+				{
+					System.out.println(ID.getText()+ password);					
 					JOptionPane.showMessageDialog(null, "아이디 혹은 비밀번호가 일치 하지 않습니다","ERROR",JOptionPane.ERROR_MESSAGE);
+				}
+				
 
 			}
 		});
