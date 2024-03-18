@@ -1,0 +1,8 @@
+1. GUI 실행
+ - Controller 패키지에 있는 MainController 실행
+
+2. 일반 기능 실행
+ - salaryUI패키지에 있는 SalaryManMain에서 실행
+
+*사원 등록,검색,정보 수정 기능 구현 완료*
+(오류 테스트는 제대로 못 함)
