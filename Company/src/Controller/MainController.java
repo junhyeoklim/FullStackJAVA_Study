@@ -26,7 +26,7 @@ public class MainController extends JFrame {
 	private JButton btn1;
 	private JMenuBar mbar;
 	private JMenu mHelp;
-	private JMenuItem help;
+	private JMenuItem admin,user;
 	private int WIDTH = 450;
 	private int HEIGHT = 120;	
 	private IdPwdDATA id = new IdPwdDATA();
@@ -43,7 +43,8 @@ public class MainController extends JFrame {
 		btn1 = new JButton("로그인");
 		mbar = new JMenuBar();
 		mHelp = new JMenu("도움말");
-		help = new JMenuItem("Admin정보");
+		admin = new JMenuItem("Admin정보");
+		user = new JMenuItem("User정보");
 
 
 		btn1.setPreferredSize(new Dimension(100,20));
@@ -55,61 +56,64 @@ public class MainController extends JFrame {
 		Pan1.add(Lab2);
 		Pan1.add(PWD);
 		Pan2.add(btn1);
-		mHelp.add(help);
+		mHelp.add(admin);
+		mHelp.add(user);
 		mbar.add(mHelp);
 
 		add("Center",Pan1);
 		add("East",Pan2);
 		setJMenuBar(mbar);
-		
-		
-		
-		
-		
-		help.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(null, "관리자 아이디 : admin\n비밀번호 : 1234","Admin", JOptionPane.INFORMATION_MESSAGE);
-				
-			}
-		});		
-		
-		
-		btn1.addActionListener(new ActionListener() {
 
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if(e.getSource() == btn1)
-				{
-					String password = new String(PWD.getPassword());				
 
-					if(id.adminLogin(ID.getText().trim(), password))
-					{
-						System.out.println("관리자 모드로 진입합니다.");
-						dispose();
-						new AdminController();
-					}
-					else if(id.userLogin(ID.getText().trim(), password))
-					{
-						System.out.println("사용자 모드로 진입합니다.");
-						dispose();
-						new UserController();
-					}
-					else
-					{
-						System.out.println(ID.getText()+ password);					
-						JOptionPane.showMessageDialog(null, "아이디 혹은 비밀번호가 일치 하지 않습니다","ERROR",JOptionPane.ERROR_MESSAGE);
-					}
-				}
-			}
-		});
+		btn1.addActionListener(itemL);
+		admin.addActionListener(itemL);
+		user.addActionListener(itemL);
+
 
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		CenterLocation.location(WIDTH, HEIGHT);
 		setBounds(CenterLocation.getX(),CenterLocation.getY(),WIDTH,HEIGHT);
 		setVisible(true);
 	}
+
+	
+	//버튼 및 메뉴 클릭시 호출 되는 리스너
+	ActionListener itemL =  new ActionListener() {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			if(e.getSource() == btn1)
+			{
+				String password = new String(PWD.getPassword());				
+				
+				//공백이 입력되는 경우를 대비하여 trim()을 사용
+				if(id.adminLogin(ID.getText().trim(), password))
+				{
+					JOptionPane.showMessageDialog(null, "관리자 모드로 진입합니다.");
+					dispose();
+					new AdminController();
+				}
+				else if(id.userLogin(ID.getText().trim(), password))
+				{
+					JOptionPane.showMessageDialog(null, "사용자 모드로 진입합니다.");
+					dispose();
+					new UserController();
+				}
+				else
+				{
+					System.out.println(ID.getText()+ password);					
+					JOptionPane.showMessageDialog(null, "아이디 혹은 비밀번호가 일치 하지 않습니다","ERROR",JOptionPane.ERROR_MESSAGE);
+				}
+			}
+			else if(e.getSource() == admin)
+				JOptionPane.showMessageDialog(null, "관리자 아이디 : admin\n비밀번호 : 1234","Admin", JOptionPane.INFORMATION_MESSAGE);
+			else if(e.getSource() == user)
+				JOptionPane.showMessageDialog(null, "유저 아이디 : user\n비밀번호 : 1111","User", JOptionPane.INFORMATION_MESSAGE);
+			
+		}
+	};
+
+
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
