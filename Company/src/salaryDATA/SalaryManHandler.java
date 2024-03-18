@@ -11,7 +11,7 @@ public class SalaryManHandler {
 	private static SalaryManHandler sms;	
 	private boolean check;
 	private Scanner sc = new Scanner(System.in);
-
+	
 
 
 	//싱글톤 사용이유 : 검색 하거나 데이터 입력을 할때마다 새로운 객체가 생성 되는지 배열에 널값이 들어감
@@ -29,8 +29,9 @@ public class SalaryManHandler {
 
 	public void setSalaryMan(SalaryManInfo smi)
 	{	
-		int i = 0, j=0;		
 		int manLength = man.size();
+		int i = 0, j=0;		
+		
 		//		if(cnt >= man.length)
 		//		{
 		//			System.out.println("더 이상 저장할 수 없습니다.");
@@ -65,7 +66,7 @@ public class SalaryManHandler {
 	}
 
 	public int search(String name)
-	{
+	{		
 		int manLength = man.size();
 
 		//기존에 사용하던 알고리즘
@@ -172,19 +173,49 @@ public class SalaryManHandler {
 
 	public void updateDepartment(String name,String department)
 	{
+		int manLength = man.size();
 		//String	replaceAll(String regex, String replacement) 이거 써서 바꾸기 하자
+		for (int i = 0; i < manLength; i++) {
+			if(man.get(i).getName().compareTo(name) == 0)
+			{
+				man.get(i).setDepartment(department);		
+			}
+		}
 	}
 	public void updateRank(String name,String rank)
 	{
-
+		int manLength = man.size();
+		//String	replaceAll(String regex, String replacement) 이거 써서 바꾸기 하자
+		for (int i = 0; i < manLength; i++) {
+			if(man.get(i).getName().compareTo(name) == 0)
+			{
+				man.get(i).setRank(rank);		
+			}
+		}
 	}
 	public void updateSalary(String name,String salary)
 	{
-
+		int manLength = man.size();
+		//String	replaceAll(String regex, String replacement) 이거 써서 바꾸기 하자
+		for (int i = 0; i < manLength; i++) {
+			if(man.get(i).getName().compareTo(name) == 0)
+			{
+				man.get(i).setSalary(salary);		
+			}
+		}
 	}
 	public void updateAllInfo(String name,String department, String rank, String salary)
 	{
-
+		int manLength = man.size();
+		//String	replaceAll(String regex, String replacement) 이거 써서 바꾸기 하자
+		for (int i = 0; i < manLength; i++) {
+			if(man.get(i).getName().compareTo(name) == 0)
+			{
+				man.get(i).setDepartment(department);
+				man.get(i).setRank(rank);
+				man.get(i).setSalary(salary);
+			}
+		}
 	}
 
 

@@ -35,6 +35,20 @@ public class SalaryManInfo {
 	public String getSalary() {
 		return salary;
 	}	
+	
+	public void setDepartment(String department) {
+		this.department = department;
+	}
+	
+	public void setRank(String rank) {
+		this.rank = rank;
+	}
+
+
+	public void setSalary(String salary) {
+		this.salary = salary;
+	}
+
 
 	public void showManAllInfo()
 	{
