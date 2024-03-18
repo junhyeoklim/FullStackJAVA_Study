@@ -1,0 +1,22 @@
+1. 범위를 벗어나는 큰 정수의 연산을 할떄 쓰는 것 : BigInteger
+
+2. 오차 없는 실수 연산을 위해서 쓰는 것 : BigDecimal
+
+3. Tokenuzer : 기준점을 설정 안 해주면 공백을 기준으로 알아서 자른다
+
+4. 제네릭 사용 장점 : 안정성이 증가 한다?(컴파일과정에서 에러가 나기 떄문에 안정적)
+
+5. 제네릭은 일반화 시키는 것이다.
+
+6.public static <T extends UpperClass> void showInstanceAncestor(T param)
+	{ 
+		param.showYourAncestor();
+
+	}
+
+	public static <T extends SimpleInterface> void showInstanceName(T param)
+	{
+
+		param.showYourName();
+	}
+-> 이게 무슨 뜻인지 계속 생각 하기 (제한 시키는것), 제한 시킬때는 인터페이스,상속 상관 없이 extends를 쓴다
