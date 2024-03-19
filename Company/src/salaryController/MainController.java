@@ -30,7 +30,16 @@ public class MainController extends JFrame {
 	private int WIDTH = 450;
 	private int HEIGHT = 120;	
 	private IdPwdDATA id = new IdPwdDATA();
-
+//	private static MainController sms;
+//	
+//	public static MainController mainController()
+//	{
+//		if(sms == null)
+//			sms = new MainController();
+//		return sms;
+//	}
+	
+	
 	public MainController() {
 
 
@@ -91,7 +100,7 @@ public class MainController extends JFrame {
 				{
 					JOptionPane.showMessageDialog(null, "관리자 모드로 진입합니다.");
 					dispose();
-					new AdminController();
+					AdminController.getAdmin(1).startAdmin();
 				}
 				else if(id.userLogin(ID.getText().trim(), password))
 				{

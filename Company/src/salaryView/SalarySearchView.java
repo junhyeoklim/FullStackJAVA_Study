@@ -11,13 +11,14 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 
 
 
 
 public class SalarySearchView extends JPanel {
 	JTable table;
-//	DefaultTableModel model;
+	DefaultTableModel model;
 	//ArrayList<BookVO> bookVOList;
 	
 	String[] header = {"도서번호","도서명","출판사","저자명","도서가격","카테고리"};
@@ -26,7 +27,7 @@ public class SalarySearchView extends JPanel {
 	JButton btnSearch;
 	String searchWord = "";
 	JPanel panN = new JPanel();
-	String[] combostr = {"도서명","출판사","저자명"};
+	String[] combostr = {"이름","부서","직급","연봉"};
 	JComboBox<String> combo;
 
 
@@ -42,21 +43,28 @@ public class SalarySearchView extends JPanel {
 		panN.add(lbl);
 		panN.add(textSearch);
 		panN.add(btnSearch);
-
 	}
 
 	public void initView() {
-		table = new JTable();
+		model = new DefaultTableModel(header,header.length) {
+			@Override
+			public boolean isCellEditable(int row,int colum) {
+				return false;
+			}
+
+		};
+		table = new JTable(model);
+		JScrollPane scroll = new JScrollPane(table);
 		//테이블의 컬럼의 너비를 조절
 		table.getColumnModel().getColumn(0).setPreferredWidth(50);
 		table.getColumnModel().getColumn(1).setPreferredWidth(200);
 		table.getColumnModel().getColumn(4).setPreferredWidth(50);
 		table.getColumnModel().getColumn(5).setPreferredWidth(50);
-
-		JScrollPane scroll = new JScrollPane();
-
+		
+		//	putSearchResult();
 		add("North",panN);
 		add("Center",scroll);
+
 	}
 
 	public String getSearchWord() {

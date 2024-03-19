@@ -6,40 +6,63 @@ import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Vector;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
+import salaryDATA.SalaryManDTO;
 import salaryView.SalarySearchView;
 import salaryView.SalaryUpdateView;
 import salaryView.SalaryInsertView;
 
 public class AdminController extends JFrame {	
-	private static final Component SalaryDeleteView = null;
-	private static final Component SalaryListView = null;	
-	private static final Component SalaryUpdateView = null;
-	SalarySearchView searchPan;
-	SalaryInsertView insertPan;
-	SalaryUpdateView updatePan;
+	private SalarySearchView searchPan;
+	private SalaryInsertView insertPan;
+	private SalaryUpdateView updatePan;
+	private JMenuBar mbar;
+	private JMenu mHelp;
+	private JMenuItem admin;
 	private int WIDTH = 700;
 	private int HEIGHT = 500;
-	private JButton btn1;
-	private JPanel pan;
-	private JComboBox<String> combo;
+	private Vector<SalaryManDTO> man;
+	private static AdminController sms;
+
 	
-	public AdminController()
+	//사용자 변경을 해도 입력한 데이터 유지를 위한 싱글톤을 vector를 사용해서 구현
+	private AdminController(int size)
 	{
+		man = new Vector<SalaryManDTO>(size);
+	};
+
+	public static AdminController getAdmin(int size)
+	{
+		if(sms == null)
+			sms = new AdminController(size);
+		return sms;
+	}	
+
+	public void startAdmin()
+	{
+		
 		setTitle("관리자 모드");
+		mbar = new JMenuBar();
+		mHelp = new JMenu("도움말");
+		admin = new JMenuItem("로그아웃");
 		JTabbedPane tab = new JTabbedPane(JTabbedPane.TOP);		
 		
 		searchPan = new SalarySearchView();
+		searchPan.initView();
 		
+//		combo = searchPan.getCombo();
 		
-		combo = searchPan.getCombo();
-//		searchPan.initView();
 		
 
 	
@@ -51,12 +74,14 @@ public class AdminController extends JFrame {
 		updatePan.initView();
 		
 
-//		JButton btnSearch = searchPan.getBtnSearch();
+		mHelp.add(admin);
+		mbar.add(mHelp);
+		setJMenuBar(mbar);
+		admin.addActionListener(menuL);
+		
 		tab.add("사원추가",insertPan);		
 		tab.add("사원검색",searchPan);
 		tab.add("사원정보변경",updatePan);
-		tab.add("사원삭제",SalaryDeleteView);
-		tab.add("사원목록조회",SalaryListView);
 		
 //		pan.add(btn1);
 ////		btnSearch.addActionListener(btnL);
@@ -81,16 +106,14 @@ public class AdminController extends JFrame {
 		setBounds(CenterLocation.getX(),CenterLocation.getY(),WIDTH,HEIGHT);
 	}
 	
-//	ActionListener btnL = new ActionListener() {
-//		
-//		@Override
-//		public void actionPerformed(ActionEvent e) {
-//			bookVOList.clear();
-//			//bookVOList = dao.select(searchPan.getSearchWord(),combo.getSelectedIndex());
-////			searchPan.setBookVOList(bookVOList);
-//			//searchPan.putSearchResult();
-//			
-//		}
-//	};
+	ActionListener menuL = new ActionListener() {
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			JOptionPane.showMessageDialog(null, "로그아웃");
+			dispose();
+			new MainController();
+		}
+	};
 
 }
