@@ -21,11 +21,11 @@ import javax.swing.JTabbedPane;
 import salaryDATA.SalaryManDTO;
 import salaryView.SalarySearchView;
 import salaryView.SalaryUpdateView;
-import salaryView.SalaryInsertView;
+import salaryView.SalaryHandlerView;
 
 public class AdminController extends JFrame {	
 	private SalarySearchView searchPan;
-	private SalaryInsertView insertPan;
+	private SalaryHandlerView handlerPan;
 	private SalaryUpdateView updatePan;
 	private JMenuBar mbar;
 	private JMenu mHelp;
@@ -67,8 +67,8 @@ public class AdminController extends JFrame {
 
 	
 	
-		insertPan = new SalaryInsertView();
-		insertPan.initView();
+		handlerPan = new SalaryHandlerView();
+		handlerPan.initView();
 		
 		updatePan = new SalaryUpdateView();
 		updatePan.initView();
@@ -79,7 +79,7 @@ public class AdminController extends JFrame {
 		setJMenuBar(mbar);
 		admin.addActionListener(menuL);
 		
-		tab.add("사원추가",insertPan);		
+		tab.add("사원정보관리",handlerPan);		
 		tab.add("사원검색",searchPan);
 		tab.add("사원정보변경",updatePan);
 		

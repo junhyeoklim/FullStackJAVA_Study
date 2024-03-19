@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Vector;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -15,6 +16,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
+import salaryDATA.SalaryManDTO;
 import salaryView.SalarySearchView;
 import salaryView.SalaryUpdateView;
 
@@ -25,8 +27,21 @@ public class UserController extends JFrame {
 	private JMenuBar mbar;
 	private JMenu mHelp;
 	private JMenuItem admin;
+	private Vector<SalaryManDTO> man;
+	private static UserController sms;
 
-	public UserController()
+	private UserController(int size)
+	{
+		man = new Vector<SalaryManDTO>(size);
+	};
+
+	public static UserController getUser(int size)
+	{
+		if(sms == null)
+			sms = new UserController(size);
+		return sms;
+	}		
+	public void startUser()
 	{
 
 		setTitle("사용자 모드");
