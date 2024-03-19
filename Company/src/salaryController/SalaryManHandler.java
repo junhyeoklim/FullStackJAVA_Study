@@ -1,13 +1,15 @@
-package salaryDATA;
+package salaryController;
 
 import java.util.Scanner;
 import java.util.Vector;
 //import java.util.regex.Matcher;
 //import java.util.regex.Pattern;
 
+import salaryDATA.SalaryManDTO;
+
 public class SalaryManHandler {
 
-	private Vector<SalaryManInfo> man;
+	private Vector<SalaryManDTO> man;
 	private static SalaryManHandler sms;	
 	private boolean check;
 	private Scanner sc = new Scanner(System.in);
@@ -17,7 +19,7 @@ public class SalaryManHandler {
 	//싱글톤 사용이유 : 검색 하거나 데이터 입력을 할때마다 새로운 객체가 생성 되는지 배열에 널값이 들어감
 	private SalaryManHandler(int size)
 	{
-		man = new Vector<SalaryManInfo>(size);
+		man = new Vector<SalaryManDTO>(size);
 	};
 
 	public static SalaryManHandler getSalary(int size)
@@ -27,7 +29,7 @@ public class SalaryManHandler {
 		return sms;
 	}
 
-	public void setSalaryMan(SalaryManInfo smi)
+	public void setSalaryMan(SalaryManDTO smi)
 	{	
 		int manLength = man.size();
 		int i = 0, j=0;		

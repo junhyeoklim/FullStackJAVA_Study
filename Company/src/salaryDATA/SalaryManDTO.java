@@ -1,6 +1,6 @@
 package salaryDATA;
 
-public class SalaryManInfo {
+public class SalaryManDTO {
 
 	private String name;
 	private String department;
@@ -8,7 +8,7 @@ public class SalaryManInfo {
 	private String salary;
 
 
-	public SalaryManInfo(String name,String department,String rank,String salary)
+	public SalaryManDTO(String name,String department,String rank,String salary)
 	{
 		this.name = name;
 		this.department = department;

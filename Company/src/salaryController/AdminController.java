@@ -1,7 +1,8 @@
-package Controller;
+package salaryController;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -14,14 +15,15 @@ import javax.swing.JTabbedPane;
 
 import salaryView.SalarySearchView;
 import salaryView.SalaryUpdateView;
+import salaryView.SalaryInsertView;
 
-
-public class AdminController extends JFrame {
-	private static final Component SalaryInsertView = null;
+public class AdminController extends JFrame {	
 	private static final Component SalaryDeleteView = null;
 	private static final Component SalaryListView = null;	
 	private static final Component SalaryUpdateView = null;
 	SalarySearchView searchPan;
+	SalaryInsertView insertPan;
+	SalaryUpdateView updatePan;
 	private int WIDTH = 700;
 	private int HEIGHT = 500;
 	private JButton btn1;
@@ -38,13 +40,21 @@ public class AdminController extends JFrame {
 		
 		combo = searchPan.getCombo();
 //		searchPan.initView();
-			
+		
+
 	
 	
+		insertPan = new SalaryInsertView();
+		insertPan.initView();
+		
+		updatePan = new SalaryUpdateView();
+		updatePan.initView();
+		
+
 //		JButton btnSearch = searchPan.getBtnSearch();
-		tab.add("사원추가",SalaryInsertView);		
+		tab.add("사원추가",insertPan);		
 		tab.add("사원검색",searchPan);
-		tab.add("사원정보변경",SalaryUpdateView);
+		tab.add("사원정보변경",updatePan);
 		tab.add("사원삭제",SalaryDeleteView);
 		tab.add("사원목록조회",SalaryListView);
 		

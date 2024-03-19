@@ -3,9 +3,9 @@ package salaryUI;
 import java.util.Scanner;
 import java.util.Vector;
 
+import salaryController.SalaryManHandler;
 import salaryDATA.SalaryConstatnt;
-import salaryDATA.SalaryManHandler;
-import salaryDATA.SalaryManInfo;
+import salaryDATA.SalaryManDTO;
 
 public class SalaryUI {
 	private static SalaryManHandler salarySet = SalaryManHandler.getSalary(2);
@@ -50,7 +50,7 @@ public class SalaryUI {
 		System.out.print("연봉 : ");
 		salary = sc.nextLine();		
 		System.out.println();
-		salarySet.setSalaryMan(new SalaryManInfo(name, department, rank, salary));	
+		salarySet.setSalaryMan(new SalaryManDTO(name, department, rank, salary));	
 	}
 
 	public static void salrarySearch()

@@ -51,18 +51,11 @@ public class SalaryUpdateView extends JPanel {
 //		
 //	};
 	
-	table = new JTable(model);
-	//테이블의 컬럼의 너비를 조절
-	table.getColumnModel().getColumn(0).setPreferredWidth(50);
-	table.getColumnModel().getColumn(1).setPreferredWidth(200);
-	table.getColumnModel().getColumn(4).setPreferredWidth(50);
-	table.getColumnModel().getColumn(5).setPreferredWidth(50);
-	
-	JScrollPane scroll = new JScrollPane(table);
+
+
 	
 //	putSearchResult();
-	add("North",panN);
-	add("Center",scroll);
+
 
 		model = new DefaultTableModel(header,header.length) {
 			@Override
@@ -71,19 +64,18 @@ public class SalaryUpdateView extends JPanel {
 			}
 
 		};
-
 		table = new JTable(model);
+		JScrollPane scroll = new JScrollPane(table);
 		//테이블의 컬럼의 너비를 조절
 		table.getColumnModel().getColumn(0).setPreferredWidth(50);
 		table.getColumnModel().getColumn(1).setPreferredWidth(200);
 		table.getColumnModel().getColumn(4).setPreferredWidth(50);
 		table.getColumnModel().getColumn(5).setPreferredWidth(50);
-
-		JScrollPane scroll1 = new JScrollPane(table);
-
+		
 		//	putSearchResult();
 		add("North",panN);
-		add("Center",scroll1);
+		add("Center",scroll);
+
 
 	}
 	//DeafaultTableModel에 도서정보들을 설정한다.

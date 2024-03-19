@@ -1,4 +1,4 @@
-package Controller;
+package salaryController;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -103,6 +103,8 @@ public class MainController extends JFrame {
 				{
 					System.out.println(ID.getText()+ password);					
 					JOptionPane.showMessageDialog(null, "아이디 혹은 비밀번호가 일치 하지 않습니다","ERROR",JOptionPane.ERROR_MESSAGE);
+					ID.setText("");
+					PWD.setText("");
 				}
 			}
 			else if(e.getSource() == admin)
