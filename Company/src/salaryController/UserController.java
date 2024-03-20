@@ -17,11 +17,13 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
 import salaryDATA.SalaryManDTO;
+import salaryView.SalaryListView;
 import salaryView.SalarySearchView;
 import salaryView.SalaryUpdateView;
 
 public class UserController extends JFrame {
 	private SalarySearchView searchPan;
+	private SalaryListView listPan;
 	private int WIDTH = 700;
 	private int HEIGHT = 500;
 	private JMenuBar mbar;
@@ -48,12 +50,15 @@ public class UserController extends JFrame {
 		mbar = new JMenuBar();
 		mHelp = new JMenu("도움말");
 		admin = new JMenuItem("로그아웃");
-
+		JTabbedPane tab = new JTabbedPane(JTabbedPane.TOP);	
+		
 		searchPan = new SalarySearchView();
 		searchPan.initView();
+		
+		listPan = new SalaryListView();
+		listPan.initView();
 
-
-		JTabbedPane tab = new JTabbedPane(JTabbedPane.TOP);	
+		
 
 
 
@@ -61,7 +66,10 @@ public class UserController extends JFrame {
 		mbar.add(mHelp);
 		setJMenuBar(mbar);
 		admin.addActionListener(menuL);
+		
+		tab.add("사원목록",listPan);
 		tab.add("사원검색",searchPan);
+		
 
 		add(tab);
 

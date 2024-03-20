@@ -48,6 +48,10 @@ public class SalaryManMain {
 				SalaryUI.salaryUpdateUI();				
 				break;
 			}
+			case SalaryConstatnt.SALARYMAN_DELETE:{
+				SalaryUI.salaryDeleteUI();				
+				break;
+			}
 			case SalaryConstatnt.SALARYMAN_LIST: 
 			{			
 				SalaryUI.salaryList();

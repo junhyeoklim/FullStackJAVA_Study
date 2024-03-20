@@ -8,7 +8,7 @@ import salaryDATA.SalaryConstatnt;
 import salaryDATA.SalaryManDTO;
 
 public class SalaryUI {
-	private static SalaryManHandler salarySet = SalaryManHandler.getSalary(2);
+	private static SalaryManHandler salarySet = SalaryManHandler.getSalary(500);
 	private static String name;
 	private	static String department;
 	private	static String rank;
@@ -22,8 +22,9 @@ public class SalaryUI {
 		System.out.println("1. 사원 정보 입력");
 		System.out.println("2. 사원 정보 검색");
 		System.out.println("3. 사원 정보 변경");
-		System.out.println("4. 모든 사원정보 보기");
-		System.out.println("5. 프로그램 종료");
+		System.out.println("4. 사원 정보 삭제");
+		System.out.println("5. 모든 사원정보 보기");
+		System.out.println("6. 프로그램 종료");
 		System.out.print("선택 : ");
 	}
 
@@ -195,5 +196,34 @@ public class SalaryUI {
 		default:
 			System.out.println("올바른 값을 입력 해주세요!");
 		}
+	}
+	
+	public static void salaryDeleteUI()
+	{
+		String name;
+		int result=0;
+		int answer=0;
+		System.out.println("사원 이름을 입력하세요.");
+		System.out.println(">>");
+		name = sc.nextLine();		
+		result = salarySet.search(name);
+		if(result != -1)
+		{
+			System.out.println("정말 삭제하시겠습니까? 1. Yes 2. No");
+			answer = sc.nextInt();
+			sc.nextLine();
+			switch(answer)
+			{
+			case SalaryConstatnt.YES:
+				salarySet.deleteSalary(result);
+				break;
+			case SalaryConstatnt.NO:
+				break;
+			default:
+				System.out.println("잘못 누르셨습니다.");
+			}
+		}
+		else
+			System.out.println("입력하신 사원이 존재하지 않습니다.");
 	}
 }

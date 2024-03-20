@@ -1,21 +1,14 @@
 package salaryController;
 
-import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Vector;
 
-import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
 import salaryDATA.SalaryManDTO;
@@ -32,14 +25,17 @@ public class AdminController extends JFrame {
 	private JMenuItem admin;
 	private int WIDTH = 700;
 	private int HEIGHT = 500;
-	private Vector<SalaryManDTO> man;
+	private ArrayList<SalaryManDTO> man;
 	private static AdminController sms;
 
-	
+	/*
+	 *컨트롤러를 1개로 통합해서 adminView,userView,LoginView를 각각 구현해서 보여주자
+	 *컨트롤러 여러개를 작성 하니 객체가 계속 생성되어 입력한 salary데이터 공유가 안되고 있다.
+	 */
 	//사용자 변경을 해도 입력한 데이터 유지를 위한 싱글톤을 vector를 사용해서 구현
 	private AdminController(int size)
 	{
-		man = new Vector<SalaryManDTO>(size);
+		man = new ArrayList<SalaryManDTO>(size);
 	};
 
 	public static AdminController getAdmin(int size)
@@ -59,13 +55,7 @@ public class AdminController extends JFrame {
 		JTabbedPane tab = new JTabbedPane(JTabbedPane.TOP);		
 		
 		searchPan = new SalarySearchView();
-		searchPan.initView();
-		
-//		combo = searchPan.getCombo();
-		
-		
-
-	
+		searchPan.initView();	
 	
 		handlerPan = new SalaryHandlerView();
 		handlerPan.initView();

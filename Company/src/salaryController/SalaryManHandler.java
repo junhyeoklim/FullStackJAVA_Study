@@ -220,7 +220,11 @@ public class SalaryManHandler {
 		}
 	}
 
-
+	public void deleteSalary(int idx)
+	{
+		man.remove(idx);
+		System.out.println("삭제가 완료되었습니다.");
+	}
 	//등록된 사원 전부를 출력하는 메소드
 	public void salaryManeList()
 	{
