@@ -10,6 +10,7 @@ import salaryDATA.SalaryManDTO;
 public class SalaryUI {
 	private static SalaryManHandler salarySet = SalaryManHandler.getSalary(500);
 	private static String name;
+	private static String phoneNumber;
 	private	static String department;
 	private	static String rank;
 	private	static String salary;	
@@ -38,6 +39,10 @@ public class SalaryUI {
 		System.out.println("이름을 입력 해주세요!");
 		System.out.print("이름 : ");
 		name = sc.nextLine();
+		
+		System.out.println("전화번호를 입력 해주세요!");
+		System.out.print("전화번호 : ");
+		phoneNumber = sc.nextLine();
 
 		System.out.println("부서를 입력 해주세요!");
 		System.out.print("부서 : ");
@@ -51,7 +56,7 @@ public class SalaryUI {
 		System.out.print("연봉 : ");
 		salary = sc.nextLine();		
 		System.out.println();
-		salarySet.setSalaryMan(new SalaryManDTO(name, department, rank, salary));	
+		salarySet.setSalaryMan(new SalaryManDTO(name, phoneNumber,department, rank, salary));	
 	}
 
 	public static void salrarySearch()
@@ -148,12 +153,20 @@ public class SalaryUI {
 		}
 
 		System.out.println("변경 할려는 카테고리를 선택 하세요.");
-		System.out.println("1. 부서, 2. 직급, 3.연봉, 4.전체");
+		System.out.println("1. 전화번호, 2. 부서, 3. 직급, 4.연봉, 5.전체");
 		System.out.print("선택>>");
 		int choice = sc.nextInt();		
 		sc.nextLine();
 
 		switch (choice) {
+		case SalaryConstatnt.UPDATE_PHOENUMBER: {
+			System.out.println("변경할 전화번호를 입력 하세요.");
+			System.out.print("전화번호 :");
+			department = sc.nextLine();
+			salarySet.updateDepartment(name,phoneNumber);
+			System.out.println("변경이 완료 되었습니다!");
+			break;				
+		}
 		case SalaryConstatnt.UPDATE_DEPARTMENT: {
 			System.out.println("변경할 부서 이름을 입력 하세요.");
 			System.out.print("부서 :");
@@ -180,6 +193,10 @@ public class SalaryUI {
 		}
 		case SalaryConstatnt.UPDATE_ALL: {
 			System.out.println("새롭게 변경될 정보들을 입력 하세요.");
+			
+			System.out.print("전화번호 :");
+			phoneNumber = sc.nextLine();
+			
 			System.out.print("부서 :");
 			department = sc.nextLine();
 			
@@ -189,7 +206,7 @@ public class SalaryUI {
 			System.out.print("연봉 :");
 			salary = sc.nextLine();			
 
-			salarySet.updateAllInfo(name, department,rank,salary);
+			salarySet.updateAllInfo(name,phoneNumber ,department,rank,salary);
 			System.out.println("변경이 완료 되었습니다!");
 			break;				
 		}
