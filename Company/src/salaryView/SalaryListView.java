@@ -62,4 +62,8 @@ public class SalaryListView extends JPanel {
 	//이벤트 추가		
 	add("Center",scroll);
 	}
+	public void setSalaryList(ArrayList<SalaryManDTO> list) {
+		this.list = list;
+	}
+
 }

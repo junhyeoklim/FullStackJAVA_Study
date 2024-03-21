@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Vector;
 
 import javax.swing.JButton;
@@ -29,12 +30,12 @@ public class UserController extends JFrame {
 	private JMenuBar mbar;
 	private JMenu mHelp;
 	private JMenuItem admin;
-	private Vector<SalaryManDTO> man;
+	private ArrayList<SalaryManDTO> man;
 	private static UserController sms;
 
 	private UserController(int size)
 	{
-		man = new Vector<SalaryManDTO>(size);
+		man = new ArrayList<SalaryManDTO>(size);
 	};
 
 	public static UserController getUser(int size)
@@ -56,6 +57,7 @@ public class UserController extends JFrame {
 		searchPan.initView();
 		
 		listPan = new SalaryListView();
+		listPan.setSalaryList(man);
 		listPan.initView();
 
 		

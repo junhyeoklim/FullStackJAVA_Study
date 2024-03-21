@@ -1,30 +1,22 @@
 package salaryView;
 
 import java.awt.BorderLayout;
-import java.awt.Container;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
-import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Vector;
 
 import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import salaryDATA.SalaryManDTO;
 
 
-public class SalaryHandlerView extends JPanel implements ActionListener {
+public class SalaryHandlerView extends JPanel {
 	private ArrayList<SalaryManDTO> list;
 	private Vector<String> vector;
 	private DefaultTableModel model;
@@ -80,22 +72,9 @@ public class SalaryHandlerView extends JPanel implements ActionListener {
 		//이벤트 추가		
 		add("North",p);
 		add("Center",scroll);
-
-
-		addBtn.addActionListener(this);
-		delBtn.addActionListener(this);
 	}
-	//ActionListener 오버라이드 
-	@Override
-	public void actionPerformed(ActionEvent e){
-		if(e.getSource()==addBtn){
-			insert();	
-		}  else if(e.getSource()==delBtn){
-			delete();
-		}
 
-	}
-	//콘솔로 입력하는 대신 JOptaionPane을 이용한 입력값 받기
+//	콘솔로 입력하는 대신 JOptaionPane을 이용한 입력값 받기
 	public void insert(){
 		boolean value = false;
 		String name= JOptionPane.showInputDialog(this,"이름을 입력 하세요.");
@@ -122,6 +101,17 @@ public class SalaryHandlerView extends JPanel implements ActionListener {
 				model.addRow(v);
 			}
 		}
+	}
+	public void setSalaryList(ArrayList<SalaryManDTO> list) {
+		this.list = list;
+	}
+
+
+	public JButton getBtnAdd() {
+		return addBtn;
+	}
+	public JButton getBtnDel() {
+		return delBtn;
 	}
 	//테이블에서의 값을 삭제하는 메소드
 	public void delete(){

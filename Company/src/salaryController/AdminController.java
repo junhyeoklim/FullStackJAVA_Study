@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -47,62 +48,85 @@ public class AdminController extends JFrame {
 
 	public void startAdmin()
 	{
-		
+
 		setTitle("관리자 모드");
 		mbar = new JMenuBar();
 		mHelp = new JMenu("도움말");
 		admin = new JMenuItem("로그아웃");
 		JTabbedPane tab = new JTabbedPane(JTabbedPane.TOP);		
-		
-		searchPan = new SalarySearchView();
+
+		searchPan = new SalarySearchView();		
 		searchPan.initView();	
-	
+
 		handlerPan = new SalaryHandlerView();
+		handlerPan.setSalaryList(man);
 		handlerPan.initView();
-		
+
+		JButton btnInsert = handlerPan.getBtnAdd();
+		JButton btnDelete = handlerPan.getBtnDel();
+
+		btnInsert.addActionListener(btnI);
+		btnDelete.addActionListener(btnD);
+
+
 		updatePan = new SalaryUpdateView();
 		updatePan.initView();
-		
+
 
 		mHelp.add(admin);
 		mbar.add(mHelp);
 		setJMenuBar(mbar);
 		admin.addActionListener(menuL);
-		
+
 		tab.add("사원정보관리",handlerPan);		
 		tab.add("사원검색",searchPan);
 		tab.add("사원정보변경",updatePan);
-		
-//		pan.add(btn1);
-////		btnSearch.addActionListener(btnL);
-//		btn1.addActionListener(new ActionListener() {
-//			
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				System.out.println("로그아웃에 성공하였습니다.");
-//				dispose();
-//				new MainController();
-//				
-//			}
-//		});
-		
+
+		//		pan.add(btn1);
+		////		btnSearch.addActionListener(btnL);
+		//		btn1.addActionListener(new ActionListener() {
+		//			
+		//			@Override
+		//			public void actionPerformed(ActionEvent e) {
+		//				System.out.println("로그아웃에 성공하였습니다.");
+		//				dispose();
+		//				new MainController();
+		//				
+		//			}
+		//		});
+
 		add(tab);
-		
+
 		//add("North",btn1);
-		
+
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
 		CenterLocation.location(WIDTH, HEIGHT);
 		setBounds(CenterLocation.getX(),CenterLocation.getY(),WIDTH,HEIGHT);
 	}
-	
+
 	ActionListener menuL = new ActionListener() {
-		
+
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			JOptionPane.showMessageDialog(null, "로그아웃");
 			dispose();
 			new MainController();
+		}
+	};
+
+	ActionListener btnI = new ActionListener() {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {			
+			handlerPan.insert();
+		}
+	};
+	ActionListener btnD = new ActionListener() {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {			
+			handlerPan.delete();
 		}
 	};
 
