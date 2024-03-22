@@ -32,12 +32,13 @@ public class AdminController extends JFrame {
 	/*
 	 *컨트롤러를 1개로 통합해서 adminView,userView,LoginView를 각각 구현해서 보여주자
 	 *컨트롤러 여러개를 작성 하니 객체가 계속 생성되어 입력한 salary데이터 공유가 안되고 있다.
+	 *-> 시도 해봤는데 AdminController객체를 공유해서 AdminController 뷰만 보여 준다
 	 */
-	//사용자 변경을 해도 입력한 데이터 유지를 위한 싱글톤을 vector를 사용해서 구현
+	//사용자 변경을 해도 입력한 데이터 유지를 위한 싱글톤을 ArrayList를 사용해서 구현
 	private AdminController(int size)
 	{
 		man = new ArrayList<SalaryManDTO>(size);
-	};
+	}
 
 	public static AdminController getAdmin(int size)
 	{
@@ -56,12 +57,18 @@ public class AdminController extends JFrame {
 		JTabbedPane tab = new JTabbedPane(JTabbedPane.TOP);		
 
 		searchPan = new SalarySearchView();		
-		searchPan.initView();	
+		searchPan.initView();
 
 		handlerPan = new SalaryHandlerView();
-		handlerPan.setSalaryList(man);
+		handlerPan.setSalaryList(man);		
 		handlerPan.initView();
 
+		 ArrayList<SalaryManDTO> dataList = handlerPan.getSalaryList();
+
+		    // UserController에 전달
+		    UserController.getUser(dataList.size()).setSalaryList(dataList);
+		
+		
 		JButton btnInsert = handlerPan.getBtnAdd();
 		JButton btnDelete = handlerPan.getBtnDel();
 
@@ -82,22 +89,7 @@ public class AdminController extends JFrame {
 		tab.add("사원검색",searchPan);
 		tab.add("사원정보변경",updatePan);
 
-		//		pan.add(btn1);
-		////		btnSearch.addActionListener(btnL);
-		//		btn1.addActionListener(new ActionListener() {
-		//			
-		//			@Override
-		//			public void actionPerformed(ActionEvent e) {
-		//				System.out.println("로그아웃에 성공하였습니다.");
-		//				dispose();
-		//				new MainController();
-		//				
-		//			}
-		//		});
-
 		add(tab);
-
-		//add("North",btn1);
 
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);

@@ -17,7 +17,7 @@ import salaryDATA.SalaryManDTO;
 
 
 public class SalaryHandlerView extends JPanel {
-	private ArrayList<SalaryManDTO> list;
+	private ArrayList<SalaryManDTO> list = new ArrayList<>();
 	private Vector<String> vector;
 	private DefaultTableModel model;
 	private JTable table;
@@ -105,7 +105,11 @@ public class SalaryHandlerView extends JPanel {
 	public void setSalaryList(ArrayList<SalaryManDTO> list) {
 		this.list = list;
 	}
-
+	
+	public ArrayList<SalaryManDTO> getSalaryList()
+	{
+		return list;
+	}
 
 	public JButton getBtnAdd() {
 		return addBtn;
@@ -113,6 +117,17 @@ public class SalaryHandlerView extends JPanel {
 	public JButton getBtnDel() {
 		return delBtn;
 	}
+	public JTable getTable()
+	{
+		return table;
+	}
+
+	public DefaultTableModel getsetModel(DefaultTableModel model)
+	{
+		this.model = model;
+		return this.model;
+	}
+	
 	//테이블에서의 값을 삭제하는 메소드
 	public void delete(){
 		String name= JOptionPane.showInputDialog(this,"삭제할 사용자의 이름을 입력하세요");

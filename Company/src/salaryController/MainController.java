@@ -37,12 +37,12 @@ public class MainController extends JFrame {
 
 		setTitle("사원 정보 관리 시스템");
 		setLayout(new BorderLayout(0,0));
+		mbar = new JMenuBar();
 		ID = new JTextField(10);
 		PWD = new JPasswordField(10);
 		Lab1 = new JLabel("ID: ",JLabel.CENTER);
 		Lab2 = new JLabel("PWD: ",JLabel.CENTER);
-		btn1 = new JButton("로그인");
-		mbar = new JMenuBar();
+		btn1 = new JButton("로그인");		
 		mHelp = new JMenu("도움말");
 		admin = new JMenuItem("Admin정보");
 		user = new JMenuItem("User정보");

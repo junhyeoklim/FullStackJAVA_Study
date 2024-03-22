@@ -13,8 +13,9 @@ import javax.swing.table.DefaultTableModel;
 import salaryDATA.SalaryManDTO;
 
 public class SalaryListView extends JPanel {
-	private ArrayList<SalaryManDTO> list;
+	private ArrayList<SalaryManDTO> list = new ArrayList<>();
 	private Vector<String> vector;
+	private SalaryHandlerView handler = new SalaryHandlerView();
 	private DefaultTableModel model;
 	private JTable table;
 	private JButton addBtn, delBtn;
@@ -22,8 +23,9 @@ public class SalaryListView extends JPanel {
 	
 	public void initView() {
 	setLayout(new BorderLayout());
-	list = new ArrayList<SalaryManDTO>();
+	list = handler.getSalaryList();
 	p = new JPanel();
+	
 	//타이틀 만들기
 	vector = new Vector<String>();
 	vector.addElement("이름");
@@ -31,18 +33,18 @@ public class SalaryListView extends JPanel {
 	vector.add("직급");
 	vector.add("연봉");
 	//defaultTableModel 생성
-	model = new DefaultTableModel(vector, 0){
-		public boolean isCellEditable(int r, int c){
-			return (c!=0) ? true : false;
-		}
-	};
+	model = handler.getsetModel(new DefaultTableModel(vector, 0) {
+	    public boolean isCellEditable(int r, int c) {
+	        return (c != 0) ? true : false;
+	    }
+	});
 
+	
 	table = new JTable(model);
 	table.getColumnModel().getColumn(0).setPreferredWidth(10);
 	table.getColumnModel().getColumn(1).setPreferredWidth(20);
 	table.getColumnModel().getColumn(2).setPreferredWidth(20);
 	table.getColumnModel().getColumn(3).setPreferredWidth(20);
-
 	JScrollPane scroll = new JScrollPane(table);
 
 

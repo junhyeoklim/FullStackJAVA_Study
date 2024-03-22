@@ -36,7 +36,7 @@ public class UserController extends JFrame {
 	private UserController(int size)
 	{
 		man = new ArrayList<SalaryManDTO>(size);
-	};
+	}
 
 	public static UserController getUser(int size)
 	{
@@ -55,6 +55,8 @@ public class UserController extends JFrame {
 		
 		searchPan = new SalarySearchView();
 		searchPan.initView();
+		
+
 		
 		listPan = new SalaryListView();
 		listPan.setSalaryList(man);
@@ -91,4 +93,8 @@ public class UserController extends JFrame {
 			new MainController();
 		}
 	};
+
+	public void setSalaryList(ArrayList<SalaryManDTO> dataList) {
+		man = dataList;		
+	}
 }

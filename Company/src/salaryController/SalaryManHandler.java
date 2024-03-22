@@ -15,30 +15,27 @@ public class SalaryManHandler {
 	private Scanner sc = new Scanner(System.in);
 
 	//싱글톤 사용이유 : 검색 하거나 데이터 입력을 할때마다 새로운 객체가 생성 되는지 배열에 널값이 들어감
-	private SalaryManHandler(int size)
-	{
-		man = new ArrayList<SalaryManDTO>(size);
-	};
 
-	public static SalaryManHandler getSalary(int size)
-	{
-		if(sms == null)
+	private SalaryManHandler(int size) {
+		man = new ArrayList<>(size);
+		sc = new Scanner(System.in);
+	}
+
+	public static SalaryManHandler getSalary(int size) {
+		if (sms == null)
 			sms = new SalaryManHandler(size);
 		return sms;
 	}
 
-	public void setSalaryMan(SalaryManDTO smi)
-	{	
-		Iterator<SalaryManDTO> manIter = man.iterator();
-
-		if(manIter.hasNext() && manIter.next().getPhoneNumber().equals(smi.getPhoneNumber()))
-		{
-			System.out.println("이미 등록된 사원 입니다.");
-			return;
-		}		
-		else
+	public void setSalaryMan(SalaryManDTO smi) {
+		if (!man.stream().anyMatch(m -> m.getPhoneNumber().equals(smi.getPhoneNumber()))) {
 			man.add(smi);
+		} else {
+			System.out.println("이미 등록된 사원입니다.");
+		}
 	}
+
+
 
 	public void searchName(String name)
 	{		
@@ -82,7 +79,7 @@ public class SalaryManHandler {
 	public void searchRank(String rank)
 	{
 		salaryIter = man.iterator();
-		
+
 		while(salaryIter.hasNext())
 		{
 			if(salaryIter.next().getRank().equals(rank))
