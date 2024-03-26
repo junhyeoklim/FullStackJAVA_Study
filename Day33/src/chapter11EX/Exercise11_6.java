@@ -45,19 +45,10 @@ class Student implements Comparable<Student> {
 
 public class Exercise11_6 {
 	static int getGroupCount(TreeSet<Student> set, int from, int to) {
-		TreeSet<Student> count = new TreeSet<>(set);
-		Iterator<Student> iter = count.iterator();
+		Student s1 = new Student("", 0, 0, from, from, from);
+		Student s2 = new Student("", 0, 0, to, to, to);
 		
-//		count.headSet(null)
-		int cnt = 0;
-		
-		while(iter.hasNext())
-		{
-			iter.next();
-			if(iter.equals(from))
-				cnt++;
-		}
-		return cnt;
+		return set.subSet(s1, s2).size();
 	}
 	public static void main(String[] args) {
 
