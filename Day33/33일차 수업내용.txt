@@ -1,0 +1,21 @@
+1.  HashMap과 Hashtable
+ - HashMap(동기화x)은 Hashtable(동기화o)의 신버전이므로 HashMap을 사용할 것을 권장한다.
+
+ - HashMap : Map인터페이스를 구현하였으며 데이터를 키와 값의 쌍으로 저장한다.
+	     헤싱을 사용하기 때문에 많은 양의 데이터를 검색하는데 있어서 뛰어난 성능을 보인다.
+	      HashMap은 Entry라는 내부 클래스를 정의하고 다시 Entry타입의 배열을 선언하고 있다.
+
+	    * 저장 순서를 유지하려면,LinkedHashMap클래스를 사용하면 된다.
+	    **key는 중복이 불가능 하고 value는 중복이 가능하다(key까지 중복이면 검색이 안되기 때문)
+
+
+2. Map.Entry 설명
+https://seungjjun.tistory.com/270 참고
+
+3. Properties : HashMap의 구버전인 Hashtable을 상속 받아 구현한 것으로 key,value를 String으로 저장한다.
+ 	       즉,Properties(String,String)의 형태로 저장한다.
+
+	     *주로 애플리케이션의 환경 설정에 관련된 속성을 저장 하는데 사용되며 파일로부터
+	      편리하게 값을 읽고 쓸 수 있는 메서드를 제공한다.
+
+4. Collection클래스 : 컬렉션을 위한 static 매서드를 제공한다.
