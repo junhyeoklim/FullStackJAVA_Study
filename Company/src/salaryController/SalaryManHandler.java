@@ -12,7 +12,7 @@ public class SalaryManHandler {
 	private Iterator<SalaryManDTO> salaryIter;
 	private static SalaryManHandler sms;	
 	private boolean check;
-	private Scanner sc = new Scanner(System.in);
+	private Scanner sc;
 
 	//싱글톤 사용이유 : 검색 하거나 데이터 입력을 할때마다 새로운 객체가 생성 되는지 배열에 널값이 들어감
 
@@ -39,11 +39,17 @@ public class SalaryManHandler {
 
 	public void searchName(String name)
 	{		
+		int manLength = man.size();
 
-		int result = search(name);
-		if(result != -1)
-			man.get(result).showManAllInfo();
-		else
+		for (int i = 0; i < manLength; i++) {
+			if(man.get(i).getName().compareTo(name) == 0)
+			{
+				System.out.println();
+				man.get(i).showManAllInfo();
+				check = true;
+			}
+		}
+		if(!check)
 			System.out.println("찾으시는 사원 정보가 없습니다.");
 	}
 
@@ -57,37 +63,37 @@ public class SalaryManHandler {
 				return i;
 		}
 		return -1;
-
-
 	}   
 
 	public void searchDepartment(String department)
 	{   
+		salaryIter = man.iterator();
+
+		while(salaryIter.hasNext())
+		{
+			if(salaryIter.next().getDepartment().equals(department))
+			{
+				salaryIter.next().showManDepartment();
+				
+			}			
+		}
+
+	}
+
+	public void searchRank(String rank)
+	{
 		int manLength = man.size();
 
 		for (int i = 0; i < manLength; i++) {
-			if(man.get(i).getDepartment().compareTo(department) == 0)
+			if(man.get(i).getRank().compareTo(rank) == 0)
 			{
-				man.get(i).showManDepartment();	
+				System.out.println();
+				man.get(i).showManRank();
 				check = true;
 			}
 		}
 		if(!check)
 			System.out.println("찾으시는 사원 정보가 없습니다.");
-	}
-
-	public void searchRank(String rank)
-	{
-		salaryIter = man.iterator();
-
-		while(salaryIter.hasNext())
-		{
-			if(salaryIter.next().getRank().equals(rank))
-			{
-				salaryIter.next().showManRank();
-				return;
-			}			
-		}
 
 	}
 	public void searchSalary(String salary)
