@@ -54,27 +54,18 @@ import java.util.TreeSet;
 //		int prevRank = -1; // 이전 전교등수
 //		int prevTotal = -1; // 이전 총점
 //		int length = list.size();
-//		
-//		
-//		for(int i=1;i<length;i++)
+//
+//		for(int i=0; i<length;i++)
 //		{
-//			int frontnum = list.get(i).total;
-//			int prevnum = list.get(i+prevTotal).total;
-//			int frontRank = list.get(i).schoolRank;
-//			int prevrank = list.get(i+prevTotal).schoolRank;
-//			
-//			if(frontnum == prevnum)
-//			{
-//				 list.get(i).schoolRank = i+prevTotal;
-//			}
-//			else if(frontnum != prevnum)
-//			{
-//				
-//			}			
-//			prevnum = frontnum;
-//			prevrank = frontRank;
+//			Student s = list.get(i);
+//
+//			if(s.total == prevTotal)
+//				s.schoolRank = prevRank;
+//			else
+//				s.schoolRank =i+1;
+//			prevTotal = s.total;
+//			prevRank = s.schoolRank;
 //		}
-//		
 //	}
 //	public static void main(String[] args) {
 //		ArrayList<Student> list = new ArrayList<>();
@@ -83,11 +74,11 @@ import java.util.TreeSet;
 //		list.add(new Student("홍길동",1,3,100,100,100)); 
 //		list.add(new Student("남궁성",1,1,90,70,80)); 
 //		list.add(new Student("김자바",1,2,80,80,90));
-//		
+//
 //		calculateSchoolRank(list);
-//		
+//
 //		Iterator<Student> it = list.iterator();
-//		
+//
 //		while(it.hasNext())
 //			System.out.println(it.next());
 //	}

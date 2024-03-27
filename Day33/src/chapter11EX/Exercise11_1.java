@@ -22,22 +22,15 @@ public class Exercise11_1 {
 		list2.add(5);
 		list2.add(6);
 		
+		kyo.addAll(list1);
+		kyo.retainAll(list2);
 		
-		TreeSet<Integer> list3 = new TreeSet<>(list1);
+		cha.addAll(list1);
+		cha.removeAll(list2);
 		
-		Iterator<Integer> list = list2.iterator();
-		while(list.hasNext())
-			list3.add(list.next());
-		
-		hap.addAll(list3);
-		
-		list3.addAll(list1);
-		list3.removeAll(list2);		
-		cha.addAll(list3);
-		
-		list3.addAll(list1);
-		list3.retainAll(list2);
-		kyo.addAll(list3);
+		hap.addAll(list1);
+		hap.removeAll(kyo);
+		hap.addAll(list2);
 		
 		System.out.println("list1="+list1);
 		System.out.println("list2="+list2);
