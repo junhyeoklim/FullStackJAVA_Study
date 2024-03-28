@@ -51,10 +51,15 @@ public class CBFilterMain {
 		String imgName = chooseFile.getOriginalFilename();
 		redirectAttributes.addAttribute("imageName", imgName);
 
+		//따로 설정한 저장 경로
+//		String savePath = "D:"+File.separator+"CBFilter"+File.separator+"convert";
+		
+		//기존에 설정 했던 저장 경로
+		String savePath = "src/main/resources/static/img/convert";
 		//변환된 파일들을 저장할 폴더 생성여부 체크
-		String savePath = "D:\\CBFilter\\convert";
 		File folderdir = new File(savePath);
-
+		
+		//만약 경로가 없을 경우 상위 디렉터리까지 생성
 		if(folderdir.exists() == false)
 		{
 			folderdir.mkdirs();
@@ -72,12 +77,12 @@ public class CBFilterMain {
 		ColorBlindType colorBlindType = getColorBlindTypeByIndex(colorBlindTypeIndex);
 
 
-		try {
+		
 			// 이미지 파일을 읽어옵니다.
 
 			File imageFile = new File(imagePath);    
 
-
+			try {
 			//파일 권환 설정
 			//imageFile.setWritable(true);
 			//imageFile.setReadable(true);
@@ -103,15 +108,13 @@ public class CBFilterMain {
 				}
 
 				// 새로운 GIF 이미지 생성
-				String outputImagePath = "src/main/resources/static/img/convert/" + imageFile.getName();
-//				String outputImagePath =  savePath+ "\\" + imageFile.getName();
+				String outputImagePath =  savePath+ File.separator + imageFile.getName();
 				createGifFromFrames(frames, outputImagePath);
 
 				System.out.println("GIF 이미지 변환이 완료되었습니다.");
 
 				//변환된 사진 출력 (단,convert 눌렀을 시 바로 이미지 변환 후 저장되는게 아니라서 바로는 못 찾음)
 				return "redirect:/img/convert/{imageName}";
-//				return outputImagePath;
 
 
 			} else if(imageFile.getName().endsWith(".jpg") || imageFile.getName().endsWith(".png")) {
@@ -120,7 +123,7 @@ public class CBFilterMain {
 
 				// 색맹 시뮬레이션을 적용한 이미지 생성
 				BufferedImage simulatedImage = CBFilterSimulation.simulateColorBlindness(originalImage, colorBlindType);
-//				String outputImagePath =  savePath+"\\"+ imageFile.getName();
+//				String outputImagePath =  savePath+File.separator+ imageFile.getName();
 				// 이미지 저장           
 				String outputImagePath = "src/main/resources/static/img/convert/"+imageFile.getName();
 				ImageIO.write(simulatedImage, "png", new File(outputImagePath));
@@ -129,16 +132,17 @@ public class CBFilterMain {
 
 	               System.out.println("이미지 변환이 완료되었습니다.");
 	               
-	               //변환된 사진 출력 (단,convert 눌렀을 시 바로 이미지 변환 후 저장되는게 아니라서 바로는 못 찾음)
-	               return "redirect:/img/convert/{imageName}";
+	            //변환된 사진 출력 (단,convert 눌렀을 시 바로 이미지 변환 후 저장되는게 아니라서 바로는 못 찾음)
+	            return "redirect:/img/convert/{imageName}";
 //				System.out.println("이미지 변환이 완료되었습니다.");   
 //				System.out.println("이미지 아웃풋 출력 : " + outputImagePath);
 //
 //				//이미지 이름 Encoder
 //				String encodedParam = URLEncoder.encode(imageFile.getName(),"UTF-8");
-//
-//				//변환된 사진 출력 (단,convert 눌렀을 시 바로 이미지 변환 후 저장되는게 아니라서 바로는 못 찾음)
+//				
+//	            //따로 설정한 변환 파일 저장 경로에 있는 파일 불러오기 테스트
 //				return "redirect:D:\\CBFilter\\convert\\"+"{imageName}";
+//	               return "D:\\CBFilter\\convert\\"+imageFile.getName();
 			}
 			//다른 유형의 파일 업로드시 경고 창
 			else {	
@@ -147,7 +151,8 @@ public class CBFilterMain {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return "redirect:/";
+			return "redirect:/";
+		
 	}
 	// 숫자로 입력된 색맹 유형을 열거형 상수로 변환
 	private static ColorBlindType getColorBlindTypeByIndex(int index) {
