@@ -25,18 +25,15 @@ public class PhoneInfoHandler {
 	public void phoneInput(PhoneDTO dto)
 	{		
 		Iterator<PhoneDTO> ite = phonDTO.iterator();
-
-		if(ite.hasNext() && ite.next().getName().equals(dto.getName()))
+		if(ite.hasNext() && dto.equals(ite.next()))
 		{
-			System.out.println("이미 저장된 데이터 입니다.");
+			System.out.println("테스트");
 		}		
-		else if(ite.hasNext())
+		else 
 		{
-			ite.next();
 			phonDTO.add(dto);
+			System.out.println("데이터 입력이 완료되었습니다!");
 		}
-		else
-			phonDTO.add(dto);		
 	}
 
 	public void searchPhoneInfo(String name)
@@ -86,18 +83,4 @@ public class PhoneInfoHandler {
 			ite.next().showPhoneInfo();
 	}
 
-	@Override
-	public int hashCode() {
-		ite = phonDTO.iterator();
-		return Objects.hash(ite.next().getPhoneNumber());
-	}
-	@Override
-	public boolean equals(Object obj) {
-		Iterator<PhoneDTO> comp = (Iterator<PhoneDTO>) obj;
-		ite = phonDTO.iterator();
-		if(comp.next().getPhoneNumber().compareTo(ite.next().getPhoneNumber()) == 0)			
-			return true;
-		else
-			return false;
-	}
 }
