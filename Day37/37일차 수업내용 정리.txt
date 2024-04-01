@@ -46,8 +46,31 @@ if(newCheck == false)
 
 6. 쓰레드 풀 : 쓰레드를 생성,소멸 시킬때 부하가 심하기 때문에 미리 만들어 놓은 쓰레드를 소멸시키지 않고 돌려 쓰는것
 (직접 구현하기에는 쉽지 않지만 api 형태로 제공 되기 때문에 쓰는건 쉽다)
-.submit() -> 전달
-.shutdown - >종료 ->이미 하던 작업은 그대로 하고 추가로 작업을 전달 받지는 않는다.
 
+ - ExecutorService exr = Executors.newSingleThreadExecutor(); -> 이런식으로 선언
+
+ - .submit() -> 전달
+ - .shutdown - >종료 ->이미 하던 작업은 그대로 하고 추가로 작업을 전달 받지는 않는다.
+ - Executors.newFixedThreadPool(2); -> 쓰레드 풀 2개 생성
+
+6-1 Callable
+
+        Callable<Integer> task = () -> {
+            int sum = 0;
+            for(int i = 0; i < 10; i++)
+                sum += i;
+            return sum;
+        };
+        
+        ExecutorService exr = Executors.newSingleThreadExecutor();
+        Future<Integer> fur = exr.submit(task);
+        
+        Integer r = fur.get();
+        System.out.println("result: " + r);
+        exr.shutdown();
+
+대충 이런식으로 쓰인다.
+
+6-2 exr.awaitTermination(100, TimeUnit.SECONDS); -> 쓰레드 풀이 바로 끝나버리지 않게 하기 위해서 딜레이 주는거
 
 ** 함수형 인터페이스(FunctionalInterface) - abstract가 1개(추상 메소드가 1개) - 람다로 구현 가능하다
