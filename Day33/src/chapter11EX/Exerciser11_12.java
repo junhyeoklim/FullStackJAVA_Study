@@ -29,7 +29,7 @@ class SutdaDeck
 	}
 	void registerJokbo() {
 		jokbo.put("KK", 4000);
-		
+
 		jokbo.put("1010", 3100);
 		jokbo.put("99", 3090);
 		jokbo.put("88", 3080);
@@ -40,7 +40,7 @@ class SutdaDeck
 		jokbo.put("33", 3030);
 		jokbo.put("22", 3020);
 		jokbo.put("11", 3010);
-		
+
 		jokbo.put("12", 2060);
 		jokbo.put("21", 2060);
 		jokbo.put("14", 2050);

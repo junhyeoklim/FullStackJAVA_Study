@@ -6,9 +6,10 @@
 //
 //public class Exerciser11_13 {
 //
-//	public static void main(String[] args) {
+//	public static void main(String[] args) throws Exception {
 //		{
 //			SutdaDeck deck = new SutdaDeck();
+//			
 //			deck.shuffle();
 //			Player[] pArr = {
 //					new Player("타짜", deck.pick(), deck.pick()), 
@@ -17,7 +18,7 @@
 //					new Player("중수", deck.pick(), deck.pick()), 
 //					new Player("", deck.pick(), deck.pick()) 
 //			};
-//			TreeMap<Player,Integer> rank = new TreeMap(new Comparator<Player>(){
+//			TreeMap<Player,Integer> rank = new TreeMap<>(new Comparator<Player>(){
 //
 //				@Override
 //				public int compare(Player o1, Player o2) {
@@ -39,15 +40,13 @@
 //		final int CARD_NUM = 20;
 //		SutdaCard[] cards = new SutdaCard[CARD_NUM];
 //		int pos = 0; // 다음에 가져올 카드의 위치
-//		HashMap jokbo = new HashMap(); // HashMap 족보를 저장할
+//		HashMap<String,Integer> jokbo = new HashMap<>(); // HashMap 족보를 저장할
 //		SutdaDeck() {
 //			for(int i=0;i < cards.length;i++) {
 //				int num = i%10+1;
 //				boolean isKwang = i < 10 && (num==1 || num==3 || num==8);
 //				cards[i] = new SutdaCard(num,isKwang);
 //			}
-//
-//
 //			registerJokbo(); // . 족보를 등록한다
 //		}
 //		void registerJokbo() {
@@ -72,11 +71,11 @@
 //			SutdaCard c2 = p.c2;
 //			Integer result = 0;
 //			if(c1.isKwang && c2.isKwang) {
-//				result = (Integer)jokbo.get("KK");
+//				result = jokbo.get("KK");
 //			} else {
-//				result = (Integer)jokbo.get(""+c1.num+c2.num);
+//				result = jokbo.get(""+c1.num+c2.num);
 //				if(result==null) {
-//					result = new Integer((c1.num + c2.num) % 10 + 1000);
+//					result = c1.num + c2.num% 10 + 1000;
 //				}
 //			}
 //			p.point = result.intValue();
