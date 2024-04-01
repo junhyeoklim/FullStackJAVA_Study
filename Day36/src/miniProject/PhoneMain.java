@@ -25,8 +25,7 @@
 //	private static Scanner sc = new Scanner(System.in);
 //
 //	public PhoneUI() {
-//		this.phone = PhoneBook.getPhoneBook();
-//
+//		phone =   PhoneBook.getPhoneBook();
 //	}	
 //
 //	public static void phoneMainUI()
@@ -47,7 +46,7 @@
 //		System.out.println("데이터 입력을 시작합니다.");
 //		System.out.println("1. 일반 2. 대학 3. 회사");
 //		System.out.print("선택 >> ");
-//
+//		PhoneInfo pinfo = null;
 //		choice = sc.nextInt();
 //		sc.nextLine();
 //		try {
@@ -59,7 +58,7 @@
 //				name = sc.nextLine();
 //				System.out.print("전화번호 : ");
 //				phoneNumber = sc.nextLine();
-//				phone.setPhoneInfo(new PhoneInfo(name, phoneNumber)); 
+//				pinfo = new PhoneInfo(name, phoneNumber); 
 //				break;
 //			}
 //			case PhoneConstant.UNIV:
@@ -73,7 +72,7 @@
 //				System.out.print("학년 : ");
 //				year = sc.nextInt();
 //				sc.nextLine();
-//				phone.setPhoneInfo(new PhoneUnivInfo(name, phoneNumber,major,year));
+//				pinfo = new PhoneUnivInfo(name, phoneNumber,major,year);
 //				break;
 //			}
 //			case PhoneConstant.COMPANY:
@@ -85,7 +84,7 @@
 //				System.out.print("회사 : ");
 //				company = sc.nextLine();
 //				sc.nextLine();
-//				phone.setPhoneInfo(new PhoneCompanyInfo(name, phoneNumber,company));
+//				pinfo = new PhoneCompanyInfo(name, phoneNumber,company);
 //				break;
 //			}
 //			default :
@@ -94,6 +93,7 @@
 //				break;
 //			}
 //			}
+//			phone.setPhoneInfo(pinfo);
 //			
 //		}
 //		catch (Exception e) {
@@ -296,9 +296,10 @@
 //	{
 //		iter = phon.iterator();
 //		PhoneInfo pInfo = null;
-//
+//		phon.add(phi);
 //		if(!iter.hasNext())
 //			phon.add(phi);
+//		else {
 //		while(iter.hasNext())
 //		{
 //			pInfo = iter.next();
@@ -308,6 +309,7 @@
 //				return;
 //			}
 //		}		
+//		}
 //		System.out.println("데이터 입력이 완료되었습니다.");
 //	}	
 //
@@ -371,6 +373,8 @@
 //	public static void main(String[] args) {
 //
 //		Scanner sc = new Scanner(System.in);
+//		new PhoneUI();
+//		
 //		int choice = 0;
 //		while(true)
 //		{
