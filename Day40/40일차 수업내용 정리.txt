@@ -34,3 +34,6 @@
 
  - .collect : 3번째 인수 (lst1, lst2) -> lst1.addAll(lst2) 이 부분은 병렬 처리 할떄만 사용 하여 병렬 처리가 아닐때는
 	   쓰이지 않지만 그렇다고 null값을 넣어주면 예외 처리가 발생하기 때문에 그냥 이렇게 쓴다.
+
+4. mysql 관련 명령어 모음 집
+ - https://victorydntmd.tistory.com/19
