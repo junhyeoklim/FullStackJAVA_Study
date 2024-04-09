@@ -1,0 +1,102 @@
+sqld : https://heoni00.github.io/sqld/sqld-02/#sqld-%EC%B7%A8%EB%93%9D%ED%95%B4%EC%95%BC%ED%95%98%EB%8A%94-%EC%9D%B4%EC%9C%A0
+
+
+
+
+1. 날짜 관련 명령어
+
+ - CURRENT_TIMESTAMP로 시스템 날짜 확인
+
+ - SELECT STR_TO_DATE('2008-01-01', '%Y-%m-%D');
+
+ - CURRENT_DATE는 시스템 날짜의 날짜만 확인하는 함수. 
+
+ - INTERVAL 1 DAY는 '1일 후'라는 의미의 기간형 상수이다
+
+ - NOW() 또는 SYSDATE() : 현재 날짜와 시간을 반환한다.
+
+ - curdate() 또는 current_date() : 현재 날짜를 반환한다.
+
+ - curtime() 또는 current_time() : 현재 시간을 반환한다.
+
+ - dayofmonth(date) : 몇일인지를 리턴 한다.
+
+ - dayofweek(date)(1-일요일, 2-월요일...7-토요일) / weekday(date) : 숫자로 요일을 리턴 한다.
+    (0 = Monday, 1 = Tuesday,..... 6 = Sunday)
+
+ - DAYOFYEAR(date) : 1년 중 며칠이 지났는가를 리턴 한다.
+
+ - date_add와 date_sub
+
+
+
+2. case문
+
+ - 단순 CASE 식
+    CASE 식1
+	WHEN 식2 THEN 식3
+	[WHEN 식4 THEN 식5 ...]
+	[ELSE 식6]
+    END
+
+
+3. 서브쿼리(하나의 항목) -> 단독으로 사용 가능
+
+ - SELECT 명령에 의한 데이터 질의로, 상부가 아닌 하부의 부수적인 질의를 의미한다.
+
+    SYNTAX 서브쿼리
+    (SELECT 명령)
+
+ - 서브쿼리는 SQL 명령문 안에 지정하는 하부 SELECT 명령으로 괄호로 묶어 지정한다. 
+   문법에는 간단하게 'SELECT 명령'이라고 적었지만 SELECT 구, FROM 구, WHERE 구 등 
+   SELECT 명령의 각 구를 기술할 수 있다.
+
+ - 특히 서브쿼리는 SQL명령의 WHERE 구에서 주로 사용된다.
+   WHERE구는 SELECT, DELETE, UPDATE 구에서 사용할 수 있는데 
+   이들 중 어떤 명령에서든 서브쿼리를 사용할 수 있다.
+
+
+ - ex) DELETE FROM sample54 WHERE a = (SELECT MIN(a) FROM sample54); 	# MySQL Error
+
+ - MySQL에서 예제를 실행하면 "You can't specify target table 'sample54' for update in FROM clause" 라는 에러가 발생한다.
+   데이터를 추가하거나 갱신할 경우 동일한 테이블을 서브쿼리에서 사용할 수 없도록 되어 있기 때문이다. 
+   에러를 발생하지 않고 실행하려면 다음과 같이 인라인 뷰로 임시 테이블을 만들도록 처리하면 된다. 
+   (FROM절에 있는 서브쿼리 : 인라인 뷰)
+
+   DELETE FROM sample54 WHERE a = (SELECT a FROM (SELECT MIN(a) AS a FROM SAMPLE54) AS x);
+
+
+
+4. 클라이언트 변수
+
+- @a가 변수가 되고 set이 변수에 대입하는 명령이 된다.
+  set @a = (SELECT MIN(a) FROM sample54);
+
+
+
+5. 스칼라 값 (서브쿼리로서 사용하기 쉽다)
+
+ - select 명령이 하나의 값만 반환하는것
+
+ - 스칼라 값을 반환하는 서브쿼리를 특별히 '스칼라 서브쿼리'라 부르기도 한다.
+
+ 
+6 . 서브쿼리의 위치에 따른 명칭
+
+ - SELECT문에 있는 서브쿼리 : 스칼라 서브쿼리
+
+ - FROM절에 있는 서브쿼리 : 인라인 뷰
+
+ - WHERE절에 있는 서브쿼리 : 서브쿼리
+
+
+7. 서브쿼리의 반환 값에 따른 서브쿼리 종류
+
+ - 단일 행 서브쿼리(Single-Row Subquery) : 서브쿼리의 결과가 1행
+
+ - 다중 행 서브쿼리(Multiple-Row Subquery) : 서브쿼리의 결과가 여러 행
+
+ - 다중 컬럼 서브쿼리(Multi-Column Subquery) : 서브쿼리의 결과가 여러 컬럼
+
+
+8. 상관 서브쿼리 -> 단독으로 사용 불가능
