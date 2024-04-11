@@ -3,11 +3,11 @@ sqld : https://heoni00.github.io/sqld/sqld-02/#sqld-%EC%B7%A8%EB%93%9D%ED%95%B4%
 
 
 
-1. 날짜 관련 명령어
+           1. 날짜 관련 명령어
 
  - CURRENT_TIMESTAMP로 시스템 날짜 확인
 
- - SELECT STR_TO_DATE('2008-01-01', '%Y-%m-%D');
+ - DATE_FORMAT('2008-01-01', '%Y-%m-%D');
 
  - CURRENT_DATE는 시스템 날짜의 날짜만 확인하는 함수. 
 
