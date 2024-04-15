@@ -1,4 +1,4 @@
-package salaryDATA;
+package salaryVO;
 
 public class IdPwdDATA {
 	//관리자,일반 사용자 구분

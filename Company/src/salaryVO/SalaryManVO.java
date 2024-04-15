@@ -1,15 +1,15 @@
-package salaryDATA;
+package salaryVO;
 
-public class SalaryManDTO {
+public class SalaryManVO {
 
 	private String name;
 	private String department;
 	private String rank;
-	private String salary;
+	private int salary;
 	private String phoneNumber;
 
 
-	public SalaryManDTO(String name,String phoneNumber,String department,String rank,String salary)
+	public SalaryManVO(String name,String phoneNumber,String department,String rank,int salary)
 	{
 		this.name = name;
 		this.phoneNumber = phoneNumber;
@@ -34,7 +34,7 @@ public class SalaryManDTO {
 	}
 
 
-	public String getSalary() {
+	public int getSalary() {
 		return salary;
 	}	
 	
@@ -57,7 +57,7 @@ public class SalaryManDTO {
 	}
 
 
-	public void setSalary(String salary) {
+	public void setSalary(int salary) {
 		this.salary = salary;
 	}
 

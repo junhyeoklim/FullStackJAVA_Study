@@ -1,33 +1,33 @@
-package salaryController;
+package salaryDAO;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Scanner;
 
-import salaryDATA.SalaryManDTO;
+import salaryVO.SalaryManVO;
 
-public class SalaryManHandler {
+public class SalaryManDAO {
 
-	private ArrayList<SalaryManDTO> man;
-	private Iterator<SalaryManDTO> salaryIter;
-	private static SalaryManHandler sms;	
+	private ArrayList<SalaryManVO> man;
+	private static SalaryManDAO sms;
+	private Iterator<SalaryManVO> salaryIter;
 	private boolean check;
 	private Scanner sc;
 
 	//싱글톤 사용이유 : 검색 하거나 데이터 입력을 할때마다 새로운 객체가 생성 되는지 배열에 널값이 들어감
 
-	private SalaryManHandler(int size) {
+	private SalaryManDAO(int size) {
 		man = new ArrayList<>(size);
 		sc = new Scanner(System.in);
 	}
 
-	public static SalaryManHandler getSalary(int size) {
+	public static SalaryManDAO getSalary(int size) {
 		if (sms == null)
-			sms = new SalaryManHandler(size);
+			sms = new SalaryManDAO(size);
 		return sms;
 	}
 
-	public void setSalaryMan(SalaryManDTO smi) {
+	public void setSalaryMan(SalaryManVO smi) {
 		if (!man.stream().anyMatch(m -> m.getPhoneNumber().equals(smi.getPhoneNumber()))) {
 			man.add(smi);
 		} else {
@@ -67,16 +67,18 @@ public class SalaryManHandler {
 
 	public void searchDepartment(String department)
 	{   
-		salaryIter = man.iterator();
+		int manLength = man.size();
 
-		while(salaryIter.hasNext())
-		{
-			if(salaryIter.next().getDepartment().equals(department))
+		for (int i = 0; i < manLength; i++) {
+			if(man.get(i).getDepartment().compareTo(department) == 0)
 			{
-				salaryIter.next().showManDepartment();
-				
-			}			
+				System.out.println();
+				man.get(i).showManDepartment();
+				check = true;
+			}
 		}
+		if(!check)
+			System.out.println("찾으시는 사원 정보가 없습니다.");
 
 	}
 
@@ -96,12 +98,12 @@ public class SalaryManHandler {
 			System.out.println("찾으시는 사원 정보가 없습니다.");
 
 	}
-	public void searchSalary(String salary)
+	public void searchSalary(int salary)
 	{
 		int manLength = man.size();
 
 		for (int i = 0; i < manLength; i++) {
-			if(man.get(i).getSalary().compareTo(salary) == 0)
+			if(man.get(i).getSalary() == salary)
 			{
 				System.out.println();
 				man.get(i).showManSalary();
@@ -114,56 +116,59 @@ public class SalaryManHandler {
 
 	public void updatePhoneNumber(String name,String phoeNumber)
 	{
-		salaryIter = man.iterator();
-		while(salaryIter.hasNext()) {
-			if(salaryIter.next().getName().equals(name))
+		int manLength = man.size();
+		for (int i = 0; i < manLength; i++) {
+			if(man.get(i).getName().compareTo(name) == 0)
 			{
-				salaryIter.next().setPhoneNumber(phoeNumber);		
+				man.get(i).setPhoneNumber(phoeNumber);
+				return;
 			}
 		}
 	}
 	public void updateDepartment(String name,String department)
 	{
-		salaryIter = man.iterator();
-		while(salaryIter.hasNext()) {
-			if(salaryIter.next().getName().equals(name))
+		int manLength = man.size();
+		for (int i = 0; i < manLength; i++) {
+			if(man.get(i).getName().compareTo(name) == 0)
 			{
-				salaryIter.next().setDepartment(department);		
+				man.get(i).setDepartment(department);
+				return;
 			}
 		}
 	}
 	public void updateRank(String name,String rank)
 	{
-		salaryIter = man.iterator();
-		while(salaryIter.hasNext()) {
-			if(salaryIter.next().getName().equals(name))
+		int manLength = man.size();
+		for (int i = 0; i < manLength; i++) {
+			if(man.get(i).getName().compareTo(name) == 0)
 			{
-				salaryIter.next().setRank(rank);		
+				man.get(i).setRank(rank);
+				return;
 			}
 		}
 	}
-	public void updateSalary(String name,String salary)
+	public void updateSalary(String name,int salary)
 	{
-		salaryIter = man.iterator();
-		while(salaryIter.hasNext()) {
-			if(salaryIter.next().getName().equals(name))
+		int manLength = man.size();
+		for (int i = 0; i < manLength; i++) {
+			if(man.get(i).getName().compareTo(name) == 0)
 			{
-				salaryIter.next().setSalary(salary);		
+				man.get(i).setSalary(salary);
+				return;
 			}
 		}
 	}
-	public void updateAllInfo(String name,String phoneNumber,String department, String rank, String salary)
+	public void updateAllInfo(String name,String phoneNumber,String department, String rank, int salary)
 	{
-		salaryIter = man.iterator();
-		//String	replaceAll(String regex, String replacement) 이거 써서 바꾸기 하자
-		while(salaryIter.hasNext())
-		{
-			if(salaryIter.next().getName().equals(name))
+		int manLength = man.size();
+		for (int i = 0; i < manLength; i++) {
+			if(man.get(i).getName().compareTo(name) == 0)
 			{
-				salaryIter.next().setPhoneNumber(phoneNumber);
-				salaryIter.next().setDepartment(department);
-				salaryIter.next().setRank(rank);
-				salaryIter.next().setSalary(salary);
+				man.get(i).setPhoneNumber(phoneNumber);
+				man.get(i).setDepartment(department);
+				man.get(i).setRank(rank);
+				man.get(i).setSalary(salary);
+				return;
 			}
 		}
 	}

@@ -1,4 +1,4 @@
-package salaryDATA;
+package salaryVO;
 
 public final class SalaryConstatnt {
 	

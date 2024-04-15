@@ -3,7 +3,7 @@ package salaryUI;
 
 import java.util.Scanner;
 
-import salaryDATA.SalaryConstatnt;
+import salaryVO.SalaryConstatnt;
 
 public class SalaryManMain {
 

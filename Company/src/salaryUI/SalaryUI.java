@@ -1,19 +1,18 @@
 package salaryUI;
 
 import java.util.Scanner;
-import java.util.Vector;
 
-import salaryController.SalaryManHandler;
-import salaryDATA.SalaryConstatnt;
-import salaryDATA.SalaryManDTO;
+import salaryDAO.SalaryManDAO;
+import salaryVO.SalaryConstatnt;
+import salaryVO.SalaryManVO;
 
 public class SalaryUI {
-	private static SalaryManHandler salarySet = SalaryManHandler.getSalary(500);
+	private static SalaryManDAO salarySet = SalaryManDAO.getSalary(500);
 	private static String name;
 	private static String phoneNumber;
 	private	static String department;
 	private	static String rank;
-	private	static String salary;	
+	private	static int salary;	
 	private static Scanner sc = new Scanner(System.in);
 
 
@@ -39,7 +38,7 @@ public class SalaryUI {
 		System.out.println("이름을 입력 해주세요!");
 		System.out.print("이름 : ");
 		name = sc.nextLine();
-		
+
 		System.out.println("전화번호를 입력 해주세요!");
 		System.out.print("전화번호 : ");
 		phoneNumber = sc.nextLine();
@@ -54,9 +53,10 @@ public class SalaryUI {
 
 		System.out.println("연봉을 입력해주세요!");
 		System.out.print("연봉 : ");
-		salary = sc.nextLine();		
+		salary = sc.nextInt();
+		sc.nextLine();
 		System.out.println();
-		salarySet.setSalaryMan(new SalaryManDTO(name, phoneNumber,department, rank, salary));	
+		salarySet.setSalaryMan(new SalaryManVO(name, phoneNumber,department, rank, salary));	
 	}
 
 	public static void salrarySearch()
@@ -105,7 +105,8 @@ public class SalaryUI {
 				}
 				case SalaryConstatnt.SALARY: {			
 					System.out.println("\n연봉 입력");
-					String str = sc.nextLine();	
+					int str = sc.nextInt();
+					sc.nextLine();
 					salarySet.searchSalary(str);
 					break;
 				}
@@ -141,7 +142,7 @@ public class SalaryUI {
 		System.out.println("사원정보 변경을 시작합니다.");
 		System.out.println("변경하고자 하는 사원 이름을 입력 해주세요");
 
-		System.out.print("이믈:");
+		System.out.print("이름:");
 		name = sc.nextLine();		
 
 		int result = salarySet.search(name);
@@ -162,8 +163,8 @@ public class SalaryUI {
 		case SalaryConstatnt.UPDATE_PHOENUMBER: {
 			System.out.println("변경할 전화번호를 입력 하세요.");
 			System.out.print("전화번호 :");
-			department = sc.nextLine();
-			salarySet.updateDepartment(name,phoneNumber);
+			phoneNumber = sc.nextLine();
+			salarySet.updatePhoneNumber(name, phoneNumber);
 			System.out.println("변경이 완료 되었습니다!");
 			break;				
 		}
@@ -186,25 +187,27 @@ public class SalaryUI {
 		case SalaryConstatnt.UPDATE_SALARY: {
 			System.out.println("변경할 연봉을 입력 하세요.");
 			System.out.print("연봉 :");
-			salary = sc.nextLine();
+			salary = sc.nextInt();
+			sc.nextLine();
 			salarySet.updateSalary(name, salary);
 			System.out.println("변경이 완료 되었습니다!");
 			break;				
 		}
 		case SalaryConstatnt.UPDATE_ALL: {
 			System.out.println("새롭게 변경될 정보들을 입력 하세요.");
-			
+
 			System.out.print("전화번호 :");
 			phoneNumber = sc.nextLine();
-			
+
 			System.out.print("부서 :");
 			department = sc.nextLine();
-			
+
 			System.out.print("직급 :");
 			rank = sc.nextLine();
-			
+
 			System.out.print("연봉 :");
-			salary = sc.nextLine();			
+			salary = sc.nextInt();
+			sc.nextLine();
 
 			salarySet.updateAllInfo(name,phoneNumber ,department,rank,salary);
 			System.out.println("변경이 완료 되었습니다!");
@@ -214,7 +217,7 @@ public class SalaryUI {
 			System.out.println("올바른 값을 입력 해주세요!");
 		}
 	}
-	
+
 	public static void salaryDeleteUI()
 	{
 		String name;
@@ -227,17 +230,27 @@ public class SalaryUI {
 		if(result != -1)
 		{
 			System.out.println("정말 삭제하시겠습니까? 1. Yes 2. No");
-			answer = sc.nextInt();
-			sc.nextLine();
-			switch(answer)
+			while(true)
 			{
-			case SalaryConstatnt.YES:
-				salarySet.deleteSalary(result);
-				break;
-			case SalaryConstatnt.NO:
-				break;
-			default:
-				System.out.println("잘못 누르셨습니다.");
+				try {
+
+					answer = sc.nextInt();
+					sc.nextLine();
+					switch(answer)
+					{
+					case SalaryConstatnt.YES:
+						salarySet.deleteSalary(result);
+						return;
+					case SalaryConstatnt.NO:
+						return;
+					default:
+						System.out.println("잘못 누르셨습니다.");
+					}
+				}
+				catch (Exception e) {
+					System.out.println("숫자를 입력 해주세요!");
+					sc.nextLine();
+				}
 			}
 		}
 		else
