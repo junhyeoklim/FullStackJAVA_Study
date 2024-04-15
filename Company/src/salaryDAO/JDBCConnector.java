@@ -2,7 +2,6 @@ package salaryDAO;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class JDBCConnector {
@@ -31,9 +30,4 @@ public class JDBCConnector {
 		return con;
 	}
 	
-	
-	public static void main(String[] args) {
-
-		getCon();
-	}
 }

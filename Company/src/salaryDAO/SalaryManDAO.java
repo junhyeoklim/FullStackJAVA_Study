@@ -1,24 +1,27 @@
 package salaryDAO;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Scanner;
 
 import salaryVO.SalaryManVO;
 
 public class SalaryManDAO {
 
 	private ArrayList<SalaryManVO> man;
+	private Connection conn = JDBCConnector.getCon();
 	private static SalaryManDAO sms;
-	private Iterator<SalaryManVO> salaryIter;
+	private String sql;
 	private boolean check;
-	private Scanner sc;
+	private int result;
 
 	//싱글톤 사용이유 : 검색 하거나 데이터 입력을 할때마다 새로운 객체가 생성 되는지 배열에 널값이 들어감
 
 	private SalaryManDAO(int size) {
 		man = new ArrayList<>(size);
-		sc = new Scanner(System.in);
 	}
 
 	public static SalaryManDAO getSalary(int size) {
@@ -28,8 +31,25 @@ public class SalaryManDAO {
 	}
 
 	public void setSalaryMan(SalaryManVO smi) {
+		sql = "INSERT INTO salary_man(s_name,s_department,s_rank,s_salary,s_phoneNumber) values(?,?,?,?,?)";
 		if (!man.stream().anyMatch(m -> m.getPhoneNumber().equals(smi.getPhoneNumber()))) {
 			man.add(smi);
+			try(PreparedStatement pstmt = conn.prepareStatement(sql);) {
+				pstmt.setString(1, smi.getName());
+				pstmt.setString(2, smi.getDepartment());
+				pstmt.setString(3, smi.getRank());
+				pstmt.setInt(4, smi.getSalary());
+				pstmt.setString(5, smi.getPhoneNumber());
+
+				result = pstmt.executeUpdate();
+
+				if(result > 0)
+					System.out.println("등록이 완료되었습니다.\n");
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
 		} else {
 			System.out.println("이미 등록된 사원입니다.");
 		}
@@ -181,19 +201,38 @@ public class SalaryManDAO {
 	//등록된 사원 전부를 출력하는 메소드
 	public void salaryManeList()
 	{
-		salaryIter = man.iterator();
+		sql = "SELECT * FROM salary_man";
+		
+		try(PreparedStatement pstmt = conn.prepareStatement(sql);
+				) {
+			ResultSet rs = pstmt.executeQuery(sql);
+			check = rs.next();
+			
+			if(!check)
+				System.out.println("사원 정보가 존재하지 않습니다.\n");
+			else
+			{				
+				while(check)
+				{
+					System.out.println();
+					System.out.println("사원 번호 : " +rs.getInt("s_id"));
+					System.out.println("이름 : "+ rs.getString("s_name"));
+					System.out.println("전화번호 : "+rs.getString("s_phoneNumber"));
+					System.out.println("부서 : "+rs.getString("s_department"));
+					System.out.println("직급 : "+rs.getString("s_rank"));
+					System.out.println("연봉 : "+rs.getInt("s_salary"));
+					System.out.println("회사 입사일 : "+rs.getString("Join_Time"));
+					
+					check = rs.next();
+				}
+			}
 
-		if(!salaryIter.hasNext())
-		{
-			System.out.println("사원 정보가 존재하지 않습니다.\n");
+			System.out.println();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 
-		else
-		{
-			while(salaryIter.hasNext())
-				salaryIter.next().showManAllInfo();
-			System.out.println();	
-		}
 	}
 }
 
