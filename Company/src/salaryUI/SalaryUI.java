@@ -145,9 +145,9 @@ public class SalaryUI {
 		System.out.print("이름:");
 		name = sc.nextLine();		
 
-		int result = salarySet.search(name);
+		boolean result = salarySet.search(name);
 
-		if(result == -1)
+		if(!result)
 		{
 			System.out.println("찾으시는 사용자 정보가 없습니다.");
 			return;
@@ -221,13 +221,13 @@ public class SalaryUI {
 	public static void salaryDeleteUI()
 	{
 		String name;
-		int result=0;
+		
 		int answer=0;
 		System.out.println("사원 이름을 입력하세요.");
-		System.out.println(">>");
+		System.out.print(">>");
 		name = sc.nextLine();		
-		result = salarySet.search(name);
-		if(result != -1)
+		boolean result = salarySet.search(name);
+		if(result)
 		{
 			System.out.println("정말 삭제하시겠습니까? 1. Yes 2. No");
 			while(true)
@@ -239,7 +239,7 @@ public class SalaryUI {
 					switch(answer)
 					{
 					case SalaryConstatnt.YES:
-						salarySet.deleteSalary(result);
+						salarySet.deleteSalary(name);
 						return;
 					case SalaryConstatnt.NO:
 						return;

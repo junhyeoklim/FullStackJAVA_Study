@@ -15,6 +15,7 @@ public class SalaryManDAO {
 	private Connection conn = JDBCConnector.getCon();
 	private static SalaryManDAO sms;
 	private String sql;
+	//	private String searchSql;
 	private boolean check;
 	private int result;
 
@@ -31,9 +32,14 @@ public class SalaryManDAO {
 	}
 
 	public void setSalaryMan(SalaryManVO smi) {
-		sql = "INSERT INTO salary_man(s_name,s_department,s_rank,s_salary,s_phoneNumber) values(?,?,?,?,?)";
-		if (!man.stream().anyMatch(m -> m.getPhoneNumber().equals(smi.getPhoneNumber()))) {
-			man.add(smi);
+
+		//휴대 전화 중복 확인
+		check = checkPhone(smi.getPhoneNumber());
+
+		if(!check)
+		{
+			sql = "INSERT INTO salary_man(s_name,s_department,s_rank,s_salary,s_phoneNumber) values(?,?,?,?,?)";
+
 			try(PreparedStatement pstmt = conn.prepareStatement(sql);) {
 				pstmt.setString(1, smi.getName());
 				pstmt.setString(2, smi.getDepartment());
@@ -49,53 +55,117 @@ public class SalaryManDAO {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-
-		} else {
-			System.out.println("이미 등록된 사원입니다.");
 		}
+		else
+			System.out.println("이미 등록된 사원입니다.\n");
+
 	}
 
 
 
 	public void searchName(String name)
 	{		
-		int manLength = man.size();
+		check = search(name);
 
-		for (int i = 0; i < manLength; i++) {
-			if(man.get(i).getName().compareTo(name) == 0)
+		sql = "SELECT * FROM salary_man WHERE s_name = '"+name+"'";		
+		try(PreparedStatement pstmt = conn.prepareStatement(sql);
+				ResultSet rs = pstmt.executeQuery()) {
+
+			while(rs.next())
 			{
 				System.out.println();
-				man.get(i).showManAllInfo();
-				check = true;
+				System.out.println("사원 번호 : " +rs.getInt("s_id"));
+				System.out.println("이름 : "+ rs.getString("s_name"));
+				System.out.println("전화번호 : "+rs.getString("s_phoneNumber"));
+				System.out.println("부서 : "+rs.getString("s_department"));
+				System.out.println("직급 : "+rs.getString("s_rank"));
+				System.out.println("연봉 : "+rs.getInt("s_salary"));
+				System.out.println("회사 입사일 : "+rs.getString("Join_Time"));
 			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+
 		if(!check)
 			System.out.println("찾으시는 사원 정보가 없습니다.");
 	}
 
-	public int search(String name)
-	{		
-		int manLength = man.size();
+	/*
+	 * public int search(String name) { int manLength = man.size();
+	 * 
+	 * //기존에 사용하던 알고리즘 for (int i = 0; i < manLength; i++) {
+	 * if(man.get(i).getName().compareTo(name) == 0) return i; } return -1; }
+	 */   
 
-		//기존에 사용하던 알고리즘
-		for (int i = 0; i < manLength; i++) {
-			if(man.get(i).getName().compareTo(name) == 0)
-				return i;
+	public boolean search(String name)
+	{		
+		sql = "SELECT s_name FROM salary_man WHERE s_name = '"+name+"'";		
+		try(PreparedStatement pstmt = conn.prepareStatement(sql);
+				ResultSet rs = pstmt.executeQuery()) {
+			check = rs.next();
+
+			while(true)
+			{
+				if(check)
+					return true;
+				check = rs.next();
+			}
+
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		return -1;
+		return false;
 	}   
+
+	public boolean checkPhone(String phoneNumber)
+	{
+		sql = "SELECT s_phoneNumber FROM salary_man WHERE s_phoneNumber = '"+phoneNumber+"'";
+
+		try(PreparedStatement pstmt = conn.prepareStatement(sql);
+				ResultSet rs = pstmt.executeQuery()) {
+
+			check = rs.next();
+
+			while(true)
+			{
+				if(check)
+					return true;
+				check = rs.next();
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+
+
+
+
 
 	public void searchDepartment(String department)
 	{   
-		int manLength = man.size();
+		sql = "SELECT s_id,s_name,s_phoneNumber,s_rank,s_salary,Join_Time FROM salary_man WHERE s_department = '"+department+"'";		
+		try(PreparedStatement pstmt = conn.prepareStatement(sql);
+				ResultSet rs = pstmt.executeQuery()) {
 
-		for (int i = 0; i < manLength; i++) {
-			if(man.get(i).getDepartment().compareTo(department) == 0)
+			while(rs.next())
 			{
+				System.out.println("사원 번호 : " +rs.getInt("s_id"));
+				System.out.println("이름 : "+ rs.getString("s_name"));
+				System.out.println("전화번호 : "+rs.getString("s_phoneNumber"));
+				System.out.println("직급 : "+rs.getString("s_rank"));
+				System.out.println("연봉 : "+rs.getInt("s_salary"));
+				System.out.println("회사 입사일 : "+rs.getString("Join_Time"));
 				System.out.println();
-				man.get(i).showManDepartment();
-				check = true;
 			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		if(!check)
 			System.out.println("찾으시는 사원 정보가 없습니다.");
@@ -104,15 +174,23 @@ public class SalaryManDAO {
 
 	public void searchRank(String rank)
 	{
-		int manLength = man.size();
+		sql = "SELECT s_id,s_name,s_phoneNumber,s_department,s_salary,Join_Time FROM salary_man WHERE s_rank = '"+rank+"'";		
+		try(PreparedStatement pstmt = conn.prepareStatement(sql);
+				ResultSet rs = pstmt.executeQuery()) {
 
-		for (int i = 0; i < manLength; i++) {
-			if(man.get(i).getRank().compareTo(rank) == 0)
+			while(rs.next())
 			{
+				System.out.println("사원 번호 : " +rs.getInt("s_id"));
+				System.out.println("이름 : "+ rs.getString("s_name"));
+				System.out.println("전화번호 : "+rs.getString("s_phoneNumber"));
+				System.out.println("부서 : "+rs.getString("s_department"));
+				System.out.println("연봉 : "+rs.getInt("s_salary"));
+				System.out.println("회사 입사일 : "+rs.getString("Join_Time"));
 				System.out.println();
-				man.get(i).showManRank();
-				check = true;
 			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		if(!check)
 			System.out.println("찾으시는 사원 정보가 없습니다.");
@@ -120,30 +198,45 @@ public class SalaryManDAO {
 	}
 	public void searchSalary(int salary)
 	{
-		int manLength = man.size();
+		sql = "SELECT s_id,s_name,s_phoneNumber,s_department,s_rank,Join_Time FROM salary_man WHERE s_salary = '"+salary+"'";		
+		try(PreparedStatement pstmt = conn.prepareStatement(sql);
+				ResultSet rs = pstmt.executeQuery()) {
 
-		for (int i = 0; i < manLength; i++) {
-			if(man.get(i).getSalary() == salary)
+			while(rs.next())
 			{
+				System.out.println("사원 번호 : " +rs.getInt("s_id"));
+				System.out.println("이름 : "+ rs.getString("s_name"));
+				System.out.println("전화번호 : "+rs.getString("s_phoneNumber"));
+				System.out.println("부서 : "+rs.getString("s_department"));
+				System.out.println("직급 : "+rs.getString("s_rank"));
+				System.out.println("회사 입사일 : "+rs.getString("Join_Time"));
 				System.out.println();
-				man.get(i).showManSalary();
-				check = true;
 			}
-		}
-		if(!check)
-			System.out.println("찾으시는 사원 정보가 없습니다.");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
 	}
 
-	public void updatePhoneNumber(String name,String phoeNumber)
+	public void updatePhoneNumber(String name,String phoneNumber)
 	{
-		int manLength = man.size();
-		for (int i = 0; i < manLength; i++) {
-			if(man.get(i).getName().compareTo(name) == 0)
-			{
-				man.get(i).setPhoneNumber(phoeNumber);
-				return;
+		sql = "UPDATE salary_man SET s_phoneNumber = ? WHERE s_name = '"+name+"'";
+
+		check = checkPhone(phoneNumber);
+
+		if(!check)
+		{
+			try(PreparedStatement pstmt = conn.prepareStatement(sql);) {
+				pstmt.setString(1, phoneNumber);
+				result = pstmt.executeUpdate();			
+
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 		}
+		else
+			System.out.println("이미 등록된 전화번호 입니다.");
 	}
 	public void updateDepartment(String name,String department)
 	{
@@ -180,41 +273,67 @@ public class SalaryManDAO {
 	}
 	public void updateAllInfo(String name,String phoneNumber,String department, String rank, int salary)
 	{
-		int manLength = man.size();
-		for (int i = 0; i < manLength; i++) {
-			if(man.get(i).getName().compareTo(name) == 0)
-			{
-				man.get(i).setPhoneNumber(phoneNumber);
-				man.get(i).setDepartment(department);
-				man.get(i).setRank(rank);
-				man.get(i).setSalary(salary);
-				return;
+		sql = "UPDATE salary_man SET s_phoneNumber = ? ,s_department = ?,s_rank = ?,s_salary = ? WHERE s_name = '"+name+"'";
+
+		check = checkPhone(phoneNumber);
+
+		if(!check)
+		{
+			try(PreparedStatement pstmt = conn.prepareStatement(sql);) {
+				pstmt.setString(1, phoneNumber);
+				pstmt.setString(2, department);
+				pstmt.setString(3, rank);
+				pstmt.setInt(4, salary);
+				
+				result = pstmt.executeUpdate();
+				
+				if(result > 0)
+					System.out.println("성공");
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 		}
+		else
+			System.out.println("이미 등록된 전화번호 입니다.");
 	}
 
-	public void deleteSalary(int idx)
+	public void deleteSalary(String name)
 	{
-		man.remove(idx);
-		System.out.println("삭제가 완료되었습니다.");
+		sql = "DELETE FROM salary_man WHERE s_name = '" + name+"'";
+
+		try(PreparedStatement pstmt = conn.prepareStatement(sql);) {
+
+			result = pstmt.executeUpdate();
+
+			if(result > 0)
+				System.out.println("삭제가 완료되었습니다.");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+
 	}
 	//등록된 사원 전부를 출력하는 메소드
 	public void salaryManeList()
 	{
 		sql = "SELECT * FROM salary_man";
-		
-		try(PreparedStatement pstmt = conn.prepareStatement(sql);
-				) {
+
+		try(PreparedStatement pstmt = conn.prepareStatement(sql);)
+		{
 			ResultSet rs = pstmt.executeQuery(sql);
 			check = rs.next();
-			
+
+			System.out.println();
+
 			if(!check)
-				System.out.println("사원 정보가 존재하지 않습니다.\n");
+				System.out.println("사원 정보가 존재하지 않습니다.");
 			else
 			{				
 				while(check)
 				{
-					System.out.println();
 					System.out.println("사원 번호 : " +rs.getInt("s_id"));
 					System.out.println("이름 : "+ rs.getString("s_name"));
 					System.out.println("전화번호 : "+rs.getString("s_phoneNumber"));
@@ -222,7 +341,7 @@ public class SalaryManDAO {
 					System.out.println("직급 : "+rs.getString("s_rank"));
 					System.out.println("연봉 : "+rs.getInt("s_salary"));
 					System.out.println("회사 입사일 : "+rs.getString("Join_Time"));
-					
+					System.out.println();
 					check = rs.next();
 				}
 			}
