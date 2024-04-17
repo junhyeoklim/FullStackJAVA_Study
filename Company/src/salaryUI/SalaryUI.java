@@ -7,7 +7,7 @@ import salaryVO.SalaryConstatnt;
 import salaryVO.SalaryManVO;
 
 public class SalaryUI {
-	private static SalaryManDAO salarySet = SalaryManDAO.getSalary(500);
+	private static SalaryManDAO salarySet = new SalaryManDAO();
 	private static String name;
 	private static String phoneNumber;
 	private	static String department;
@@ -210,7 +210,6 @@ public class SalaryUI {
 			sc.nextLine();
 
 			salarySet.updateAllInfo(name,phoneNumber ,department,rank,salary);
-			System.out.println("변경이 완료 되었습니다!");
 			break;				
 		}
 		default:

@@ -11,25 +11,23 @@ import salaryVO.SalaryManVO;
 
 public class SalaryManDAO {
 
-	private ArrayList<SalaryManVO> man;
 	private Connection conn = JDBCConnector.getCon();
 	private static SalaryManDAO sms;
 	private String sql;
-	//	private String searchSql;
 	private boolean check;
 	private int result;
 
 	//싱글톤 사용이유 : 검색 하거나 데이터 입력을 할때마다 새로운 객체가 생성 되는지 배열에 널값이 들어감
 
-	private SalaryManDAO(int size) {
-		man = new ArrayList<>(size);
-	}
-
-	public static SalaryManDAO getSalary(int size) {
-		if (sms == null)
-			sms = new SalaryManDAO(size);
-		return sms;
-	}
+//	private SalaryManDAO(int size) {
+//		new ArrayList<>(size);
+//	}
+//
+//	public static SalaryManDAO getSalary(int size) {
+//		if (sms == null)
+//			sms = new SalaryManDAO(size);
+//		return sms;
+//	}
 
 	public void setSalaryMan(SalaryManVO smi) {
 
@@ -127,14 +125,9 @@ public class SalaryManDAO {
 		try(PreparedStatement pstmt = conn.prepareStatement(sql);
 				ResultSet rs = pstmt.executeQuery()) {
 
-			check = rs.next();
+			while(rs.next())
+				return true;
 
-			while(true)
-			{
-				if(check)
-					return true;
-				check = rs.next();
-			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -174,7 +167,7 @@ public class SalaryManDAO {
 
 	public void searchRank(String rank)
 	{
-		sql = "SELECT s_id,s_name,s_phoneNumber,s_department,s_salary,Join_Time FROM salary_man WHERE s_rank = '"+rank+"'";		
+		sql = "SELECT s_id,s_name,s_phoneNumber,s_department,s_salary,Join_Date FROM salary_man WHERE s_rank = '"+rank+"'";		
 		try(PreparedStatement pstmt = conn.prepareStatement(sql);
 				ResultSet rs = pstmt.executeQuery()) {
 
@@ -240,40 +233,58 @@ public class SalaryManDAO {
 	}
 	public void updateDepartment(String name,String department)
 	{
-		int manLength = man.size();
-		for (int i = 0; i < manLength; i++) {
-			if(man.get(i).getName().compareTo(name) == 0)
-			{
-				man.get(i).setDepartment(department);
-				return;
-			}
+		sql = "UPDATE salary_man SET s_department = ?WHERE s_name = ?";
+
+		try(PreparedStatement pstmt = conn.prepareStatement(sql);) {
+			pstmt.setString(1, department);
+			pstmt.setString(2, name);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+
+		if(result > 0)
+			System.out.println("변경이 완료 되었습니다!");
 	}
 	public void updateRank(String name,String rank)
 	{
-		int manLength = man.size();
-		for (int i = 0; i < manLength; i++) {
-			if(man.get(i).getName().compareTo(name) == 0)
-			{
-				man.get(i).setRank(rank);
-				return;
-			}
+		sql = "UPDATE salary_man SET s_rank = ?WHERE s_name = ?";
+
+		try(PreparedStatement pstmt = conn.prepareStatement(sql);) {
+			pstmt.setString(1, rank);
+			pstmt.setString(2, name);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+
+		if(result > 0)
+			System.out.println("변경이 완료 되었습니다!");
 	}
 	public void updateSalary(String name,int salary)
 	{
-		int manLength = man.size();
-		for (int i = 0; i < manLength; i++) {
-			if(man.get(i).getName().compareTo(name) == 0)
-			{
-				man.get(i).setSalary(salary);
-				return;
-			}
+		sql = "UPDATE salary_man SET s_salary = ? WHERE s_name = ?";
+
+
+		try(PreparedStatement pstmt = conn.prepareStatement(sql);) {
+			pstmt.setInt(1, salary);
+			pstmt.setString(2, name);
+			result = pstmt.executeUpdate();
+
+			if(result > 0)
+				System.out.println("변경이 완료 되었습니다!");
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	public void updateAllInfo(String name,String phoneNumber,String department, String rank, int salary)
 	{
-		sql = "UPDATE salary_man SET s_phoneNumber = ? ,s_department = ?,s_rank = ?,s_salary = ? WHERE s_name = '"+name+"'";
+		sql = "UPDATE salary_man SET s_phoneNumber = ? ,s_department = ?,s_rank = ?,s_salary = ? WHERE s_name = ?";
 
 		check = checkPhone(phoneNumber);
 
@@ -284,19 +295,19 @@ public class SalaryManDAO {
 				pstmt.setString(2, department);
 				pstmt.setString(3, rank);
 				pstmt.setInt(4, salary);
-				
+				pstmt.setString(5, name);
 				result = pstmt.executeUpdate();
-				
+
 				if(result > 0)
-					System.out.println("성공");
-				
+					System.out.println("변경이 완료 되었습니다!");
+
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
 		else
-			System.out.println("이미 등록된 전화번호 입니다.");
+			System.out.println("이미 등록된 전화번호 입니다!");
 	}
 
 	public void deleteSalary(String name)
@@ -329,7 +340,7 @@ public class SalaryManDAO {
 			System.out.println();
 
 			if(!check)
-				System.out.println("사원 정보가 존재하지 않습니다.");
+				System.out.println("사원 데이터가 존재 하지 않습니다!");
 			else
 			{				
 				while(check)
@@ -340,7 +351,7 @@ public class SalaryManDAO {
 					System.out.println("부서 : "+rs.getString("s_department"));
 					System.out.println("직급 : "+rs.getString("s_rank"));
 					System.out.println("연봉 : "+rs.getInt("s_salary"));
-					System.out.println("회사 입사일 : "+rs.getString("Join_Time"));
+					System.out.println("회사 입사일 : "+rs.getString("Join_Date"));
 					System.out.println();
 					check = rs.next();
 				}
