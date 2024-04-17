@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <title>Day48 Test</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <style>
+        /* *{color: red;} */
+
+        /* h1{color: red;}
+        p{color: blue;} */
+
+        /* #rint{color: red;} */
+
+        /* .rd{color: red;} */
+
+        /* .rd{color: red;}
+        .blu{background-color: blue;} */
+
+        /* h1.rd{color: red;} */
+
+        /* input[type="text"]{background-color: red;}
+        input[type="password"]{background-color: blue;} */
+
+        /* #header h1 {color: red;}
+        #section h1 {color: orange;} */
+
+        /* #header > h1  { color: red; }
+        #section > h1 { color: orange; } */
+
+        /* table > tr > th {
+            color: red;
+        } */
+
+        /* input:enabled{background-color: white;}
+        input:disabled{background-color: gray;}
+        input:focus{background-color: orange;} */
+
+
+
+
+
+        /* li:first-child > a { color: red; } */
+    </style>
+</head>
+<body>
+    <!-- 11번 문제 -->
+    <!-- <audio controls>
+        <source src="Kalimba.mp3">
+    </audio> -->
+
+    <!-- 12번 문제 -->
+    <!-- <video poster="Penguins.jpg" width="640" height="360" controls>
+        <source  src="Kalimba.mp3">
+    </video> -->
+
+    <!-- 13번 문제 -->
+    <!-- <form>
+        <input type="text" placeholder="TEXT"><br>
+        <input type="password" placeholder="PASSWORD"><br>
+        <input type="file"><br>
+        <input type="submit" value="제출">
+    </form> -->
+
+    <!-- 15번 문제 -->
+    <!-- <form>
+        <textarea>
+
+        </textarea>
+    </form> -->
+
+    <!-- 16번 문제 -->
+    <!-- <form>
+        <select>
+            <option value="" selected disabled hidden>선택</option>
+            <option>김밥</option>
+            <option>떡볶이</option>
+            <option>순대</option>
+            <option>오댕</option>
+        </select>
+    </form> -->
+
+    <!-- 17번 문제 -->
+    <!-- <form>
+        <select multiple="multiple">
+            <option value="" selected disabled hidden>선택</option>
+            <option>김밥</option>
+            <option>떡볶이</option>
+            <option>순대</option>
+            <option>오댕</option>
+        </select>
+    </form> -->
+
+    <!-- 18번 문제 -->
+    <!-- <form>
+        <select>
+            <option value="" selected disabled hidden>선택</option>
+                <optgroup label="HTML5">
+                    <option>mmmmm</option>
+                    <option>asdasd</option>
+                    <option>asdasd</option>
+                </optgroup>
+                <optgroup label="CSS3">
+                    <option>mmmmm</option>
+                    <option>asdasd</option>                    
+                </optgroup>
+        </select>
+    </form> -->
+
+    <!-- 19번 문제 -->
+    <!-- <fieldset>
+        <legend>입력 양식</legend>
+            <table>
+                <tr>
+                    <td><label for="name">이름</label></td>
+                    <td><input type="text" id="name" placeholder="NAME" required></td>
+                </tr>
+                <tr>
+                    <td><label for="mail">이메일</label></td>
+                    <td><input type="email" id="mail" placeholder="E-MAIL" required></td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="submit" value="제출">
+                    </td>
+                </tr>
+            </table>
+    </fieldset> -->
+
+
+
+        <!-- 회원가입 폼 문제 -->
+    <!-- <form>
+        <table border="1">
+            <caption>회원가입</caption>
+                <tr>
+                    <td><label for="name">이름</label></td>
+                    <td><input type="text" id="name" placeholder="NAME" required></td>
+                </tr>
+
+                <tr>
+                    <td><label for="id">아이디</label></td>
+                    <td><input type="text" id="id" placeholder="ID" required></td>
+                </tr>
+
+                <tr>
+                    <td><label for="pwd">비밀번호</label></td>
+                    <td><input type="password" id="pwd" placeholder="PASWWORD" required></td>
+                </tr>
+
+                <tr>
+                    <td><label for="check">비밀번호 확인</label></td>
+                    <td><input type="password" id="check" placeholder="PASSWORD CHECK" required></td>
+                </tr>
+
+                <tr>
+                    <td><label for="mail">이메일</label></td>
+                    <td><input type="email" id="mail" placeholder="E-MAIL" required></td>
+                </tr>
+                
+                <tr>
+                    <td>취미</td>
+                    <td>
+                        <input type="checkbox" id="reding"><label for="reding">독서</label>
+                        <input type="checkbox" id="cooking"><label for="cooking">요리</label>
+                        <input type="checkbox" id="joggin"><label for="joggin">조깅</label>
+                        <input type="checkbox" id="swimming"><label for="swimming">수영</label>
+                        <input type="checkbox" id="sleep"><label for="sleep">취침</label>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>전공</td>
+                    <td>
+                        <input type="radio" name="major" id="korean"><label for="korean">국어</label>
+                        <input type="radio" name="major" id="english"><label for="english">영어</label>
+                        <input type="radio" name="major" id="math"><label for="math">수학</label>
+                        <input type="radio" name="major" id="design"><label for="design">디자인</label>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>전화번호</td>
+                    <td>
+                        <select>
+                            <option selected >선택</option>
+                            <option>SKT</option>
+                            <option>KT</option>
+                            <option>LG</option>
+                        </select>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="2">
+                        <input type="submit" value="전송">
+                        <input type="reset" value="초기화">
+                    </td>
+                </tr>
+        </table>
+    </form> -->
+
+    <!-- CSS문제 -->
+
+
+    <!-- 1번 문제 -->
+    <!-- <h1>제목 글자 태그</h1>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nisi risus, sollicitudin eget vehicula sed, eleifend suscipit neque. Proin rhoncus, ante vitae mattis consequat, libero nunc posuere justo, ut laoreet dolor nunc at dolor. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas dictum, lectus vestibulum laoreet tincidunt, nisi augue blandit risus, ut vestibulum erat dolor sit amet risus. Praesent semper consectetur mi eget auctor. Nulla facilisi. Duis bibendum massa in dui interdum sed tincidunt massa eleifend.</p> -->
+
+
+    <!-- 2번 문제 -->
+ <!-- <h1>제목 글자</h1>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nisi risus, sollicitudin eget vehicula sed, eleifend suscipit neque. Proin rhoncus, ante vitae mattis consequat, libero nunc posuere justo, ut laoreet dolor nunc at dolor. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas dictum, lectus vestibulum laoreet tincidunt, nisi augue blandit risus, ut vestibulum erat dolor sit amet risus. Praesent semper consectetur mi eget auctor. Nulla facilisi. Duis bibendum massa in dui interdum sed tincidunt massa eleifend.</p>
+    <p>Etiam lacus felis, ornare non lobortis ac, vehicula non diam. Integer pellentesque neque eget eros pulvinar pharetra. Maecenas gravida mi dui, at sollicitudin justo. Vestibulum pretium lacus lobortis arcu egestas dapibus. Sed nunc dui, adipiscing vitae mattis in, accumsan in neque. Sed pellentesque leo quis lorem posuere consequat. Duis sapien risus, rutrum ut ullamcorper et, accumsan a lorem. Ut metus est, varius eget molestie vitae, rutrum vitae ante. Quisque eu quam leo, et hendrerit lorem. Nullam nec risus sapien. Phasellus ut mauris eget justo mollis dictum. Nullam consectetur nibh at sem luctus mollis.</p> -->
+
+
+    <!-- 3번 문제 -->
+    <!-- h1,p{color: red;} -->
+
+
+    <!-- 4번 문제 -->
+    <!-- <h1 id="rint">CSS3 선택자 기본</h1>
+    <h2>CSS3 선택자 기본</h2>
+    <h3>CSS3 선택자 기본</h3> -->
+
+
+    <!-- 5번 문제 -->
+    <!-- <li class="rd">사과</li>
+    <li>바나나</li>
+    <li class="rd">오렌지</li>
+    <li>감</li> -->
+
+
+    <!-- 6번 문제 -->
+    <!-- <div class="rd blu">동해물과 백두산이</div> -->
+
+    <!-- 7번 문제 -->
+    <!-- <h1 class="rd">test</h1>
+    <h2 class="rd">test</h1> -->
+
+
+    <!-- 8번 문제 -->
+    <!-- <input type="text">
+    <input type="password"> -->
+
+    <!-- 9번 문제 -->
+    <!-- <div>
+		<h1>CSS 선택자 기본</h1>
+		<h2>기본 선택자</h2>
+		<ul>
+			<li>전체 선택자</li>
+			<li>태그 선택자</li>
+			<li>아이디 선택자와 클래스 선택자</li>
+		</ul>
+	</div> -->
+
+
+    <!-- 10번 문제 -->
+    <!-- <div id="header">
+        <h1 class="title">Lorem ipsum</h1>
+        <div id="nav">
+            <h1>Navigation</h1>
+        </div>
+    </div>
+    <div id="section">
+        <h1 class="title">Lorem ipsum</h1>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nisi risus, sollicitudin eget vehicula sed, eleifend suscipit neque. Proin rhoncus, ante vitae mattis consequat, libero nunc posuere justo, ut laoreet dolor nunc at dolor. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas dictum, lectus vestibulum laoreet tincidunt, nisi augue blandit risus, ut vestibulum erat dolor sit amet risus. Praesent semper consectetur mi eget auctor. Nulla facilisi. Duis bibendum massa in dui interdum sed tincidunt massa eleifend.</p>
+    </div> -->
+
+    <!-- 11번 문제 -->
+    <!-- <style>
+        #header h1, h2 {color:red;}
+   </style> 
+   header id의 자손인 h1과 태그 요소인 h2의 글자색이 red로 바뀐다
+    -->
+
+    <!-- 12번 문제 -->
+    <!-- <style>
+        #header h1, #header h2 {color:red; }
+    </style>
+    headr id의 자손인 h1,h2의 글자색이 red로 바뀐다.
+    -->
+
+    <!-- 14번 문제 -->
+    <!-- <div id="header">
+        <h1 class="title">Lorem ipsum</h1>
+        <div id="nav">
+            <h1>Navigation</h1>
+        </div>
+    </div>
+    <div id="section">
+        <h1 class="title">Lorem ipsum</h1>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nisi risus, sollicitudin eget vehicula sed, eleifend suscipit neque. Proin rhoncus, ante vitae mattis consequat, libero nunc posuere justo, ut laoreet dolor nunc at dolor. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas dictum, lectus vestibulum laoreet tincidunt, nisi augue blandit risus, ut vestibulum erat dolor sit amet risus. Praesent semper consectetur mi eget auctor. Nulla facilisi. Duis bibendum massa in dui interdum sed tincidunt massa eleifend.</p>
+    </div>
+    출력 결과는 10번 문제와 똑같이 나온다 -->
+
+    <!-- 15번 문제 -->
+        <!-- <table border="1">
+        <tr>
+            <th>이름</th>
+            <th>지역</th>
+        </tr>
+        <tr>
+            <td>윤인성</td>
+            <td>서울특별시 강서구 내발산동</td>
+        </tr>
+    </table>
+
+        출력 결과 아무도 바뀌지 않는데 
+        그 이유가 익스플로러에서 자동으로  table 밑에 tbody를 삽입하기 때문에 style 부분이 동작 하지 않는다.-->
+
+
+        <!-- 17번 문제 -->
+        <!-- <input type="text">      <input type="text" disabled> -->
+
+
+        <!-- 19~20번 문제 -->
+        <ul>
+            <li><a href="#">주의 사항</a></li>
+            <li><a href="#">주의 사항</a></li>
+            <li><a href="#">주의 사항</a></li>
+            <li><a href="#">주의 사항</a></li>
+            <li><a href="#">주의 사항</a></li>
+        </ul>
+        <!-- 실행 결과 전체 글자색이 red로 바뀐다
+            그 이유는 style을 보면 li태그의 자식인 a의 첫번째 자식의 글자색을
+            red로 바꾸라는 명령어인데 li태그의 자식은 a밖에 없으므로 전체 글자가 red로 바뀌는것이다.
+
+            첫번째 태그만 red로 바꾸고 싶다면
+            li:first-child > a 로 바꾸면 된다.
+        -->
+</body>
+</html>
