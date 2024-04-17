@@ -12,7 +12,8 @@ public final class SalaryConstatnt {
 	public static final int SALARYMAN_UPDATE = 3;
 	public static final int SALARYMAN_DELETE = 4;
 	public static final int SALARYMAN_LIST = 5;	
-	public static final int END = 6;
+	public static final int SALARYMAN_SAVE = 6;
+	public static final int END = 7;
 	
 	public static final int UPDATE_PHOENUMBER = 1;
 	public static final int UPDATE_DEPARTMENT = 2;

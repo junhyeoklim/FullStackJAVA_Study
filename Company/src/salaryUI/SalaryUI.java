@@ -24,7 +24,8 @@ public class SalaryUI {
 		System.out.println("3. 사원 정보 변경");
 		System.out.println("4. 사원 정보 삭제");
 		System.out.println("5. 모든 사원정보 보기");
-		System.out.println("6. 프로그램 종료");
+		System.out.println("6. 사원 리스트 저장");
+		System.out.println("7. 프로그램 종료");
 		System.out.print("선택 : ");
 	}
 
@@ -254,5 +255,11 @@ public class SalaryUI {
 		}
 		else
 			System.out.println("입력하신 사원이 존재하지 않습니다.");
+	}
+	
+	public static void Save()
+	{
+		salarySet.save();
+		System.out.println("저장되었습니다!\n");
 	}
 }

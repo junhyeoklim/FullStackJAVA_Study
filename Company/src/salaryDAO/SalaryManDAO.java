@@ -1,18 +1,23 @@
 package salaryDAO;
 
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Iterator;
 
 import salaryVO.SalaryManVO;
 
 public class SalaryManDAO {
 
 	private Connection conn = JDBCConnector.getCon();
-	private static SalaryManDAO sms;
+//	private static SalaryManDAO sms;
 	private String sql;
 	private boolean check;
 	private int result;
@@ -334,9 +339,10 @@ public class SalaryManDAO {
 	{
 		sql = "SELECT * FROM salary_man";
 
-		try(PreparedStatement pstmt = conn.prepareStatement(sql);)
+		try(PreparedStatement pstmt = conn.prepareStatement(sql);
+			ResultSet rs = pstmt.executeQuery();)
 		{
-			ResultSet rs = pstmt.executeQuery(sql);
+			
 			check = rs.next();
 
 			System.out.println();
@@ -358,13 +364,64 @@ public class SalaryManDAO {
 					check = rs.next();
 				}
 			}
-
 			System.out.println();
+			rs.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+	}
+	
+	public void save()
+	{
+		sql = "SELECT * FROM salary_man";
+		
+		try(FileOutputStream fos = new FileOutputStream("Salary_Man_List.txt");
+			OutputStreamWriter osw = new OutputStreamWriter(fos,"UTF-8");
+			BufferedWriter bw = new BufferedWriter(osw);			
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			ResultSet rs = pstmt.executeQuery();) {
+			
+			check = rs.next();
+			
+			if(!check)
+			{
+				System.out.println("사원 정보가 존재하지 않습니다.");
+				return;
+			}
+			else
+			{
+				while(check)
+				{
+					bw.write("사원 번호 : "+rs.getInt("s_id"));
+					bw.write("\n");
+					bw.write("사원 이름 : "+rs.getString("s_name"));
+					bw.write("\n");
+					bw.write("전화 번호 : "+rs.getString("s_phoneNumber"));
+					bw.write("\n");
+					bw.write("부서 이름 : "+rs.getString("s_department"));
+					bw.write("\n");
+					bw.write("사원 직급 : "+rs.getString("s_rank"));
+					bw.write("\n");
+					bw.write("사원 연봉 : "+rs.getInt("s_salary"));
+					bw.write("\n");
+					bw.write("회사 입사일 : "+rs.getString("Join_Date"));
+					bw.write("\n\n");
+					
+					check = rs.next();
+				}
+			}
+			
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 	}
 }
 

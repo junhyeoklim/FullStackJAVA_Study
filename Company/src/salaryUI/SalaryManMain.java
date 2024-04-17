@@ -59,6 +59,11 @@ public class SalaryManMain {
 				SalaryUI.salaryList();
 				break;
 			}
+			case SalaryConstatnt.SALARYMAN_SAVE: 
+			{		
+				SalaryUI.Save();
+				break;
+			}			
 			case SalaryConstatnt.END:
 			{
 				System.out.println("프로그램을 종료합니다!");
