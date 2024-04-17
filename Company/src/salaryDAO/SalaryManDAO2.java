@@ -9,10 +9,10 @@ import java.util.Iterator;
 
 import salaryVO.SalaryManVO;
 
-public class SalaryManDAO {
+public class SalaryManDAO2 {
 
 	private Connection conn = JDBCConnector.getCon();
-	private static SalaryManDAO sms;
+	private static SalaryManDAO2 sms;
 	private String sql;
 	private boolean check;
 	private int result;
@@ -211,16 +211,17 @@ public class SalaryManDAO {
 		}	
 	}
 
-	public void updatePhoneNumber(String name,String phoneNumber)
+	public void updatePhoneNumber(SalaryManVO smv)
 	{
-		sql = "UPDATE salary_man SET s_phoneNumber = ? WHERE s_name = '"+name+"'";
+		sql = "UPDATE salary_man SET s_phoneNumber = ? WHERE s_name = ?";
 
-		check = checkPhone(phoneNumber);
+		check = checkPhone(smv.getPhoneNumber());
 
 		if(!check)
 		{
 			try(PreparedStatement pstmt = conn.prepareStatement(sql);) {
-				pstmt.setString(1, phoneNumber);
+				pstmt.setString(1, smv.getPhoneNumber());
+				pstmt.setString(2, smv.getName());
 				result = pstmt.executeUpdate();			
 
 			} catch (SQLException e) {
@@ -231,13 +232,13 @@ public class SalaryManDAO {
 		else
 			System.out.println("이미 등록된 전화번호 입니다.");
 	}
-	public void updateDepartment(String name,String department)
+	public void updateDepartment(SalaryManVO smv)
 	{
 		sql = "UPDATE salary_man SET s_department = ?WHERE s_name = ?";
 
 		try(PreparedStatement pstmt = conn.prepareStatement(sql);) {
-			pstmt.setString(1, department);
-			pstmt.setString(2, name);
+			pstmt.setString(1, smv.getDepartment());
+			pstmt.setString(2, smv.getName());
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -248,13 +249,13 @@ public class SalaryManDAO {
 		if(result > 0)
 			System.out.println("변경이 완료 되었습니다!");
 	}
-	public void updateRank(String name,String rank)
+	public void updateRank(SalaryManVO smv)
 	{
 		sql = "UPDATE salary_man SET s_rank = ?WHERE s_name = ?";
 
 		try(PreparedStatement pstmt = conn.prepareStatement(sql);) {
-			pstmt.setString(1, rank);
-			pstmt.setString(2, name);
+			pstmt.setString(1, smv.getRank());
+			pstmt.setString(2, smv.getName());
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -264,14 +265,14 @@ public class SalaryManDAO {
 		if(result > 0)
 			System.out.println("변경이 완료 되었습니다!");
 	}
-	public void updateSalary(String name,int salary)
+	public void updateSalary(SalaryManVO smv)
 	{
 		sql = "UPDATE salary_man SET s_salary = ? WHERE s_name = ?";
 
 
 		try(PreparedStatement pstmt = conn.prepareStatement(sql);) {
-			pstmt.setInt(1, salary);
-			pstmt.setString(2, name);
+			pstmt.setInt(1, smv.getSalary());
+			pstmt.setString(2, smv.getName());
 			result = pstmt.executeUpdate();
 
 			if(result > 0)
@@ -282,20 +283,20 @@ public class SalaryManDAO {
 			e.printStackTrace();
 		}
 	}
-	public void updateAllInfo(String name,String phoneNumber,String department, String rank, int salary)
+	public void updateAllInfo(SalaryManVO smv)
 	{
 		sql = "UPDATE salary_man SET s_phoneNumber = ? ,s_department = ?,s_rank = ?,s_salary = ? WHERE s_name = ?";
 
-		check = checkPhone(phoneNumber);
+		check = checkPhone(smv.getPhoneNumber());
 
 		if(!check)
 		{
 			try(PreparedStatement pstmt = conn.prepareStatement(sql);) {
-				pstmt.setString(1, phoneNumber);
-				pstmt.setString(2, department);
-				pstmt.setString(3, rank);
-				pstmt.setInt(4, salary);
-				pstmt.setString(5, name);
+				pstmt.setString(1, smv.getPhoneNumber());
+				pstmt.setString(2, smv.getDepartment());
+				pstmt.setString(3, smv.getRank());
+				pstmt.setInt(4, smv.getSalary());
+				pstmt.setString(5, smv.getName());
 				result = pstmt.executeUpdate();
 
 				if(result > 0)
@@ -310,18 +311,17 @@ public class SalaryManDAO {
 			System.out.println("이미 등록된 전화번호 입니다!");
 	}
 
-	public void deleteSalary(String name)
+	public void deleteSalary(SalaryManVO smv)
 	{
-		sql = "DELETE FROM salary_man WHERE s_name = '" + name+"'";
-		
+		sql = "DELETE FROM salary_man WHERE s_name = ?";
+
 		try(PreparedStatement pstmt = conn.prepareStatement(sql);) {
 
+			pstmt.setString(1, smv.getName());
 			result = pstmt.executeUpdate();
 
 			if(result > 0)
 				System.out.println("삭제가 완료되었습니다.");
-			
-
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
