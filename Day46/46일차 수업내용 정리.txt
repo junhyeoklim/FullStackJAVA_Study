@@ -2,7 +2,7 @@
 
 2. executeQuery(sql) : select 구문을 날릴때 씀 
 
-
+*참고 : https://lelecoder.com/2
 
 3. Statement vs Prepared Statement
 
