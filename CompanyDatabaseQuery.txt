@@ -9,5 +9,5 @@ CREATE TABLE salary_man(
   s_rank char(10) NOT NULL,
   s_salary int NOT NULL,
   s_phoneNumber char(10) NOT NULL,
-  Join_Time datetime default CURRENT_TIMESTAMP NOT NULL
+  Join_Date datetime default CURRENT_TIMESTAMP NOT NULL
 );
