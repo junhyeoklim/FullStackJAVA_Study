@@ -11,11 +11,7 @@ import javax.imageio.ImageIO;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -25,13 +21,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URLEncoder;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
+import java.util.concurrent.Delayed;
 
 @Controller
 public class CBFilterMain {
@@ -86,7 +78,7 @@ public class CBFilterMain {
 			//파일 권환 설정
 			//imageFile.setWritable(true);
 			//imageFile.setReadable(true);
-
+			
 			//권환 설정 확인
 			//System.out.println("읽기 권환 학인하기 : " + imageFile.canRead());
 			//System.out.println("쓰기 권환 학인하기 : " + imageFile.canWrite());
@@ -109,31 +101,51 @@ public class CBFilterMain {
 
 				// 새로운 GIF 이미지 생성
 				String outputImagePath =  savePath+ File.separator + imageFile.getName();
+				long startTime = System.currentTimeMillis();
 				createGifFromFrames(frames, outputImagePath);
-
-				System.out.println("GIF 이미지 변환이 완료되었습니다.");
-
-				//변환된 사진 출력 (단,convert 눌렀을 시 바로 이미지 변환 후 저장되는게 아니라서 바로는 못 찾음)
+				long endTime = System.currentTimeMillis();
+				
+				long time = endTime - startTime;
+				
+				System.out.println("GIF 이미지 변환이 완료되었습니다. :" +time);
+				
+	            //이미지 저장 되는 시간동안 잠시 대기 
+				Thread.sleep(time*10);
+				
+				//변환된 사진 출력 
 				return "redirect:/img/convert/{imageName}";
 
 
 			} else if(imageFile.getName().endsWith(".jpg") || imageFile.getName().endsWith(".png")) {
+				
+				long startTime = System.currentTimeMillis();
+				
 				// GIF가 아닌 경우 일반 이미지 변환
 				BufferedImage originalImage = ImageIO.read(imageFile);
 
 				// 색맹 시뮬레이션을 적용한 이미지 생성
 				BufferedImage simulatedImage = CBFilterSimulation.simulateColorBlindness(originalImage, colorBlindType);
-//				String outputImagePath =  savePath+File.separator+ imageFile.getName();
-				// 이미지 저장           
-				String outputImagePath = "src/main/resources/static/img/convert/"+imageFile.getName();
+				
+				
+				//따로 지정한 이미지 저장 경로
+				String outputImagePath =  savePath+File.separator+ imageFile.getName();
+				//기존  이미지 저장 경로           
+//				String outputImagePath = "src/main/resources/static/img/convert/"+imageFile.getName();
+				
 				ImageIO.write(simulatedImage, "png", new File(outputImagePath));
-
-	               
-
-	               System.out.println("이미지 변환이 완료되었습니다.");
-	               
-	            //변환된 사진 출력 (단,convert 눌렀을 시 바로 이미지 변환 후 저장되는게 아니라서 바로는 못 찾음)
+				long endTime = System.currentTimeMillis();
+				long time = endTime - startTime;
+				
+               System.out.println("이미지 변환이 완료되었습니다. : "+time);
+               
+               //이미지 저장 되는 시간동안 잠시 대기 
+               Thread.sleep(time*4);
+               
+               
+	            //변환된 사진 출력 
 	            return "redirect:/img/convert/{imageName}";
+	            
+	            
 //				System.out.println("이미지 변환이 완료되었습니다.");   
 //				System.out.println("이미지 아웃풋 출력 : " + outputImagePath);
 //
@@ -148,7 +160,7 @@ public class CBFilterMain {
 			else {	
 				return "/alert";
 			}
-		} catch (IOException e) {
+		} catch (IOException | InterruptedException e) {
 			e.printStackTrace();
 		}
 			return "redirect:/";
