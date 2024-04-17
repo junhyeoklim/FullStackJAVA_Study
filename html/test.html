@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <title>CSS3 Selector Basic Page</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <style>
+        /* *{color: red;} */
+
+        /* h1{color: red;}
+        p{color: blue;} */
+
+        /* h1,p{color: red;} */
+
+        /* #rint {color: red;} */
+
+        /* .change{color: red;} */
+
+        /* .color{color: red;}
+        .back{background-color: blue;} */
+
+        /* li.select { color: red; } */
+
+        /* input[type = "text"]{background-color: red;}
+        input[type = "password"] {background-color: blue;} */
+
+        /* #header h1 {color: red;}
+        #section h1 {color: orange;} */
+
+        /* #header > h1  { color: red; }
+        #section > h1 { color: orange; } */
+
+        /* table > tr > th {
+            color: red;
+        } */
+
+        /* h1:hover{color: red;}
+        h1:active{color: blue;} */
+
+        /* input:enabled{background-color: white;}
+        input:disabled{background-color: grey;}
+        input:focus{background-color: orange;} */
+
+        /* ul { overflow: hidden; } */
+        /* li {
+            list-style: none;
+            float:left; 
+	        padding: 15px;
+        }
+
+        li:first-child { border-radius: 10px 0 0 10px; }
+        li:last-child { border-radius: 0 10px 10px 0; }
+
+        li:nth-child(2n) { background-color: #FF0003; }
+        li:nth-child(2n+1) { background-color:#800000; } */
+
+        /* li > a:first-child { color: red; } */
+
+        li:first-child > a { color: red; }
+
+    </style>
+</head>
+<body>
+
+    <!-- 1번문제 -->
+    <!-- <h1>제목 글자 태그</h1>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nisi risus, sollicitudin eget vehicula sed, eleifend suscipit neque. Proin rhoncus, ante vitae mattis consequat, libero nunc posuere justo, ut laoreet dolor nunc at dolor. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas dictum, lectus vestibulum laoreet tincidunt, nisi augue blandit risus, ut vestibulum erat dolor sit amet risus. Praesent semper consectetur mi eget auctor. Nulla facilisi. Duis bibendum massa in dui interdum sed tincidunt massa eleifend.</p>
+     -->
+
+     <!-- 2번 문제 -->
+     <!-- <h1>제목 글자</h1>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nisi risus, sollicitudin eget vehicula sed, eleifend suscipit neque. Proin rhoncus, ante vitae mattis consequat, libero nunc posuere justo, ut laoreet dolor nunc at dolor. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas dictum, lectus vestibulum laoreet tincidunt, nisi augue blandit risus, ut vestibulum erat dolor sit amet risus. Praesent semper consectetur mi eget auctor. Nulla facilisi. Duis bibendum massa in dui interdum sed tincidunt massa eleifend.</p>
+    <p>Etiam lacus felis, ornare non lobortis ac, vehicula non diam. Integer pellentesque neque eget eros pulvinar pharetra. Maecenas gravida mi dui, at sollicitudin justo. Vestibulum pretium lacus lobortis arcu egestas dapibus. Sed nunc dui, adipiscing vitae mattis in, accumsan in neque. Sed pellentesque leo quis lorem posuere consequat. Duis sapien risus, rutrum ut ullamcorper et, accumsan a lorem. Ut metus est, varius eget molestie vitae, rutrum vitae ante. Quisque eu quam leo, et hendrerit lorem. Nullam nec risus sapien. Phasellus ut mauris eget justo mollis dictum. Nullam consectetur nibh at sem luctus mollis.</p> -->
+
+    <!-- 3번 문제 -->
+    <!-- <h1>제목 글자</h1>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nisi risus, sollicitudin eget vehicula sed, eleifend suscipit neque. Proin rhoncus, ante vitae mattis consequat, libero nunc posuere justo, ut laoreet dolor nunc at dolor. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas dictum, lectus vestibulum laoreet tincidunt, nisi augue blandit risus, ut vestibulum erat dolor sit amet risus. Praesent semper consectetur mi eget auctor. Nulla facilisi. Duis bibendum massa in dui interdum sed tincidunt massa eleifend.</p>
+    <p>Etiam lacus felis, ornare non lobortis ac, vehicula non diam. Integer pellentesque neque eget eros pulvinar pharetra. Maecenas gravida mi dui, at sollicitudin justo. Vestibulum pretium lacus lobortis arcu egestas dapibus. Sed nunc dui, adipiscing vitae mattis in, accumsan in neque. Sed pellentesque leo quis lorem posuere consequat. Duis sapien risus, rutrum ut ullamcorper et, accumsan a lorem. Ut metus est, varius eget molestie vitae, rutrum vitae ante. Quisque eu quam leo, et hendrerit lorem. Nullam nec risus sapien. Phasellus ut mauris eget justo mollis dictum. Nullam consectetur nibh at sem luctus mollis.</p> -->
+
+    <!-- 4번 문제 -->
+    <!-- <h1 id="rint">CSS3 선택자 기본</h1>
+    <h2>CSS3 선택자 기본</h2>
+    <h3>CSS3 선택자 기본</h3> -->
+
+    <!-- 5번 문제 -->
+    <!-- <li class="change">사과</li>
+    <li>바나나</li>
+    <li class="change">오렌지</li>
+    <li>감</li> -->
+
+    <!-- 6번 문제 -->
+    <!-- <h1 class="color back">동해물과 백두산이</h1> -->
+
+    <!-- 7번 문제 -->
+    <!-- <h1 class="select">제목 글자</h1>
+    <ul>
+        <li class="select">사과</li>
+        <li>바나나</li>
+        <li>오렌지</li>
+        <li>감</li>
+    </ul> -->
+
+    <!-- 8번 문제 -->
+    <!-- <input type="text" placeholder="text">
+    <input type="password" placeholder="password"> -->
+
+    <!-- 9번 -->
+    <!-- <div>
+		<h1>CSS 선택자 기본</h1>
+		<h2>기본 선택자</h2>
+		<ul>
+			<li>전체 선택자</li>
+			<li>태그 선택자</li>
+			<li>아이디 선택자와 클래스 선택자</li>
+		</ul>
+	</div> -->
+
+    <!-- 10번 문제 -->
+    <!-- <div id="header">
+        <h1 class="title">Lorem ipsum</h1>
+        <div id="nav">
+            <h1>Navigation</h1>
+        </div>
+    </div>
+    <div id="section">
+        <h1 class="title">Lorem ipsum</h1>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nisi risus, sollicitudin eget vehicula sed, eleifend suscipit neque. Proin rhoncus, ante vitae mattis consequat, libero nunc posuere justo, ut laoreet dolor nunc at dolor. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas dictum, lectus vestibulum laoreet tincidunt, nisi augue blandit risus, ut vestibulum erat dolor sit amet risus. Praesent semper consectetur mi eget auctor. Nulla facilisi. Duis bibendum massa in dui interdum sed tincidunt massa eleifend.</p>
+    </div> -->
+
+    <!-- 11번 문제 -->
+    <!-- 
+        <style>
+            #header h1, h2 {color:red;}
+        </style> 
+        header id의 후손 h1을 선택 후 일반 h2태그를 선택하여 글자색을 red로 바꾸라는 css
+    -->
+
+    <!-- 12번 문제 -->
+    <!-- 
+        <style>
+	        #header h1, #header h2 {color:red; }
+        </style>
+        header태그의 후손인 h1 태그와 header 태그의 후손인 h2 태그를 선택 후 글자색을 red로 바꾸라는 css
+    -->
+
+    <!-- 13번 문제 -->
+    <!-- 10번 문제랑 같은 출력 결과가 나올것이다. -->
+    <!-- <div id="header">
+        <h1 class="title">Lorem ipsum</h1>
+        <div id="nav">
+            <h1>Navigation</h1>
+        </div>
+    </div>
+    <div id="section">
+        <h1 class="title">Lorem ipsum</h1>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nisi risus, sollicitudin eget vehicula sed, eleifend suscipit neque. Proin rhoncus, ante vitae mattis consequat, libero nunc posuere justo, ut laoreet dolor nunc at dolor. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas dictum, lectus vestibulum laoreet tincidunt, nisi augue blandit risus, ut vestibulum erat dolor sit amet risus. Praesent semper consectetur mi eget auctor. Nulla facilisi. Duis bibendum massa in dui interdum sed tincidunt massa eleifend.</p>
+    </div> -->
+
+    <!-- 14번 문제 -->
+    <!-- th태그에 해당 되는 곳의 글자 색이 red로 바뀔것이다. ->x
+        실행 결과 -> 변화 x
+    -->
+
+    <!-- 15번 문제 -->
+    <!-- <table border="1">
+        <tr>
+            <th>이름</th>
+            <th>지역</th>
+        </tr>
+        <tr>
+            <td>윤인성</td>
+            <td>서울특별시 강서구 내발산동</td>
+        </tr>
+    </table> -->
+
+    <!-- 16번 문제 -->
+    <!-- <h1>안녕하세요</h1> -->
+
+    <!-- 17번 문제 -->
+    <!-- <input type="text" placeholder="text">
+    <input disabled="disabled"/><br> -->
+
+    <!-- 18번 문제 -->
+    <!-- <ul>
+        <li>첫 번째</li>
+        <li>두 번째</li>
+        <li>세 번째</li>
+        <li>네 번째</li>
+        <li>다섯 번째</li>
+        <li>여섯 번째</li>
+        <li>일곱 번째</li>
+    </ul> -->
+
+    <!-- 19~20번 문제 -->
+    <!-- li태그의 자식인 a의 첫번째 자식들이 red 바뀌는건데 li태그의 자식이 
+        a 밖에 없으므로 전체 text가 red로 바뀐다 
+        첫 번째 a태그에만 red를 적용하는 방법은 li > a:first-child를
+        li:first-child > a 로 바꾸면 된다.
+    -->
+    <ul>
+        <li><a href="#">주의 사항</a></li>
+        <li><a href="#">주의 사항</a></li>
+        <li><a href="#">주의 사항</a></li>
+        <li><a href="#">주의 사항</a></li>
+        <li><a href="#">주의 사항</a></li>
+    </ul>
+</body>
+</html>
