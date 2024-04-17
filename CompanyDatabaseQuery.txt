@@ -5,9 +5,9 @@ CREATE DATABASE company;
 CREATE TABLE salary_man(
   s_id int AUTO_INCREMENT PRIMARY KEY,
   s_name varchar(20) NOT NULL,
+  s_phoneNumber char(10) NOT NULL,
   s_department char(20) NOT NULL,
   s_rank char(10) NOT NULL,
-  s_salary int NOT NULL,
-  s_phoneNumber char(10) NOT NULL,
+  s_salary int NOT NULL, 
   Join_Date datetime default CURRENT_TIMESTAMP NOT NULL
 );
