@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <style>
+        /* [title]{
+            color: yellow;
+            background-color: black;
+        } */
+
+        /* [title="first h2"]{
+            color: yellow;
+            background-color: black;
+        } */
+
+        /* [title~="first"]{
+            color: yellow;
+            background-color: black;
+        } */
+
+        /* [title|="first"]{
+            color: yellow;
+            background-color: black;
+        } */
+
+        /* [title^="first"]{
+            color: yellow;
+            background-color: black;
+        } */
+
+        /* [title$="first"]{
+            color: yellow;
+            background-color: black;
+        } */
+
+
+        /* [title*="first"]{
+            color: yellow;
+            background-color: black;
+        } */
+
+
+        /* input[type="text"]{
+            width: 150px;
+			display: block;
+            background-color: antiquewhite;
+            margin-bottom: 10px;
+        }
+        input[type="password"]
+        {
+            width: 130px;
+			display: block;
+			background-color: #90EE90;
+            border: 2px solid red;
+        }
+        input[type="password"]:focus
+        {
+            background-color: rgb(16, 223, 81);
+            
+        } */
+
+
+        img[src$="png"]{
+            border: 3px solid red;
+        }
+        img[src$="jpg"]{
+            border: 3px solid green;
+        }
+        img[src$="gif"]{
+            border: 3px solid blue;
+        }
+
+
+
+
+        /* h1+h2{
+            color: red;
+        }
+        h1 ~ h2{
+            background-color: orange;
+        } */
+    </style>
+</head>
+<body>
+    <!-- 1번 문제 -->
+    <!-- <h1>[속성] 선택자를 이용한 선택</h1>
+
+    <h2 title="first">이 제목은 title 속성을 가지고 있습니다!</h2>
+    <h3>이 제목은 title 속성을 가지고 있지 않습니다.!</h3>
+    <p><h3 title="first">이 단락은 title속성을 가지고 있습니다.!</h3></p>
+    <p><h3 title="first">이 단락은 title속성을 가지고 있습니다.!</h3></p> -->
+
+
+    <!-- 2번 문제 -->
+    <!-- <h1 title="first h2">이 제목은 title 속성값이 "first h2"입니다!</h1>
+    <h2>이 제목은 title 속성을 가지고 있지 않습니다!</h2>
+    <p title="first p">이 단락은 title 속성값이 "first p"입니다!</p>
+    <p title="second p">이 단락은 title 속성값이 "second p"입니다!</p> -->
+
+    <!-- 3~4번 문제 -->
+    <!-- <h1 title="first h2">이 제목은 title 속성값이 "first h2"입니다!</h1>
+    <h2>이 제목은 title 속성을 가지고 있지 않습니다!</h2>
+    <p title="first p">이 단락은 title 속성값이 "first p"입니다!</p>
+    <p title="first-p">이 단락은 title 속성값이 "first-p"입니다!</p> -->
+
+
+    <!-- 5번 문제 -->
+    <!-- <h1 title="first h2">이 제목은 title 속성값이 "first h2"입니다!</h1>
+    <h2>이 제목은 title 속성을 가지고 있지 않습니다!</h2>
+    <p title="first p">이 단락은 title 속성값이 "first p"입니다!</p>
+    <p title="first-p">이 단락은 title 속성값이 "first-p"입니다!</p>
+    <p title="p first">이 단락은 title 속성값이 "p first"입니다!</p> -->
+
+
+    <!-- 6번 문제 -->
+    <!-- <h1 title="first h2">이 제목은 title 속성값이 "first h2"입니다!</h1>
+    <h2>이 제목은 title 속성을 가지고 있지 않습니다!</h2>
+    <p title="p first">이 단락은 title 속성값이 "p first"입니다!</p>
+    <p title="p-first">이 단락은 title 속성값이 "p-first"입니다!</p> -->
+    
+
+    <!-- 7번 문제 -->
+    <!-- <h1 title="first h2">이 제목은 title 속성값이 "first h2"입니다!</h1>
+    <h2>이 제목은 title 속성을 가지고 있지 않습니다!</h2>
+    <p title="my-first-p">이 단락은 title 속성값이 "my-first-p"입니다!</p>
+    <p title="p-first">이 단락은 title 속성값이 "p-first"입니다!</p> -->
+
+
+    <!-- 8번 문제 -->
+    <!-- <h1>속성 선택자를 이용한 선택</h1>
+	<form>
+		사용자 : <br>
+		<input type="text" name="username"> 
+		비밀번호 : <br>
+		<input type="password" name="password">
+	</form> -->
+
+
+    <!-- 9번 문제 -->
+    <img src="jajq.png" width="200" height="300" />
+    <img src="node.jpg" width="200" height="300" />
+    <img src="ux.gif" width="200" height="300" />
+
+
+
+    <!-- 10~11번 문제 -->
+    <!-- <h1>Header - 1</h1>
+    <h2>Header - 2</h2>
+    <h2>Header - 2</h2>
+    <h2>Header - 2</h2>
+    <h2>Header - 2</h2> -->
+</body>
+</html>

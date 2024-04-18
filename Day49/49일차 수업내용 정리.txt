@@ -15,3 +15,34 @@
 3. li a:hover:not(.active) 
 
  - .active 태그는 hover 속성을 적용 안 한다 라는 의미
+
+
+4. background-size
+
+ - background-size: 'width' 'height';
+
+ - background-size: 'first img size','second img size';
+
+
+
+5. background-repeat:repeat;
+
+ - 이미지 반복 출력 (default 값은 repeat이고 반복을 중단 시킬려면 no-repeat 키워드를 써주면 된다) 
+
+
+
+6. background-attachment
+
+ - background-attachment는 배경 이미지를 화면에 고정하는 속성. 
+   background-attachment 속성의 기본 키워드는 scroll입니다. 
+   화면 스크롤에 따라 배경 이미지가 함께 이동합니다.
+
+ - fixed 키워드 : 배경 이미지가 고정되어 화면을 움직이면 계속 이미지가 고정되어 보여진다.
+
+
+7. background-position
+
+ - top 키워드 : 상단에 위치
+ - botto 키워드 : 하단에 위치
+ - background-position: X축 위치;
+ - background-position: X축 위치 Y축 위치;
