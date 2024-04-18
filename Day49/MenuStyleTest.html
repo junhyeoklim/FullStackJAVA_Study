@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <style>
+        body {margin:0;}
+        ul{
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: black;
+            position: fixed;
+            top: 0;
+            width: 100%;
+        }
+        li{
+            float: left;
+            border-right: 1px solid #bbb;
+        }
+        li:last-child {
+            border-right: none;
+        }
+        li a{            
+            display: block;            
+            padding: 14px 16px;           
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            
+        }
+        li a:hover:not(.active) {
+            background-color: #acacac;
+        }
+
+        .active {
+                background-color: #4CAF50;
+                }
+        div{
+            padding:20px;
+            margin-top:30px;
+            height:1500px;
+         }
+        
+        /* li a{            
+            display: block;
+            padding: 8px;
+            background-color: silver;
+         
+            
+        } */
+        /* span a{
+            float: left;
+            display: block;
+            background-color: silver;
+            padding: 8px;
+        } */
+        /* p{
+            clear: both;
+        } */
+    </style>
+</head>
+<body>
+    <!-- <span>
+        <a href="#Home">Home</a>
+        <a href="#News">News</a>
+        <a href="#Contact">Contact</a>
+        <a href="#About">About</a>
+    </span> -->
+
+    <ul>
+        <li><a class="active"  href="#Home">Home</a></li>
+        <li><a href="#News">News</a></li>
+        <li><a href="#Contact">Contact</a></li>
+        <li><a href="#About" >About</a></li>        
+    </ul>
+    <div>
+    <p><b>Note:</b>
+    If a !DOCTYPE is not specified, floating items can produce unexoected results.</p>
+    <p>A background color is added to the links to show the link area. The whole link area is clickable, not just the text.</p>
+
+    <p>
+        <b>Note:</b>
+        overflow:hidden is added to th ul element to prevent li elements from going outside of list.
+    </p>
+    </div>
+</body>
+</html>
