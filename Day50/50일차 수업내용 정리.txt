@@ -1,0 +1,18 @@
+1. 
+       div#a{
+        width:300px;
+        height:300px;
+        background:#52D4FF;
+        position: relative;;
+        top:100px;
+        left:100px;
+      }
+      div#b{
+        background:#FF63EA;
+        position: absolute;
+        top:0px;
+        left:100px;
+      }
+
+-> 많이 쓰는 형태 ( 부모 positin이 relative 자식 position이 absoulute면 부모 위치를 기준으로
+    자식이 위치를 잡음)
