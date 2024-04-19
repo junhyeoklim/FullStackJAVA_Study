@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <title>MenuTotalTest</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <style>
+        body{
+            margin: 0;
+        }
+        ul{
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: black; 
+            width: 100%;
+            
+            display: inline-block;
+            
+        }
+        li{
+            float: left;
+            color: white;
+            padding: 8px;
+        }
+        .first{
+            background-color: rgb(45, 216, 45);
+        }
+        li:hover:not(.first)
+        {
+            background-color: silver;
+        }
+        .News{
+            position: relative;         
+           
+        }
+        .menu1{
+            position: absolute;
+            top: 20px;
+            /* margin-top: 20px; */
+            /* display: none;        */
+             
+            /* min-width: 160px;     */
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        }
+        .menu1 a{
+            padding: 12px 16px;
+            display: block;
+            text-decoration: none;
+        }
+        .News:hover .menu1{
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <ul>
+        <div class="Home">           
+                <li class="first">Home</li>            
+        </div>
+
+        <div class="News">       
+            <li>News</li> 
+                <div class="menu1">
+                    <a href="#">Sports</a>
+                    <a href="#">Sports</a>
+                    <a href="#">Sports</a>
+                </div>      
+        </div>
+
+        <div class="Contact">            
+                <li>Contact</li>           
+        </div>
+
+        <div class="About">        
+                <li>About</li>            
+        </div>
+    </ul>
+</body>
+</html>

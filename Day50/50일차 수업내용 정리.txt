@@ -16,3 +16,44 @@
 
 -> 많이 쓰는 형태 ( 부모 positin이 relative 자식 position이 absoulute면 부모 위치를 기준으로
     자식이 위치를 잡음)
+
+
+
+2. .first div:nth-child(2) vs div:nth-child(2)
+
+ - 동위라는 단어 뜻을 한번 생각 해보자
+   후자 같은 경우 첫번째가 <h1>이고 2번째가 <div class="first">이니 div:nth-child(2)가 적용 되는거다
+
+
+3. text-shadow: 5px      5px    5px                                 0px            black
+  	        오른쪽 아래 흐림도(크기가 클수록 더 연해짐)    퍼짐 정도   색상
+
+
+
+4. box-shadow: 10px 10px 30px black inset;
+
+ - inset -> 안쪽
+
+
+
+5. absolute position의 특징
+ - 부모 요소 내부에 속박되지 않고, 독립된 배치 문맥(positioning context)을 가지게 됩니다. 
+   마치 포토샵 같은 그래픽 툴에서 새로운 레이어를 추가하는 효과에 비슷하다고 생각하시면 됩니다.
+
+ - 요소를 기본적으로 브라우저 화면(viewport) 상에서 어디든지 원하는 위치에 자유롭게 배치시킬 수 있으며, 
+   심지어 부모 요소 위에 겹쳐서 배치할 수도 있습니다.
+
+ - 단, 상위 요소 중에 position 속성이 relative인 요소가 있다면, 
+   그 중 가장 가까운 요소의 내부에서만 요소를 자유롭게 배치할 수 있습니다. 
+   즉, 전체 화면이 아닌 해당 상위 요소를 기준으로 offset 속성(top, left, bottom, right)이 적용됩니다.
+
+  ex): https://www.daleseo.com/css-position-absolute/
+
+
+6. menu바 만들기 참고
+
+ - https://me-in-journey.com/entry/HTMLCSS-%EB%93%9C%EB%A1%AD%EB%8B%A4%EC%9A%B4-%EB%A9%94%EB%89%B4-%EB%B0%94-%EB%A7%8C%EB%93%A4%EA%B8%B0-2%EC%B0%A8-%EB%A9%94%EB%89%B4-%EB%A7%8C%EB%93%A4%EA%B8%B0-feat-position
+
+7. 녹화 참고
+
+ - https://zoomit.softonic.kr/

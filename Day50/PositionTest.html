@@ -6,32 +6,32 @@
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <style>
 
-       body > div{
+       .first{
             width: 400px;
             height: 100px;
             border: 2px solid black;
             position: relative;
             /* overflow: hidden; */
-            overflow: scroll;
+            /* overflow: scroll; */
         }
 
 
-        .box{
+        div{
             width: 100px;
             height: 100px;
             position: absolute;
         }
-        .box:nth-child(1){
+        .first div:nth-child(1){
             background-color: red;
             left: 10px; top: 10px;
             z-index: 100;
         }
-        .box:nth-child(2){
-            background-color: green;
+        .first div:nth-child(2){
+            background-color: green;            
             left: 50px; top: 50px;
-            z-index: 10;
+            z-index: 20;
         }
-        .box:nth-child(3){
+        .first div:nth-child(3){
             background-color: blue;
             left: 90px; top: 90px;
             z-index: 1;
@@ -40,10 +40,10 @@
 </head>
 <body>
     <h1>Lorem ipsum dolor sit amet</h1>
-    <div>
-        <div class="box"></div>
-        <div class="box"></div>
-        <div class="box"></div> 
+    <div class="first">
+        <div></div>
+        <div></div>
+        <div></div> 
     </div>
     <h1>Lorem ipsum dolor sit amet</h1>
 </body>
