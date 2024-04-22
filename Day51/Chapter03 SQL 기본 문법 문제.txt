@@ -1,0 +1,9 @@
+1. DROP TABLE IF EXISTS market_db;
+
+2. --
+
+3. select * from market_db.member;
+
+3-1. select addr "주소",debut_date "데뷔 일자",mem_name "이름" from member;
+
+3-2. 

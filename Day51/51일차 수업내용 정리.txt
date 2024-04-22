@@ -1,0 +1,13 @@
+1. white-space: nowrap
+
+ - white-space 속성이 normal로 설정된 요소 안에서는 
+   연속된 띄어쓰기, 들여쓰기 그리고 줄바꿈 문자가 모두 무시가 된다.
+
+ - 텍스트가 길어서 부모 요소 안의 가로폭을 넘어가더라도 
+   자동으로 줄바꿈이 일어나게 하고 싶지 않은 경우가 있을떄는 
+   white-space 속성을 nowrap으로 설정해주면 된다.
+
+ * 자세한건 Day50 14.white-space 참고
+
+
+2. text-overflow: ellipsis;
