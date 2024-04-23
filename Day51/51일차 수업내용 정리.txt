@@ -11,3 +11,5 @@
 
 
 2. text-overflow: ellipsis;
+
+ - ... 말줄임 효과

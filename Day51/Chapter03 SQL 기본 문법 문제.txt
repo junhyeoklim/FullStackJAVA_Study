@@ -49,3 +49,5 @@
 
 
 8. select distinct * from member;
+
+9.
