@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendar</title>
+    <link rel="stylesheet" type="text/css" href="Calendar.css">
+</head>
+<body onload="showCalendar()">
+       <header id="content" >
+            <section id="top">
+                <label for="year">연도 입력 :</label>
+                <input type="text" id="year" placeholder="year" required>
+          
+                <label for="month">월 입력 :</label>
+                <input type="text" id="month" placeholder="month" required>                
+                
+                <button type="button">출력</button>
+                <div id="now"></div>
+            </section>            
+
+            <section id="center">
+                <div id="calender"></div>
+            </section>
+          
+        <header>
+        
+
+
+    <script src="Calendar.js"></script>
+</body>
+</html>
