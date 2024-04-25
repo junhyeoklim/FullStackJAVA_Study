@@ -1,28 +1,22 @@
-            
-            function showCalendar(){
-            const now = new Date();
-            // const curMonth = now.getMonth();
-            // const curYear = now.getFullYear();
-            const curMonth = now.getMonth();            
-            const curYear =  now.getFullYear();
-            const curDate = now.getDate();
-            const nowTemp = new Date(curYear,curMonth,1);
-            const startDate = nowTemp.getDay();            
-            let week = ["일","월","화","수","목","금","토"];
+const now = new Date();            
+const curMonth = now.getMonth();            
+const curYear =  now.getFullYear();
+const curDate = now.getDate();
+const nowTemp = new Date(curYear,curMonth,1);
+const startDate = nowTemp.getDay();            
+const week = ["일","월","화","수","목","금","토"];
+
+
+
+
+          function showCalendar(){            
+            let reSet;         
+            let showWeek = 0;
             let cell = 0;
             let date = 1;  
             let nextDate = 1;          
             let lastDay = maxDate(curMonth);
             let numOfWeeks = Math.ceil((startDate+lastDay)/7);
-            let reSet;
-            let showWeek = 0;
-           
-
-
-            
-       
-         
-
             let table = "<table>";
             
             table += `<caption> ${curYear}년 ${curMonth+1}월</caption>`;
@@ -46,11 +40,11 @@
                         
                         if(date == curDate)
                         {
-                            table += `<td id='today'>${date}</td>`;
+                            table += `<td id='today' class='active-color'>${date}</td>`;
                             reSet = `<a href="#" onclick="nowDate()">${curYear}년 ${curMonth+1}월 ${curDate}일 ${week[showWeek]}요일</a>`
                         }
                         else
-                            table += `<td>${date}</td>`;
+                            table += `<td class='active-color'>${date}</td>`;
                         date++; 
                     }
                     else          
@@ -63,11 +57,11 @@
                 showWeek = 0;
             }
             table += `</table>`;          
-            
-            
+
             document.getElementById("now").innerHTML = reSet; 
             document.getElementById("calender").innerHTML = table;
     }
+            
 
     
     function leapYear(dateYear) {
@@ -108,22 +102,14 @@
 
 
 
-    function nowDate() {     
-        const now = new Date();
-        // const curMonth = now.getMonth();
-        // const curYear = now.getFullYear();
-        const curMonth = now.getMonth();            
-        const curYear =  now.getFullYear();
-        const curDate = now.getDate();
-        const nowTemp = new Date(curYear,curMonth,1);
-        const startDate = nowTemp.getDay();            
-        let week = ["일","월","화","수","목","금","토"];
-        let cell = 0;
-        let date = 1;            
-        let lastDay = maxDate(curMonth);
-        let numOfWeeks = Math.ceil((startDate+lastDay)/7);
-        let reSet;
+    function nowDate() {   
+
         let showWeek = 0;
+        let cell = 0;
+        let date = 1;  
+        let nextDate = 1;          
+        let lastDay = maxDate(curMonth);
+        let numOfWeeks = Math.ceil((startDate+lastDay)/7);                 
 
         let table = "<table>";
         
@@ -142,21 +128,22 @@
             for (let x = 0; x < 7; x++) {
 
                 if(cell<startDate)
-                    table += `<td>&nbsp;</td>`;
+                    table += `<td id='firstLine'>${maxDate(curMonth-1)}</td>`;
                 else if(date <= lastDay)
                 {
                     
                     if(date == curDate)
                     {
-                        table += `<td id='today'>${date}</td>`;
+                        table += `<td id='today' class='active-color'>${date}</td>`;
                         reSet = `<a href="#" onclick="nowDate()">${curYear}년 ${curMonth+1}월 ${curDate}일 ${week[showWeek]}요일</a>`
                     }
                     else
-                        table += `<td>${date}</td>`;
+                        table += `<td class='active-color'>${date}</td>`;
                     date++; 
                 }
-                else
-                    table += `<td>&nbsp;</td>`;
+                else          
+                    table += `<td id='lastLine'>${nextDate++}</td>`;
+  
                 showWeek++;
                 cell++;
             }
@@ -166,3 +153,9 @@
         table += `</table>`;  
         document.getElementById("calender").innerHTML = table;
     }
+
+
+
+        // $("td").click(function() {
+    //     toggleClass(".active-color");
+    // });
