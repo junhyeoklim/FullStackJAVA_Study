@@ -1,0 +1,33 @@
+body{
+    user-select: none;
+}
+form{    
+    text-align: center;
+    margin-bottom: 10px;
+}
+#choice{
+    padding: 5px;
+}
+table{        
+    /* font-weight:bold;     */    
+    color: white;
+    background-color: black;
+    border: none;
+    width: 150px;
+    margin: 0 auto;
+    font-size: 20px;
+    text-align: center;
+    caret-color: transparent;
+    cursor: default;
+}
+
+td:not(.selected):hover{
+    background-color: grey;
+}
+
+td:active{
+    background-color: red;
+}
+.selected {
+    background-color: red;
+}

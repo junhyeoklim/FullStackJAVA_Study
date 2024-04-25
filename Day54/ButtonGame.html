@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="ButtonGame.css">
+</head>
+<body>
+    
+    <form name="content">
+        <select id="choice">
+            <option value="" selected disabled>선택</option>
+            <option>3x3</option>
+            <option>4x4</option>
+            <option>5x5</option>
+        </select>
+        <button type="button" onclick="createGame()">게임시작!</button>
+    </form>
+    <div id="game"></div>
+    <script src="ButtonGame.js"></script>
+</body>
+</html>
