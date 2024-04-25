@@ -1,25 +1,34 @@
-const now = new Date();            
-const curMonth = now.getMonth();            
-const curYear =  now.getFullYear();
-const curDate = now.getDate();
-const nowTemp = new Date(curYear,curMonth,1);
-const startDate = nowTemp.getDay();            
 const week = ["일","월","화","수","목","금","토"];
+let calendar ={ year:0, month:0, date:1, theDayOfTheWeek:0, lastDay:0, numOfWeeks:0};
+let now = new Date();  
+let curMonth = now.getMonth();            
+let curYear =  now.getFullYear();
+let curDate = now.getDate();    
+let nowTemp = new Date(curYear,curMonth,1);
+let startDate = nowTemp.getDay(); 
+
+
+    function showCalendar(){            
+        let reSet, cell = 0, date = 1, nextDate = 1;                         
+        let table =  "";
+        getCalendar();           
 
 
 
-
-          function showCalendar(){            
-            let reSet;         
-            let showWeek = 0;
-            let cell = 0;
-            let date = 1;  
-            let nextDate = 1;          
-            let lastDay = maxDate(curMonth);
-            let numOfWeeks = Math.ceil((startDate+lastDay)/7);
-            let table = "<table>";
+        table += "<table>";
             
-            table += `<caption> ${curYear}년 ${curMonth+1}월</caption>`;
+            table += `<caption> ${calendar.year}년 ${calendar.month+1}월`;
+            table += "<div class = 'month'>";
+            table += "<ul>";
+            table += "<li class='prev'><a href='#' onclick='nextMonth(-1)'>&#10094;</a></li>";
+            table += "<li class='next'><a href='#' onclick='nextMonth(1)'>&#10095;</a></li>";
+            table += "<li class='showDate'>";
+            table +=  calendar.year+"년<br>";        
+            table += "<span>" +(calendar.month+1)  + "월</span>";
+            table += "</li>";
+            table += "</ul>";
+            table += "</div>";
+            table += `</caption>`;
 
             table += `<tr>`;
 
@@ -28,29 +37,31 @@ const week = ["일","월","화","수","목","금","토"];
             }
 
             table += `</tr>`;
-            for (let y = 0; y < numOfWeeks; y++) {
+            for (let y = 0; y <6; y++) {
+                
                 table += `<tr>`;
-
+                reSet = `<a href="#" onclick="nowDate()">${curYear}년 ${curMonth+1}월 ${curDate}일 ${week[calendar.theDayOfTheWeek]}요일</a>`
                 for (let x = 0; x < 7; x++) {
 
-                    if(cell<startDate)
-                        table += `<td id='firstLine'>${maxDate(curMonth-1)}</td>`;
-                    else if(date <= lastDay)
+                    if(y*7+x<calendar.theDayOfTheWeek )
+                        // 공백 대신 전달 마지막 주 부분을 보여준다
+                        table += `<td id='firstLine' onclick='nextMonth(-1)'>${maxDate(curMonth-1)-calendar.theDayOfTheWeek+cell+1}</td>`;
+                    else if(date <= calendar.lastDay)
                     {
                         
-                        if(date == curDate)
+                        if(date == curDate && calendar.month == curMonth && calendar.year == curYear)
                         {
-                            table += `<td id='today' class='active-color'>${date}</td>`;
-                            reSet = `<a href="#" onclick="nowDate()">${curYear}년 ${curMonth+1}월 ${curDate}일 ${week[showWeek]}요일</a>`
+                            table += `<td id='today' class='active-color'>${date}</td>`;                           
                         }
                         else
                             table += `<td class='active-color'>${date}</td>`;
                         date++; 
                     }
-                    else          
-                        table += `<td id='lastLine'>${nextDate++}</td>`;
+                    else        
+                    // 공백 대신 다음달 첫 주에서 2번째 주 까지 보여준다  
+                        table += `<td id='lastLine' onclick='nextMonth(1)'>${nextDate++}</td>`;
       
-                    showWeek++;
+                    // showWeek++;
                     cell++;
                 }
                 table += `</tr>`;
@@ -61,7 +72,38 @@ const week = ["일","월","화","수","목","금","토"];
             document.getElementById("now").innerHTML = reSet; 
             document.getElementById("calender").innerHTML = table;
     }
+
+    function getCalendar()
+{
+    let date = null;
+    if(calendar.year==0)
+    {
+        date = new Date();
+        calendar.year = date.getFullYear();
+        calendar.month = date.getMonth();
+        calendar.date = date.getDate();
+    }
+
+    getLastDayOfTheMonth();
+    getNumberOfWeeks();
+}
             
+
+    function getNumberOfWeeks()
+    {   
+        calendar.theDayOfTheWeek = new Date(calendar.year, calendar.month, 1).getDay();
+        calendar.numOfWeeks = Math.ceil((calendar.theDayOfTheWeek+calendar.lastDay)/7);   
+    }
+
+    function getLastDayOfTheMonth()
+    {
+
+        let lastDay = maxDate(calendar.month);
+ 
+        calendar.lastDay = lastDay;
+    }
+
+
 
     
     function leapYear(dateYear) {
@@ -103,32 +145,51 @@ const week = ["일","월","화","수","목","금","토"];
 
 
     function nowDate() {   
-
+        let now = new Date();  
+        let curMonth = now.getMonth();            
+        let curYear =  now.getFullYear();
+        let curDate = now.getDate();   
         let showWeek = 0;
         let cell = 0;
         let date = 1;  
         let nextDate = 1;          
-        let lastDay = maxDate(curMonth);
-        let numOfWeeks = Math.ceil((startDate+lastDay)/7);                 
-
-        let table = "<table>";
+        let lastDay = maxDate(curMonth);        
+        let table = "";
+        calendar.year = curYear;
+        calendar.month = curMonth;
+        calendar.theDayOfTheWeek = new Date(calendar.year, calendar.month, 1).getDay();
         
-        table += `<caption> ${curYear}년 ${curMonth+1}월</caption>`;
+        table = "<table>";
 
+        table += `<caption> ${calendar.year}년 ${calendar.month+1}월`;
+        table += "<div class = 'month'>";
+        table += "<ul>";
+        table += "<li class='prev'><a href='#' onclick='nextMonth(-1)'>&#10094;</a></li>";
+        table += "<li class='next'><a href='#' onclick='nextMonth(1)'>&#10095;</a></li>";
+        table += "<li class='showDate'>";
+        table +=  calendar.year+"년<br>";        
+        table += "<span>" +(calendar.month+1)  + "월</span>";
+        table += "</li>";
+        table += "</ul>";
+        table += "</div>";
+        table += `</caption>`;
+
+
+        
         table += `<tr>`;
 
         for (let x = 0; x < 7; x++) {     
-                table += `<td>${week[x]}</td>`;   
-        }
+            table += `<td>${week[x]}</td>`;   
+    }
+        table +=`</td>`;
 
-        table += `</tr>`;
-        for (let y = 0; y < numOfWeeks; y++) {
+        for (let y = 0; y <6; y++) {            
             table += `<tr>`;
-
+          
             for (let x = 0; x < 7; x++) {
 
-                if(cell<startDate)
-                    table += `<td id='firstLine'>${maxDate(curMonth-1)}</td>`;
+                if(cell<startDate )
+                    table += `<td id='firstLine' onclick='nextMonth(-1)'>${maxDate(curMonth-1)-calendar.theDayOfTheWeek+cell+1}</td>`;
                 else if(date <= lastDay)
                 {
                     
@@ -142,7 +203,7 @@ const week = ["일","월","화","수","목","금","토"];
                     date++; 
                 }
                 else          
-                    table += `<td id='lastLine'>${nextDate++}</td>`;
+                    table += `<td id='lastLine' onclick='nextMonth(1)'>${nextDate++}</td>`;
   
                 showWeek++;
                 cell++;
@@ -154,6 +215,31 @@ const week = ["일","월","화","수","목","금","토"];
         document.getElementById("calender").innerHTML = table;
     }
 
+
+    function nextMonth(num)
+{
+    calendar.month += num;
+
+    if(calendar.year==0)
+    {
+        date = new Date();
+        calendar.year = date.getFullYear();
+        calendar.month = date.getMonth();        
+    }
+
+
+    if(calendar.month == -1)
+    {
+        calendar.month = 11;
+        calendar.year--;
+    }
+    else if(calendar.month == 12)
+    {
+        calendar.month = 0;
+        calendar.year++;
+    }
+    showCalendar();
+}
 
 
         // $("td").click(function() {
