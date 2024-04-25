@@ -8,6 +8,11 @@ let nowTemp = new Date(curYear,curMonth,1);
 let startDate = nowTemp.getDay(); 
 
 
+
+
+
+
+
     function showCalendar(){            
         let reSet, cell = 0, date = 1, nextDate = 1;                         
         let table =  "";
@@ -40,7 +45,8 @@ let startDate = nowTemp.getDay();
             for (let y = 0; y <6; y++) {
                 
                 table += `<tr>`;
-                reSet = `<a href="#" onclick="nowDate()">${curYear}년 ${curMonth+1}월 ${curDate}일 ${week[calendar.theDayOfTheWeek]}요일</a>`
+                // 클릭시 nowDate() 함수를 통해 현재 달력을 보여준다.
+                reSet = `<a href="#" onclick="nowDate()">${curYear}년 ${curMonth+1}월 ${curDate}일 ${week[weekIndex()]}요일</a>`
                 for (let x = 0; x < 7; x++) {
 
                     if(y*7+x<calendar.theDayOfTheWeek )
@@ -69,6 +75,7 @@ let startDate = nowTemp.getDay();
             }
             table += `</table>`;          
 
+            
             document.getElementById("now").innerHTML = reSet; 
             document.getElementById("calender").innerHTML = table;
     }
@@ -143,7 +150,7 @@ let startDate = nowTemp.getDay();
 
 
 
-
+    // 현재 달력 보여주기 함수
     function nowDate() {   
         let now = new Date();  
         let curMonth = now.getMonth();            
@@ -239,6 +246,28 @@ let startDate = nowTemp.getDay();
         calendar.year++;
     }
     showCalendar();
+}
+
+function weekIndex() {
+    let now = new Date();  
+    let curMonth = now.getMonth();    
+    let curDate = now.getDate()+1;   
+    let showWeek = 0;    
+    let date = 1;        
+    let lastDay = maxDate(curMonth);
+    for (let y = 0; y <6; y++) {
+        for (let x = 0; x < 7; x++) {
+            if(date <= lastDay)
+            {          
+                if(date == curDate)
+                  return showWeek;
+
+                date++;
+            }
+            showWeek++;
+        }
+        showWeek = 0;
+    }
 }
 
 
