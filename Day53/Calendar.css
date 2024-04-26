@@ -8,18 +8,37 @@ body{
     position: relative;
     max-width: 100%;
     height: 700px;
-    margin: 200px auto;
+    margin: 0 auto;
     padding: 10px;
+    margin-top: 20px;
     background-color: rgb(56, 57, 59);
     overflow: hidden;
 }
-
-
-#top{    
-    width: 100%;    
-    padding: 20px;
-    background-color: aqua;
+#clock{
+    position: absolute;
+    filter: brightness(110%);
+    top: 5px;
+    margin: 0 auto;
+    width: 100px;
+    height: 100px;
+    
+    
 }
+
+#top{     
+    /* position: absolute;     */
+    margin: 0 auto;      
+    padding: 10px;    
+    width: 500px;
+    color: white;
+    text-align: center;
+    font-size: 50px;
+    border: 1px solid white;
+    border-radius: 15px 15px 15px 15px;
+    
+}
+
+
 
 #center{    
     top: 120px;
@@ -29,19 +48,15 @@ body{
     border-bottom: 1px solid silver;
     padding: 10px 0;
 }
-
+#icon{
+    filter: brightness(250%);    
+}
 li{
     list-style: none;
 }
 
-caption{
-    border: 1px solid blue;    
-}
-
 .month{
-    position: relative;
-    /* border: 1px solid  blue; */
-    
+    position: relative;   
 }
 
 .showDate{
@@ -53,8 +68,7 @@ caption{
     position: absolute;
     display: block;
     left: 0;
-    padding-top: 5px;
-    /* border: 1px solid  blue; */
+    padding-top: 5px;    
     height: 30px;
     
     font-size: 30px;
@@ -67,27 +81,43 @@ caption{
     display: block;
     right: 15px;
     padding-top: 5px;
-    /* border: 1px solid  blue; */
+    
     height: 30px;
 
     font-size: 30px;
     color: white;
 }
 
-a{
+caption a{
     text-decoration: none;
-    display: block;
+    display: inline-block;
     text-align: center;
-    color: rgb(0, 120, 215);
+    color: white;
+    font-size: 15px;
 }
-a:hover{
+
+caption a:hover{
     color: rgb(174, 175, 177);
 }
 
+#weather{
+    position: absolute;    
+    left: 20px;
+    top: 20px;
+    padding: 10px;
+    border: 1px solid white;
+    border-radius: 15px 15px 15px 15px;
+    color: white; 
+    font-size: 20px;
+}
 
+#weather span{
+    display: block;
+    margin: 10px;
+    
+}
 
-table{        
-     
+table{             
     color: white;
     width: 600px;
     margin: 0 auto;
@@ -131,7 +161,7 @@ tr:first-child > td:first-of-type{
 }
 
 tr:first-child > td:last-of-type{
-    color:rgb(65, 65, 235);
+    color:rgb(87, 87, 242);    
 }
 
 tr:not(tr:first-child) > td:hover{
@@ -156,11 +186,10 @@ tr:not(tr:first-child) > td:active{
     border: 1px solid rgb(176, 176, 176);
 }
 
-
-tr:not(tr:first-child) >  td:checked{
-    border: 1px solid rgb(0, 120, 215);
+.sunDay{
+    color: red;
 }
 
-td:checked{
-    border: 1px solid rgb(0, 120, 215);
+.saturDay{
+    color:rgb(87, 87, 242);
 }

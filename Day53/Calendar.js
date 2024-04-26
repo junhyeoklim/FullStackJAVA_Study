@@ -1,4 +1,5 @@
 const week = ["일","월","화","수","목","금","토"];
+const timeSet = document.getElementById("top");
 let calendar ={ year:0, month:0, date:1, theDayOfTheWeek:0, lastDay:0, numOfWeeks:0};
 let now = new Date();  
 let curMonth = now.getMonth();            
@@ -12,17 +13,76 @@ let startDate = nowTemp.getDay();
 
 
 
+//openAPI를 사용하여 현재 위치를 찾아 날씨 정보 나타내기
+function curentWeather(){
+    const city = document.getElementById("city");
+    const weather = document.getElementById("TodayWeathre");
+    const temp = document.getElementById("temp");
+    const wind = document.getElementById("wind");
+    const API_KEY = apiKey(); 
 
-    function showCalendar(){            
-        let reSet, cell = 0, date = 1, nextDate = 1;                         
-        let table =  "";
-        getCalendar();           
 
+    const degToCompass = (num) =>{
+        const val = Math.floor((num / 22.5) + 0.5);
+        const arr = ['북', '북북동', '동북동', '동동북', '동', '동동남', '남동', 
+        '남남동', '남', '남남서', '서남서', '서서남','서', '서북서', '북서', '북북서'];
 
+    return arr[(val % 16)];
+    }
 
-        table += "<table>";
+function onGeoOk(position) {
+    const lat = position.coords.latitude;
+    const lon = position.coords.longitude;
+    const lang = 'kr';
+    const units = 'metric';
+    const iconSection = document.getElementById("icon");
+    const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&lang=${lang}&units=${units}&appid=${API_KEY}`;
+
+        fetch(url)
+        .then(response => response.json())
+        .then(data=>{
+            const temperature = Math.round(data.main.temp)
+            const windDirection = degToCompass(data.wind.deg)
+            const icon = data.weather[0].icon;
+            const iconURL = `http://openweathermap.org/img/wn/${icon}@2x.png`;
+            city.innerText = data.name
+            weather.innerText = data.weather[0].description
+            temp.innerText = `기온: ${temperature}℃`            
+            wind.innerText = `바람 세기 : ${windDirection} ${data.wind.speed}m/s`
+            iconSection.setAttribute("src",iconURL)
             
-            table += `<caption> ${calendar.year}년 ${calendar.month+1}월`;
+        })
+        
+    }
+
+    function onGeoError() {
+        alert("위치를 찾을 수 없습니다.");
+    }
+
+    navigator.geolocation.getCurrentPosition(onGeoOk,onGeoError);
+}
+
+
+
+
+
+    // 달력
+    function showCalendar(){            
+        let cell = 0, date = 1, nextDate = 1;                         
+        let table =  "";
+        let clock = document.getElementById("clock");
+        clock.setAttribute("src","clock.png");
+
+        curentWeather();
+        getTime();
+        getCalendar();
+        setInterval(getTime,1000);       
+        setInterval(curentWeather,1000);
+        
+            
+            table += "<table>";            
+            table += `<caption>`;
+            table += `<a href="#" onclick="nowDate()">${curYear}년 ${curMonth+1}월 ${curDate}일 ${week[weekIndex()]}요일</a>`
             table += "<div class = 'month'>";
             table += "<ul>";
             table += "<li class='prev'><a href='#' onclick='nextMonth(-1)'>&#10094;</a></li>";
@@ -40,17 +100,16 @@ let startDate = nowTemp.getDay();
             for (let x = 0; x < 7; x++) {     
                     table += `<td>${week[x]}</td>`;   
             }
-
+            
             table += `</tr>`;
             for (let y = 0; y <6; y++) {
                 
-                table += `<tr>`;
-                // 클릭시 nowDate() 함수를 통해 현재 달력을 보여준다.
-                reSet = `<a href="#" onclick="nowDate()">${curYear}년 ${curMonth+1}월 ${curDate}일 ${week[weekIndex()]}요일</a>`
+                table += `<tr>`;                
+               
                 for (let x = 0; x < 7; x++) {
 
                     if(y*7+x<calendar.theDayOfTheWeek )
-                        // 공백 대신 전달 마지막 주 부분을 보여준다
+                        // 공백 대신 전 달 마지막 주 부분을 보여준다
                         table += `<td id='firstLine' onclick='nextMonth(-1)'>${maxDate(curMonth-1)-calendar.theDayOfTheWeek+cell+1}</td>`;
                     else if(date <= calendar.lastDay)
                     {
@@ -60,7 +119,14 @@ let startDate = nowTemp.getDay();
                             table += `<td id='today' class='active-color'>${date}</td>`;                           
                         }
                         else
-                            table += `<td class='active-color'>${date}</td>`;
+                        {
+                            if(x == 0)
+                                table += `<td class='sunDay'>${date}</td>`;
+                            else if(x == 6)
+                                table += `<td class='saturDay'>${date}</td>`;
+                            else
+                                table += `<td>${date}</td>`;
+                        }   
                         date++; 
                     }
                     else        
@@ -73,10 +139,8 @@ let startDate = nowTemp.getDay();
                 table += `</tr>`;
                 showWeek = 0;
             }
-            table += `</table>`;          
-
-            
-            document.getElementById("now").innerHTML = reSet; 
+            table += `</table>`;                     
+            // document.getElementById("top").innerHTML = timeSet;
             document.getElementById("calender").innerHTML = table;
     }
 
@@ -167,8 +231,8 @@ let startDate = nowTemp.getDay();
         calendar.theDayOfTheWeek = new Date(calendar.year, calendar.month, 1).getDay();
         
         table = "<table>";
-
-        table += `<caption> ${calendar.year}년 ${calendar.month+1}월`;
+        table += `<caption>`;
+        table += `<a href="#" onclick="nowDate()">${curYear}년 ${curMonth+1}월 ${curDate}일 ${week[weekIndex()]}요일</a>`
         table += "<div class = 'month'>";
         table += "<ul>";
         table += "<li class='prev'><a href='#' onclick='nextMonth(-1)'>&#10094;</a></li>";
@@ -203,10 +267,17 @@ let startDate = nowTemp.getDay();
                     if(date == curDate)
                     {
                         table += `<td id='today' class='active-color'>${date}</td>`;
-                        reSet = `<a href="#" onclick="nowDate()">${curYear}년 ${curMonth+1}월 ${curDate}일 ${week[showWeek]}요일</a>`
+                        
                     }
                     else
-                        table += `<td class='active-color'>${date}</td>`;
+                    {
+                        if(x == 0)
+                            table += `<td class='sunDay'>${date}</td>`;
+                        else if(x == 6)
+                            table += `<td class='saturDay'>${date}</td>`;
+                        else
+                            table += `<td>${date}</td>`;
+                    }
                     date++; 
                 }
                 else          
@@ -270,7 +341,48 @@ function weekIndex() {
     }
 }
 
+function getTime() {
+    //date 값을 다시 받는 이유는 전역 변수로 선언된 now 값이 1번만 불러와져서 실시간 시간 계산을 하지 못 하기 때문에 이렇게 함
+    const d = new Date();
+    let hour =String(d.getHours());
+    let minute = String(d.getMinutes()).padStart(2,"0");
+    let second = String(d.getSeconds()).padStart(2,"0");
+    let ampm;
 
-        // $("td").click(function() {
-    //     toggleClass(".active-color");
-    // });
+          if (hour >= 12){
+            hour -= 12;
+            ampm = "오후";
+          }
+          else ampm = "오전";
+
+          if(hour == 0)
+            hour = 12;
+          
+        timeSet.innerText = `${ampm} ${hour}:${minute}:${second}`;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function apiKey(){
+    return "dae82074f780962995e61fe64e3c4261";
+}
