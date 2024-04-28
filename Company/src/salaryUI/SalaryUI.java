@@ -1,18 +1,18 @@
 package salaryUI;
 
 import java.util.Scanner;
-import java.util.Vector;
 
-import salaryDATA.SalaryConstatnt;
-import salaryDATA.SalaryManHandler;
-import salaryDATA.SalaryManInfo;
+import salaryDAO.SalaryManDAO;
+import salaryVO.SalaryConstatnt;
+import salaryVO.SalaryManVO;
 
 public class SalaryUI {
-	private static SalaryManHandler salarySet = SalaryManHandler.getSalary(2);
+	private static SalaryManDAO salarySet = new SalaryManDAO();
 	private static String name;
+	private static String phoneNumber;
 	private	static String department;
 	private	static String rank;
-	private	static String salary;	
+	private	static int salary;	
 	private static Scanner sc = new Scanner(System.in);
 
 
@@ -22,8 +22,10 @@ public class SalaryUI {
 		System.out.println("1. 사원 정보 입력");
 		System.out.println("2. 사원 정보 검색");
 		System.out.println("3. 사원 정보 변경");
-		System.out.println("4. 모든 사원정보 보기");
-		System.out.println("5. 프로그램 종료");
+		System.out.println("4. 사원 정보 삭제");
+		System.out.println("5. 모든 사원정보 보기");
+		System.out.println("6. 사원 리스트 저장");
+		System.out.println("7. 프로그램 종료");
 		System.out.print("선택 : ");
 	}
 
@@ -38,6 +40,10 @@ public class SalaryUI {
 		System.out.print("이름 : ");
 		name = sc.nextLine();
 
+		System.out.println("전화번호를 입력 해주세요!");
+		System.out.print("전화번호 : ");
+		phoneNumber = sc.nextLine();
+
 		System.out.println("부서를 입력 해주세요!");
 		System.out.print("부서 : ");
 		department = sc.nextLine();
@@ -48,9 +54,10 @@ public class SalaryUI {
 
 		System.out.println("연봉을 입력해주세요!");
 		System.out.print("연봉 : ");
-		salary = sc.nextLine();		
+		salary = sc.nextInt();
+		sc.nextLine();
 		System.out.println();
-		salarySet.setSalaryMan(new SalaryManInfo(name, department, rank, salary));	
+		salarySet.setSalaryMan(new SalaryManVO(name, phoneNumber,department, rank, salary));	
 	}
 
 	public static void salrarySearch()
@@ -99,7 +106,8 @@ public class SalaryUI {
 				}
 				case SalaryConstatnt.SALARY: {			
 					System.out.println("\n연봉 입력");
-					String str = sc.nextLine();	
+					int str = sc.nextInt();
+					sc.nextLine();
 					salarySet.searchSalary(str);
 					break;
 				}
@@ -135,24 +143,32 @@ public class SalaryUI {
 		System.out.println("사원정보 변경을 시작합니다.");
 		System.out.println("변경하고자 하는 사원 이름을 입력 해주세요");
 
-		System.out.print("이믈:");
+		System.out.print("이름:");
 		name = sc.nextLine();		
 
-		int result = salarySet.search(name);
+		boolean result = salarySet.search(name);
 
-		if(result == -1)
+		if(!result)
 		{
 			System.out.println("찾으시는 사용자 정보가 없습니다.");
 			return;
 		}
 
 		System.out.println("변경 할려는 카테고리를 선택 하세요.");
-		System.out.println("1. 부서, 2. 직급, 3.연봉, 4.전체");
+		System.out.println("1. 전화번호, 2. 부서, 3. 직급, 4.연봉, 5.전체");
 		System.out.print("선택>>");
 		int choice = sc.nextInt();		
 		sc.nextLine();
 
 		switch (choice) {
+		case SalaryConstatnt.UPDATE_PHOENUMBER: {
+			System.out.println("변경할 전화번호를 입력 하세요.");
+			System.out.print("전화번호 :");
+			phoneNumber = sc.nextLine();
+			salarySet.updatePhoneNumber(name, phoneNumber);
+			System.out.println("변경이 완료 되었습니다!");
+			break;				
+		}
 		case SalaryConstatnt.UPDATE_DEPARTMENT: {
 			System.out.println("변경할 부서 이름을 입력 하세요.");
 			System.out.print("부서 :");
@@ -172,28 +188,78 @@ public class SalaryUI {
 		case SalaryConstatnt.UPDATE_SALARY: {
 			System.out.println("변경할 연봉을 입력 하세요.");
 			System.out.print("연봉 :");
-			salary = sc.nextLine();
+			salary = sc.nextInt();
+			sc.nextLine();
 			salarySet.updateSalary(name, salary);
 			System.out.println("변경이 완료 되었습니다!");
 			break;				
 		}
 		case SalaryConstatnt.UPDATE_ALL: {
 			System.out.println("새롭게 변경될 정보들을 입력 하세요.");
+
+			System.out.print("전화번호 :");
+			phoneNumber = sc.nextLine();
+
 			System.out.print("부서 :");
 			department = sc.nextLine();
-			
+
 			System.out.print("직급 :");
 			rank = sc.nextLine();
-			
-			System.out.print("연봉 :");
-			salary = sc.nextLine();			
 
-			salarySet.updateAllInfo(name, department,rank,salary);
-			System.out.println("변경이 완료 되었습니다!");
+			System.out.print("연봉 :");
+			salary = sc.nextInt();
+			sc.nextLine();
+
+			salarySet.updateAllInfo(name,phoneNumber ,department,rank,salary);
 			break;				
 		}
 		default:
 			System.out.println("올바른 값을 입력 해주세요!");
 		}
+	}
+
+	public static void salaryDeleteUI()
+	{
+		String name;
+		
+		int answer=0;
+		System.out.println("사원 이름을 입력하세요.");
+		System.out.print(">>");
+		name = sc.nextLine();		
+		boolean result = salarySet.search(name);
+		if(result)
+		{
+			System.out.println("정말 삭제하시겠습니까? 1. Yes 2. No");
+			while(true)
+			{
+				try {
+
+					answer = sc.nextInt();
+					sc.nextLine();
+					switch(answer)
+					{
+					case SalaryConstatnt.YES:
+						salarySet.deleteSalary(name);
+						return;
+					case SalaryConstatnt.NO:
+						return;
+					default:
+						System.out.println("잘못 누르셨습니다.");
+					}
+				}
+				catch (Exception e) {
+					System.out.println("숫자를 입력 해주세요!");
+					sc.nextLine();
+				}
+			}
+		}
+		else
+			System.out.println("입력하신 사원이 존재하지 않습니다.");
+	}
+	
+	public static void Save()
+	{
+		salarySet.save();
+		System.out.println("저장되었습니다!\n");
 	}
 }

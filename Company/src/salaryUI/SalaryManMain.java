@@ -3,14 +3,16 @@ package salaryUI;
 
 import java.util.Scanner;
 
-import salaryDATA.SalaryConstatnt;
+import salaryVO.SalaryConstatnt;
 
 public class SalaryManMain {
 
+	
+	
 	public static void main(String[] args) {
 
 		int choice = 0;
-
+		
 		Scanner sc = new Scanner(System.in);
 		
 		
@@ -48,11 +50,20 @@ public class SalaryManMain {
 				SalaryUI.salaryUpdateUI();				
 				break;
 			}
+			case SalaryConstatnt.SALARYMAN_DELETE:{
+				SalaryUI.salaryDeleteUI();				
+				break;
+			}
 			case SalaryConstatnt.SALARYMAN_LIST: 
 			{			
 				SalaryUI.salaryList();
 				break;
 			}
+			case SalaryConstatnt.SALARYMAN_SAVE: 
+			{		
+				SalaryUI.Save();
+				break;
+			}			
 			case SalaryConstatnt.END:
 			{
 				System.out.println("프로그램을 종료합니다!");
