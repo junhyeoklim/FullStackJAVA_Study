@@ -1,0 +1,330 @@
+1번 문제
+TINYINT
+SMALLINT
+INT
+BIGINT
+
+2번 문제
+UNSINGED
+
+3번 문제
+char
+
+4번 문제
+float
+double
+
+5번 문제
+DATE
+TIME
+DATETIME
+
+6번 문제
+set @myVar1 = 4;
+set @myVar2 = 4;
+
+7번 문제
+set @txt = "가수 이름==>";
+set @height = 166;
+
+8번 문제
+SET @count = 3;
+PREPARE mySQL FROM "SELECT mem_name, height FROM member ORDER BY height LIMIT ?";
+EXCUTE mySQL USING @count;
+
+9번 문제
+SELECT CONVERT(AVG(price),SINGED) "평균 가격" FROM buy;
+
+10번 문제
+(1) SELECT CONVERT(AVG(price),SINGED) "평균 가격" FROM buy;
+(2) SELECT CAST(AVG(price) AS SINGED) "평균 가격" FROM buy;
+
+11번 문제
+ -> 다양한 구분자를 날짜형으로 변경할 수도 있다.
+
+ 12번 문제
+ SELECT num,CONCAT(CONVERT(price,CHAR), "X",CONVERT(amount,CHAR),"=") "가격X수량",price*amount "구매액"
+ FROM buy;
+
+ 13번 문제
+ ->암시적인 변환 (자연스럽게 형이 변환되는것)
+ ex) SELECT '100'+200 ->300
+
+ 14번 문제
+ join
+
+ 15번 문제
+
+ SELECT *
+ FROM buy b INNER JOIN mem_id m
+    ON b.mem_id = m.mem_id
+ WHERE b.mem_id = "GRL";
+
+
+16번 문제
+SELECT mem_id,mem_name,prod_name,addr,CONCAT(PHONE1,PHONE2) "연락처"
+FROM buy INNER JOIN member
+    ON buy.mem_id = member.mem_id;
+
+
+17번 문제
+SELECT mem_id,mem_name,addr
+FROM buy INNER JOIN member
+    ON buy.mem_id = member.mem_id
+ORDER BY mem_id;
+
+18번 문제
+외부 조인
+
+19번 문제
+SELECT mem_id,mem_name,prod_name,addr
+FROM buy LEFT OUTER JOIN member
+    ON  buy.mem_id = member.mem_id
+ORDER BY mem_id;
+
+
+20번 문제
+SELECT mem_id,prod_name,mem_name,addr
+FROM member LEFT JOIN buy
+    ON member.mem_id = buy.mem_id
+WHERE prod_name IS null
+ORDER BY mem_id;
+
+21번 문제
+FULL OUTER JOIN
+
+22번 문제
+상호조인 - CROSS JOIN
+
+23번 문제
+SELECT *
+    FROM member CROSS JOIN buy;
+
+24번 문제
+상호조인 - CROSS JOIN
+
+
+25번 문제
+SELECT COUNT(*)
+FROM skila.inventory CROSS JOIN world.city
+
+26번 문제
+CREATE TABLE cross_table(
+   SELECT * FROM sakila.actor CROSS JOIN world.country 
+);
+
+27번 문제
+SELECT *
+FROM cross_table
+LIMIT 5;
+
+28번 문제
+자체 조인- SELF JOIN
+
+29번 문제
+SELECT A.emp "직원", B.emp "직속상관", B.phone "연락처"
+FROM emp_table A INNER JOIN emp_table B
+    ON A.manager = B.emp
+WHERE A.emp = '경리부장';
+
+
+30번 문제
+DROP PROCEDURE IF EXISTS ifProc1;
+DELIMITER $$
+CREATE PROCEDURE ifProc1()
+BEGIN
+	DECLARE num INT;
+    SET num = 100;
+
+    IF num = 100 THEN
+		SELECT num,'은 100과 같습니다.';
+    END IF;
+END $$
+DELIMITER ;
+
+CALL ifProc1();
+
+
+
+
+31번 문제
+DROP PROCEDURE IF EXISTS ifProc2
+
+DELIMITER $$
+CREATE PROCEDURE ifProc2()
+BEGIN
+    DECLARE myNum INT;
+    SET myNum = 200;
+
+    IF myNum = 100 THEN
+        SELECT "100입니다.";
+    ELSE
+        SELECT "100이 아닙니다";
+    END IF;
+END $$
+DELIMITER ;
+CALL ifProc2;
+
+
+
+
+32번 문제
+DROP PROCEDURE IF EXISTS ifProc3
+
+DELIMITER $$
+CREATE PROCEDURE ifProc3()
+BEGIN
+
+    DECLARE debuteDATE DATE;
+    DECLARE curDATE DATE;
+    DECLARE days INT;
+
+    SELECT debut_date INTO debuteDATE
+    FROM market_db.member
+    WHERE mem_id = "APN";
+
+    SET curDATE = CURRENT_DATE();
+    SET days = DATEDIFF(curDATE,debuteDATE);
+
+    IF (days/365) >= 5 THEN
+        SELECT CONCAT("데뷔한 지",days,"일이나 지났습니다. 핑순이들 축하합니다!");
+    ELSE
+        SELECT CONCAT("데뷔한 지",days,"일밖에 안되었네요. 핑순이들 화이팅~");
+    END IF;
+END $$
+DELIMITER ;
+CALL ifProc3();
+
+33번 문제
+CURRENT_DATE();
+CURRENT_TIMESTAMP();
+DATEDIFF();
+
+34번 문제
+SELECT DATEDIFF("2021-12-31","2000-1-1");
+
+
+35번 문제
+DROP PROCEDURE IF EXISTS HAHA
+
+DELIMITER $$
+CREATE PROCEDURE HAHA()
+BEGIN
+	
+    IF 100 = 100 THEN
+        SELECT "100";         
+    ELSEIF 200 = 200 THEN
+        SELECT "300";        
+    ELSEIF 300 = 300 THEN
+        SELECT "300";        
+    ELSE
+        SELECT "그 밖에 숫자";
+    END IF;
+END $$
+DELIMITER ;
+CALL HAHA();
+
+
+36번 문제
+DROP PROCEDURE IF EXISTS caseProc;
+
+DELIMITER $$
+CREATE PROCEDURE caseProc()
+BEGIN
+    DECLARE point INT;
+    DECLARE credit char(1);
+
+    SET point = 88;
+
+    CASE
+        WHEN point >= 90 THEN
+            SET credit = "A";
+        WHEN point >= 80 THEN
+            SET credit = "B";
+        WHEN point >= 70 THEN
+            SET credit = "C";
+        WHEN point >= 60 THEN
+            SET credit = "D";
+        ELSE
+            SET credit = "F";
+    END CASE;
+
+    /*SELECT "취득점수 ==>"+point+" 학점==>"+credit;*/
+    SELECT CONCAT("취득점수 ==>",point) , CONCAT("학점 ==>",credit);
+
+END $$
+DELIMITER ;
+CALL caseProc();
+
+
+37번 문제
+SELECT m.mem_id,m.mem_name,SUM(price*amount) "총 구매액",
+    CASE 
+        WHEN (SUM(price*amount)) >= 1500 THEN "최우수고객"
+        WHEN (SUM(price*amount)) >= 1000 THEN "우수고객"
+        WHEN (SUM(price*amount)) >= 1 THEN "일반고객"
+        ELSE "유령고객"
+    END "회원등급"
+FROM buy b RIGHT JOIN member m
+    ON b.mem_id = m.mem_id
+GROUP BY m.mem_id
+ORDER BY SUM(price*amount);
+
+
+
+38번 문제
+DROP PROCEDURE IF EXISTS whileProc;
+DELIMITER $$
+CREATE PROCEDURE whileProc()
+BEGIN
+    DECLARE i INT;
+    DECLARE sum INT;
+
+    SET i = 1;
+	SET sum = 0;
+    
+    WHILE(i <= 100) do
+        SET sum = sum + i;
+        SET i = i+1;
+    END WHILE;
+    SELECT "1부터 100까지의 합",sum;
+END $$
+DELIMITER ;
+CALL whileProc();
+
+39번 문제
+    ITERATE
+    LEAVE
+
+
+40번 문제
+DROP PROCEDURE IF EXISTS whileProc2;
+DELIMITER $$
+CREATE PROCEDURE whileProc2()
+BEGIN
+    DECLARE i INT;
+    DECLARE sum INT;
+
+    SET i = 0;
+    SET sum = 0;
+
+    myWhile:
+    WHILE i <= 100 do
+    SET i = i+1; 
+      IF i%4 THEN
+        ITERATE myWhile;
+      END IF;
+
+         
+      SET sum = sum+i;
+
+      IF sum > 1000 THEN
+        LEAVE myWhile;
+      END IF;      
+    END WHILE;
+
+    SELECT "1부터 100까지의 합(4의 배수 제외), 1000 넘으면 종료 ==>",sum;
+END $$
+DELIMITER ;
+
+CALL whileProc2();
