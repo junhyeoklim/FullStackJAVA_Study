@@ -1,0 +1,5 @@
+*    let lat = position.coords.latitude;
+    let lon = position.coords.longitude;
+    으로 경도,위도를 가져와 현재 위치를 가져오는 방법이 아마 웹 IP를 토대로 가져오는것 같은데
+    찾아 보니 GPS를 이용 하는게 아니라면 위치 오차가 꽤 난다고 함
+*
