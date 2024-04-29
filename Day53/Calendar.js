@@ -59,7 +59,7 @@ function onGeoOk(position) {
         alert("위치를 찾을 수 없습니다.");
     }
 
-    navigator.geolocation.getCurrentPosition(onGeoOk,onGeoError);
+    navigator.geolocation.watchPosition(onGeoOk,onGeoError);
 }
 
 
