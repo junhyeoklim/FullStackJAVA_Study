@@ -19,7 +19,7 @@ function curentWeather(){
     const weather = document.getElementById("TodayWeathre");
     const temp = document.getElementById("temp");
     const wind = document.getElementById("wind");
-    const API_KEY = apiKey(); 
+    const API_KEY = fireconfig.apiKey;
 
 
     const degToCompass = (num) =>{
@@ -383,6 +383,3 @@ function getTime() {
 
 
 
-function apiKey(){
-    return "dae82074f780962995e61fe64e3c4261";
-}
