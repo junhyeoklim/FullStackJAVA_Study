@@ -18,7 +18,7 @@ function curentWeather(){
     const city = document.getElementById("city");
     const weather = document.getElementById("TodayWeathre");
     const temp = document.getElementById("temp");
-    const wind = document.getElementById("wind");
+    const wind = document.getElementById("wind");    
     const API_KEY = fireconfig.apiKey;
 
 
@@ -31,8 +31,8 @@ function curentWeather(){
     }
 
 function onGeoOk(position) {
-    const lat = position.coords.latitude;
-    const lon = position.coords.longitude;
+    let lat = position.coords.latitude;
+    let lon = position.coords.longitude;
     const lang = 'kr';
     const units = 'metric';
     const iconSection = document.getElementById("icon");
@@ -43,12 +43,13 @@ function onGeoOk(position) {
         .then(data=>{
             const temperature = Math.round(data.main.temp)
             const windDirection = degToCompass(data.wind.deg)
+            
             const icon = data.weather[0].icon;
             const iconURL = `http://openweathermap.org/img/wn/${icon}@2x.png`;
             city.innerText = data.name
             weather.innerText = data.weather[0].description
             temp.innerText = `기온: ${temperature}℃`            
-            wind.innerText = `바람 세기 : ${windDirection} ${data.wind.speed}m/s`
+            wind.innerText = `바람 세기 : ${windDirection} ${data.wind.speed}m/s`            
             iconSection.setAttribute("src",iconURL)
             
         })
@@ -59,7 +60,13 @@ function onGeoOk(position) {
         alert("위치를 찾을 수 없습니다.");
     }
 
-    navigator.geolocation.watchPosition(onGeoOk,onGeoError);
+    const position_options = {
+        enableHighAccuracy:true,
+        timeout:60000,
+        maximumAge:0
+    };
+
+    navigator.geolocation.watchPosition(onGeoOk,onGeoError,position_options);
 }
 
 
