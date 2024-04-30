@@ -328,3 +328,26 @@ END $$
 DELIMITER ;
 
 CALL whileProc2();
+
+41번 문제
+PREPARE myQuery FROM "SELECT * FROM member WHERE mem_id = "BLK";"
+EXCUTE myQuery;
+DEALLOCATE PREPARE myQuery;
+
+42번 문제
+DROP TABLE IF EXISTS gate_table;
+
+43번 문제
+ CREATE TABLE gate_table(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    entry_time DATETIME
+ );
+
+ 44번 문제
+SET @curDate = CURRENT_TIMESTAMP();
+
+ PREPARE myQuery FROM "INSERT INTO gate_table VALUES(NULL,?)";
+ EXCUTE myQuery USING @curDate;
+ DEALLOCATE PREPARE myQuery;
+
+ SELECT * FROM gate_table;
