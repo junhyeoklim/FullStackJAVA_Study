@@ -7,12 +7,8 @@
 </head>
 <body>
     
-<h1>JavaScript Arrays</h1>
-<h2>The forEach() Method</h2>
-
-<p>forEach() calls a function for each element in an array:</p>
-
-<p id="demo"></p>
+    <input type="button" value="First Button" id="btn1">
+    <input type="button" value="Second Button" id="btn2">
     <script>
       
     //    function max(check,...items){
@@ -183,7 +179,36 @@
     //     console.log(`파이 값은 ${pi}입니다.`)
     //   })()
 
+    const btn1 = document.getElementById("btn1");
+    const btn2 = document.getElementById("btn2");
+    
+    
+    
+    
+    // 2번 문제
+    // btn.addEventListener("click",(() => {
+    //     alert("Hello World "+ btn.value)
+    // }));
 
+    // 3번 문제
+    // btn.addEventListener("click",(() => alert(1)));
+    // btn.addEventListener("click",(() => alert(2)));
+        
+    function btnListener(event) {
+        switch(event.target.id){
+                case 'btn1':
+                    alert(1);
+                    break;
+                case 'btn2':
+                    alert(2);
+                    break;
+        }
+    }
+
+
+    btn1.addEventListener("click",btnListener);
+    btn2.addEventListener("click",btnListener);
+    
     </script>
 
 </body>
