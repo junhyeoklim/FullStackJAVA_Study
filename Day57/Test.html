@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+<h1>JavaScript Arrays</h1>
+<h2>The forEach() Method</h2>
+
+<p>forEach() calls a function for each element in an array:</p>
+
+<p id="demo"></p>
+    <script>
+      
+    //    function max(check,...items){
+
+    //     let output;
+    //     let item;
+
+    //     if(Array.isArray(check))
+    //     {
+    //         output = check[0];
+    //         for(let idx of check){
+    //             if(output < idx)
+    //                 output = idx;
+    //             }
+            
+    //         item = check;
+    //     }
+        
+    //     else if(typeof(check) === "number")
+    //     {
+    //         output = check;
+    //         item = items;
+    //     }
+    //     // let output = items[0];
+
+    //         for(let i of items){
+    //             if(output < i)
+    //                 output = i
+
+    //         }
+    //         return output;
+    //    }
+
+    //    console.log(`${max(1,2,3,4)}`);
+    //    console.log(`${max([1,2,3,4])}`);
+
+        // 1번 문제
+        // let str = () => {console.log("Hi")};
+        // str();
+
+        // 2번 문제
+        // let sum = (a,b) => {return a+b};
+        // console.log(sum(1,2));
+
+        // 3번 문제        
+        // let multy = (a,b) => {
+        //     for (; a < b; a++) {
+        //         for (let i = 1; i <= 9 ; i++) {
+        //             console.log(`${a}*${i}=${a*i}`);
+        //         }
+        //         console.log(`\n`);
+        //     }
+        // }
+
+        // multy(2,9);
+
+        // 4번 문제
+        // let arr = [1,2,3];
+        // let newArr = arr.map((element) =>  element*element);
+
+        // console.log(newArr);
+
+        // 1번 문제
+    //     function name(callback) {
+    //         for (let x = 0; x < 3; x++) {
+    //             callback(x);                
+    //         }
+    //     }
+
+    //     function print (i) {
+    //     console.log(`${i}번째 함수 호출`)
+    //   }
+
+    //   name(print);
+
+    // 2번 문제
+    // const number = [273,52,103,32,57];
+    // number.forEach((value,index) => console.log(`${index}번째 요소 : ${value}`));
+
+    // 3번 문제
+    // let numbers = [273, 52, 103, 32, 57];
+    // let newArr = numbers.map(x => x*x);
+    // console.log(newArr);
+
+    // 4번 문제
+    // const numbers = [0, 1, 2, 3, 4, 5];
+    // let newArr = numbers.filter((x =>         
+    //         x%2 === 0));
+
+    // console.log(newArr);
+
+    // 5번 문제
+    // let numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+    // let newArr = numbers.filter((x =>         
+    //         x%2 === 0)).map(x => x*x);
+
+    // console.log(newArr);
+
+    // 6번 문제
+    // function func1() {
+    //     console.log("1초후에 실행 됩니다.");
+    // }
+    // setTimeout(func1,1000);
+
+    // 7번 문제
+    // let i = 0;
+    // function func2() {        
+    //     console.log(`1초마다 실행됩니다.(${i++}번째)`);
+    // }
+
+    // setInterval(func2,1000);
+
+    // 8번 문제
+    // let i = 0;
+    
+
+    // let id = setInterval(() => {        
+    //     console.log(`1초마다 실행됩니다.(${i++}번째)`);
+    // },1000);
+
+    // setTimeout(() => {
+    //     console.log("타이머를 종료합니다.");
+    //     clearInterval(id);
+    // },5*1000);
+    
+
+    // 1번 문제
+    // let text = "";
+    // const fruits = ["apple", "orange", "cherry"];
+    // fruits.forEach((item, index) =>
+    //         text += index + ": " + item + "<br>"
+    // );
+
+    // document.getElementById("demo").innerHTML = text;
+ 
+
+    // 2번 문제
+        // let sum = 0;
+        // const numbers = [65, 44, 12, 4];
+        // numbers.forEach((item) =>  sum += item
+        // );
+
+        // document.getElementById("demo").innerHTML = sum;
+
+    // 3번 문제
+    // const numbers = [65, 44, 12, 4];
+    // numbers.forEach((item, index, arr) =>
+    //     arr[index] = item * 10
+    // );
+
+    // document.getElementById("demo").innerHTML = numbers;
+
+    // 4번 문제
+    // let numbers = [273, 25, 75, 52, 103, 32, 57, 24, 76];
+
+    // let newArr = numbers.filter(x => x%2 == 0
+    // ).filter(x => x<=100).filter(x => x%5 ==0);
+
+    // console.log(newArr);
+
+    // 5번 문제
+    // const array = ['사과', '배', '귤', '바나나']
+    // array.forEach(x => console.log(x));
+
+    // 6번 문제
+    // (function () {
+    //     let pi = 3.141592
+    //     console.log(`파이 값은 ${pi}입니다.`)
+    //   })()
+
+
+    </script>
+
+</body>
+</html>
