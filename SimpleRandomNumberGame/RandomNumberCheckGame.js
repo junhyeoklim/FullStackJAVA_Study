@@ -1,4 +1,4 @@
-let count = 2;
+let count = 10;
 let previousNum = "Previous guesses :";
 let random =Math.floor(Math.random()*100+1);
 let numberT = document.getElementById("num");
@@ -7,7 +7,10 @@ let notHidden = document.getElementById("Total");
 let result = document.getElementById("result");
 let resetButton;
 
- submit.addEventListener("click",() =>{    
+ submit.addEventListener("click",() =>{ 
+       
+       numberT.focus();  
+
        let inputNumber = parseInt(numberT.value);
        let falg = true;
         if(isNaN(inputNumber) || inputNumber < 0 || inputNumber > 100)
@@ -35,7 +38,7 @@ let resetButton;
 
         }
         numberT.value = null;
-
+        
         if(count <= 0)
         {
             
