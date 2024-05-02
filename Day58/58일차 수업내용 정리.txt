@@ -32,6 +32,7 @@
 
 ** querySelectAll vs getElementsByClassName
  - 참고 : https://sirius7.tistory.com/34 -> 마지막 예제 부분은 visualStudioCode 중단점 설정해서 디버그로 천천히 보면 이해가 된다
+  * 전자는 static Collection(정적 콜렉션) 후자는 live Collection(실시간 컬렉션)
 
  - 결론 
 
