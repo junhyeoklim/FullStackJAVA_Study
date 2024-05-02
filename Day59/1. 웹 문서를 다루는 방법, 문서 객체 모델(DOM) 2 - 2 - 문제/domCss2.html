@@ -18,14 +18,7 @@
 			margin:30px auto;
 			transition: 1s;
 		}
-		#radius{
-			width:100px;
-			height:100px;
-			margin:30px auto;
-			border-radius: 100%;
-			background-color: green;
-			transition: 1s;
-		}
+
 	</style>
 </head>
 <body>
@@ -38,10 +31,12 @@
 		let mouseEvent = document.querySelector("#rect");
 
 		mouseEvent.addEventListener("mouseover",() =>{
-			document.querySelector("#rect").setAttribute("id","radius");
+			mouseEvent.style.backgroundColor = "green"
+			mouseEvent.style.borderRadius = "50%";
 		});
 		mouseEvent.addEventListener("mouseout",() => {
-			document.querySelector("#radius").setAttribute("id","rect");
+			mouseEvent.style.backgroundColor = ""
+			mouseEvent.style.borderRadius = "";
 		});
 	</script>
 </body>
