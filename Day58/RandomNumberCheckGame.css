@@ -1,0 +1,9 @@
+body{
+    user-select: none;
+}
+input{
+    caret-color: transparent;
+}
+#result{
+    color: white;
+}

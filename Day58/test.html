@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        .red {
+            font-weight : bold;            
+            color: red;
+        }
+        .green {
+            color: green;
+        }
+    </style>
+</head>
+
+<body>
+    <ul>
+        <li class="red">Samsung</li>
+        <li class="red">LG</li>
+        <li class="red">Apple</li>
+    </ul>
+    <script>
+        let companies = document.getElementsByClassName("red");
+        for (let i = 0; i < companies.length; i++) {
+            companies[i].className = "green";
+        }
+    </script>
+</body>
+
+</html>

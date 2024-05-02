@@ -1,0 +1,43 @@
+1. DOM 이란?
+
+ - 웹 문서의 모든 요소를 자바스크립트를 이용하여 조작할 수 있도록 객체를 사용해 문서를 해석하는 방법.
+
+   웹문서의 텍스트·이미지·표 등 모든 요소는 모두 객체라는 것이다.
+
+
+
+
+2. DOM 트리 알아보는 사이트
+ - https://software.hixie.ch/utilities/js/live-dom-viewer/
+
+* DOM 트리는 가지와 노드로 표현한다. 
+  노드(Node)는 그림에서 네모 상자를 가리키고, 웹문서에 있는 요소나 속성을 나타낸다. 
+  가지는 말 그대로 그림에서 보이는 얇은 선을 가리키는 것으로, 
+  노드와 노드 사이의 연결 관계를 나타낸다. 
+  그런데 DOM 트리는 웹 문서의 HTML 요소만 표현하지 않는다. 
+  HTML의 요소가 품고 있는 텍스트, 이미지도 자식으로 간주하여 DOM 트리에 표현한다. 
+  
+
+**DOM 트리는 웹 문서 요소를 다음과 같이 표현한다.
+
+  ● 웹 문서의 태그는 요소(Element) 노드로 표현한다.
+  ● 태그가 품고 있는 텍스트는 해당 요소 노드(태그)의 자식 노드인 텍스트(Text) 노드로 표현한다.
+  ● 태그의 속성은 모두 해당 요소 노드(태그)의 자식 노드인 속성(Attribute) 노드로 표현한다.
+  ● 주석은 주석(Comment) 노드로 표현한다.
+
+
+
+
+
+
+** querySelectAll vs getElementsByClassName
+ - 참고 : https://sirius7.tistory.com/34 -> 마지막 예제 부분은 visualStudioCode 중단점 설정해서 디버그로 천천히 보면 이해가 된다
+
+ - 결론 
+
+ 1. getElementsByClassName(그리고, getElementsByTagName)은 HTMLCollection을 반환하고,
+
+ 2. querySelectorAll은 NodeList를 반환한다.
+
+ 3. 일반적으로, getElementsByClassName이 더 빠르다고 한다.
+

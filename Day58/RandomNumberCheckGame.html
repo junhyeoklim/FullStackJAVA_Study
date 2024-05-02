@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="RandomNumberCheckGame.css">
+    <title>Random Number Search Game</title>
+</head>
+    <style>
+       
+    </style>
+<body>
+    <h1>Number guessing game</h1>
+
+    <div>
+        <p>1~100사이 랜덤 숫자를 입력하세요. 기회는 10번입니다!</p>
+        <label for="num">Enter guess</label>
+        <input type="number" id="num" required>
+        <input type="submit" value="Submit guess" id="submit">
+    </div>
+
+    <div style="display: none;" id="Total">
+        <p><span id="previous"></span></p>
+        <p id="result" style="background-color: red;">Wrong!</p>        
+    </div>   
+
+
+    <script src="RandomNumberCheckGame.js"></script>
+</body>
+</html>

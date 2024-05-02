@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day58Test</title>
+</head>
+<body>
+    <div>
+        <input type="text" id="name">
+        <input type="button" value="Click Me" id="btn">
+    </div>
+
+    <h1>좋아하는 과목은?</h1>
+
+    
+    <div><input type="radio" name="subject" class="sub" value="HTML">HTML</div>
+    <div><input type="radio" name="subject" class="sub" value="CSS">CSS</div>
+    <div><input type="radio" name="subject" class="sub" value="JavaScript">JavaScript</div>
+
+    <div>
+        <input type="button" value="제출" id="submit">
+    </div>
+
+    <div><input type="radio" name="color" class="col" value="yellow">노란색</input></div>
+    <div><input type="radio" name="color" class="col" value="green">초록색</input></div>
+    <div><input type="radio" name="color" class="col" value="blue">파란색</input></div>
+    <div><input type="radio" name="color" class="col" value="red">빨간색</input></div>
+    
+    <h1>지금 가장 가고 싶은 곳은?</h1>
+    <input type="checkbox" name="" id="">미국</input>
+    <input type="checkbox" name="" id="">캐나다</input>
+    <input type="checkbox" name="" id="">프랑스</input>
+    <input type="checkbox" name="" id="">독일</input>
+    <input type="button" value="답변하기">
+
+
+    <script>
+
+        let name = document.getElementById("name");
+        let btn = document.getElementById("btn");
+        let subject = document.getElementsByClassName("sub");
+        let submit = document.getElementById("submit");
+        let color = document.getElementsByClassName("col");
+
+        btn.addEventListener("click",() => 
+            alert(`name은 ${name.value}이고 button은 ${btn.value}`
+        ));
+
+        submit.addEventListener("click",() =>
+            {   
+                for (let i = 0; i < subject.length; i++) {
+                    if(subject[i].checked) 
+                        alert(subject[i].value+"가 체크되었습니다.");
+                }
+        });
+       
+         for (let i = 0; i < color.length; i++) {
+               color[i].addEventListener("click",() =>{
+                    if(color[i].checked)
+                        document.bgColor = color[i].value;
+               });
+        }
+                    
+
+
+        // 5-1번 문제
+
+
+
+        // 1번 문제
+        // let output;
+
+        // function max(check){
+
+        //     if(Array.isArray(check))
+        //         {
+        //             output = check[0];
+
+        //             for (let i of check) {
+        //                 if(output < i)
+        //                     output = i;
+        //             }
+        //         }
+        //         return output;
+        // }
+
+        // console.log(`${max([1,2,3,4])}`);
+        // 1-1번 문제
+        // let output;
+
+        // function max(...check){ 
+        //         output = check[0];
+        //             for (let i of check) {
+        //                 if(output < i)
+        //                     output = i;
+        //             }                    
+        //         return output;
+        //     }
+
+
+        // 1-2번 문제
+        // let output;
+
+        // function max(check,...element){ 
+
+        //     if(Array.isArray(check))
+        //     {
+        //          output = check[0];
+
+        //          for (let i of check) {
+        //             if(output < i)
+        //                 output = i;
+        //         }   
+        //     }
+
+        //     else if(typeof(check) === "number")
+        //             output = check;
+
+        //         for (let i of element) {
+        //             if(output < i)
+        //                 output = i;
+        //         }                    
+        //     return output;
+        // }
+        // console.log(`${max([1,2,3,4])}`);
+        // console.log(`${max(1,2,3,4)}`);
+        
+        // 2-1번 문제
+        // let const1 = (() => console.log("Hi"));
+        // const1();
+            
+        // 2-2번 문제
+        // let sumC = ((a,b) => console.log(`${a+b}`));
+        // sumC(2,3);
+ 
+        // 2-3번 문제
+        // let multy = ((a,b) => {
+        //     for (; a < b; a++) {
+        //         for (let x = 1; x <= 9; x++) {                   
+        //             console.log(`${a}*${x}=${a*x}`);
+        //         }
+        //         console.log("\n");
+        //     }
+        // });
+        // multy(2,9);
+
+        // 2-4번 문제
+        // (1)
+        // let arr = [1,2,3];
+        // let newArr = arr.map(function (element) {
+        //         return element*element;
+        // });
+        
+        // console.log(newArr);
+        // (2)
+        // let arr = [1,2,3];
+        // let newArr = arr.map((element) => element*element
+        // );
+        
+        // console.log(newArr);
+
+        // 3-1 번 문제
+        // function name(params) {
+            
+        //     for (let x = 0; x < 3; x++) {
+        //         params(x);                
+        //     }
+        // }
+
+        //    function print (i) {
+        //        console.log(`${i}번째 함수 호출`)
+        // }
+
+        // name(print);
+
+        // 3-2번 문제
+        // const numbers = [273,52,103,32,57];
+
+        // numbers.forEach((value,indx) =>{
+        //     console.log(`${indx}번째 요소 : ${value}`);
+        // });
+
+        // 3-3번 문제
+        // let numbers = [273, 52, 103, 32, 57]; 
+        // let newArr = numbers.map((value) => value*value
+        // );
+        // console.log(newArr);
+
+        // 3-4번 문제
+        // const numbers = [0,1,2,3,4,5];
+        // let newArr = numbers.filter((value) => value%2 == 0);
+
+        // console.log(newArr);
+
+        // 3-5번 문제
+        // let numbers = [0,1,2,3,4,5,6,7,8,9];
+        // let newArr = numbers.filter((value) => value%2 == 0)
+        //     .map((value) => value*value);
+        //     console.log(newArr);
+
+        // 3-6번 문제
+        // setTimeout(() => console.log("1초 후에 실행됩니다.")
+        // ,1000);
+
+        // 3-7번 문제
+        // let i = 0;
+        // setInterval(() => console.log(`1초마다 실행됩니다.(${i++}번째)`),1000);
+
+        // 3-8번 문제
+        // let i = 0;
+        // let id = setInterval(() => console.log(`1초마다 실행됩니다. (${i++}번째)`),1000);
+        // setTimeout(() => {
+        //     console.log("5초후에 종료됩니다.");
+        //     clearInterval(id);
+        // },5*1000);
+
+        // 4-1번 문제
+        // let numbers = [273, 25, 75, 52, 103, 32, 57, 24, 76];
+        // let newArr = numbers.filter((value) => value%2 == 1)
+        //             .filter((value) => value <= 100)
+        //             .filter((value) => value%5 == 0);
+        // console.log(newArr);
+
+        // 4-2번 문제
+        // const array = ['사과', '배', '귤', '바나나']
+        // array.forEach((value) => console.log(value));
+
+        // 4-3번 문제
+        // (() => console.log("test")) ();
+    </script>
+</body>
+</html>
