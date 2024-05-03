@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        // 문서 객체 읽어들이고 생성하기
+        const divA = document.querySelector('#first')
+        const divB = document.querySelector('#second')
+        const h1 = document.createElement('h1')
+        h1.textContent = '이동하는 h1 태그'
+
+        // 서로 번갈아가면서 실행하는 함수를 구현합니다.
+        const toFirst = () => {
+          divA.appendChild(h1)
+          setTimeout(toSecond, 0.00002)
+        }
+        const toSecond = () => {
+          divB.appendChild(h1)
+          setTimeout(toFirst, 0.00002)
+        }
+        toFirst()
+      })
+    </script>
+  </head>
+  <body>
+    <div id="first">
+      <h1>첫 번째 div 태그 내부</h1>
+    </div>
+    <hr>
+    <div id="second">
+      <h1>두 번째 div 태그 내부</h1>
+    </div>
+  </body>
+</html>
+
+<!--
+  문서 객체 이동하기
+  appendChild() 메소드는 문서 객체를 이동할 때도 사용할 수 있습니다. 문서 객체의 부모(parent)는
+  언제나 하나여야 합니다. 따라서 문서 객체를 다른 문서 객체에 추가하면 문서 객체가 이동합니다.
+-->

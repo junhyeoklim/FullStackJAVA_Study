@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TextLength</title>
+</head>
+<body>
+    <script>
+        (function(){ 
+            let h1 = document.createElement("h1");
+            let textArea = document.createElement("textarea");
+
+            h1.setAttribute("id","cnt");
+            textArea.setAttribute("id","text");
+
+            document.body.appendChild(h1);
+            document.body.appendChild(textArea);
+        })();
+
+        let h1 = document.querySelector("#cnt");
+        let textArea = document.querySelector("#text");
+ 
+        textArea.addEventListener("keydown", () => {
+            let length = textArea.value.length;
+            h1.textContent = `글자 수 : ${length+1}`;
+        });
+    </script>
+</body>
+</html>
