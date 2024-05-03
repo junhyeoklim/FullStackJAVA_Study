@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        
+        fieldset{
+            width: 500px;
+            margin: 0 auto;
+            margin-bottom: 50px;
+            padding:10px 20px 30px 30px;
+        }
+        #box{
+            margin-bottom: 10px;
+        }
+        legend{
+            margin-left: 20px;
+        }
+        .name{
+            float:left;
+	        width:60px;
+	        font-weight:bold;
+	        font-size:0.9em;
+	        line-height: 55px;
+	        text-align:right;
+	        margin-right:15px;
+        }
+        .checklabel{
+            font-weight:bold;
+	        font-size:0.9em;
+        }
+        input[type="text"]{
+            border-radius: 5px 5px 5px 5px;
+            width:350px;
+	        height:35px;
+	        border:1px solid #aaa;
+	        border-radius:5px;
+	        padding:5px;
+	        margin:10px 0;
+	        float:left;	
+        }
+        
+    </style>
+</head>
+<body>
+    <fieldset>
+        <legend><h2>주문 정보</h2></legend>
+            <div>
+                <label for="name" class="name">이름 :</label>
+                <input type="text"  id="name_id">
+            </div>
+            <div>
+                <label for="name" class="name">연락처 :</label>
+                <input type="text"  id="name_tel">
+            </div>
+
+            <div>
+                <label for="name"  class="name" >주소 :</label>
+                <input type="text"id="name_addr">
+            </div>
+    </fieldset>
+   
+    <fieldset>
+        <legend><h2>배송 정보</h2></legend>
+            <div id="box">
+                <input type="checkbox" id="check">
+                <label for="check" class="checklabel">주문 정보와 배송 정보가 같습니다.</label>
+            </div>
+
+            <div>
+                <label for="name" class="name">이름 :</label>
+                <input type="text"  id="ship_name">
+            </div>
+            <div>
+                <label for="name" class="name">연락처 :</label>
+                <input type="text"  id="ship_tel">
+            </div>
+
+            <div>
+                <label for="name"  class="name" >주소 :</label>
+                <input type="text"id="ship_addr">
+            </div>
+    </fieldset>
+    <script>
+        let check =document.querySelector("#check");
+        let name = document.querySelector("#name_id");
+        let tel = document.querySelector("#name_tel");
+        let addr = document.querySelector("#name_addr");
+
+        check.addEventListener("click", () => {
+            if(check.checked)
+            {
+                document.querySelector("#ship_name").value = name.value;
+                document.querySelector("#ship_tel").value = tel.value;
+                document.querySelector("#ship_addr").value = addr.value;
+
+            }
+            else
+            {
+                document.querySelector("#ship_name").value = "";
+                document.querySelector("#ship_tel").value = "";
+                document.querySelector("#ship_addr").value = "";
+            }
+        });
+
+    </script>
+</body>
+</html>

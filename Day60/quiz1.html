@@ -25,7 +25,8 @@
       </fieldset>
       <fieldset>
         <legend>합계</legend>
-        <input type="text" id="total" name="total" class="price" readonly>
+        <!-- <input type="text" id="total" name="total" class="price" readonly> -->
+        <label id="total"></label>
       </fieldset>
 		</form>	
 	</div>
@@ -34,13 +35,14 @@
         let addThings = document.querySelectorAll(".checkbx");
         let price = 24000;
         let total = document.querySelector("#total");
+
         for (let idx = 0; idx < addThings.length; idx++) {
             addThings[idx].addEventListener("click", () => {
                 if(addThings[idx].checked)
                     price += parseInt(addThings[idx].value);                
                 else
                     price -= parseInt(addThings[idx].value);  
-                total.value = price;
+                total.textContent = price;
             });            
         }
     </script>
