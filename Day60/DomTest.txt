@@ -1,0 +1,23 @@
+1번 문제
+ - o
+
+2번 문제
+ - 문서객체 DOM
+
+3번 문제
+ - DOM 트리
+
+4번 문제
+ - querySelectAll(".small")
+
+5번 문제
+ - addEventListner
+
+6번 문제
+ - backgroundColor
+
+7번 문제
+  - display,visibility
+
+8번 문제
+ - 노드 리스트

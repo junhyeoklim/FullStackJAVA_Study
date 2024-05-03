@@ -1,0 +1,2 @@
+1. 익명함수 this vs 화살표 함수 this 차이점 관련 설명
+ - https://sangjuntech.tistory.com/24 여기 참고
