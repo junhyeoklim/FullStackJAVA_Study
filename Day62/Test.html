@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test</title>
+    <style>
+        ul{
+            list-style: none;
+            position: relative;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        // {once : true} -> click 이벤트 1번만 발생
+        (function ui() {     
+        
+        let content = document.createElement("div");
+        let result = document.createElement("div");
+        let hr = document.createElement("hr");
+        let h1 = document.createElement("h1");
+        let ul = document.createElement("ul");
+        let p1 = document.createElement("p");
+        let p2 = document.createElement("p");
+        let p3 = document.createElement("p");
+
+        let list1 = document.createElement("li");
+        let list2 = document.createElement("li");
+        let list3 = document.createElement("li");
+        let button = document.createElement("button");        
+
+        h1.textContent = "상품 설명";
+        p1.textContent = "HTML+CSS+자바스크립트";
+        p2.textContent = "한 권으로 끝내는 웹 기본 교과서";       
+        p3.textContent = "코딩 왕초보도 OK! 기초부터 활용까지 완전정복";
+        button.textContent = "주문하기";
+ 
+        p1.setAttribute("id","title");
+        p2.setAttribute("class","text");
+        p3.setAttribute("class","text");
+ 
+        button.setAttribute("type","button");
+        button.setAttribute("id","btn");
+        result.setAttribute("id","result");
+
+        list1.appendChild(p1);
+        list2.appendChild(p2);
+        list3.appendChild(p3);
+
+        ul.appendChild(list1);
+        ul.appendChild(list2);
+        ul.appendChild(list3);
+
+        content.appendChild(h1);
+        content.appendChild(ul);
+        content.appendChild(button);
+
+        document.body.appendChild(content);
+        document.body.appendChild(hr);
+        document.body.appendChild(result);
+    })();
+
+
+    let text = document.querySelector("#title");
+    let result = document.querySelector("#result");
+    let button = document.querySelector("#btn");
+    let newP = document.createElement("p");
+
+    button.addEventListener("click",() => {
+        newP.innerText = text.innerText;
+
+        result.appendChild(newP);
+    }, {once : true});
+
+    
+
+    </script>
+</body>
+</html>

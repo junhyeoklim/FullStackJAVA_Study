@@ -1,0 +1,20 @@
+1. EventListener Option :  {once : true} -> click 이벤트 1번만 발생하게 하는 옵션
+
+2. JSON.stringify
+
+ - 구문 : JSON.stringify(value[, replacer[, space]])
+
+ - 매개 변수 
+ 	- value : JSON 문자열로 변환할 값.
+
+	- replacer : 문자열화 동작 방식을 변경하는 함수, 
+	혹은 JSON 문자열에 포함될 값 객체의 속성들을 선택하기 위한 
+	화이트리스트(whitelist)로 쓰이는 String 과 Number 객체들의 배열. 
+	이 값이 null 이거나 제공되지 않으면, 객체의 모든 속성들이 JSON 문자열 결과에 포함된다.
+
+	- space : 가독성을 목적으로 JSON 문자열 출력에 공백을 삽입하는데 사용되는 
+	 String 또는 Number 객체. 이것이 Number 라면, 공백으로 사용되는 스페이스(space)의 수를 나타낸다;
+	 이 수가 10 보다 크면 10 으로 제한된다. 
+	 1 보다 작은 값은 스페이스가 사용되지 않는 것을 나타낸다. 
+	 이것이 String 이라면, 그 문자열(만약 길이가 10 보다 길다면, 첫번째 10 개의 문자)이 
+	 공백으로 사용된다. 이 매개 변수가 제공되지 않는다면(또는 null 이면), 공백이 사용되지 않는다.
