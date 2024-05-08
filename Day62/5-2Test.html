@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>5-2</title>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.15/lodash.min.js">
+    </script>
+</head>
+<body>
+    <!-- 1번 문제 -->
+    <!-- <script>
+        const num = 52000
+        num.원 = function() {
+            return this.valueOf() + '원'
+        }
+    
+        console.log(num.원())
+    </script> -->
+    <!-- 실행 결과 : undefined -> x 답 : num.원은 함수가 아니다
+        이유 : num은 객체가 아니다. -->
+
+    <!-- 2번 문제 -->
+<!-- <script>
+	function printLang(code){
+		return printLang._lang[code]
+	}
+	printLang._lang = {
+		ko: '한국어',
+		en: '영어',
+		ja: '일본어',
+		fr: '프랑스어',
+		es: '스페인어'
+	}
+
+	console.log('printLang("ko"):', printLang('ko'))
+	console.log('printLang("en"):', printLang('en'))
+</script> -->
+<!-- 예측 : printLang("ko") : 한국어 
+            printLang("en") : 영어-->
+
+
+<!-- 3번 문제 -->
+<!-- 답 : prototype-->
+
+<!-- 4번 문제 -->
+<script>
+    // 데이터를 생성합니다.
+    const books = [{
+      name: '혼자 공부하는 파이썬',
+      price: 18000,
+      publisher: '한빛미디어'
+    }, {
+      name: 'HTML5 웹 프로그래밍 입문',
+      price: 26000,
+      publisher: '한빛아카데미'
+    }, {
+      name: '머신러닝 딥러닝 실전 개발 입문',
+      prie: 30000,
+      publisher: '위키북스'
+    }, {
+      name: '딥러닝을 위한 수학',
+      price: 25000,
+      publisher: '위키북스'
+    }]
+    // const output = _.sortBy(books, book => book.price);
+    const output = _.orderBy(books,'name','asc');
+    console.log(JSON.stringify(output,null,2));
+  </script>
+</body>
+</html>
