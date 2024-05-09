@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day63Test</title>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+                // ui();
+                // imgChange();
+                // onClick();
+                // test();
+
+                // 6번 문제
+                // let pet = {
+                //     name : "구름",
+                //     eat : function (menu) {
+                //         alert(this.name+"은/는 "+menu+"을/를 먹습니다.")
+                //     }
+                // };
+
+                // pet.eat("밥");
+
+                // 7번 문제
+                // let student = {};
+                // student.이름 = "윤인성";
+                // student.취미 = "악기";
+                // student.장래희망 = "생명공학자";
+
+                // console.log(JSON.stringify(student,null,2));
+
+                // 8번 문제
+                // let student = {};
+                // student.이름 = "윤인성";
+                // student.취미 = "악기";
+                // student.장래희망 = "생명공학자";
+
+                // delete student.장래희망;
+                // console.log(JSON.stringify(student,null,2));
+
+
+                // 9번 문제
+                //  let pet = {
+                //     name : "구름",
+                //     eat (menu) {
+                //         alert(this.name+"은/는 "+menu+"을/를 먹습니다.")
+                //     }
+                // };
+
+                // pet.eat("밥");
+
+                // 10번 문제
+                // let test = {
+                //     a : function () {console.log(this);},
+                //     b : () => {console.log(this);}
+                // }
+
+                // test.a();
+                // test.b();
+        });
+
+
+
+        // 1번 문제
+        // function ui() {
+        //     let content = document.createElement("div");
+        //     let result = document.createElement("div");
+        //     let title = document.createElement("h1");
+        //     let h1 = document.createElement("h1");            
+        //     let p1 = document.createElement("p");
+        //     let p2 = document.createElement("p");
+        //     let btn = document.createElement("button");
+        //     let hr = document.createElement("hr");
+
+        //     h1.textContent = "상품 설명";
+        //     title.textContent = "HTML+CSS+자바스크립트 웹 표준의 정석";
+        //     p1.textContent = "한 권으로 끝내는 웹 기본 교과서";
+        //     p2.textContent = "코딩 왕초보도 OK! 기초부터 활용까지 완전정복";
+        //     btn.textContent = "주문하기";
+
+        //     title.setAttribute("id","title");
+        //     btn.setAttribute("id","btn");
+        //     btn.setAttribute("type","button");
+        //     result.setAttribute("id","result");
+
+        //     content.appendChild(h1);
+        //     content.appendChild(title);
+        //     content.appendChild(p1);
+        //     content.appendChild(p2);
+        //     content.appendChild(btn);
+
+        //     document.body.appendChild(content);
+        //     document.body.appendChild(hr);
+        //     document.body.appendChild(result);
+        // }
+
+        // function onClick() {
+        //     let btn = document.querySelector("#btn");
+        //     let title = document.querySelector("#title");
+        //     let result = document.querySelector("#result");
+
+        //     btn.addEventListener("click",() => {
+        //         let newText = document.createTextNode(title.textContent);
+        //         let newP = document.createElement("p");
+
+        //         newP.style.color = "blue";
+
+        //         newP.appendChild(newText);
+        //         result.appendChild(newP);
+        //     },{once : true});
+        // }
+
+
+
+
+        // 2번 문제
+        // function ui() {
+        //     let h1 = document.createElement("h1");
+        //     let nameH1 = document.createElement("h2");
+        //     let majorH1 = document.createElement("h2");
+        //     let nameLabel = document.createElement("label");
+        //     let majorLabel = document.createElement("label");
+        //     let name = document.createElement("input");
+        //     let major = document.createElement("input");
+        //     let btn = document.createElement("button");
+        //     let content = document.createElement("div");
+        //     let result = document.createElement("div");
+        //     let table = document.createElement("table");
+        //     let tr = document.createElement("tr");
+        //     let nameTd = document.createElement("td");
+        //     let majorTd = document.createElement("td");
+            
+        //     h1.textContent = "참가자 명단";
+        //     nameH1.textContent = "이름";
+        //     majorH1.textContent = "전공";
+
+        //     nameLabel.setAttribute("for","name");
+        //     nameLabel.textContent = "이름 ";
+        //     name.setAttribute("type","text");
+        //     name.setAttribute("id","name");
+
+
+        //     majorLabel.setAttribute("for","major");
+        //     majorLabel.textContent = "전공 ";
+        //     major.setAttribute("type","text");
+        //     major.setAttribute("id","major");
+
+        //     btn.setAttribute("type","button");
+        //     btn.setAttribute("id","btn");
+        //     btn.textContent = "등록하기"
+
+        //     table.setAttribute("id","result");
+
+        //     nameLabel.appendChild(name);
+        //     majorLabel.appendChild(major);
+
+        //     content.appendChild(h1)
+        //     content.appendChild(nameLabel);
+        //     content.appendChild(majorLabel);
+        //     content.appendChild(btn);
+
+
+        //     nameTd.appendChild(nameH1);
+        //     majorTd.appendChild(majorH1);
+
+        //     tr.appendChild(nameTd);
+        //     tr.appendChild(majorTd);
+
+        //     table.appendChild(tr);
+
+
+        //     result.appendChild(table);
+
+        //     document.body.appendChild(content);
+        //     document.body.appendChild(result);
+        // }
+
+        // function onClick() {
+        //     let name = document.querySelector("#name");
+        //     let major = document.querySelector("#major");
+        //     let btn = document.querySelector("#btn");
+        //     let result = document.querySelector("#result");
+
+        //     btn.addEventListener("click", () => {
+        //         let tr = document.createElement("tr");
+        //         let nameTd = document.createElement("td");
+        //         let majorTd = document.createElement("td");
+
+        //         nameTd.textContent = name.value;
+        //         majorTd.textContent = major.value;
+
+        //         tr.appendChild(nameTd);
+        //         tr.appendChild(majorTd);
+        //         result.appendChild(tr);
+        //     });
+        // }
+
+
+        // 3번 문제
+        // function ui() {
+        //     let btn = document.createElement("button");
+
+        //     btn.textContent = "클릭!"
+        //     btn.setAttribute("id","btn");
+        //     btn.style.padding = "12px 30px";
+        //     btn.style.borderRadius = "5px 5px 5px 5px";
+        //     btn.style.width = "100px";
+        //     btn.style.position = "absolute";
+        //     btn.style.top = "200px";
+        //     btn.style.left = "200px";
+
+            
+        //     document.body.appendChild(btn);
+        // }
+
+        // function onClick() {
+        //     let btn = document.querySelector("#btn");
+
+        //     btn.addEventListener("click", () => {
+        //         let text = document.createElement("label");
+        //         text.textContent = "알림 내용이 표시됩니다.";
+
+        //         document.body.appendChild(text);
+
+        //         setTimeout(() => {
+        //             text.remove();
+        //         },3000);
+        //     });
+        // }
+
+        // 4번 문제
+        // function ui() {
+        //     let title = document.createElement("div");
+        //     let content = document.createElement("div");
+        //     let img = document.createElement("img");
+
+        //     title.textContent = "ENJOY YOUR LIFE";
+        //     title.style.backgroundColor = "black";
+        //     title.style.color = "white";
+        //     title.style.width = "300px";
+        //     title.style.padding = "10px 0px";
+        //     title.style.textAlign = "center";
+        //     title.style.fontWeight = "bold";
+        //     title.style.borderRadius = "7px 7px 7px 7px";
+        //     title.style.fontSize = "30px";
+
+        //     img.setAttribute("id","img");
+
+        //     content.setAttribute("id","result");
+        //     content.appendChild(img);
+            
+        //     document.body.appendChild(title);
+        //     document.body.appendChild(content);
+        // }
+
+        // function imgChange() {
+        //     let today = new Date();
+        //     let hour = today.getHours();
+        //     let content = document.querySelector("#result");
+        //     let img = document.querySelector("#img");
+
+        //     img.src = (hour < 12) ? "morning.jpg" : "afternoon.jpg";
+        // }
+
+        // 5번 문제
+        // function test() {
+        //     let input = `
+        //         일자,달러,엔,유로
+        //         02,1141.8,1097.46,1262.37 
+        //         03,1148.7,1111.36,1274.65
+        //         04,1140.6,1107.81,1266.58  
+        //         07,1143.4,1099.58,1267.8
+        //         08,1141.6,1091.97,1261.07
+        //         `;
+
+        //     input = input.trim().split("\n").map(line => line.split(","));
+
+        //     console.log(input);
+        // }
+    </script>
+
+    <style>
+        /* *{
+            margin-bottom: 10px;
+        }
+        label{
+            display: block;
+        }
+        table, td {
+            border : 1px solid black;
+            border-collapse : collapse;
+            text-align: center;
+            font-size: 20px;    
+        }        
+        td:not(:first-of-type){
+            padding: 1px 100px;
+        }
+        td:first-of-type{
+            padding: 1px 30px;
+        } */
+        button:hover{
+               background-color: antiquewhite; 
+        }
+        body{
+            user-select: none;
+        }
+    </style>
+</head>
+<body>
+    
+</body>
+</html>
