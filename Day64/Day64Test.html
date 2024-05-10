@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day64Test</title>
+    <script src="js/jquery.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // 1번 문제
+            // try {
+            //     ddd.get();
+            // } catch (error) {
+            //     alert("1번 문제 테스트")
+            // }
+
+
+            // 2번 문제
+            // try {
+            //     console.log("try");
+            //     sad.jeisw();
+            // } catch (error) {
+            //     console.log("catch");
+            // }
+            // finally{
+            //     console.log("finally");
+            // }
+
+
+            // 3번 문제
+        //     function test() {
+        //         try {
+        //         alert('A 위치입니다.')
+        //         throw "예외 강제 발생"
+        //         } catch (exception) {
+        //         alert('B 위치입니다.')
+        //         return
+        //         }
+        //         alert('C 위치입니다.')
+        //     }
+
+        // // 함수를 호출합니다.
+        // test()
+
+        // // 예상 : a,b 출력
+
+        // 4번 문제
+        // function test() {
+        //     try {
+        //         alert('A 위치입니다.')
+        //         throw "예외 강제 발생"
+        //         } catch (exception) {
+        //         alert('B 위치입니다.')
+        //         return
+        //         } finally {
+        //         alert('C 위치입니다.')
+        //     }
+        // }
+
+        // // 함수를 호출합니다.
+        // test()
+
+        // // 예상 : a,b,c 다 출력
+
+        // try {
+        //     let array = new Array(99999999999999);
+        // } catch (error) {
+        //     console.log("array Error Name : ",error);
+        // }
+
+        // https://velog.io/@minh0518/throw-new-Errorerror-vs-throw-error 여기 참고
+
+
+        // 2-1 번 문제
+        //  추상화 : 추상화란 프로그램에 필요한 요소만 사용해서 객체를 표현 하는 것
+
+
+        // 2-2번 문제
+    //     const students = []
+    //   students.push({ 이름: '구름', 국어: 87, 영어: 98, 수학: 88, 과학: 90})
+    //   students.push({ 이름: '별이', 국어: 92, 영어: 98, 수학: 96, 과학: 88})
+    //   students.push({ 이름: '겨울', 국어: 76, 영어: 96, 수학: 94, 과학: 86})
+    //   students.push({ 이름: '바다', 국어: 98, 영어: 52, 수학: 98, 과학: 92})
+    
+    //   // 코드 추가
+    //   for (const s of students) {
+    //         s.getSum = function () {
+    //             return this.과학+this.국어+this.수학+this.영어;
+    //         }
+
+    //         s.getAverage = function () {
+    //             return s.getSum()/4;
+    //         }
+    //   }
+    //   // 출력합니다.
+    //   let output = '이름\t총점\t평균\n'
+    //   for (const s of students) {
+    //     output += `${s.이름}\t${s.getSum()}점\t${s.getAverage()}점\n`
+    //   }
+    //   console.log(output)
+
+
+    // 2-3번 문제
+    // function createStudent(이름,국어,영어,수학,과학){
+    //     return{ 
+    //             이름 : 이름,
+    //             영어 : 영어,
+    //             국어 : 국어,
+    //             수학 : 수학,
+    //             과학 : 과학,
+
+    //         getSum(){
+    //             return this.과학+this.국어+this.수학+this.영어;
+    //         },
+
+    //         getAverage(){
+    //             return this.getSum()/4;
+    //         },
+
+    //         toString(){
+    //             return `${this.이름}\t${this.getSum()}점\t${this.getAverage()}점\n`;
+    //         }
+    //     }
+    // }
+
+
+
+    // // 객체를 선언합니다.
+    // const students = []
+    //   students.push(createStudent('구름', 87, 98, 88, 90))
+    //   students.push(createStudent('별이', 92, 98, 96, 88))
+    //   students.push(createStudent('겨울', 76, 96, 94, 86))
+    //   students.push(createStudent('바다', 98, 52, 98, 92))
+    
+    //   // 출력합니다.
+    //   let output = '이름\t총점\t평균\n'
+    //   for (const s of students) {
+    //     output += s.toString()
+    //   }
+    //   console.log(output)
+
+
+
+    // 2-4~5번 문제
+    // class Student{
+    //     constructor(이름,국어,영어,수학,과학){
+    //         this.이름 = 이름;
+    //         this.영어 = 영어;
+    //         this.국어 = 국어;
+    //         this.수학 = 수학;
+    //         this.과학 = 과학;
+    //     }
+
+    //     getSum(){
+    //         return this.과학+this.국어+this.수학+this.영어;
+    //     }
+
+    //     getAverage(){
+    //         return this.getSum()/4;
+    //     }
+
+    //     toString(){
+    //         return `${this.이름}\t${this.getSum()}점\t${this.getAverage()}점\n`;
+    //     }
+    // }
+
+    // const students = []
+    //   students.push(new Student('구름', 87, 98, 88, 90))
+    //   students.push(new Student('별이', 92, 98, 96, 88))
+    //   students.push(new Student('겨울', 76, 96, 94, 86))
+    //   students.push(new Student('바다', 98, 52, 98, 92))
+
+    //   //출력합니다.
+    //   let output = '이름\t총점\t평균\n'
+    //   for (const s of students) {
+    //     output += s.toString()
+    //   }
+    //   console.log(output)
+
+
+
+
+    // 3-1~2번 문제
+//     class Rectangle {
+//         constructor(x,y){
+//             this.x = x;
+//             this.y = y;
+//         }
+
+//         getPerimeter(){
+//             return (this.x+this.y)*2;
+//         }
+
+//         getArea(){
+//             return this.x*this.y;
+//         }
+//     }
+
+
+
+//     class Square extends Rectangle {
+//         constructor(x){
+//             super(x,x);
+//         }
+//     }
+
+//     let rec1 = new Square(10);
+
+// console.log("perimeter : ",rec1.getPerimeter());
+// console.log("area : ",rec1.getArea());
+
+
+// 3-3번 문제
+// class Square {
+//         constructor (length) {
+//             // 예외발생 코드 추가
+//             if(length < 0)
+//                 throw length;
+//           this.length = length
+//         }
+//         getPerimeter () { return 4 * this.length }
+//         getArea () { return this.length * this.length }
+//       }
+
+//       // 클래스 사용하기
+//       const square = new Square(-10)
+//       console.log(`정사각형의 둘레: ${square.getPerimeter()}`)
+//       console.log(`정사각형의 넓이: ${square.getArea()}`)
+
+
+// 3-4번 문제
+// class Square{
+//     #x;
+
+//     constructor(x){
+//         this.x = x;
+//     }
+
+//     getPerimeter(){
+//         return this.x*4;
+//     }
+
+//     getArea(){
+//         return this.x*this.x;
+//     }
+// }
+
+// let square = new Square(10);
+
+// console.log(square.getPerimeter());
+// console.log(square.getArea());
+
+
+// 3-5번 문제
+// class Square{
+//     #x;
+
+//     constructor(x){
+//         this.x = x;
+//     }
+
+//     get(){
+//         return this.x;
+//     }
+//     set(length){
+//         if(length < 0)
+//             throw length;
+//         this.x = length;
+//     }
+
+//     getPerimeter(){
+//         return this.x*4;
+//     }
+
+//     getArea(){
+//         return this.x*this.x;
+//     }
+// }
+
+//     let sq = new Square(10);
+
+//     sq.set(-10);
+//     console.log("변의 길이 : ",sq.get());
+//     console.log("둘레 : ",sq.getPerimeter());
+//     console.log("넓이 : ",sq.getArea());
+
+
+// 3-6번 문제
+// class Square {
+//     #length;
+//     static#counter = 0;
+
+//     constructor(length){
+//         this.length = length;
+//         Square.#counter += 1;
+//     }
+
+//     static get Counter(){
+//         return Square.#counter;
+//     }
+
+//     static getPerimeterOf(length){
+//         return length*4;
+//     }
+
+//     static getAreaOf(length){
+//         return length*length;
+//     }
+
+//     get(){
+//         return this.length;
+//     }
+
+//     set(length){
+//         if(length < 0)
+//             throw length;
+//         this.length = length;
+//     }
+
+//      getPerimeter(){
+//         return this.length*4;
+//     }
+
+//      getArea(){
+//         return this.length*this.length;
+//     }
+// }
+
+// let s1 = new Square(10);
+// let s2 = new Square(20);
+// let s3 = new Square(30);
+
+// console.log("20의 둘레 : ",Square.getPerimeterOf(20));
+// console.log("30의 면적 : ",Square.getAreaOf(30));
+// console.log("객체의 갯수 : ",Square.Counter);
+
+// 3-7번 문제
+// 메소드 오버라이딩 : 부모클래스에 있는 메소드를 상속 받아 재정의 한 것
+
+// 3-8번 문제
+// class LifeCycle {
+//         call () {
+//           this.a()
+//           this.b()
+//           this.c()         
+//         }
+
+//         a () { console.log('a() 메소드를 호출합니다.')}
+//         b () { console.log('b() 메소드를 호출합니다.')}
+//         c () { console.log('c() 메소드를 호출합니다.')}
+//       }
+
+//       class Child extends LifeCycle {
+//         a () {
+//           console.log('자식의 a() 메소드입니다.')
+//         }
+//       }
+
+//       // 인스턴스를 생성합니다.
+//       new Child().call()
+
+//     //   예상 결과 : 자식의 a() 메소드입니다. b() 메소드를 호출합니다. c() 메소드를 호출합니다.
+
+
+// 3-9번 문제
+  // 클래스를 선언합니다.
+//   class LifeCycle {
+//         call () {
+//           this.a()
+//           this.b()
+//           this.c()         
+//         }
+
+//         a () { console.log('a() 메소드를 호출합니다.')}
+//         b () { console.log('b() 메소드를 호출합니다.')}
+//         c () { console.log('c() 메소드를 호출합니다.')}
+//       }
+
+//       class Child extends LifeCycle {
+//         a () {
+//           super.a()
+//           console.log('자식의 a() 메소드입니다.')
+//         }
+//       }
+
+//       // 인스턴스를 생성합니다.
+//       new Child().call()    
+// // 예상 결과 : a() 메소드를 호출합니다. 자식의 a() 메소드입니다. b() 메소드를 호출합니다. c() 메소드를 호출합니다.
+
+
+// 3-10번 문제
+// Object
+
+
+// 4-1번 문제
+// $(function () {
+            
+        // })
+// $("#txt").css("color","red");  
+
+
+
+// 4-2번 문제
+// $('*').css("border","1px solid blue");
+
+
+// 4-3번 문제
+// $('#tit').css({
+//     "background-color":"#ff0",
+//     "border":"2px solid #f00"
+// })
+
+
+// 4-4번 문제
+// $('.tit').css({
+//     "background-color":"#ff0",
+//     "border":"2px dashed #f00"
+// })
+
+
+// 4-5번 문제
+// $('h2').css({
+//     "background-color":"#ff0",
+//     "border":"2px dashed #f00"
+// })
+
+
+// 4-6번 문제
+// $('h3#tit3').css({
+//     "background-color":"#ff0",
+//     "border":"2px dashed #f00"
+// })
+
+
+// 4-7번 문제
+// $('h3.tit').css({
+//     "background-color":"#0ff",
+//     "border":"2px dashed #f00"
+// })
+
+
+// 4-8번 문제
+// $('#list_1').parent().css("border","2px dashed #f00");
+
+
+
+// 4-9번 문제
+// $('#wrap').children('h1').css({
+//     "background-color":"yellow",
+//     "border":"2px dashed #f00"
+// })
+
+
+
+// 4-10번 문제
+// $('#wrap').children('h1').css("border","2px dashed #f00")
+// $('#wrap').children('section').children().css({
+//     "background-color":"yellow",
+//     "border":"2px dashed #f00"
+// })
+
+
+
+
+
+// 4-12번 문제
+// var style_1 = {
+// 		"background-color":"#0ff",
+// 		"border":"2px solid #f00"
+// 	}
+// 	var style_2 = {
+// 		"background-color":"#ff0",
+// 		"border":"2px dashed #f00"
+// 	}
+
+//     $('.txt').prev().css(style_1);
+//     $('.txt').next().css(style_2);
+//     // $('.txt + p').css(style_2);
+//     $('.txt').next().next().css(style_2)
+
+
+
+
+// 4-13번 문제
+// var style_1 = {
+// 		"background-color":"#0ff",
+// 		"border":"2px solid #f00"
+// 	}
+// 	var style_2 = {
+// 		"background-color":"#ff0",
+// 		"border":"2px dashed #f00"
+// 	}
+
+
+//     $('.txt').prevAll().css(style_1);
+//     $('.txt').nextAll().css(style_2);
+
+
+// 4-14번 문제
+// var style_1 = {
+// 		"background-color":"#0ff",
+// 		"border":"2px solid #f00"
+// 	}        
+
+//     $('.txt').siblings().css(style_1);
+
+
+
+// 4-15번 문제
+// var style_1 = {
+// 		"background-color":"#0ff",
+// 		"border":"2px solid #f00"
+// 	}
+
+// $('.txt3').prevUntil('.title').css(style_1);
+// $('.txt3').nextUntil('.txt6').css(style_1);
+
+
+
+
+// 4-16번 문제
+// $('.txt1').parents().css("border","2px dashed #00f");
+// $('.txt2').parents('div').css("border","2px solid #f00")
+
+
+
+// 4-17번 문제
+// $('.txt1').closest('div').css('border','2px solid #f00')
+
+
+
+})
+    </script>
+</head>
+<body>
+     <!-- <p id="txt">내용</p> -->
+     <!-- <h1>제이쿼리</h1>
+     <h2>선택자</h2>
+     <h3>직접 선택자</h3> -->
+     <!-- <h1>제이쿼리</h1>
+	<h2 id="tit">선택자</h2>
+	<h3>직접 선택자</h3> -->
+
+    <!-- <h1>제이쿼리</h1>
+	<h2 class="tit">선택자</h2>
+	<h3>직접 선택자</h3> -->
+    <!-- <h1>제이쿼리</h1>
+	<h2>선택자</h2>
+	<h3>직접 선택자</h3> -->
+    <!-- <h1>제이쿼리</h1>
+	<h2>선택자</h2>
+	<h3 id="tit3">직접 선택자</h3>
+	<h3>인접 선택자</h3> -->
+    <!-- <h1 class="tit">제이쿼리</h1>
+	<h2>선택자</h2>
+	<h3 class="tit">직접 선택자</h3> -->
+
+    <!-- <h1>인접 관계 선택자</h1>
+	<ul id="wrap">
+		<li>리스트1
+			<ul>
+				<li id="list_1">리스트1-1</li>
+				<li>리스트1-2</li>
+			</ul>
+		</li>
+		<li>리스트2</li>
+		<li>리스트3</li>
+	</ul> -->
+
+    <!-- <div id="wrap">
+		<h1>인접 관계 선택자</h1>
+		<p>내용1</p>
+		<section>
+				<h1>하위 요소 선택자</h1>
+				<p>내용2</p>
+		</section>
+	</div> -->
+
+    <!-- <div id="wrap">
+		<h1>인접 관계 선택자</h1>
+		<p>내용1</p>
+		<section>
+			<h1>자식 요소 선택자</h1>
+			<p>내용2</p>
+		</section>
+	</div> -->
+
+    <!-- <div id="wrap">
+        <h1>인접 관계 선택자</h1>
+        <p>내용1</p>
+        <p class="txt">내용2</p>
+        <p>내용3</p>
+        <p>내용4</p>
+</div> -->
+
+<!-- <div id="wrap">
+    <h1>인접 관계 선택자</h1>
+    <p>내용1</p>
+    <p class="txt">내용2</p>
+    <p>내용3</p>
+    <p>내용4</p>
+</div> -->
+
+<!-- <div id="wrap">
+    <h1>인접 관계 선택자</h1>
+    <p>내용1</p>
+    <p class="txt">내용2</p>
+    <p>내용3</p>
+    <p>내용4</p>
+</div> -->
+
+
+<!-- <div id="wrap">
+	<h1 class="title">선택자</h1>
+	<p>내용1</p>
+	<p>내용2</p>
+	<p class="txt3">내용3</p>
+	<p>내용4</p>
+	<p>내용5</p>
+	<p class="txt6">내용6</p>
+</div> -->
+
+
+
+<!-- <h1 class="title">선택자</h1>
+<section>
+    <div>
+        <p class="txt1">내용</p>
+    </div>
+</section>
+<section>
+    <div>
+        <p class="txt2">내용</p>
+    </div>
+</section> -->
+
+
+<h1 class="title">선택자</h1>
+<div>
+    <div>
+        <p class="txt1">내용</p>
+    </div>
+</div>
+</body>
+</html>
