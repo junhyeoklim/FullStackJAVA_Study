@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day65Test2</title>
+    <script src="js/jquery.js"></script>
+    <script>
+        $(function () {
+            // 1번 문제
+            // var e = $('#sec_1').html();
+            // console.log(e);
+    
+            // $('#sec_1 p').html('<a href=\"#\">Text1</a>');
+            
+            // var e = $('#sec_2').text();
+            // console.log(e);
+    
+            // $('#sec_2 h2').text('text()');
+    
+
+            // 2번 문제
+            // var e = $('#sec_1 img').attr('src');
+            // console.log(e);
+
+            // $('#sec_1 img').attr({
+            //     'width':'200px',
+            //     'src':'images/math_img_2.jpg',
+            //     'alt':'바위'
+            // }).removeAttr('border');
+
+
+            // 3번 문제
+            // $('#p1').addClass('aqua');
+            // $('#p2').removeClass('red');
+            // $('#p3').toggleClass('green');
+            // $('#p4').toggleClass('green');
+            // // $('#p3').text($('#p5').is('.yellow'));
+            // $('#p3').text($('#p5').hasClass('yellow'));
+
+
+            // 4번 문제
+            // var e = $('#user_name').val();
+            // console.log(e);
+
+            // $('#user_id').val('javascript');
+            // var e = $('#user_id').prop('defaultValue');
+            // console.log(e);
+
+
+
+
+
+
+            // 5번 문제
+            // var e = $('#chke1').is(':checked');
+            // console.log(e);
+
+            // $('#chk2').prop('checked','true');
+
+            // var e = $('#se_1').prop('selectedIndex');
+            // console.log(e);
+
+
+
+            // 6번 문제
+            // var e = $('#p1').width();
+            // console.log(e);
+
+            // var e = $('#p1').innerWidth();
+            // console.log(e);
+
+            // var e = $('#p1').outerWidth();
+            // console.log(e);
+
+            // $('#p2').outerWidth(100);
+            // $('#p2').outerHeight(100);
+
+
+            // 7번 문제
+            // var top1 = $('.box').offset().top;
+            // $('.txt_1 > span').text(top1);
+
+            // var top1 = $('.box').position().top;
+            // $('.txt_2 > span').text(top1);
+
+
+
+            // 8번 문제
+            // var top1 = $('h1').offset().top;
+
+            // $(window).scrollTop(top1);
+
+
+           
+            // 9번 문제
+            $('#wrap > p:eq(2)').after('<p>After</p>');
+            $('<p>insertAfter</p>').insertAfter('#wrap > p:eq(1)');
+            $('#wrap > p:eq(1)').before('<p>Before</p>')
+            $('<p>insertBefore</p>').insertBefore('#wrap p:eq(0)');
+        })
+    </script>
+    <style>
+        /* .aqua{background-color:#0ff;}
+        .red{background-color:#f00;}
+        .green{background-color:#0f0;}
+        .yellow{background-color:#ff0;} */
+
+        /* *{padding: 0;}
+	    #p1, #p2{
+		width: 100px;
+		height: 50px;
+		padding:20px;
+		border: 5px solid #000;
+		background-color: #ff0;
+        } */
+        /* *{margin:0;padding:0;}
+	    #box_wrap{
+			width:300px;
+			height:200px;
+			margin:50px auto 0;
+			position: relative;
+			background-color:#ccc;
+	    }
+	    .box{
+			width:50px;height:50px;
+			position:absolute;
+			left:100px;top:50px;
+			background-color:#f00;
+	    } */
+        /* *{margin:0;padding:0;}
+	    body{line-height:1;}
+	    #wrap{
+			height:5000px;
+			padding-top:2000px;
+	    } */
+    </style>
+</head>
+<body>
+    <!-- <h1><strong>객체 조작 및 생성</strong></h1>
+	<section id="sec_1">
+		<h2><em>html()</em></h2>
+		<p>내용1</p>
+	</section>
+	<section id="sec_2">
+		<h2><em>텍스트()</em></h2>
+		<p>내용2</p>
+	</section> -->
+    <!-- <h1><strong>객체 조작 및 생성</strong></h1>
+    <section id="sec_1">
+        <h2>이미지 속성</h2>
+        <p><img src="images/math_img_1.jpg" alt="가위" border="2"></p>
+    </section> -->
+    <!-- <p id="p1">내용1</p>
+	<p id="p2" class="red">내용2</p>
+	<p id="p3">내용3</p>
+	<p id="p4" class="green">내용4</p>
+	<p id="p5" class="yellow">내용5</p>
+	<p id="p6"></p> -->
+    <!-- <h1>객체 조작 및 생성</h1>
+	<form action="#" id="form_1">
+		<p>
+			<label for="user_name">이름</label> 
+			<input type="text" name="user_name"
+				id="user_name" value="용대리">
+		</p>
+		<p>
+			<label for="user_id">아이디</label> 
+			<input type="text" name="user_id"
+				id="user_id" value="hello">
+		</p>
+	</form> -->
+    <!-- <h1><strong>객체 조작 및 생성</strong></h1>
+	<form action="#" id="form_1">
+		<p>
+			<input type="checkbox" name="chk1" id="chk1">
+			<label for="chk1">chk1</label>
+			<input type="checkbox" name="chk2" id="chk2" checked>
+			<label for="chk2">chk2</label>
+			<input type="checkbox" name="chk3" id="chk3">
+			<label for="chk3">chk3</label>
+		</p>
+		<p>
+			<select name="se_1" id="se_1">
+				<option value="opt1">option1</option>
+				<option value="opt2">option2</option>
+				<option value="opt3" selected>option3</option>
+			</select>
+		</p>
+	</form> -->
+    <!-- <h1>수치 조작 메서드</h1>
+	<p id="p1">내용1</p>
+	<p id="p2">내용2</p> -->
+    <!-- <div id="box_wrap">
+		<p class="box">박스</p>
+	</div>
+	<p class="txt_1">절대 top위칫값: <span></span></p>
+	<p class="txt_2">상대 top위칫값: <span></span></p> -->
+	<!-- <div id="wrap">
+        <h1>위치 메서드</h1>
+    </div> -->
+	<div id="wrap">
+		<p>내용1</p>
+		<p>내용2</p>
+		<p>내용3</p>
+	</div>
+</body>
+</html>
