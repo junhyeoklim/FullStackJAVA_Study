@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day66Test1</title>
+    <script src="js/jquery.js"></script>
+    <script>
+        $(function () {
+            var baseFontSize = 14;
+
+
+            $('.zoomBtnZone button').on('click',inOut);
+
+            function inOut() {
+                if($(this).hasClass('zoomOutBtn'))
+                {
+                    $('#wrap').css({
+                        'font-size':`${baseFontSize -= 1}px`
+                    })
+                }
+                else if($(this).hasClass('zoomInBtn')){
+                    $('#wrap').css({
+                        'font-size':`${baseFontSize += 1}px`
+                    })
+                }
+                else if($(this).hasClass('originBtn')){
+                    baseFontSize = 14;
+                    $('#wrap').css({                        
+                        'font-size':`${baseFontSize}px`
+                    })
+                }                
+                $('.fontSize').text(`${baseFontSize}px`);
+            }
+        })
+    </script>
+</head>
+<body>
+    <p class="zoomBtnZone">
+		<button class="zoomOutBtn">-</button>
+		<button class="originBtn">100%</button>
+		<button class="zoomInBtn">+</button>
+	</p>
+	<p class="fontSize">14px</p>
+	<div id="wrap">
+		Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas feugiat consectetur nibh, ut luctus urna placerat non. Phasellus consectetur nunc nec mi feugiat egestas. Pellentesque et consectetur mauris, sed rutrum est. Etiam odio nunc, ornare quis urna sed, fermentum fermentum augue. Nam imperdiet vestibulum ipsum quis feugiat. Nunc non pellentesque diam, nec tempor nibh. Ut consequat sem sit amet ullamcorper sodales.
+	</div>
+</body>
+</html>
