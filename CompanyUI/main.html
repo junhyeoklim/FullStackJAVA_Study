@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>main</title>
+    <style>
+        body{
+            user-select: none;
+        }
+        table{
+            margin: 0 auto;
+            width: 800px;
+        }
+        #footer{
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <form method="post" action="">
+        <table border="1">
+            <caption>사원 정보 입력</caption>
+            <tr>
+                <td><label for="name">이름</label></td>
+                <td><input type="text" name="name" id="name" required></td>
+            </tr>
+
+            <tr>
+                <td><label for="department">부서</label></td>
+                <td><input type="text" name="department" id="department" required></td>
+            </tr>
+
+            <tr>
+                <td><label for="rank">직급</label></td>
+                <td><input type="text" name="rank" id="rank" required></td>
+            </tr>
+
+            <tr>
+                <td><label for="phone">전화번호</label></td>
+                <td colspan="2">
+                    <select value="" >
+                        <option value="select" disabled selected>선택</option>
+                        <option>SKT</option>
+                        <option>KT</option>
+                        <option>LG U+</option>
+                    </select>
+                    <input type="text" name="phone" id="phone" required>
+                </td>                
+            </tr>
+
+            <tr>
+                <td colspan="2" id="footer">
+                    <input type="submit" value="등록">
+                    <input type="reset" value="취소">
+                </td>
+            </tr>
+        </table>
+    </form>
+</body>
+</html>
