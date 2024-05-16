@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+	tr > td:last-child{
+		text-align: center;
+	}
+</style>
+</head>
+<body>
+	<form action=""></form>
+	<table border ="1">	
+		<tr>
+			<td><label for="name">이름</label></td>
+			<td><input type="text" name="name" id="name"></td>
+		</tr>		
+		<tr>
+			<td><label for="pwd">비밀번호</label></td>
+			<td><input type="password" name="pwd" id="pwd"></td>
+		</tr>
+		<tr>
+			<td colspan="2"><input type="submit" value="제출"></td>
+		</tr>
+	</table>
+</body>
+</html>

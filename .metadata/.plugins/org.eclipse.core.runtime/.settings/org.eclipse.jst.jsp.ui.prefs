@@ -1,0 +1,13 @@
+SCRIPT_AREA_BORDER=\#fbd153 | null | false | false | false | false
+commentBorder=\#73879B | null | null | null | null | null
+commentText=\#73879B | null | null | null | null | null
+eclipse.preferences.version=1
+jsp_content=\#E2E2E2 | null | null | null | null | null
+newFileTemplateName=HTML5 JSP
+org.eclipse.wst.sse.ui.custom_templates=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?><templates><template autoinsert\="true" context\="jsp_new" deleted\="false" description\="HTML5 JSP \uAE30\uBCF8\uD15C\uD50C\uB9BF" enabled\="true" name\="HTML5 JSP">&lt;%@ page language\="java" contentType\="text/html; charset\=${encoding}" pageEncoding\="${encoding}"%&gt;&\#13;\r\n&\#13;\r\n&lt;\!DOCTYPE html&gt;&\#13;\r\n&lt;html&gt;&\#13;\r\n&lt;head&gt;&\#13;\r\n&lt;meta charset\="${encoding}"&gt;&\#13;\r\n&lt;meta name\="viewport" content\="width\=device-width, initial-scale\=1.0"&gt;&\#13;\r\n&lt;title&gt;Insert title here&lt;/title&gt;&\#13;\r\n&lt;/head&gt;&\#13;\r\n&lt;body&gt;&\#13;\r\n${cursor}&\#13;\r\n&lt;/body&gt;&\#13;\r\n&lt;/html&gt;</template></templates>
+overriddenByCSS=,SCRIPT_AREA_BORDER,tagAttributeEquals,tagAttributeName,tagAttributeValue,tagName,tagBorder,
+tagAttributeEquals=\#52ca11 | null | false | false | false | false
+tagAttributeName=\#a7ec21 | null | false | false | false | false
+tagAttributeValue=\#17c694 | null | false | true | false | false
+tagBorder=\#808080 | null | false | false | false | false
+tagName=\#03a8d8 | null | true | false | false | false

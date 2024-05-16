@@ -1,0 +1,13 @@
+1. <%! %> -> 선언 부분 (멤버 변수,멤버 메소드가 된다)
+
+
+!! jsp 설정 방법
+
+ 1. https://olppaemmit.tistory.com/23
+ 2. sts툴에다가  Data Source Explorer 설정 하는 방법 
+ - https://velog.io/@epe1010/STS-Spring%EC%97%90-Data-Source-Explorer%EA%B0%80-%EC%97%86%EB%8B%A4
+
+
+2. jsp에서 jQuery 쓰는 방법
+ - https://7942yongdae.tistory.com/77#google_vignette
+ - https://e-you.tistory.com/267
