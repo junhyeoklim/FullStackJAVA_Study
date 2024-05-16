@@ -32,7 +32,7 @@
                 if($(this).hasClass('monsterHead'))
                 {
                     hcnt++;                    
-                    if(hcnt >= 10)
+                    if(hcnt > 9)
                     {
                         $(this).animate({
                             'margin-left':'0px'
@@ -49,7 +49,7 @@
                 {
                     ecnt++
 
-                    if(ecnt >= 10)
+                    if(ecnt > 9)
                     {
                         $(this).animate({
                             'margin-left':'0px'
@@ -64,7 +64,7 @@
                 else if($(this).hasClass('monsterNose'))
                 {
                     ncnt++;
-                    if(ncnt >= 10)
+                    if(ncnt > 9)
                     {
                         $(this).animate({
                             'margin-left':'0px'
@@ -79,7 +79,7 @@
                 else if($(this).hasClass('monsterMouth'))
                 {
                     mcnt++;
-                    if(mcnt >= 10)
+                    if(mcnt > 9)
                     {
                         $(this).animate({
                             'margin-left':'0px'
@@ -95,17 +95,17 @@
 
             function lightningOne () {
                 $('#light1').fadeIn('fast').fadeOut('fast');
-                setTimeout(() => {lightningOne()},4000);
+                setTimeout(() => {lightningOne()},1000);
             }
 
             function lightningTwo () {
                 $('#light2').fadeIn('fast').fadeOut('fast');
-                setTimeout(() => {lightningTwo()},5000);
+                setTimeout(() => {lightningTwo()},1100);
             }
 
             function lightningThree () {
                 $('#light3').fadeIn('fast').fadeOut('fast');
-                setTimeout(() => {lightningThree()},7000);
+                setTimeout(() => {lightningThree()},1200);
             }
 
         })

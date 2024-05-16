@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day67Test</title>
+    <script src="js/jquery.js"></script>
+    <script>
+        $(function () {
+            let cnt = 0;
+            
+
+            $('img').css({
+                'cursor':'pointer'
+            });
+
+
+            $(document).on('click','#wrap > div', checkForCode);
+
+
+            function checkForCode(){
+                let discount;
+
+                if($.contains(this,document.getElementById('discount')))
+                {
+                    let userCode = Math.floor(Math.random()*100);
+                    discount = '<p>Your Code: CODE'+userCode +'</p>';
+                    $('#wrap div').addClass('discount');
+                    $(this).off();
+                }
+                else
+                    discount = '<hr>Sorry, no discount this time!';
+
+                $('#result').append(discount);
+            }
+
+
+
+
+            function randomHideCode() {
+
+                let idx = Math.floor(Math.random()*4+1);
+
+                $(`#wrap > div:nth-of-type(${idx})`).append('<span id="discount"></span>');
+            }
+
+            
+
+        })
+    </script>
+    <style>
+        div{
+            float:left;
+	        border: solid #000 3px;
+	        text-align:left;
+        }
+        div#wrap{
+            background-color: gray;
+	        height: 500px;
+        }
+        #wrap > div:hover{
+            border: 3px solid blue;
+        }
+        div:not(#wrap){            
+            height:245px;
+        }
+        header h1{
+ 	        width:100%;
+ 	        border: 0px;
+ 	        height:50px;
+        }
+        #wrap div:nth-of-type(1){
+            width: 170px;
+        }
+        #wrap div:nth-of-type(2){
+            width: 204px;
+        }
+        #wrap div:nth-of-type(3){
+            width: 227px;
+        }
+        #wrap div:nth-of-type(4){
+            width: 221px;
+        }
+        span{
+            display: block;
+            margin-top: 270px;
+            text-align: center;
+        }
+        .discount{
+	        border: solid #0f0 3px;
+        }
+
+        .no_discount{
+	        border: solid #f00 3px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Jump for Joy Sale</h1>
+    </header>   
+    <div id="wrap">
+        <div><img src="images/jump1.jpg" class="first"></div>
+        <div><img src="images/jump2.jpg" class="second"></div>
+        <div><img src="images/jump3.jpg" class="third"></div>
+        <div><img src="images/jump4.jpg" class="force"></div>
+        <span id="result">ddd</span>
+    </div>
+</body>
+</html>
