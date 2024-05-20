@@ -17,12 +17,23 @@
 		
 		
 		
-		$("footer > button").on("click",btnCheck);
-			
+		$("footer > button").on("click",btnCheck);		
+		
+		
 			
 		function btnCheck(){			
 			if($(this).hasClass("board"))				
-				location.href = "board.jsp";		
+				location.href = "board.jsp";
+			else if($(this).hasClass("submit"))
+			{
+				let no = $("#no").text();
+				let title = $("#title").val();
+				let content = $("#content").val();
+				console.log(no);
+				console.log(title);
+				console.log(content);
+				location.href = "updateContent.jsp?no="+no+"&title="+title+"&content="+content; 
+			}
 		};
 	})
 </script>
@@ -50,13 +61,11 @@
 	%>
 	<%
 		String no = request.getParameter("no");
-		String selectSql = "SELECT * FROM board WHERE no = '"+no+"'";
-		String updateSql = "UPDATE board SET title = ? content = ? WHERE title = ?";
+		String selectSql = "SELECT * FROM board WHERE no = '"+no+"'";		
 		String user = "";
 		String date = "";
 		
-		try(PreparedStatement select = con.prepareStatement(selectSql);
-			PreparedStatement update = con.prepareStatement(updateSql);
+		try(PreparedStatement select = con.prepareStatement(selectSql);			
 			ResultSet rs = select.executeQuery();){
 			
 			while(rs.next())
@@ -69,8 +78,7 @@
 		catch(SQLException e){
 			e.printStackTrace();
 		}
-	%>
-	<form action="updateContent.jsp">
+	%>	
 	<table border="1">
 		<caption>수정하기</caption>
 			<tr>
@@ -89,14 +97,16 @@
 			</tr>
 			
 			<tr>
-				<td colspan="2"><textarea rows="10" cols="30" name="content"></textarea></td>
+				<td colspan="2"><textarea rows="10" cols="30" name="content" id="content"></textarea></td>
 			</tr>
+			
 	</table>
-	
+		
 	<footer>
 		<button type="button" class="board" value="목록">목록</button>
-		<input type="submit" value="등록">	
+		<button type="button" class="submit"  value="등록">등록</button>
+		<span id="no" hidden><%=no %></span>
 	</footer>
-	</form>
+	
 </body>
 </html>
