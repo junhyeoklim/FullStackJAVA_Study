@@ -33,8 +33,6 @@
 			PreparedStatement pstmt = conn.prepareStatement(sql);){
 			
 			Class.forName(driverPath);
-			System.out.println("드라이버 연결 성공");
-			System.out.println("Connection 연결 성공");
 			
 			if(name != null  && pws != null && id !=null){
 			pstmt.setString(1, name);
@@ -49,7 +47,7 @@
 				String value = URLEncoder.encode(name, "utf-8");
 				response.sendRedirect("welcome.jsp?name="+value);
 			}
-			else
+			els
 			{
 				System.out.println("데이터를 입력 해주세요");
 			}
