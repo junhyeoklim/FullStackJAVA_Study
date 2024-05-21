@@ -55,8 +55,11 @@
 			else if(Integer.parseInt(where) == 0)
 				response.sendRedirect("../Company_View/alert.jsp?flag="+flag);
 			else{
-				text = "";
-				response.sendRedirect("../Company_View/CompanyList.jsp?text="+text);
+				/* text = ""; */
+				/* response.sendRedirect("../Company_View/CompanyList.jsp?text="+text); */
+				request.setAttribute("text", "");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("../Company_View/CompanyList.jsp");
+				dispatcher.forward(request, response);	
 			} 
 			
 			

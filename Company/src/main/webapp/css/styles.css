@@ -31,7 +31,13 @@ footer{
     margin: 0 auto;
     margin-top: 10px;
 }
-
 #footer{    
     text-align: center;
 }
+
+#search {
+    height: 15px; /* 원하는 높이로 설정 */
+    vertical-align: middle; /* 수직 정렬 */
+}
+
+

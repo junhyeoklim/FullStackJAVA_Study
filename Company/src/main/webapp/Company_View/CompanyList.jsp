@@ -12,13 +12,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>main</title>
-<link rel="stylesheet" href="../css/styles.css">
+<link rel="stylesheet" href="../css/styles.css?after">
 <script src="../js/jquery.js"></script>
 
 </head>
-<body>
-	<%!Connection con = JDBCConnector.getCon();%>
+<body>	
+	<%@ include file="sessionTest.jsp"%>
 	
+	<%!Connection con = JDBCConnector.getCon();%>
+
 	<table border="1" id="main">
 		<caption>사원 목록</caption>
 		<tr>
@@ -33,7 +35,6 @@
 
 		String select = request.getParameter("select");
 		String text = request.getParameter("text");
-		
 
 		if (select != null && text != "") {
 			switch (Integer.parseInt(select)) {
@@ -66,19 +67,22 @@
 		%>
 
 		<tr>
-			<td colspan="5" id="footer">
-			<input type="button" id="btn" value="등록"></td>
+			<td colspan="5" id="footer"><input type="button" id="btn"
+				value="등록"></td>
 		</tr>
 	</table>
 	<footer>
 		<select id='select-box'>
-			<option disabled selected>선택</option>
-			<option value="1">이름</option>
-			<option value="2">직급</option>
-			<option value="3">부서</option>
-		</select> <input type="text" name="search" id="search"> <input
-			type="button" id="sbtn" value="검색">
+				<option disabled selected>선택</option>
+				<option value="1">이름</option>
+				<option value="2">직급</option>
+				<option value="3">부서</option>
+		</select>
+		<input type="text" name="search" id="search">
+	<input type="button" id="sbtn" value="검색">
+
 	</footer>
+
 	<script src="../js/list.js"></script>
 </body>
 </html>
