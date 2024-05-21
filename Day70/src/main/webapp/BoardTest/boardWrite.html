@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Write Content</title>
+<style type="text/css">
+	body{
+		user-select: none;
+	}
+	textarea,input:not([type="submit"],[type="button"]){
+		width: 90%;
+	}
+	table{
+		margin: 0 auto;
+		width: 280px; 
+		text-align: center;
+	}
+</style>
+</head>
+<body>
+	<form action="boardInsert.jsp">
+		<table border="1">
+			<caption>글쓰기</caption>
+				
+			<tr>
+				<td><label for="title">제목</label></td>
+				<td><input type="text" name="title" id="title" required></td>
+			</tr>
+			
+			<tr>
+				<td><label for="user">이름</label></td>
+				<td><input type="text" name="user" id="user" required></td>
+			</tr>
+			
+			<tr>
+				<td><label for="pwd">비밀번호</label></td>
+				<td><input type="password" name="pwd" id="pwd" required></td>
+			</tr>
+			
+			<tr>
+				<td><label for="mail">E-mail</label></td>
+				<td><input type="email" name="mail" id="mail"></td>
+			</tr>
+			
+			<tr>
+				<td colspan="2"><textarea cols="50" rows="10" name="content"></textarea></td>
+			</tr>
+			
+			<tr>
+				<td colspan="2">
+					<button type="submit" name="insert" value="1">등록</button>
+					<button type="submit" name="insert" value="2">목록</button>
+				</td>
+			</tr>
+		</table>
+	</form>
+</body>
+</html>
