@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<script src="../js/jquery.js"></script>
+<script>
+	$(function(){
+		let span = $('#show');
+		
+		span.attr({
+			style: "color: red"
+		});
+		
+		$('#pwdc,#pwd').on('keyup',function(){
+			let pwd = $('#pwd').val();		
+		
+			if(!check($('#pwdc').val()) &&!check(pwd) &&(pwd != $('#pwdc').val())){
+				span.attr({
+					style: "color: red"
+				});
+				span.text("비밀번호가 일치하지 않습니다!");
+			}
+			else if(!check($('#pwdc').val()) &&!check(pwd) && (pwd == $('#pwdc').val())){
+				span.attr({
+				style: "color: blue"
+				});
+				span.text("비밀번호가 일치합니다!");
+			}
+			else
+				span.text("");
+		});
+		
+		
+		
+		
+		
+		function check(value){
+            if (value === null) return true; 
+            if (typeof value === 'string' && value === '') return true;
+            if (typeof value === 'undefined') return true;
+            
+            return false;
+		}
+	})
+</script>
+<style type="text/css">
+	body{
+		user-select: none;
+	}
+	#show{
+		margin-left: 10px;
+	}
+</style>
+</head>
+<body>
+ 	<h1>회원가입</h1>
+ 	<form action="../MemberRegisterOK" method="post">
+ 		<table>
+ 			<tr>
+ 				<td><label for="name">이름</label></td>
+ 				<td><input type="text" name="name" id="name"></td>
+ 			</tr>
+ 			
+ 			<tr>
+ 				<td><label for="id">아이디</label></td>
+ 				<td><input type="text" name="id" id="id"></td>
+ 			</tr>
+ 			
+ 			<tr>
+ 				<td><label for="pwd">비밀번호</label></td>
+ 				<td><input type="password" name="pwd" id="pwd"></td>
+ 			</tr>
+ 			
+ 			<tr>
+ 				<td><label for="pwdc">비밀번호확인</label></td>
+ 				<td><input type="password" name="pwdc" id="pwdc"><span id="show"></span></td>
+ 			</tr>
+ 			
+ 			<tr>
+ 				<td>성별</td>
+ 				<td>
+ 					<input type="radio" name="sex" id="male" value="male"><label for="male">남</label>
+ 					<input type="radio" name="sex" id="female" value="female"><label for="female">여</label>
+ 				</td>
+ 			</tr>
+ 			
+ 			<tr>
+ 				<td><label for="mail">이메일</label></td>
+ 				<td><input type="email" name="mail" id="mail"></td>
+ 			</tr>
+ 			
+ 			<tr>
+ 				<td>취미</td>
+ 				<td>
+ 					<input type="checkbox" name="hobby" id="swimming" value="swimming"><label for="swimming">수영</label>
+ 					<input type="checkbox" name="hobby" id="baseball" value="baseball"><label for="baseball">야구</label>
+ 					<input type="checkbox" name="hobby" id="movie" value="movie"><label for="movie">영화감상</label>
+ 					<input type="checkbox" name="hobby" id="music" value="music"><label for="music">음악감상</label>
+ 				</td>
+ 			</tr>
+ 			
+ 			<tr>
+ 				<td>핸드폰</td>
+ 				<td>
+ 					<select name="first">
+ 						<option disabled selected>선택</option>
+ 						<option value="010">010</option>
+ 						<option value="011">011</option>
+ 						<option value="016">016</option>
+ 					</select>
+ 					<input type="text" name="second" id="second">
+ 				</td>
+ 			</tr>
+ 			
+ 			<tr>
+ 				<td colspan="2">
+ 					<input type="submit" value="회원가입">
+ 					<input type="reset" value="초기화">
+ 				</td>
+ 			</tr>
+ 		</table>
+ 	</form>
+</body>
+</html>
