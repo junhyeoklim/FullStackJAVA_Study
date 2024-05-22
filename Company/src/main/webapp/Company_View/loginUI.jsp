@@ -18,16 +18,16 @@
             
             function pageMove(){
             	let text = $('#name').val();
-                location.href = '../Company_DAO/CompanySearch.jsp?text='+text+'&select='+1+'&where='+0;
+                /*  location.href = '../Company_DAO/CompanySearch.jsp?text='+text+'&select='+1+'&where='+0; */
+               /* 이 방법 가능 하지만 기본이 get방식이라 데이터를 넘겨줘야 쓸 수 있음*/ location.href = '../HiServlet?name='+text; 
             }
         })
     </script>
 </head>
-<body>
-	<%@ include file="sessionTest.jsp"%>
+<body>	
     <table id="login">        
         <tr>
-            <td><label for="name">이름</label></td>
+            <td><label for="name">이름 </label></td>
             <td><input type="text" name="name" id="name"></td>
         </tr>
         <tr>

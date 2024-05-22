@@ -16,7 +16,7 @@
 		}
 		else{
 			alert("사원 이름이 존재하지 않습니다!");			
-			history.back(); 
+			location.href = 'loginUI.jsp';
 		}
 		
 	})

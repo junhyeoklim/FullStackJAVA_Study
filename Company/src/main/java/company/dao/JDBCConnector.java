@@ -14,6 +14,7 @@ public class JDBCConnector {
 
 	public static Connection getCon()
 		{
+
 		try	{
 		Class.forName(driverPath);		
 		con = DriverManager.getConnection(url,id,pwd);		

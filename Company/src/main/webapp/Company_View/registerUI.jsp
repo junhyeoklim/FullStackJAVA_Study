@@ -46,7 +46,7 @@
             <tr>
                 <td><label for="phone">전화번호</label></td>
                 <td colspan="2">
-                    <input type="text" name="phone" id="phone" required>
+                    <input type="number" name="phone" id="phone" required>
                 </td>                
             </tr>
 

@@ -40,4 +40,8 @@ footer{
     vertical-align: middle; /* 수직 정렬 */
 }
 
-
+table#register input[type="number"]::-webkit-outer-spin-button,
+table#register input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
