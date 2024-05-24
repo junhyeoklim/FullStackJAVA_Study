@@ -11,10 +11,10 @@
 <script>
 function check(){
 	
-	let id = $('#id');
-	let pwd = $('#pwd');
-
-	if(isWhat(id.val()) || isWhat(pwd.val())){
+	let id = $('#id').val();
+	let pwd = $('#pwd').val();
+	
+	if(isWhat(id) || isWhat(pwd)){
 		console.log(typeof pwd);
 		console.log(pwd);
 		alert("아이디 또는 비밀번호를 입력 해주세요!");
@@ -23,8 +23,14 @@ function check(){
 		id.focus();
 		return false;
 	}
+	else if(flag){
+		console.log(flag);
+		return false;
+	}
 	else
 		return true;
+	
+		
 		
 }
 
@@ -45,10 +51,12 @@ body {
 
 </head>
 <body>
-	<% String id = (String)session.getAttribute("id"); 
+	<% String id = (String)session.getAttribute("id");
+	   String flag = (String)session.getAttribute("flag"); 
 		if(id == null)
 		{
 	%>
+	
 	<form name="myForm" action="../LoginOK" onsubmit="return check()" method="post">
 		<table>
 			<tr>
@@ -65,10 +73,13 @@ body {
 				<td colspan="2"><input type="submit" id="submit" value="로그인">
 					<a href="memberRegister.html">회원가입</a></td>
 			</tr>
+			<span id="flag" name="flase" hidden></span>
 		</table>
 	</form>
+	
 	<% 
 		}
+
 		else{
 	%>
 	<%=id %>님 환영합니다.<br>

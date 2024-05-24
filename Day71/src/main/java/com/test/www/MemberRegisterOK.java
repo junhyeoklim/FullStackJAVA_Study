@@ -37,37 +37,41 @@ public class MemberRegisterOK extends HttpServlet {
 		String pwd = request.getParameter("pwd");
 		String sex = request.getParameter("sex");
 		String mail = request.getParameter("mail");
+		String test = request.getParameter("pwdCheck");
 		String[] hobby = request.getParameterValues("hobby");
 		String phone = request.getParameter("first").concat(request.getParameter("second"));
 
-		String userSql = "INSERT INTO user VALUES(?,?,?,?,?,?)";
-		String hobbySql = "INSERT INTO hobby VALUES(?,?)";
+		String userSql = "INSERT INTO user(id,name,pwd,sex,mail,phone) VALUES(?,?,?,?,?,?)";
+		String hobbySql = "INSERT INTO hobby(id,hob) VALUES(?,?)";
 
+		System.out.println(test);
 
 		Connection con = JDBCConnector.getCon();
 
 		try(PreparedStatement user = con.prepareStatement(userSql);
 				PreparedStatement hob = con.prepareStatement(hobbySql);) {
-
-			user.setString(1, name);
-			user.setString(2, id);
+			
+			user.setString(1, id);
+			user.setString(2, name);
 			user.setString(3, pwd);
 			user.setString(4, sex);
 			user.setString(5, mail);
 			user.setString(6, phone);
-			result1 = user.executeUpdate();
+			/* result1 = user.executeUpdate(); */
 
 			if(result1 > 0) {
 				for(int i=0; i< hobby.length; i++) {
 					hob.setString(1, id);
 					hob.setString(2, hobby[i]);
+					/* result2 = hob.executeUpdate(); */
+					
 				}
 
 
-				result2 = hob.executeUpdate();
+				
 			}
-			if(result1 > 0 && result2 > 0)
-				response.sendRedirect("SignTest/main.jsp");
+			/*if(result1 > 0 && result2 > 0)
+				response.sendRedirect("SignTest/main.jsp");*/
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

@@ -7,13 +7,18 @@
 	$(function(){
 		let span = $('#show');
 		
+		
+		
 		span.attr({
 			style: "color: red"
 		});
 		
 		$('#pwdc,#pwd').on('keyup',function(){
 			let pwd = $('#pwd').val();		
-		
+			let spe = pwd.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
+			
+			console.log(spe);
+			
 			if(!check($('#pwdc').val()) &&!check(pwd) &&(pwd != $('#pwdc').val())){
 				span.attr({
 					style: "color: red"
@@ -28,6 +33,16 @@
 			}
 			else
 				span.text("");
+			
+			if(!check(pwd) && spe < 0)
+			{
+				$('#pwdCheck').attr({
+					style: "color: red"
+				});
+				$('#pwdCheck').text("최소 1개 이상의 특수 문자가 포함 되어야 합니다!");
+			}
+			else
+				$('#pwdCheck').text("");
 		});
 		
 		
@@ -47,7 +62,7 @@
 	body{
 		user-select: none;
 	}
-	#show{
+	span#show,span#pwdCheck{
 		margin-left: 10px;
 	}
 </style>
@@ -68,7 +83,7 @@
  			
  			<tr>
  				<td><label for="pwd">비밀번호</label></td>
- 				<td><input type="password" name="pwd" id="pwd"></td>
+ 				<td><input type="password" name="pwd" id="pwd"><span id="pwdCheck"></span></td>
  			</tr>
  			
  			<tr>

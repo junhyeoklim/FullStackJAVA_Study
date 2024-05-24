@@ -39,6 +39,7 @@ public class LoginOK extends HttpServlet {
 		
 		String id = request.getParameter("id");
 		String pwd = request.getParameter("pwd");
+		String check = request.getParameter("flag");
 		String sql = "SELECT id,pwd FROM user WHERE pwd='"+pwd+"' AND id='"+id+"'";
 		boolean flag = false;
 		
@@ -57,7 +58,7 @@ public class LoginOK extends HttpServlet {
 				response.sendRedirect("SignTest/main.jsp");
 			}
 			else {
-				/* session.setAttribute("id", request.getParameter("id")); */
+				session.setAttribute("check", request.getParameter("flag"));
 				response.sendRedirect("SignTest/main.jsp");
 			}
 			
