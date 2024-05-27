@@ -1,0 +1,4 @@
+1. reqyestDusoatcher 내용
+ - 이것을 이용하면 데이터 값을 뽑아다 쓸 수 있다
+ - 참고 : https://velog.io/@nugoory20/JSPbasic.-Servlet%EA%B3%BC-forward%EB%A1%9C-%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%A5%BC-%ED%99%94%EB%A9%B4%EC%97%90-%EC%B6%9C%EB%A0%A5%ED%95%98%EA%B8%B0RequestDispatcher
+ - 이걸로 써 먹을곳 제대로 찾아 보자 분명 있었음
