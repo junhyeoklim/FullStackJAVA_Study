@@ -31,7 +31,11 @@
             <td><input type="text" name="name" id="name"></td>
         </tr>
         <tr>
-            <td colspan="2"><input type="button" id="btn" value="로그인"></td>
+            <td colspan="2">
+            	<input type="button" id="btn" value="로그인">
+            	<a href="registerUI.jsp">임시 사원 등록 페이지</a>
+            
+            </td>
         </tr>
     </table>
 </body>

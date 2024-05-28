@@ -1,20 +1,19 @@
 body{
     user-select: none;
 }
-table#main{
-    margin: 0 auto;
+table,tr{
+	margin: 0 auto;
     margin-top: 10%;
+	border-radius: 10px 10px 10px 10px;
+}
+table#main{
     width: 500px;    
 }
 table#register{
-    margin: 0 auto;
-    margin-top: 10%;
     width: 600px;
     height: 200px;
 }
 table#login{
-    margin: 0 auto;
-    margin-top: 10%;
     width: 250px;  
 }
 table#register td:first-of-type{
