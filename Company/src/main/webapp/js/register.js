@@ -1,10 +1,8 @@
-let result = [];
 let selectBox = $("#selectBox");
-let flag = false;
 
 selectBox.on("change",function () {
     let check = Number($(this).val())
-    flag = true;
+
     switch (check) {
         case 1:
          $("#second").val("naver.com");
@@ -21,20 +19,3 @@ selectBox.on("change",function () {
     }          
 });
 
-$('#btn').on('click',function(){
-	console.log("test");
-	console.log($("#second").val());
-	if(flag){
-		let name = $('#name').val();
-		let department = $('#department').val();
-		let rank = $('#rank').val();
-		let mail = $('#first').val().concat("@"+$('#second').val());		
-		let phone = $('#phone').val();
-		
-		location.href = '../Company_DAO/CompanyInsert.jsp?name='+name
-		+"&department="+department
-		+"&rank="+rank
-		+"&mail="+mail
-		+"&phone="+phone;
-	}
-});

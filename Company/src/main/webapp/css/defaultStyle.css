@@ -5,10 +5,10 @@ table,tr{
 	margin: 0 auto;
     margin-top: 10%;
 	border-radius: 10px 10px 10px 10px;
-}
+} 
 table#main{
     width: 500px;    
-}
+} 
 table#register{
     width: 600px;
     height: 200px;
@@ -25,22 +25,34 @@ table#register td:not(:first-of-type){
 table#login tr:last-of-type td{
     text-align: center;
 }
-footer{
-    width: 300px;
-    margin: 0 auto;
-    margin-top: 10px;
-}
-#footer{    
+#footer,footer{    
     text-align: center;
 }
-
-#search {
-    height: 15px; /* 원하는 높이로 설정 */
-    vertical-align: middle; /* 수직 정렬 */
+footer{
+	margin-top: 5px;
 }
 
+#btn{
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+#search {
+    height: 34px; 
+    vertical-align: middle; 
+}
+#select-box{
+	margin-right: 10px;
+}
+.navbar{
+	width: 300px;
+	margin: 0 auto;
+}
+caption {
+  caption-side: top;
+  text-align: center;
+}
 table#register input[type="number"]::-webkit-outer-spin-button,
 table#register input[type="number"]::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
-}
+} 

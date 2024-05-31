@@ -12,7 +12,7 @@
 		
 		if(flag == "true"){			
 			alert("어서오세요!");
-			location.href = 'CompanyList.jsp?text='+"";
+			location.href = "list.do";
 		}
 		else{
 			alert("사원 이름이 존재하지 않습니다!");			
