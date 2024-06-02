@@ -5,7 +5,15 @@ table,tr{
 	margin: 0 auto;
     margin-top: 10%;
 	border-radius: 10px 10px 10px 10px;
-} 
+}
+td{
+	padding: 15px 0px 16px 0px;
+}
+caption {
+  caption-side: top;
+  text-align: center;
+}
+
 table#main{
     width: 500px;    
 } 
@@ -33,13 +41,15 @@ footer{
 }
 
 #btn{
-	margin-top: 5px;
-	margin-bottom: 5px;
+  margin-top: 5px;
+  margin-bottom: 5px;  
 }
 #search {
     height: 34px; 
+    width : 200px;
     vertical-align: middle; 
 }
+
 #select-box{
 	margin-right: 10px;
 }
@@ -47,12 +57,22 @@ footer{
 	width: 300px;
 	margin: 0 auto;
 }
-caption {
-  caption-side: top;
-  text-align: center;
+table#register input:not(input[type="submit"],input[type="reset"],input[type="button"]){    
+    height: 16px; /* 입력 박스 높이 고정 */
+    line-height: 30px; /* 입력 박스 줄 간격 고정 */
 }
+.error-msg{
+	font-size: 12px;
+	padding-top: 4px;
+	width: 171.2px;
+	height: 5px;
+	color: red;
+}
+
 table#register input[type="number"]::-webkit-outer-spin-button,
 table#register input[type="number"]::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
-} 
+}
+
+

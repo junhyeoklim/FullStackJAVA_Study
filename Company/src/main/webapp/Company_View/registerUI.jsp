@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>register</title>
-<link rel="stylesheet" href="../css/styles.css?after">
+<link rel="stylesheet" href="../css/defaultStyle.css?after">
 <script src="../js/jquery.js"></script>
 </head>
 <body>
@@ -34,15 +34,23 @@
 
 			<tr>
 				<td><label for="first">이메일</label></td>
-				<td><input type="text" name="first" id="first" required>
-					@ <input type="text" name="second" id="second" required> <select
-					id="selectBox">
-						<option selected disabled>선택</option>
-						<option value="1">naver.com</option>
-						<option value="2">gmail.com</option>
-						<option value="3">daum.net</option>
-						<option value="4">직접입력</option>
-				</select></td>
+				<td>
+					<div class="container">
+						<div class="mail">
+							<input type="text" name="first" id="first" required
+								placeholder="이메일 입력"> @ <input type="text" name="second"
+								id="second" required readonly> <select id="selectBox">
+								<option selected disabled>선택</option>
+								<option value="1">naver.com</option>
+								<option value="2">gmail.com</option>
+								<option value="3">daum.net</option>
+								<option value="4">직접입력</option>
+							</select>
+						</div>
+					</div>
+					<div class="error-msg"></div>
+				</td>
+
 			</tr>
 
 			<tr>

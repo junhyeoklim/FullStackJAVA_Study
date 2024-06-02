@@ -54,7 +54,7 @@ public class FrontController extends HttpServlet {
 			viewPage = "CompanyList.jsp";
 		}
 		else if(commandName.equals(folderName+"/register.do")) {
-			viewPage = "register.jsp";
+			viewPage = "registerUI.jsp";
 		}
 		else if(commandName.equals(folderName+"/registerOK.do")) {
 			command = new InsertCommand();
