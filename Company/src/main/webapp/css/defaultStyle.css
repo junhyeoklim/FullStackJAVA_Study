@@ -3,7 +3,7 @@ body{
 }
 table,tr{
 	margin: 0 auto;
-    margin-top: 10%;
+    margin-top: 5%;
 	border-radius: 10px 10px 10px 10px;
 }
 td{
@@ -14,65 +14,58 @@ caption {
   text-align: center;
 }
 
-table#main{
-    width: 500px;    
-} 
-table#register{
-    width: 600px;
-    height: 200px;
-}
-table#login{
-    width: 250px;  
-}
-table#register td:first-of-type{
-    text-align: center;
-}
-table#register td:not(:first-of-type){
-    padding-left: 10px;
-}
-table#login tr:last-of-type td{
-    text-align: center;
-}
-#footer,footer{    
-    text-align: center;
-}
 footer{
 	margin-top: 5px;
 }
+
+
+table#login{
+    width: 250px;  
+}
+
+table#login tr:last-of-type td{
+    text-align: center;
+}
+
+
+
+#footer,footer{    
+    text-align: center;
+}
+
 
 #btn{
   margin-top: 5px;
   margin-bottom: 5px;  
 }
 #search {
-    height: 34px; 
     width : 200px;
-    vertical-align: middle; 
+    vertical-align: middle;
 }
 
 #select-box{
+
 	margin-right: 10px;
+}
+#select-box,#search,#sbtn{
+	height: 34px;
+	margin-top: 5px;
 }
 .navbar{
 	width: 300px;
-	margin: 0 auto;
-}
-table#register input:not(input[type="submit"],input[type="reset"],input[type="button"]){    
-    height: 16px; /* 입력 박스 높이 고정 */
-    line-height: 30px; /* 입력 박스 줄 간격 고정 */
-}
-.error-msg{
-	font-size: 12px;
-	padding-top: 4px;
-	width: 171.2px;
-	height: 5px;
-	color: red;
 }
 
-table#register input[type="number"]::-webkit-outer-spin-button,
-table#register input[type="number"]::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
+#menu{
+	float:right;
 }
+#listsearch{
+	
+	margin: 0 auto;
+	margin-bottom: 100px;
+}
+
+
+
+
 
 

@@ -14,8 +14,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>main</title>
-<%@ include file="bootStrapLink.jsp" %>
+<%@ include file="../source/bootStrapLink.jsp" %>
 <link rel="stylesheet" href="../css/defaultStyle.css?after">
+<link rel="stylesheet" href="../css/companyList.css?after">
 <script src="../js/jquery.js"></script>
 </head>
 <body>
@@ -30,8 +31,8 @@
 	<table border="1" id="main">
 		<caption>사원 목록</caption>
 		<tr>
-			<td>이름</td>
 			<td>부서</td>
+			<td>이름</td>
 			<td>직급</td>
 			<td>이메일</td>
 			<td>전화번호</td>
@@ -41,8 +42,8 @@
 			CompanyDTO dto = list.get(i);
 		%>
 		<tr>
-			<td><%=dto.getS_name()%></td>
 			<td><%=dto.getS_department()%></td>
+			<td><a href="modify.do?name=<%=dto.getS_name()%>"><%=dto.getS_name()%></a></td>
 			<td><%=dto.getS_rank()%></td>
 			<td><%=dto.getS_mail()%></td>
 			<td><%=dto.getS_phoneNumber()%></td>
@@ -55,7 +56,7 @@
 				value="등록"></td>
 		</tr>
 	</table>
-	<nav class="navbar navbar-light bg-white">
+	<nav class="navbar navbar-light bg-white" id="listsearch">
 		<div class="container-fluid">
 			<form class="d-flex" method="post" action="search.do">				
 					<select id="select-box" name="select-box">

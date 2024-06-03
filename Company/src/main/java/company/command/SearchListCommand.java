@@ -14,16 +14,24 @@ public class SearchListCommand implements Command {
 
 	@Override
 	public void excute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+			request.setCharacterEncoding("UTF-8");
+			response.setCharacterEncoding("UTF-8");
+			
 			CompanyDAO dao = CompanyDAO.getCompanyDAO();
 			ArrayList<CompanyDTO> list = null;
 			String select = request.getParameter("select-box");
 			String search = request.getParameter("search");
+			String name = request.getParameter("name");
 			
-			if(select == null || search == null || search == "") 
-				list = dao.listDAO();			
+			if(name != null)
+				list = dao.searchDAO(name);
+			else if(select == null || search == null || search == "") 
+				list = dao.listDAO();
 			else 
 				list = dao.searchDAO(Integer.parseInt(select),search);
 			
+			
+				
 			request.setAttribute("list", list);
 	}
 	

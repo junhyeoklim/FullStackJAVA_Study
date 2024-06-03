@@ -1,14 +1,18 @@
+
 let selectBox = $("#selectBox");
 let regular =  /^[A-Za-z]/;
 
-$('#first,#second').on('keyup',function (){
-	console.log($(this).val());
+$('#back').click(function (){
+	location.href = "list.do";
+});
+
+
+$('#first,#second').on('input',function (){
 	if(Number(selectBox.val()) == 4){
 		if(regular.test($(this).val()) || isNull($(this).val()))
 			$('.error-msg').text('');
-		else 
+		else
 			$('.error-msg').text('영문으로 입력 해주세요');
-			
 	}
 	else{
 		if(regular.test($('#first').val()) || isNull($(this).val()))
@@ -25,6 +29,7 @@ selectBox.on("change",function () {
     let check = Number($(this).val())
     
 	$("#second").attr("readonly",true);	
+	$("#second").addClass('cursor');
 	
     switch (check) {
         case 1:		 
@@ -38,6 +43,7 @@ selectBox.on("change",function () {
             break;
         case 4:
 		 $("#second").attr("readonly",false);
+		 $("#second").removeClass('cursor');
          $("#second").val("").focus();
             break;
     }          
@@ -49,3 +55,5 @@ function isNull(num){
 		return true;
 	return false;
 }
+
+

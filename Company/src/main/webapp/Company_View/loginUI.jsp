@@ -33,7 +33,7 @@
 				<fieldset>
 					<div class="login_inp">
 						<div class="input_box">
-							<label for="name">이름 </label>
+							<label for="name">이름</label>
 							<input type="text" name="name" id="name">
 						</div>
 						<div class="input_box">
@@ -43,7 +43,7 @@
 						
 						<div class="login_set">
 							<input type="button" id="btn" value="로그인"> 
-							<a	href="list.do">임시 사원 등록 페이지</a>
+							<a	href="list.do">임시 리스트 확인 페이지</a>
 						</div>
 					</div>
 				</fieldset>

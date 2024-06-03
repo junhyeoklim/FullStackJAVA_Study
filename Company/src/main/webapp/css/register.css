@@ -1,0 +1,33 @@
+table#register{
+    width: 600px;
+    height: 200px;
+}
+
+table#register td:first-of-type{
+    text-align: center;
+}
+table#register td:not(:first-of-type){
+    padding-left: 10px;
+}
+
+table#register input:not(input[type="submit"],input[type="reset"],input[type="button"]){    
+    height: 16px; /* 입력 박스 높이 고정 */
+    line-height: 30px; /* 입력 박스 줄 간격 고정 */
+}
+table#register input[type="number"]::-webkit-outer-spin-button,
+table#register input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.cursor{
+	 caret-color: transparent;
+}
+
+.error-msg{
+	font-size: 12px;
+	padding-top: 4px;
+	width: 171.2px;
+	height: 5px;
+	color: red;
+}

@@ -14,9 +14,10 @@ import company.command.Command;
 import company.command.InsertCommand;
 import company.command.ListCommand;
 import company.command.SearchListCommand;
+import company.command.UpdateCommand;
 
 
-@WebServlet("*.do")
+/*@WebServlet("*.do")*/
 public class FrontController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -34,24 +35,26 @@ public class FrontController extends HttpServlet {
 	public void doAction(HttpServletRequest request,HttpServletResponse response) throws ServletException,IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
-
+		response.setContentType("text/html;charset=UTF-8");
 
 		String commandName = request.getServletPath();
 		final String folderName = "/Company_View";
 		String viewPage = null;
 		Command command = null;	
 
+		
+		PrintWriter out = response.getWriter();
 
 		if(commandName.equals(folderName+"/list.do")) {
 			command = new ListCommand();
 			command.excute(request, response);
-			viewPage = "CompanyList.jsp";
-		
+			viewPage = "companyList.jsp";
+
 		}
 		else if(commandName.equals(folderName+"/search.do")) {
 			command = new SearchListCommand();
 			command.excute(request, response);
-			viewPage = "CompanyList.jsp";
+			viewPage = "companyList.jsp";
 		}
 		else if(commandName.equals(folderName+"/register.do")) {
 			viewPage = "registerUI.jsp";
@@ -59,12 +62,24 @@ public class FrontController extends HttpServlet {
 		else if(commandName.equals(folderName+"/registerOK.do")) {
 			command = new InsertCommand();
 			command.excute(request, response);
-			viewPage = folderName+"/list.do";
-			
+			response.sendRedirect(request.getContextPath()+folderName + "/list.do");
+			return;
 		}
-		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
-		dispatcher.forward(request, response);
-		
+		else if(commandName.equals(folderName+"/modify.do")) {
+			 command = new SearchListCommand(); command.excute(request, response);
+			 viewPage = "modifyUI.jsp";
+		}
+		else if(commandName.equals(folderName+"/modifyOK.do")) {
+			command = new UpdateCommand();
+			command.excute(request, response);
+			response.sendRedirect(request.getContextPath()+folderName + "/list.do");
+			return;
+		}
+		if(viewPage != null) {
+			RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
+			dispatcher.forward(request, response);
+		}
+
 	}
 
 }

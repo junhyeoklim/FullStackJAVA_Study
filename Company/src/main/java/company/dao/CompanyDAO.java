@@ -89,7 +89,32 @@ public class CompanyDAO {
 		}
 		return list;
 	}
-	
+	public ArrayList<CompanyDTO> searchDAO(String name) {
+		ArrayList<CompanyDTO> list = new ArrayList<CompanyDTO>();
+		String sql = "SELECT * FROM "+TABLE_NAME+" WHERE s_name='"+name+"'";		
+		
+
+		try(PreparedStatement pstmt = con.prepareStatement(sql);
+			ResultSet rs = pstmt.executeQuery();) {
+			while(rs.next()) {
+				CompanyDTO dto = new CompanyDTO();
+				dto.setS_id(rs.getInt("s_id"));
+				dto.setS_name(rs.getString("s_name"));
+				dto.setS_department(rs.getString("s_department"));
+				dto.setS_rank(rs.getString("s_rank"));
+				dto.setS_mail(rs.getString("s_mail"));
+				dto.setS_phoneNumber(rs.getString("s_phoneNumber"));
+				dto.setS_salary(rs.getInt("s_salary"));
+				dto.setDate(rs.getString("Join_Date"));	
+				list.add(dto);				
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	public void insertOK(CompanyDTO dto) {
 		String sql = "INSERT INTO "+TABLE_NAME+"(s_name,s_department,s_rank,s_mail,s_phoneNumber) VALUES(?,?,?,?,?)";
 		
@@ -101,6 +126,22 @@ public class CompanyDAO {
 			pstmt.setString(5, dto.getS_phoneNumber());			
 			pstmt.executeUpdate();
 			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void updateOK(CompanyDTO dto) {
+		String sql = "UPDATE "+TABLE_NAME+" SET s_name=?,s_department=?,s_rank=?,s_mail=?,s_phoneNumber = ? WHERE s_name=?";
+		
+		try(PreparedStatement pstmt = con.prepareStatement(sql);) {
+			pstmt.setString(1, dto.getS_name());
+			pstmt.setString(2, dto.getS_department());
+			pstmt.setString(3, dto.getS_rank());
+			pstmt.setString(4, dto.getS_mail());
+			pstmt.setString(5, dto.getS_phoneNumber());
+			pstmt.setString(6, dto.getS_name());
+			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
