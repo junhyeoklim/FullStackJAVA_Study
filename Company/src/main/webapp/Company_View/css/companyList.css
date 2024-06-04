@@ -1,0 +1,39 @@
+table#main{
+    width: 700px;
+} 
+table#main tr:nth-of-type(1) td{
+	border-bottom: 1px solid balck;
+}
+
+table#main tr td:nth-of-type(1){
+	padding-left: 10px; 
+}
+
+table#main tr td:nth-of-type(2),
+table#main tr td:nth-of-type(3){
+	padding-left: 10px;
+	padding-right: 10px; 
+}
+
+a{
+	text-decoration: none;
+}
+#search {
+    width : 200px;
+    vertical-align: middle;
+}
+
+#select-box{
+	margin-right: 10px;
+}
+#select-box,#search,#sbtn{
+	height: 34px;
+	margin-top: 5px;
+}
+
+
+#listsearch{
+	width: 300px;
+	margin: 0 auto;
+	margin-bottom: 100px;
+}

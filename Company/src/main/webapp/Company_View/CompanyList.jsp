@@ -5,6 +5,7 @@
 <%@page import="java.sql.SQLException"%>
 <%@page import="company.dao.JDBCConnector"%>
 <%@page import="java.sql.Connection"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
@@ -15,18 +16,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>main</title>
 <%@ include file="../source/bootStrapLink.jsp" %>
-<link rel="stylesheet" href="../css/defaultStyle.css?after">
-<link rel="stylesheet" href="../css/companyList.css?after">
-<script src="../js/jquery.js"></script>
+<link rel="stylesheet" href="css/defaultStyle.css?after">
+<link rel="stylesheet" href="css/companyList.css?after">
+<script src="js/jquery.js"></script>
 </head>
 <body>
 
 	<%-- <%@ include file="sessionTest.jsp"%> --%>
-	<%@ include file="menubar.jsp" %>
-	
-	<%
-	ArrayList<CompanyDTO> list = (ArrayList<CompanyDTO>) request.getAttribute("list");
-	%>
+	<%@ include file="Menubar.jsp" %>
 
 	<table border="1" id="main">
 		<caption>사원 목록</caption>
@@ -37,20 +34,15 @@
 			<td>이메일</td>
 			<td>전화번호</td>
 		</tr>
-		<%
-		for (int i = 0; list != null && i < list.size(); i++) {
-			CompanyDTO dto = list.get(i);
-		%>
+	<c:forEach var="dto" items="${list}" >
 		<tr>
-			<td><%=dto.getS_department()%></td>
-			<td><a href="modify.do?name=<%=dto.getS_name()%>"><%=dto.getS_name()%></a></td>
-			<td><%=dto.getS_rank()%></td>
-			<td><%=dto.getS_mail()%></td>
-			<td><%=dto.getS_phoneNumber()%></td>
+			<td>${dto.s_department}</td>
+			<td><a href="modify.do?name=${dto.s_name}">${dto.s_name}</a></td>
+			<td>${dto.s_rank}</td>
+			<td>${dto.s_mail}</td>
+			<td>${dto.s_phoneNumber}</td>
 		</tr>
-		<%
-		}
-		%>
+	</c:forEach>
 		<tr>
 			<td colspan="5" id="footer"><input type="button" class="btn btn-outline-secondary" id="btn"
 				value="등록"></td>
@@ -70,6 +62,6 @@
 			</form>
 		</div>
 	</nav>
-	<script src="../js/list.js"></script>
+	<script src="js/list.js"></script>
 </body>
 </html>

@@ -17,7 +17,7 @@ import company.command.SearchListCommand;
 import company.command.UpdateCommand;
 
 
-/*@WebServlet("*.do")*/
+@WebServlet("*.do")
 public class FrontController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -48,16 +48,16 @@ public class FrontController extends HttpServlet {
 		if(commandName.equals(folderName+"/list.do")) {
 			command = new ListCommand();
 			command.excute(request, response);
-			viewPage = "companyList.jsp";
+			viewPage = "CompanyList.jsp";
 
 		}
 		else if(commandName.equals(folderName+"/search.do")) {
 			command = new SearchListCommand();
 			command.excute(request, response);
-			viewPage = "companyList.jsp";
+			viewPage = "CompanyList.jsp";
 		}
 		else if(commandName.equals(folderName+"/register.do")) {
-			viewPage = "registerUI.jsp";
+			viewPage = "RegisterUI.html";
 		}
 		else if(commandName.equals(folderName+"/registerOK.do")) {
 			command = new InsertCommand();
@@ -66,8 +66,9 @@ public class FrontController extends HttpServlet {
 			return;
 		}
 		else if(commandName.equals(folderName+"/modify.do")) {
-			 command = new SearchListCommand(); command.excute(request, response);
-			 viewPage = "modifyUI.jsp";
+			 command = new SearchListCommand(); 
+			 command.excute(request, response);
+		     viewPage = "ModifyUI.jsp";
 		}
 		else if(commandName.equals(folderName+"/modifyOK.do")) {
 			command = new UpdateCommand();

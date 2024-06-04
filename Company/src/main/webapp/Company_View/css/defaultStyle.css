@@ -1,8 +1,10 @@
 body{
     user-select: none;
 }
-table,tr{
+table{
 	margin: 0 auto;
+}
+table,tr{	
     margin-top: 5%;
 	border-radius: 10px 10px 10px 10px;
 }
@@ -29,6 +31,7 @@ table#login tr:last-of-type td{
 
 
 
+
 #footer,footer{    
     text-align: center;
 }
@@ -38,31 +41,13 @@ table#login tr:last-of-type td{
   margin-top: 5px;
   margin-bottom: 5px;  
 }
-#search {
-    width : 200px;
-    vertical-align: middle;
-}
-
-#select-box{
-
-	margin-right: 10px;
-}
-#select-box,#search,#sbtn{
-	height: 34px;
-	margin-top: 5px;
-}
-.navbar{
-	width: 300px;
-}
-
-#menu{
-	float:right;
-}
-#listsearch{
-	
+#menubar{
+	width: 650px;
 	margin: 0 auto;
-	margin-bottom: 100px;
 }
+
+
+
 
 
 

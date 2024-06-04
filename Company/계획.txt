@@ -7,3 +7,7 @@
 
 * 제일 우선순위 
  - 현재 만든 코드를 servlet 형태로 지금 바꿀것 + MVC모델 형태로 바꿀것
+ 
+ java.lang.NoClassDefFoundError:오류 해결 방법
+ 
+ https://velog.io/@ung6860/%EC%98%A4%EB%A5%98NoClassDefFoundError-%ED%95%B4%EA%B2%B0%ED%95%B4%EB%B3%B4%EA%B8%B0
