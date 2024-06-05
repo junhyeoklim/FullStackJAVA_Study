@@ -3,3 +3,9 @@ https://creamilk88.tistory.com/117
 
 2. JSTL 비교연산자
 https://pingfanzhilu.tistory.com/entry/JSPJSTL-JSTL-%EB%B9%84%EA%B5%90%EC%97%B0%EC%82%B0%EC%9E%90eq-ne-empty-not-empty-%EC%82%AC%EC%9A%A9%EB%B2%95
+
+3. JSTL 변수 설정
+https://littlecarbb.tistory.com/entry/34-JSTL-core-%EB%B3%80%EC%88%98-%EC%84%A4%EC%A0%95-%ED%83%9C%EA%B7%B8-cset-cremove
+
+4. JSTL 문자열 자르기
+https://blog.naver.com/hellzzong/220469243652
