@@ -1,0 +1,5 @@
+1. el ,JSTL 설명
+https://creamilk88.tistory.com/117
+
+2. JSTL 비교연산자
+https://pingfanzhilu.tistory.com/entry/JSPJSTL-JSTL-%EB%B9%84%EA%B5%90%EC%97%B0%EC%82%B0%EC%9E%90eq-ne-empty-not-empty-%EC%82%AC%EC%9A%A9%EB%B2%95
