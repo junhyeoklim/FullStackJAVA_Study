@@ -6,23 +6,10 @@
 <head>
 <meta charset="UTF-8">
 </head>
-<body>
-	<script>
-		function blankCheck() {
-			let id = document.getElementById('id').value;
-			let pwd = document.getElementById('pwd').value;
-
-			if (id == null || id == "" || pwd == null || pwd == "") {
-				alert("아이디 또는 비밀번호를 입력 하세요!");
-				return false;
-			} else
-				return true
-		}
-	</script>
-
+<body>	
 	<c:choose>
-		<c:when test="${empty requestScope.dto.id}">
-			<form method="post" action="#" onsubmit="return blankCheck()">
+		<c:when test="${empty sessionScope.udto.id}">
+			<form method="post" action="loginOK.do" onsubmit="return blankCheck()">
 				<div>
 					<label for="id">아이디:</label> <input type="text" name="id" id="id">
 				</div>
@@ -32,12 +19,16 @@
 				</div>
 				<input type="submit" value="로그인">
 			</form>
-			<a href="#">회원가입</a>
+			<a href="register.do">회원가입</a>
 		</c:when>
 		
 		<c:otherwise>
-
+			${sessionScope.udto.id} 님<br>
+			<a href="logout.do">로그아웃</a><br>
+			<a href="modify.do">회원정보 수정</a><br>
+			<a href="#">게시판</a><br>
 		</c:otherwise>
 	</c:choose>
+<script type="text/javascript" src="js/login.js"></script>
 </body>
 </html>

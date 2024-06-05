@@ -21,12 +21,16 @@ input[type="number"]::-webkit-inner-spin-button {
 	margin-left: 10px;
 	color: red;
 }
+.success-msg{
+	margin-left: 10px;
+	color: blue;
+}
 	
 </style>
 </head>
 <body>
 
-	<form method="post" action="#" onsubmit="return passCheck()">
+	<form method="post" action="registerOK.do" onsubmit="return passCheck()">
 	<label for="name">이름</label><br>
 	<input type="text" name="name" id="name"><br>
 	
@@ -37,34 +41,36 @@ input[type="number"]::-webkit-inner-spin-button {
 	<input type="text" name="nickname" id="nickname"><br>
 	
 	<label for="pwd">비밀번호</label><br>
-	<input type="password" name="pwd" id="pwd" required><br>
+	<input type="password" name="pwd" id="pwd" ><br>
 	
 	<label for="cpwd">비밀번호 재확인</label><br>
-	<input type="password" name="cpwd" id="cpwd"required><span class="error-msg"></span><br>
+	<input type="password" name="cpwd" id="cpwd"><span id="msg"></span><br>
+	
+	<label for="email">이메일</label><br>
+	<input type="email" name="email" id="email"><br>
 	
 	<label>주소</label><br>
-	<%@ include file="address.jsp" %><br>
+	<c:import url="address.jsp"/><br>
 	
 	<label for="year">생년월일</label><br>
-	<input type="number" name="year" id="year" required>
+	<input type="number" name="year" id="year" >
 	<select name="month" id="birth">
-		<option value="1">1</option>
-		<option value="2">2</option>
-		<option value="3">3</option>
-		<option value="4">4</option>
-		<option value="5">5</option>
-		<option value="6">6</option>
-		<option value="7">7</option>
-		<option value="8">8</option>
-		<option value="9">9</option>
-		<option value="10">10</option>
-		<option value="11">11</option>
-		<option value="12">12</option>
+		<c:forEach var="i" begin="1" end="12">
+			<c:set var="month" value="${i}"/> 
+			<c:choose>
+			<c:when test="${month < 10}"> 
+				<option value="0${month}">${i}</option>
+			</c:when>
+			<c:otherwise>
+				<option value="${month}">${i}</option>
+			</c:otherwise>
+			</c:choose>
+		</c:forEach>
 	</select>
 	<input type="number" name="date" id="date"><br>
 	
 	<label for="phone">전화번호</label><br>
-	<input type="number" name="phone" id="phone" required><br>
+	<input type="number" name="phone" id="phone" ><br>
 	
 	<label>성별구분</label><br>
 	<input type="radio" name="sex" value="male" id="male"><label for="male">남</label>

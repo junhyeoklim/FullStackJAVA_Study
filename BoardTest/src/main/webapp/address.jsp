@@ -11,13 +11,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-<input type="text" name="postcode" id="postcode" placeholder="우편번호">
+<input type="text" name="postcode" id="postcode" placeholder="우편번호" value="${sessionScope.adto.postcode}">
 <input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
-<input type="text" name="roadAddress" id="roadAddress" placeholder="도로명주소">
-<input type="text" name="jibunAddress" id="jibunAddress" placeholder="지번주소">
+<input type="text" name="roadAddress" id="roadAddress" placeholder="도로명주소" value="${sessionScope.adto.roadAddress}">
+<input type="text" name="jibunAddress" id="jibunAddress" placeholder="지번주소" value="${sessionScope.adto.jibunAddress}">
 <span id="guide" style="color:#999;display:none"></span>
-<input type="text" name="detailAddress" id="detailAddress" placeholder="상세주소">
-<input type="text" name="extraAddress" id="extraAddress" placeholder="참고항목">
+<input type="text" name="detailAddress" id="detailAddress" placeholder="상세주소" placeholder="지번주소" value="${sessionScope.adto.detailAddress}">
+<input type="text" name="extraAddress" id="extraAddress" placeholder="참고항목" placeholder="지번주소" value="${sessionScope.adto.extraAddress}">
 
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>

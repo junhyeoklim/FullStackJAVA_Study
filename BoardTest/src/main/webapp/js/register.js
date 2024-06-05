@@ -4,10 +4,17 @@
 		let pwd = $('#pwd');
 
 		if(!isNull($(this).val()) && pwd.val() != $(this).val()){
-			$('.error-msg').text("비밀번호가 일치하지 않습니다.");
+			$('#msg').removeClass('success-msg');
+			$('#msg').addClass('error-msg');
+			$('#msg').text("비밀번호가 일치하지 않습니다.");
+		}		
+		else if(pwd.val() == $(this).val()){
+			$('#msg').removeClass('error-msg');
+			$('#msg').addClass('success-msg');
+			$('#msg').text("비밀번호가 일치합니다.");
 		}
-		else if(pwd.val() == $(this).val() || isNull($(this).val()))
-			$('.error-msg').text("");
+		else if(isNull($(this).val()))
+			$('#msg').text("");
 		
 	}
 	
