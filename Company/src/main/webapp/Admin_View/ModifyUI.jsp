@@ -9,6 +9,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>사원정보 변경</title>
+<link rel="icon" href="../source/company.ico" />
 <link rel="stylesheet" href="css/defaultStyle.css?after">
 <link rel="stylesheet" href="css/modify.css?after">
 <script type="text/javascript" src="js/jquery.js"></script>
@@ -24,11 +25,16 @@
 						value="${dto.s_name}"></td>
 				</tr>
 
-				<tr>
-					<td><label for="department">부서</label></td>
-					<td><input type="text" name="department" id="department"
-						required value="${dto.s_department}"></td>
-				</tr>
+			<tr>
+				<td><label>부서</label></td>
+				<td><select id="select-box" name="dpartment-box">
+					<c:set var="department" value="${'경영','인사','개발'}"/>
+						<option disabled selected>선택</option>
+						<option value="경영" <c:if test="${dto.s_department == '101'}"> selected </c:if>>경영</option>
+						<option value="인사" <c:if test="${dto.s_department == '102'}"> selected </c:if>>인사</option>
+						<option value="개발" <c:if test="${dto.s_department == '103'}"> selected </c:if>>개발</option>
+					</select></td>
+			</tr>
 
 				<tr>
 					<td><label for="rank">직급</label></td>

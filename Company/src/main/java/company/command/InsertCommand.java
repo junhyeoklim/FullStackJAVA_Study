@@ -17,20 +17,46 @@ public class InsertCommand implements Command {
 	public void excute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		CompanyDAO dao = CompanyDAO.getCompanyDAO();
 		CompanyDTO dto = new CompanyDTO();
-		
+
+		int cnt = 0;
+		String id = null;
 		String name = request.getParameter("name");
-		String department = request.getParameter("department");
+		String department = request.getParameter("dpartment-box");
 		String rank = request.getParameter("rank");
 		String mail = request.getParameter("first").concat("@"+request.getParameter("second"));
 		String phone = request.getParameter("phone");
-		
-		dto.setS_name(name);
-		dto.setS_department(department);
-		dto.setS_rank(rank);
-		dto.setS_mail(mail);
-		dto.setS_phoneNumber(phone);
-		dao.insertOK(dto);		
-		
-	}
 
+		
+		if(department.equals("경영"))
+			id = "101";
+		else if(department.equals("인사"))
+			id = "102";
+		else if(department.equals("개발"))
+			id = "103";		
+
+		while(true) {
+			if(cnt == 5) {
+				if(!dao.searchID(id)) {
+					break;
+				}
+				else {
+					cnt = 0;
+					
+					if(department.equals("경영"))
+						id = "101";
+					else if(department.equals("인사"))
+						id = "102";
+					else if(department.equals("개발"))
+						id = "103";
+				}
+			}
+			else {
+				id += (int)(Math.random()*10);
+				cnt++;
+			}
+		}
+		 dto.setS_id(Integer.parseInt(id)); dto.setS_name(name);
+		 dto.setS_department(department); dto.setS_rank(rank); dto.setS_mail(mail);
+		 dto.setS_phoneNumber(phone); dao.insertOK(dto);
+	}
 }

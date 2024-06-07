@@ -1,0 +1,56 @@
+body{
+    user-select: none;
+}
+table{
+	margin: 0 auto;
+}
+table,tr{	
+    margin-top: 5%;
+	border-radius: 10px 10px 10px 10px;
+}
+td{
+	padding: 15px 0px 16px 0px;
+}
+caption {
+  caption-side: top;
+  text-align: center;
+}
+
+footer{
+	margin-top: 5px;
+}
+
+
+table#login{
+    width: 250px;  
+}
+
+table#login tr:last-of-type td{
+    text-align: center;
+}
+
+
+
+
+#footer,footer{    
+    text-align: center;
+}
+
+
+#btn{
+  margin-top: 5px;
+  margin-bottom: 5px;  
+}
+#menubar{
+	width: 650px;
+	margin: 0 auto;
+}
+
+
+
+
+
+
+
+
+

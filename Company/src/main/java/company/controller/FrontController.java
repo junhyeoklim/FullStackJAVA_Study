@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import company.command.Command;
 import company.command.InsertCommand;
 import company.command.ListCommand;
+import company.command.LoginCommand;
 import company.command.SearchListCommand;
 import company.command.UpdateCommand;
 
@@ -38,7 +39,7 @@ public class FrontController extends HttpServlet {
 		response.setContentType("text/html;charset=UTF-8");
 
 		String commandName = request.getServletPath();
-		final String folderName = "/Company_View";
+		final String folderName = "/Admin_View";
 		String viewPage = null;
 		Command command = null;	
 
@@ -65,6 +66,15 @@ public class FrontController extends HttpServlet {
 			response.sendRedirect(request.getContextPath()+folderName + "/list.do");
 			return;
 		}
+		else if(commandName.equals(folderName+"/login.do")) {
+			viewPage = "Login.jsp";
+		}
+		else if(commandName.equals(folderName+"/loginOK.do")) {
+			command = new LoginCommand();
+			command.excute(request, response);
+			response.sendRedirect(request.getContextPath()+"/AlertView" + "/alert.jsp");
+			return;
+		}
 		else if(commandName.equals(folderName+"/modify.do")) {
 			 command = new SearchListCommand(); 
 			 command.excute(request, response);
@@ -76,10 +86,12 @@ public class FrontController extends HttpServlet {
 			response.sendRedirect(request.getContextPath()+folderName + "/list.do");
 			return;
 		}
-		if(viewPage != null) {
-			RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
-			dispatcher.forward(request, response);
+		
+		if(viewPage != null) { 
+			RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage); 
+			dispatcher.forward(request,response); 
 		}
+		
 
 	}
 

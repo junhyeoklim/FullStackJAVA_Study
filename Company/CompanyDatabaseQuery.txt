@@ -1,9 +1,15 @@
-/*Company Database 사원 관리 테이블 테스트용 1개*/
+/*Company Database 사원 관리 테이블 테스트용 1개
+  부서는 임시로 3가지 부서로 제한 한다 : 인사,개발,경영
+  부서 코드 :
+	- 경영 : 101
+	- 인사 : 102
+	- 개발 : 103
+*/
 
 CREATE DATABASE company;
 
 CREATE TABLE salary_man(
-  s_id int AUTO_INCREMENT PRIMARY KEY,
+  s_id int PRIMARY KEY,
   s_name varchar(20) NOT NULL default "not thing",
   s_department char(20) NOT NULL default "not thing",
   s_rank char(10) NOT NULL default "not thing",

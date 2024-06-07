@@ -7,7 +7,7 @@
 <script src="../js/jquery.js"></script>
 <script type="text/javascript">
 	<%-- <%session.setMaxInactiveInterval(10);%> --%>
-	let time = 10;
+	let time = 30;
 	let timer = document.getElementById('test');
 	let m = parseInt(time/60);
 	<%-- let session =  <%= session.getMaxInactiveInterval()%>; --%>
@@ -49,7 +49,7 @@ function checkSession() {
   		alert("세션이 만료되었습니다!");
   		<%session.invalidate();%>;
   		clearTimeout(orange);  
-  		location.href = 'loginUI.jsp';
+  		location.href = 'login.do';
  	}
 }
 

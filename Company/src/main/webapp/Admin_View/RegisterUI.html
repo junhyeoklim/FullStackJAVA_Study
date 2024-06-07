@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>사원등록</title>
+<link rel="icon" href="../source/company.ico" />
 <link rel="stylesheet" href="css/defaultStyle.css?after">
 <link rel="stylesheet" href="css/register.css?after">
 <script type="text/javascript" src="js/jquery.js"></script>
@@ -19,9 +20,13 @@
 			</tr>
 
 			<tr>
-				<td><label for="department">부서</label></td>
-				<td><input type="text" name="department" id="department"
-					required></td>
+				<td><label>부서</label></td>
+				<td><select id="select-box" name="dpartment-box">					
+						<option disabled selected>선택</option>
+						<option value="경영">경영</option>
+						<option value="인사">인사</option>
+						<option value="개발">개발</option>
+					</select></td>
 			</tr>
 
 			<tr>
