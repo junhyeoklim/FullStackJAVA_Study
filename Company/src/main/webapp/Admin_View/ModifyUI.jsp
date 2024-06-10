@@ -10,9 +10,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>사원정보 변경</title>
 <link rel="icon" href="../source/company.ico" />
-<link rel="stylesheet" href="css/defaultStyle.css?after">
-<link rel="stylesheet" href="css/modify.css?after">
-<script type="text/javascript" src="js/jquery.js"></script>
+<link rel="stylesheet" href="../source/css/defaultStyle.css?after">
+<link rel="stylesheet" href="../source/css/modify.css?after">
+<script type="text/javascript" src="../source/js/jquery.js"></script>
 </head>
 <body>
 	<c:forEach var="dto" items="${list}">
@@ -27,12 +27,11 @@
 
 			<tr>
 				<td><label>부서</label></td>
-				<td><select id="select-box" name="dpartment-box">
-					<c:set var="department" value="${'경영','인사','개발'}"/>
+				<td><select id="select-box" name="dpartment-box">					
 						<option disabled selected>선택</option>
-						<option value="경영" <c:if test="${dto.s_department == '101'}"> selected </c:if>>경영</option>
-						<option value="인사" <c:if test="${dto.s_department == '102'}"> selected </c:if>>인사</option>
-						<option value="개발" <c:if test="${dto.s_department == '103'}"> selected </c:if>>개발</option>
+						<option value="경영" <c:if test="${dto.s_department == '경영'}"> selected </c:if>>경영</option>
+						<option value="인사" <c:if test="${dto.s_department == '인사'}"> selected </c:if>>인사</option>
+						<option value="개발" <c:if test="${dto.s_department == '개발'}"> selected </c:if>>개발</option>
 					</select></td>
 			</tr>
 
@@ -68,6 +67,6 @@
 			</table>
 		</form>
 	</c:forEach>
-	<script type="text/javascript" src="js/register.js"></script>
+	<script type="text/javascript" src="../source/js/register.js"></script>
 </body>
 </html>

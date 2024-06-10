@@ -11,7 +11,7 @@
 		else if(isNull(uname.text())){
 			alert("이름 또는 사원 번호가 틀렸습니다.");
 			console.log(uname.text());			
-			location.href = '../Admin_View/LoginUI.jsp';
+			location.href = '../login.do';
 		}
 		
 		function isNull(num){

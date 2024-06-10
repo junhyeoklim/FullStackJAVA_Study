@@ -18,17 +18,17 @@
 <title>main</title>
 <c:import url="../source/bootStrapLink.jsp" />
 <link rel="icon" href="../source/company.ico" />
-<link rel="stylesheet" href="css/defaultStyle.css?after">
-<link rel="stylesheet" href="css/companyList.css?after">
-<script src="js/jquery.js"></script>
+<link rel="stylesheet" href="../source/css/defaultStyle.css?after">
+<link rel="stylesheet" href="../source/css/companyList.css?after">
+<script src="../source/js/jquery.js"></script>
 </head>
 <body>
 
 
 	<c:import url="Menubar.jsp" />
 
-	<c:choose>
-	<c:when test="${sessionScope.dto.s_name == 'admin' }">
+	<%-- <c:choose>
+	<c:when test="${sessionScope.dto.s_name == 'admin' }"> --%>
 		<c:import url="../source/sessionTest.jsp" />
 		<table border="1" id="main">
 			<caption>사원 목록</caption>
@@ -68,11 +68,11 @@
 				</form>
 			</div>
 		</nav>
-	</c:when>
+<%-- 	</c:when>
 	<c:otherwise>
 		<c:redirect url="login.do"></c:redirect>
 	</c:otherwise>
-	</c:choose>
-	<script src="js/list.js"></script>
+	</c:choose> --%>
+	<script src="../source/js/list.js"></script>
 </body>
 </html>

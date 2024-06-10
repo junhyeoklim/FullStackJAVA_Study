@@ -50,7 +50,6 @@ public class FrontController extends HttpServlet {
 			command = new ListCommand();
 			command.excute(request, response);
 			viewPage = "CompanyList.jsp";
-
 		}
 		else if(commandName.equals(folderName+"/search.do")) {
 			command = new SearchListCommand();
@@ -66,10 +65,10 @@ public class FrontController extends HttpServlet {
 			response.sendRedirect(request.getContextPath()+folderName + "/list.do");
 			return;
 		}
-		else if(commandName.equals(folderName+"/login.do")) {
-			viewPage = "Login.jsp";
+		else if(commandName.equals("/login.do")) {
+			viewPage = "LoginUI.jsp";
 		}
-		else if(commandName.equals(folderName+"/loginOK.do")) {
+		else if(commandName.equals("/loginOK.do")) {
 			command = new LoginCommand();
 			command.excute(request, response);
 			response.sendRedirect(request.getContextPath()+"/AlertView" + "/alert.jsp");

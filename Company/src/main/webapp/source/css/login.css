@@ -1,0 +1,156 @@
+body,fieldset,div,label,button{
+	user-select: none;
+    margin: 0;
+    border: 0;
+    vertical-align: baseline;
+    background: transparent;
+    font-style: normal;
+}
+body{
+	font-size: 12px;
+}
+div{
+	display: block;
+	unicode-bidi: isolate;
+	
+}
+fieldset{
+	display: block;
+	margin-inline-start: 2px;
+    margin-inline-end: 2px;
+    padding-block-start: 0.35em;
+    padding-inline-start: 0.75em;
+    padding-inline-end: 0.75em;
+    padding-block-end: 0.625em;
+    min-inline-size: min-content;	
+}
+input,select,textarea,button{
+	border-radius: 0;
+	vertical-align: middle;
+}
+input[type="text"]{
+	padding-block: 1px;
+	padding-inline: 2px;
+}
+input[type="password"]{
+	padding-block: 1px;
+	padding-inline: 2px;
+}
+input{
+    text-rendering: auto;    
+    letter-spacing: normal;
+    word-spacing: normal;
+    text-transform: none;
+    text-indent: 0px;
+    text-shadow: none;
+    display: inline-block;
+    text-align: start;
+    appearance: auto;
+    -webkit-rtl-ordering: logical;
+    cursor: text;
+    margin: 0em;
+}
+a{
+	text-decoration: none;
+	margin-top: 200px;
+}
+
+input[type="submit"]{
+	cursor: pointer;
+	appearance: auto;
+    text-rendering: auto;
+    letter-spacing: normal;
+    word-spacing: normal;
+    text-transform: none;
+    text-indent: 0px;
+    display: inline-block;
+    align-items: flex-start;
+    box-sizing: border-box;
+    padding-block: 1px;
+    padding-inline: 6px;
+}
+
+.login_wrap{
+    position: relative;
+    width: 248px;
+    height: 160px;
+    border: 1px solid #29367c;
+    border-radius: 5px 5px 5px 5px;
+    color: #333;
+	margin: 80px auto;
+}
+
+.log_inr{
+	width: 248px;
+	height: 150px;
+}
+.login_inp{	
+	float: left;
+}
+
+.login_set{	
+	float: left;
+	width: 66px;
+	height: 79px;
+}
+.input_box:first-child{
+	margin-top: 0px;
+}
+.input_box{
+	margin-top: 5px
+}
+.input_box{
+	position: relative;
+	width: 145px;
+	height: 37px;
+	background: #f3f3f3;
+}
+
+.lab_login{
+    overflow: hidden;
+    position: absolute;
+    height: 37px;
+    line-height: 38px;
+    padding: 0 3px 0 10px;
+    font-size: 13px;
+    color: #999;
+}
+.inp_txt{
+    width: 132px;
+    height: 37px;
+    line-height: 38px;
+    padding: 0 3px 0 10px;
+    font-size: 14px;
+    color: #555;
+    border: none;
+    background: transparent;
+}
+.login_set{
+	float: left;
+    margin-left: 7px;
+    font-size: 11px;
+    color: #555;
+    position: absolute;
+    top: 14px;
+    right: 14px;
+}
+.btn_inout.login{
+    width: 65px;
+    height: 37px;
+    line-height: 35px;
+    margin-top: 5px;
+    font-size: 14px;
+}
+.btn_inout{
+	float: right;
+	border: 1px solid #29367c;
+    background: #0a90f0;
+    text-align: center;
+    color: #fff;
+    font-weight: bold;
+    text-shadow: 0px 1px #1d2761;
+}
+.btn_inout:hover {
+	background-color: #418abd;
+}
+

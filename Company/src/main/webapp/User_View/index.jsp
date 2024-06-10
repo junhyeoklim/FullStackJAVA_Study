@@ -9,12 +9,12 @@
 <title>Main Home</title>
 <link rel="icon" href="../source/company.ico" />
 <c:import url="../source/bootStrapLink.jsp" />
-<link rel="stylesheet" href="css/defaultStyle.css?after">
-<link rel="stylesheet" href="css/companyList.css?after">
-<script src="js/jquery.js"></script>
+<link rel="stylesheet" href="../source/css/defaultStyle.css?after">
+<link rel="stylesheet" href="../source/css/companyList.css?after">
+<script src="../source/js/jquery.js"></script>
 </head>
 <body>
-<%-- <c:import url="../source/sessionTest.jsp"/> --%>
+	<c:import url="../source/sessionTest.jsp"/> 
 	<c:import url="Menubar.jsp"></c:import>
 </body>
 </html>
