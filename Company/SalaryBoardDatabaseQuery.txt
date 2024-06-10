@@ -1,0 +1,9 @@
+/*(임시)유저 게시판 쿼리문*/
+
+create table board(
+	id INT,
+	title varchar(20) NOT NULL default "not thing",
+	content varchar(300) NOT NULL default "not thing",
+
+
+);
