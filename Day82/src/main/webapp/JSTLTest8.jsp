@@ -1,0 +1,31 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JSTL Test8</title>
+</head>
+<body>
+	<%
+	pageContext.setAttribute("nameList4", "홍길동, 임꺽정, 일지매, 주먹대장, 똘이장군");
+	%>
+	<!-- 
+		다음과 같이 실행결과가 나오게 하시오.
+		실행결과
+		● 홍길동
+		● 임꺽정
+		● 일지매
+		● 주먹대장
+		● 똘이장군
+ -->
+	<ul>
+		<c:forEach var="nameList4" items="${pageScope.nameList4}">
+			<li>${nameList4 }</li>
+		</c:forEach>
+	</ul>
+</body>
+</html>
