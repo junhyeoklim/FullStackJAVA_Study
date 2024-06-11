@@ -1,0 +1,3 @@
+
+1. 파일 전송 방법 : multipart/form-data 관련 설명
+ : https://velog.io/@shin6403/HTTP-multipartform-data-%EB%9E%80
