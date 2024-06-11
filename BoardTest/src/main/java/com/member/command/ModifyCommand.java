@@ -10,7 +10,7 @@ import com.boardtest.dao.MemberDAO;
 import com.set.dto.AddressDTO;
 import com.set.dto.UserDTO;
 
-public class RegisterCommand implements Command {
+public class ModifyCommand implements Command{
 
 	@Override
 	public void excute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -18,7 +18,6 @@ public class RegisterCommand implements Command {
 		UserDTO udto = new UserDTO();
 		AddressDTO adto = new AddressDTO();
 		
-		String name = request.getParameter("name");
 		String id = request.getParameter("id");
 		String nickname = request.getParameter("nickname");
 		String pwd = request.getParameter("pwd");
@@ -26,7 +25,6 @@ public class RegisterCommand implements Command {
 		String upostcode = request.getParameter("postcode");
 		String birth = request.getParameter("year").concat(request.getParameter("month").concat(request.getParameter("date")));
 		String phone = request.getParameter("phone");
-		String sex = request.getParameter("sex");
 		
 		String aid = id;
 		String apostcode = upostcode;
@@ -35,7 +33,6 @@ public class RegisterCommand implements Command {
 		String detailAddress = request.getParameter("detailAddress");
 		String extraAddress = request.getParameter("extraAddress");
 		
-		udto.setName(name);
 		udto.setId(id);
 		udto.setNickName(nickname);
 		udto.setPassword(pwd);
@@ -43,7 +40,6 @@ public class RegisterCommand implements Command {
 		udto.setPostcode(Integer.parseInt(upostcode));
 		udto.setBirth(birth);
 		udto.setPhone(Integer.parseInt(phone));
-		udto.setSex(sex);
 		
 		adto.setId(aid);
 		adto.setPostcode(Integer.parseInt(apostcode));
@@ -52,8 +48,7 @@ public class RegisterCommand implements Command {
 		adto.setDetailAddress(detailAddress);
 		adto.setExtraAddress(extraAddress);
 		
-		dao.insertDAO(udto, adto);
-		
+		dao.updateDAO(udto, adto);
 	}
 
 }

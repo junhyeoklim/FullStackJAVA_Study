@@ -1,4 +1,4 @@
-package com.board.dao;
+package com.boardtest.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,15 +13,15 @@ import javax.sql.DataSource;
 import com.set.dto.AddressDTO;
 import com.set.dto.UserDTO;
 
-public class BoardDAO {
-	private static BoardDAO boardDAO = new BoardDAO();
+public class MemberDAO {
+	private static MemberDAO memberDAO = new MemberDAO();
 	private String CONNECTION_POLLRESOURCE_NAME = "jdbc/testdb";
 	private final String BOARD_TABLE = "board";
 	private final String ADDRESS_TABLE = "address";
 	private final String USER_TABLE = "user";
 	private DataSource dataSource;
 	
-	private BoardDAO() {
+	private MemberDAO() {
 		try {
 			Context context = new InitialContext();
 			dataSource = (DataSource) context.lookup("java:comp/env/"+CONNECTION_POLLRESOURCE_NAME);
@@ -30,8 +30,8 @@ public class BoardDAO {
 		}
 	}
 	
-	public static BoardDAO getBoardDAO() {
-		return boardDAO;
+	public static MemberDAO getMemberDAO() {
+		return memberDAO;
 	}
 	
 	
@@ -91,7 +91,7 @@ public class BoardDAO {
 	public void insertDAO(UserDTO udto,AddressDTO adto) {
 		
 		String userSql = "INSERT INTO "+USER_TABLE+" VALUES(?,?,?,?,?,?,?,?,?)";
-		String addressSql = "INSERT INTO "+ADDRESS_TABLE+" VALUES(?,?,?,?,?)";
+		String addressSql = "INSERT INTO "+ADDRESS_TABLE+" VALUES(?,?,?,?,?,?)";
 		
 		try(Connection conn = dataSource.getConnection();
 			PreparedStatement upstmt = conn.prepareStatement(userSql);
@@ -107,11 +107,12 @@ public class BoardDAO {
 			upstmt.setInt(8, udto.getPhone());
 			upstmt.setString(9, udto.getSex());
 			
-			apstmt.setInt(1, adto.getPostcode());
-			apstmt.setString(2, adto.getRoadAddress());
-			apstmt.setString(3, adto.getJibunAddress());
-			apstmt.setString(4, adto.getDetailAddress());
-			apstmt.setString(5, adto.getExtraAddress());
+			apstmt.setString(1, adto.getId());
+			apstmt.setInt(2, adto.getPostcode());
+			apstmt.setString(3, adto.getRoadAddress());
+			apstmt.setString(4, adto.getJibunAddress());
+			apstmt.setString(5, adto.getDetailAddress());
+			apstmt.setString(6, adto.getExtraAddress());
 			
 			int result1 =0,result2 =0;
 			result1 = upstmt.executeUpdate();
@@ -130,8 +131,42 @@ public class BoardDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-				
+	}
+	
+	public void updateDAO(UserDTO udto,AddressDTO adto) {
+		String userSql = "UPDATE "+USER_TABLE+" SET password=?,email=?,postcode=?,birth=?,phone=? WHERE id=?";
+		String addressSql = "UPDATE "+ADDRESS_TABLE+" SET postcode=?,roadaddress=?,jibunaddress=?,detailaddress=?,extraaddress=? WHERE id=?"; 
 		
-		
+		try(Connection con = dataSource.getConnection();
+			PreparedStatement upstmt = con.prepareStatement(userSql);
+			PreparedStatement apstmt = con.prepareStatement(addressSql);)
+		{
+			upstmt.setString(1, udto.getPassword());
+			upstmt.setString(2, udto.getEmail());
+			upstmt.setInt(3, udto.getPostcode());
+			upstmt.setString(4, udto.getBirth());
+			upstmt.setInt(5, udto.getPhone());
+			upstmt.setString(6, udto.getId());
+			upstmt.executeUpdate();
+			
+			apstmt.setInt(1, adto.getPostcode());
+			apstmt.setString(2, adto.getRoadAddress());
+			apstmt.setString(3, adto.getJibunAddress());
+			apstmt.setString(4, adto.getDetailAddress());
+			apstmt.setString(5, adto.getExtraAddress());
+			apstmt.setString(6, adto.getId());
+			apstmt.executeUpdate();
+			
+			if(upstmt.executeUpdate() > 0 && apstmt.executeUpdate()>0)
+				System.out.println("성공");
+			else if(upstmt.executeUpdate() < 0 && apstmt.executeUpdate()>0)
+				System.out.println("유저 정보 변경 실패");
+			else if (upstmt.executeUpdate() > 0 && apstmt.executeUpdate()<0) 
+				System.out.println("주소 변경 실패");
+			else
+				System.out.println("다 실패");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 }

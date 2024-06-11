@@ -11,6 +11,7 @@
 <body>
 	<span id="id" hidden>${sessionScope.udto.id}</span>
 	<span id="check" hidden>${param.check}</span>
+	<span id="modify" hidden>${param.modify}</span>
 	<script src="js/alert.js"></script>
 </body>
 </html>

@@ -1,12 +1,19 @@
 package com.set.dto;
 
 public class AddressDTO {
-
+	private String id;
 	private int postcode;
 	private String roadAddress;
 	private String jibunAddress;
 	private String detailAddress;
 	private String extraAddress;
+	
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
 	public int getPostcode() {
 		return postcode;
 	}

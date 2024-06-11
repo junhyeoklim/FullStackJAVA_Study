@@ -1,4 +1,4 @@
-package com.board.command;
+package com.member.command;
 
 import java.io.IOException;
 

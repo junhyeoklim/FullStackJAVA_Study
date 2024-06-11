@@ -1,5 +1,6 @@
 		let id = $('#id');
 		let register = $('#check');
+		let modify = $('#modify');
 		
 		if(isNull(id.text()) && isNull(register.text())){
 			console.log(id.text());
@@ -9,6 +10,11 @@
 		}
 		else if(isNull(id.text()) && register.text() == 'ok'){
 			alert("회원가입이 완료되었습니다!");
+			register.text("");
+			location.href = "login.do";
+		}
+		else if(isNull(id.text()) && modify.text() == 'ok'){
+			alert("회원정보 변경이 완료되었습니다!");
 			register.text("");
 			location.href = "login.do";
 		}

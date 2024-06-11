@@ -53,7 +53,7 @@ input[type="number"]::-webkit-inner-spin-button {
 	<c:import url="address.jsp"/><br>
 	
 	<label for="year">생년월일</label><br>
-	<input type="number" name="year" id="year" >
+	<input type="number" name="year" id="year">
 	<select name="month" id="birth">
 		<c:forEach var="i" begin="1" end="12">
 			<c:set var="month" value="${i}"/> 

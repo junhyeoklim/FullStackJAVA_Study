@@ -1,8 +1,24 @@
-	$('#cpwd').on('keyup',errorMessage);
+	$('#cpwd').on('input',errorMessage);
+	
+	$('#year,#date').on('input',function(){
+		console.log(typeof $(this).attr('id'))
+		if($(this).attr('id') == 'year'){
+			if($(this).val()>3)
+				$(this).val($(this).val().substring(0,4))
+		}
+		else{
+			if($(this).val()>2)
+				$(this).val($(this).val().substring(0,2))
+		}
+	});
 
+
+	
 	function errorMessage(){
+		
 		let pwd = $('#pwd');
-
+		console.log(pwd.val());
+		console.log(pwd.val() != $(this).val());
 		if(!isNull($(this).val()) && pwd.val() != $(this).val()){
 			$('#msg').removeClass('success-msg');
 			$('#msg').addClass('error-msg');
