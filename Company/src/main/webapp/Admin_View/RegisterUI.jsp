@@ -1,3 +1,8 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -18,20 +23,44 @@
 				<td><label for="name">이름</label></td>
 				<td><input type="text" name="name" id="name" required></td>
 			</tr>
-
+			<tr>
+				<td><label for="year">생년월일</label></td>
+				<td><input type="number" name="year" id="year"> <select
+					name="month" id="birth">
+						<option selected disabled>선택</option>
+						<c:forEach var="i" begin="1" end="12" step="1">
+							<option value="<fmt:formatNumber value='${i}' pattern='00'/>">
+								<fmt:formatNumber value="${i}" pattern="00" />
+							</option>
+						</c:forEach>
+				</select> <input type="number" name="date" id="date"></td>
+			</tr>
+			<tr>
+				<td>성별</td>
+				<td><input type="radio" name="gender" id="male" value="male"
+					required><label for="male">남</label> <input type="radio"
+					name="gender" id="female" value="female" required><label
+					for="female">여</label></td>
+			</tr>
 			<tr>
 				<td><label>부서</label></td>
-				<td><select id="select-box" name="dpartment-box">					
+				<td><select id="select-box" name="dpartment-box">
 						<option disabled selected>선택</option>
 						<option value="경영">경영</option>
 						<option value="인사">인사</option>
 						<option value="개발">개발</option>
-					</select></td>
+				</select></td>
 			</tr>
 
 			<tr>
-				<td><label for="rank">직급</label></td>
-				<td><input type="text" name="rank" id="rank" required></td>
+				<td>직급</td>
+				<td><select name="rank">
+						<option selected disabled>선택</option>
+						<c:set var="list" value="사원,주임,대리,과장,차장,부장" />
+						<c:forEach var="rank" items="${list}">
+							<option value="${rank }">${rank }</option>
+						</c:forEach>
+				</select></td>
 			</tr>
 
 
@@ -60,7 +89,7 @@
 			<tr>
 				<td><label for="phone">전화번호</label></td>
 				<td colspan="2"><input type="number" name="phone" id="phone"
-					required></td>
+					required placeholder="'-'없이 번호만 입력"></td>
 			</tr>
 
 			<tr>

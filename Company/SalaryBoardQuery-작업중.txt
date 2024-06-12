@@ -1,0 +1,18 @@
+/*(임시)유저 게시판 쿼리문*/
+
+create table board(
+	b_id BINGINT,
+	title varchar(20) NOT NULL default "nothing",
+	content varchar(300) NOT NULL default "nothing",
+	s_id INT,
+	createTime DATETIME DEFAULT current_timestamp,
+	updateTime timestamp DEFAULT current_timestamp ON UPDATE CURRENT_TIMESTAMP,
+	views BIGINT,
+	commentCnt INT
+	filename varchar(150),
+	filepath varchar(300)
+);
+
+* 게시물에 파일 업로드 관련 내용 
+https://congsong.tistory.com/44
+https://magicmk.tistory.com/54

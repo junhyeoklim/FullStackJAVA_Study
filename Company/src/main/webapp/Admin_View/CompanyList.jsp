@@ -15,7 +15,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>main</title>
+<title>사원 목록</title>
 <c:import url="../source/bootStrapLink.jsp" />
 <link rel="icon" href="../source/company.ico" />
 <link rel="stylesheet" href="../source/css/defaultStyle.css?after">
@@ -29,7 +29,7 @@
 
 	<%-- <c:choose>
 	<c:when test="${sessionScope.dto.s_name == 'admin' }"> --%>
-		<c:import url="../source/sessionTest.jsp" />
+		<%-- <c:import url="../source/sessionTest.jsp" /> --%>
 		<table border="1" id="main">
 			<caption>사원 목록</caption>
 			<tr>

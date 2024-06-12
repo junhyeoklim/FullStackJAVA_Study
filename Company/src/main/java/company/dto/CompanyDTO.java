@@ -3,14 +3,35 @@ package company.dto;
 public class CompanyDTO {
 
 	private int s_id;
-	private int s_salary;
 	private String s_name;
+	private int s_birth;
+	private String s_gender;
+	private int s_salary;	
 	private String s_department;
 	private String s_rank;
 	private String s_mail;
 	private String s_phoneNumber;
 	private String date;
+	private String updateTime;
 	
+	public int getS_birth() {
+		return s_birth;
+	}
+	public void setS_birth(int s_birth) {
+		this.s_birth = s_birth;
+	}
+	public String getS_gender() {
+		return s_gender;
+	}
+	public void setS_gender(String s_gender) {
+		this.s_gender = s_gender;
+	}
+	public String getUpdateTime() {
+		return updateTime;
+	}
+	public void setUpdateTime(String updateTime) {
+		this.updateTime = updateTime;
+	}
 	public int getS_id() {
 		return s_id;
 	}

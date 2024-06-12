@@ -1,4 +1,13 @@
 
+/*input이 focus 되면 label값 제거*/
+$('#name,#id').on("focus",function(){
+	console.log("test");
+	if($(this).attr('id') == 'name'){
+		$('#nameLabel').text("");
+	}
+	else
+		$('#idLabel').text("");
+});
 
 
 function check(){

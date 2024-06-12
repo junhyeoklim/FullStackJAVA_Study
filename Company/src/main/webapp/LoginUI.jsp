@@ -18,19 +18,19 @@
 				<fieldset>
 					<div class="login_inp">
 						<div class="input_box">
-							<label for="name" class="lab_login"></label>
-							<input type="text" name="name" id="name" class="inp_txt" placeholder="이름">
+							<label for="name" id="nameLabel" class="lab_login">이름</label>
+							<input type="text" name="name" id="name" class="inp_txt" maxlength="10" >
 						</div>
 						<div class="input_box">
-							<label for="id" class="lab_login"></label>
-							<input type="password" name="id" id="id" class="inp_txt" placeholder="사원 번호">			
-						</div>
-						
-						<div class="login_set">
-							<input type="submit" value="로그인" class="btn_inout login">
-							<div class="a_container"><a	href="/Company/Admin_View/list.do">임시 리스트 확인 페이지</a></div> 
+							<label for="id" id="idLabel" class="lab_login">사원번호</label>
+							<input type="password" name="id" id="id" class="inp_txt">			
 						</div>
 					</div>
+					
+					<div class="login_set">
+							<input type="submit" value="로그인" class="btn_inout login" maxlength="8">
+							<div class="a_container"><a	href="/Company/Admin_View/list.do">임시 리스트 확인 페이지</a></div> 
+					</div>					
 				</fieldset>
 			</form>
 		</div>

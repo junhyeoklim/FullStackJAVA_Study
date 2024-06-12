@@ -1,6 +1,7 @@
-body,fieldset,div,label,button{
+body,fieldset,div,label,button,form{
 	user-select: none;
     margin: 0;
+    padding: 0;
     border: 0;
     vertical-align: baseline;
     background: transparent;
@@ -9,47 +10,14 @@ body,fieldset,div,label,button{
 body{
 	font-size: 12px;
 }
-div{
-	display: block;
-	unicode-bidi: isolate;
-	
-}
-fieldset{
-	display: block;
-	margin-inline-start: 2px;
-    margin-inline-end: 2px;
-    padding-block-start: 0.35em;
-    padding-inline-start: 0.75em;
-    padding-inline-end: 0.75em;
-    padding-block-end: 0.625em;
-    min-inline-size: min-content;	
+label{
+	cursor: default;
 }
 input,select,textarea,button{
 	border-radius: 0;
 	vertical-align: middle;
 }
-input[type="text"]{
-	padding-block: 1px;
-	padding-inline: 2px;
-}
-input[type="password"]{
-	padding-block: 1px;
-	padding-inline: 2px;
-}
-input{
-    text-rendering: auto;    
-    letter-spacing: normal;
-    word-spacing: normal;
-    text-transform: none;
-    text-indent: 0px;
-    text-shadow: none;
-    display: inline-block;
-    text-align: start;
-    appearance: auto;
-    -webkit-rtl-ordering: logical;
-    cursor: text;
-    margin: 0em;
-}
+
 a{
 	text-decoration: none;
 	margin-top: 200px;
@@ -81,8 +49,10 @@ input[type="submit"]{
 }
 
 .log_inr{
-	width: 248px;
-	height: 150px;
+	padding: 30px 0;
+}
+.log_inr > form{
+	padding: 0 14px;
 }
 .login_inp{	
 	float: left;
@@ -90,7 +60,13 @@ input[type="submit"]{
 
 .login_set{	
 	float: left;
-	width: 66px;
+	margin-left: 7px;
+	font-size: 11px;
+	color: #555;
+	position: absolute;
+	top: 26px;
+	right: 14px;
+	width: 66px; 
 	height: 79px;
 }
 .input_box:first-child{
@@ -124,15 +100,6 @@ input[type="submit"]{
     color: #555;
     border: none;
     background: transparent;
-}
-.login_set{
-	float: left;
-    margin-left: 7px;
-    font-size: 11px;
-    color: #555;
-    position: absolute;
-    top: 14px;
-    right: 14px;
 }
 .btn_inout.login{
     width: 65px;

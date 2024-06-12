@@ -57,7 +57,7 @@ public class FrontController extends HttpServlet {
 			viewPage = "CompanyList.jsp";
 		}
 		else if(commandName.equals(folderName+"/register.do")) {
-			viewPage = "RegisterUI.html";
+			viewPage = "RegisterUI.jsp";
 		}
 		else if(commandName.equals(folderName+"/registerOK.do")) {
 			command = new InsertCommand();
@@ -84,6 +84,9 @@ public class FrontController extends HttpServlet {
 			command.excute(request, response);
 			response.sendRedirect(request.getContextPath()+folderName + "/list.do");
 			return;
+		}
+		else if(commandName.equals(folderName+"/chart.do")) {
+			viewPage = "chartEX.jsp";
 		}
 		
 		if(viewPage != null) { 

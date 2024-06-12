@@ -21,6 +21,8 @@ public class InsertCommand implements Command {
 		int cnt = 0;
 		String id = null;
 		String name = request.getParameter("name");
+		String birth = request.getParameter("year").concat(request.getParameter("month")).concat(request.getParameter("date"));
+		String gender = request.getParameter("gender");
 		String department = request.getParameter("dpartment-box");
 		String rank = request.getParameter("rank");
 		String mail = request.getParameter("first").concat("@"+request.getParameter("second"));
@@ -55,8 +57,14 @@ public class InsertCommand implements Command {
 				cnt++;
 			}
 		}
-		 dto.setS_id(Integer.parseInt(id)); dto.setS_name(name);
-		 dto.setS_department(department); dto.setS_rank(rank); dto.setS_mail(mail);
-		 dto.setS_phoneNumber(phone); dao.insertOK(dto);
+		 dto.setS_id(Integer.parseInt(id)); 
+		 dto.setS_name(name);
+		 dto.setS_birth(Integer.parseInt(birth));
+		 dto.setS_gender(gender);
+		 dto.setS_department(department); 
+		 dto.setS_rank(rank); 
+		 dto.setS_mail(mail);
+		 dto.setS_phoneNumber(phone); 
+		 dao.insertOK(dto);
 	}
 }

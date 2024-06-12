@@ -1,0 +1,26 @@
+/*Company Database 사원 관리 테이블 테스트용 1개
+  부서는 임시로 3가지 부서로 제한 한다 : 인사,개발,경영
+  부서 코드 :
+	- 경영 : 101
+	- 인사 : 102
+	- 개발 : 103
+*/
+
+CREATE DATABASE company;
+
+CREATE TABLE salary_man(
+  s_id int PRIMARY KEY,
+  s_name varchar(20) NOT NULL default "nothing",
+  s_birth INT NOT NULL default 0,
+  s_gender varchar(8) NOT NULL default "nothing",
+  s_department char(20) NOT NULL default "nothing",
+  s_rank char(10) NOT NULL default "nothing",
+  s_mail varchar(320) NOT NULL default "nothing",
+  s_phoneNumber char(10) NOT NULL default "nothing",  
+  s_salary int NOT NULL default 0, 
+  Join_Date datetime default CURRENT_TIMESTAMP,
+  updateTime timestamp DEFAULT current_timestamp ON UPDATE CURRENT_TIMESTAMP
+);
+
+* 연령대 출력 관련 쿼리문
+https://lanuarius19.tistory.com/entry/MySQL-%EB%82%98%EC%9D%B4-%EA%B3%84%EC%82%B0

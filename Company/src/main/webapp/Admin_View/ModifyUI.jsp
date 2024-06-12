@@ -3,6 +3,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,23 +26,60 @@
 					<td><input type="text" name="name" id="name" required
 						value="${dto.s_name}"></td>
 				</tr>
-
-			<tr>
-				<td><label>부서</label></td>
-				<td><select id="select-box" name="dpartment-box">					
-						<option disabled selected>선택</option>
-						<option value="경영" <c:if test="${dto.s_department == '경영'}"> selected </c:if>>경영</option>
-						<option value="인사" <c:if test="${dto.s_department == '인사'}"> selected </c:if>>인사</option>
-						<option value="개발" <c:if test="${dto.s_department == '개발'}"> selected </c:if>>개발</option>
-					</select></td>
-			</tr>
-
 				<tr>
-					<td><label for="rank">직급</label></td>
-					<td><input type="text" name="rank" id="rank" required
-						value="${dto.s_rank}"></td>
+					<td><label>생년월일</label></td>
+					<td>
+						<input type="number" name="year" id="year" value="${fn:substring(dto.s_birth,0,4)}"> 
+						<select	name="month" id="birth">
+							<option selected disabled>선택</option>
+							<c:forEach var="i" begin="1" end="12" step="1">
+								<c:set var="month" value="${i < 10 ? '0' + i : i}" />
+								<option value="${month}" <c:if test="${fn:substring(dto.s_birth, 4, 6) == month}">selected</c:if>>
+									<c:choose>
+										<c:when test="${i <10}">
+											0${month}
+										</c:when>
+										<c:otherwise>
+											${month}
+										</c:otherwise>
+									</c:choose>
+								</option>
+							</c:forEach>
+					</select> 
+						<input type="number" name="date" id="date" value="${fn:substring(dto.s_birth,6,8)}">
+					</td>
 				</tr>
-
+				<tr>
+					<td>성별</td>
+					<td><input type="radio" name="gender" id="male" value="male"
+						disabled <c:if test="${dto.s_gender == 'male'}"> checked </c:if>>남
+						<input type="radio" name="gender" id="female" value="female"
+						disabled <c:if test="${dto.s_gender == 'female'}"> checked </c:if>>여
+					</td>
+				</tr>
+				<tr>
+					<td><label>부서</label></td>
+					<td><select id="select-box" name="dpartment-box">
+							<option disabled selected>선택</option>
+							<option value="경영"
+								<c:if test="${dto.s_department == '경영'}"> selected </c:if>>경영</option>
+							<option value="인사"
+								<c:if test="${dto.s_department == '인사'}"> selected </c:if>>인사</option>
+							<option value="개발"
+								<c:if test="${dto.s_department == '개발'}"> selected </c:if>>개발</option>
+					</select></td>
+				</tr>
+				<tr>
+					<td>직급</td>
+					<td><select name="rank">
+							<option selected disabled>선택</option>
+							<c:set var="list" value="사원,주임,대리,과장,차장,부장" />
+							<c:forEach var="rank" items="${list}">
+								<option value="${rank}"
+									<c:if test="${rank == dto.s_rank }">selected</c:if>>${rank }</option>
+							</c:forEach>
+					</select></td>
+				</tr>
 				<tr>
 					<td><label for="email">이메일</label></td>
 					<td>

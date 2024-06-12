@@ -36,12 +36,15 @@ public class CompanyDAO {
 				CompanyDTO dto = new CompanyDTO();
 				dto.setS_id(rs.getInt("s_id"));
 				dto.setS_name(rs.getString("s_name"));
+				dto.setS_birth(rs.getInt("s_birth"));
+				dto.setS_gender(rs.getString("s_gender"));
 				dto.setS_department(rs.getString("s_department"));
 				dto.setS_rank(rs.getString("s_rank"));
 				dto.setS_mail(rs.getString("s_mail"));
 				dto.setS_phoneNumber(rs.getString("s_phoneNumber"));
 				dto.setS_salary(rs.getInt("s_salary"));
 				dto.setDate(rs.getString("Join_Date"));
+				dto.setUpdateTime(rs.getString("updateTime"));
 				list.add(dto);
 			}
 
@@ -59,13 +62,13 @@ public class CompanyDAO {
 		switch(select)
 		{
 		case 1:				
-			sql = "SELECT * FROM "+TABLE_NAME+" WHERE s_name='"+text+"' ORDER BY Join_Date DESC";
+			sql = "SELECT * FROM "+TABLE_NAME+" WHERE s_name LIKE '%"+text+"%' ORDER BY Join_Date DESC";
 			break;
 		case 2:
-			sql = "SELECT * FROM "+TABLE_NAME+" WHERE s_rank='"+text+"' ORDER BY Join_Date DESC";
+			sql = "SELECT * FROM "+TABLE_NAME+" WHERE s_rank LIKE '%"+text+"%' ORDER BY Join_Date DESC";
 			break;
 		case 3:
-			sql = "SELECT * FROM "+TABLE_NAME+" WHERE s_department='"+text+"' ORDER BY Join_Date DESC";
+			sql = "SELECT * FROM "+TABLE_NAME+" WHERE s_department LIKE '%"+text+"%' ORDER BY Join_Date DESC";
 			break;
 		}
 
@@ -75,12 +78,15 @@ public class CompanyDAO {
 				CompanyDTO dto = new CompanyDTO();
 				dto.setS_id(rs.getInt("s_id"));
 				dto.setS_name(rs.getString("s_name"));
+				dto.setS_birth(rs.getInt("s_birth"));
+				dto.setS_gender(rs.getString("s_gender"));
 				dto.setS_department(rs.getString("s_department"));
 				dto.setS_rank(rs.getString("s_rank"));
 				dto.setS_mail(rs.getString("s_mail"));
 				dto.setS_phoneNumber(rs.getString("s_phoneNumber"));
 				dto.setS_salary(rs.getInt("s_salary"));
-				dto.setDate(rs.getString("Join_Date"));	
+				dto.setDate(rs.getString("Join_Date"));
+				dto.setUpdateTime(rs.getString("updateTime"));
 				list.add(dto);				
 			}
 
@@ -100,12 +106,15 @@ public class CompanyDAO {
 				CompanyDTO dto = new CompanyDTO();
 				dto.setS_id(rs.getInt("s_id"));
 				dto.setS_name(rs.getString("s_name"));
+				dto.setS_birth(rs.getInt("s_birth"));
+				dto.setS_gender(rs.getString("s_gender"));
 				dto.setS_department(rs.getString("s_department"));
 				dto.setS_rank(rs.getString("s_rank"));
 				dto.setS_mail(rs.getString("s_mail"));
 				dto.setS_phoneNumber(rs.getString("s_phoneNumber"));
 				dto.setS_salary(rs.getInt("s_salary"));
-				dto.setDate(rs.getString("Join_Date"));	
+				dto.setDate(rs.getString("Join_Date"));
+				dto.setUpdateTime(rs.getString("updateTime"));
 				list.add(dto);				
 			}
 
@@ -142,15 +151,17 @@ public class CompanyDAO {
 	}
 
 	public void insertOK(CompanyDTO dto) {
-		String sql = "INSERT INTO "+TABLE_NAME+"(s_id,s_name,s_department,s_rank,s_mail,s_phoneNumber) VALUES(?,?,?,?,?,?)";
+		String sql = "INSERT INTO "+TABLE_NAME+"(s_id,s_name,s_birth,s_gender,s_department,s_rank,s_mail,s_phoneNumber) VALUES(?,?,?,?,?,?,?,?)";
 
 		try(PreparedStatement pstmt = con.prepareStatement(sql);) {
 			pstmt.setInt(1, dto.getS_id());
 			pstmt.setString(2, dto.getS_name());
-			pstmt.setString(3, dto.getS_department());
-			pstmt.setString(4, dto.getS_rank());
-			pstmt.setString(5, dto.getS_mail());
-			pstmt.setString(6, dto.getS_phoneNumber());			
+			pstmt.setInt(3, dto.getS_birth());
+			pstmt.setString(4, dto.getS_gender());
+			pstmt.setString(5, dto.getS_department());
+			pstmt.setString(6, dto.getS_rank());
+			pstmt.setString(7, dto.getS_mail());
+			pstmt.setString(8, dto.getS_phoneNumber());			
 			pstmt.executeUpdate();
 
 		} catch (SQLException e) {
@@ -159,15 +170,16 @@ public class CompanyDAO {
 	}
 
 	public void updateOK(CompanyDTO dto) {
-		String sql = "UPDATE "+TABLE_NAME+" SET s_name=?,s_department=?,s_rank=?,s_mail=?,s_phoneNumber = ? WHERE s_name=?";
+		String sql = "UPDATE "+TABLE_NAME+" SET s_name=?,s_birth=?, s_department=?,s_rank=?,s_mail=?,s_phoneNumber = ? WHERE s_name=?";
 
 		try(PreparedStatement pstmt = con.prepareStatement(sql);) {
 			pstmt.setString(1, dto.getS_name());
-			pstmt.setString(2, dto.getS_department());
-			pstmt.setString(3, dto.getS_rank());
-			pstmt.setString(4, dto.getS_mail());
-			pstmt.setString(5, dto.getS_phoneNumber());
-			pstmt.setString(6, dto.getS_name());
+			pstmt.setInt(2, dto.getS_birth());
+			pstmt.setString(3, dto.getS_department());
+			pstmt.setString(4, dto.getS_rank());
+			pstmt.setString(5, dto.getS_mail());
+			pstmt.setString(6, dto.getS_phoneNumber());
+			pstmt.setString(7, dto.getS_name());
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();

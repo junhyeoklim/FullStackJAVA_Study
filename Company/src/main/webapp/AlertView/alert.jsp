@@ -10,6 +10,7 @@
 </head>
 <body>	
 	<span id="uname" hidden>${sessionScope.dto.s_name}</span>
+	<span id="update" hidden></span>
 	<script src="../source/js/alert.js"></script>
 </body>
 </html>
