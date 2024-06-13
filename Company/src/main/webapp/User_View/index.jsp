@@ -7,14 +7,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Main Home</title>
-<link rel="icon" href="../source/company.ico" />
-<c:import url="../source/bootStrapLink.jsp" />
+<c:import url="../source/jsp/bootStrapLink.jsp" />
+<link rel="icon" href="../source/ico/company.ico" />
 <link rel="stylesheet" href="../source/css/defaultStyle.css?after">
 <link rel="stylesheet" href="../source/css/companyList.css?after">
+<link rel="stylesheet" href="../source/css/menubar.css?after">
 <script src="../source/js/jquery.js"></script>
 </head>
 <body>
-	<c:import url="../source/sessionTest.jsp"/> 
-	<c:import url="Menubar.jsp"></c:import>
+	<%-- <c:import url="../source/sessionTest.jsp"/> --%> 
+	<c:import url="../source/jsp/Menubar.jsp"/>
 </body>
 </html>

@@ -31,3 +31,8 @@
 	- 검색 기능을 추가 하는데 부서별,작성자,글 제목,제목+내용 이런식으로 검색 하게 한다.
 	- 페이징 기능을 추가한다
 	- 이미지 저장 방법 : https://920416.tistory.com/75
+
+ * 06/13
+    - 페이징 기능 추가 -> 디자인o 기능 x
+      : 페이징 쿼리 문 : SELECT * FROM salary_man ORDER BY Join_Date DESC LIMIT ?,?;
+    - 커뮤니티 게시판 view 대략적으로 만들기

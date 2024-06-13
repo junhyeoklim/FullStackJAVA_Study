@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Login</title>
-<link rel="icon" href="source/company.ico" />
+<link rel="icon" href="source/ico/company.ico" />
 <link rel="stylesheet" href="source/css/login.css?after">
 <script src="source/js/jquery.js"></script>
 </head>

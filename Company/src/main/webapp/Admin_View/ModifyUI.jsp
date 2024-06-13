@@ -11,12 +11,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>사원정보 변경</title>
-<link rel="icon" href="../source/company.ico" />
+<c:import url="../source/jsp/bootStrapLink.jsp" />
+<link rel="icon" href="../source/ico/company.ico" />
 <link rel="stylesheet" href="../source/css/defaultStyle.css?after">
 <link rel="stylesheet" href="../source/css/modify.css?after">
+<link rel="stylesheet" href="../source/css/menubar.css?after">
 <script type="text/javascript" src="../source/js/jquery.js"></script>
 </head>
 <body>
+	<c:import url="../source/jsp/Menubar.jsp"/>
 	<c:forEach var="dto" items="${list}">
 		<form method="post" action="modifyOK.do">
 			<table border="1" id="modify">

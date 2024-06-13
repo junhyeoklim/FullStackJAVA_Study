@@ -1,9 +1,12 @@
+*{
+	box-sizing: border-box;
+}
 body{
     user-select: none;
 }
 table{
 	margin: 0 auto;
-}
+} 
 table,tr{	
     margin-top: 5%;
 	border-radius: 10px 10px 10px 10px;
@@ -28,10 +31,6 @@ table#login{
 table#login tr:last-of-type td{
     text-align: center;
 }
-
-
-
-
 #footer,footer{    
     text-align: center;
 }
@@ -42,7 +41,7 @@ table#login tr:last-of-type td{
   margin-bottom: 5px;  
 }
 #menubar{
-	width: 650px;
+	text-align: center;
 	margin: 0 auto;
 }
 

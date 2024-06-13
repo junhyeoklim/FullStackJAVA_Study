@@ -1,0 +1,34 @@
+* 현대적인 스타일 */
+.ml-auto, .mx-auto {
+    margin-left: auto !important;
+}
+html.width-1300 {
+    --layout-max-width: 1300px;
+}
+.ml-auto{
+	margin-left: auto !important;
+}
+.navbar {
+    max-width: 1300px;
+    border-radius: 0;
+    margin: 0 auto;
+    padding: .4rem 1rem .5rem;
+}
+.nav-link {
+    font-size: 1rem;
+    color: white;
+}
+.nav-link:hover {
+    color: gray;
+}
+.user-ion {
+    font-weight: bold;
+    color: white;
+    display: block;
+    width: 1em;
+    margin-top: 1px;
+    line-height: 50%;
+}
+.user-ion:hover {
+    color: gray;
+}

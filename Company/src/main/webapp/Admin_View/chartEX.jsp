@@ -69,7 +69,7 @@
   </head>
 
   <body>
-  <c:import url="Menubar.jsp" />
+  	<c:import url="../source/jsp/Menubar.jsp"/>
     <!--Div that will hold the pie chart-->
     <c:forEach var="dto" items="${sessionScope.list }">
     	<c:choose>
