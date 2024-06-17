@@ -120,6 +120,18 @@
     </div>
   </nav>
 
+
+	    <c:forEach var="dto" items="${sessionScope.list }">
+    	<c:choose>
+    		<c:when test="${dto.s_gender == 'male' }">
+    			<c:set var="male" value="${male+1 }"/>
+    		</c:when>
+    		<c:otherwise>
+    			<c:set var="female" value="${female+1 }"/>
+    		</c:otherwise>
+    	</c:choose>
+    </c:forEach>
+
   <div class="container-fluid mt-4">
     <div class="row">
       <div class="col-md-6">
@@ -165,17 +177,9 @@
     </div>
   </div>
 
-  <c:set var="dataMap" value="${requestScope.dataMap}" />
-  <c:set var="male" value="${dataMap.maleCount}" />
-  <c:set var="female" value="${dataMap.femaleCount}" />
-  <c:set var="departmentCounts" value="${dataMap.departmentCounts}" />
-  <c:set var="joinYearCounts" value="${dataMap.joinYearCounts}" />
-  <c:set var="averageSalaries" value="${dataMap.averageSalaries}" />
-  <c:set var="ageCounts" value="${dataMap.ageCounts}" />
-
   <span id="male" hidden>${male}</span>
-  <span id="female" hidden">${female}</span>
-  <span id="departmentData" hidden>${departmentCounts}</span>
+  <span id="female" hidden>${female}</span>
+  <span id="departmentData" hidden>${fn:escapeXml(departmentCounts)}</span>
   <span id="joinData" hidden>${fn:escapeXml(joinYearCounts)}</span>
   <span id="salaryData" hidden>${fn:escapeXml(averageSalaries)}</span>
   <span id="ageData" hidden>${fn:escapeXml(ageCounts)}</span>
@@ -186,4 +190,3 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
-          

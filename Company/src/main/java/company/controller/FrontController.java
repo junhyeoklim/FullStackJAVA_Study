@@ -2,6 +2,8 @@ package company.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -16,6 +18,9 @@ import company.command.ListCommand;
 import company.command.LoginCommand;
 import company.command.SearchListCommand;
 import company.command.UpdateCommand;
+import company.dao.CompanyDAO;
+import company.dto.CompanyDTO;
+import company.util.DataProcessor;
 
 
 @WebServlet("*.do")
@@ -85,9 +90,13 @@ public class FrontController extends HttpServlet {
 			response.sendRedirect(request.getContextPath()+folderName + "/list.do");
 			return;
 		}
-		else if(commandName.equals(folderName+"/chart.do")) {
-			viewPage = "chartEX.jsp";
-		}
+        else if(commandName.equals(folderName+"/chart.do")) {
+            CompanyDAO dao = CompanyDAO.getCompanyDAO();
+            ArrayList<CompanyDTO> list = dao.listDAO();
+            Map<String, Object> dataMap = DataProcessor.processData(list);
+            request.setAttribute("dataMap", dataMap);
+            viewPage = "chartEX.jsp";
+        }
 		
 		if(viewPage != null) { 
 			RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage); 
