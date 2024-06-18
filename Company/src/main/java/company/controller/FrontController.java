@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import company.command.Command;
 import company.command.InsertCommand;
@@ -43,31 +44,37 @@ public class FrontController extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
 
+		HttpSession session = request.getSession();
 		String commandName = request.getServletPath();
-		final String folderName = "/Admin_View";
+		final String afolderName = "/Admin_View";
+		final String ufolderName = "/User_View";
 		String viewPage = null;
 		Command command = null;	
 
 		
 		PrintWriter out = response.getWriter();
 
-		if(commandName.equals(folderName+"/list.do")) {
+		if(commandName.equals(afolderName+"/list.do") || commandName.equals(ufolderName+"/list.do")) {
 			command = new ListCommand();
 			command.excute(request, response);
-			viewPage = "CompanyList.jsp";
+			
+			if(commandName.equals(afolderName+"/list.do"))
+				viewPage = "CompanyList.jsp";
+			else
+				viewPage = "../Admin_View/CompanyList.jsp";
 		}
-		else if(commandName.equals(folderName+"/search.do")) {
+		else if(commandName.equals(afolderName+"/search.do")) {
 			command = new SearchListCommand();
 			command.excute(request, response);
 			viewPage = "CompanyList.jsp";
 		}
-		else if(commandName.equals(folderName+"/register.do")) {
+		else if(commandName.equals(afolderName+"/register.do")) {
 			viewPage = "RegisterUI.jsp";
 		}
-		else if(commandName.equals(folderName+"/registerOK.do")) {
+		else if(commandName.equals(afolderName+"/registerOK.do")) {
 			command = new InsertCommand();
 			command.excute(request, response);
-			response.sendRedirect(request.getContextPath()+folderName + "/list.do");
+			response.sendRedirect(request.getContextPath()+afolderName + "/list.do");
 			return;
 		}
 		else if(commandName.equals("/login.do")) {
@@ -79,24 +86,33 @@ public class FrontController extends HttpServlet {
 			response.sendRedirect(request.getContextPath()+"/AlertView" + "/alert.jsp");
 			return;
 		}
-		else if(commandName.equals(folderName+"/modify.do")) {
+		else if(commandName.equals(afolderName+"/modify.do")) {
 			 command = new SearchListCommand(); 
 			 command.excute(request, response);
 		     viewPage = "ModifyUI.jsp";
 		}
-		else if(commandName.equals(folderName+"/modifyOK.do")) {
+		else if(commandName.equals(afolderName+"/modifyOK.do")) {
 			command = new UpdateCommand();
 			command.excute(request, response);
-			response.sendRedirect(request.getContextPath()+folderName + "/list.do");
+			response.sendRedirect(request.getContextPath()+afolderName + "/list.do");
 			return;
 		}
-        else if(commandName.equals(folderName+"/chart.do")) {
+        else if(commandName.equals(ufolderName+"/chart.do")) {
             CompanyDAO dao = CompanyDAO.getCompanyDAO();
             ArrayList<CompanyDTO> list = dao.listDAO();
             Map<String, Object> dataMap = DataProcessor.processData(list);
             request.setAttribute("dataMap", dataMap);
-            viewPage = "chartEX.jsp";
+            viewPage = "../Admin_View/chartEX.jsp";
         }
+        else if(commandName.equals(ufolderName+"/newboard.do")) {
+        	viewPage = "BoardCreateView.jsp";
+        }
+        else if(commandName.equals(ufolderName+"/logout.do") || commandName.equals(afolderName+"/logout.do") ) {
+        	session.invalidate();
+			response.sendRedirect(request.getContextPath()+"/LoginUI.jsp");
+			return;
+        }
+		
 		
 		if(viewPage != null) { 
 			RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage); 

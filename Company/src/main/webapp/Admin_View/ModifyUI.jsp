@@ -19,7 +19,7 @@
 <script type="text/javascript" src="../source/js/jquery.js"></script>
 </head>
 <body>
-	<c:import url="../source/jsp/Menubar.jsp"/>
+	<c:import url="../source/jsp/ChartMenubar.jsp"/>
 	<c:forEach var="dto" items="${list}">
 		<form method="post" action="modifyOK.do">
 			<table border="1" id="modify">

@@ -1,14 +1,37 @@
 .content-wrapper {
+    display: flex;
     max-width: 1300px;
     margin: 0 auto;
     padding: 1rem;
-    display: flex;
-    flex-direction: column;
 }
 
 .board-article {
+    flex: 7;
     background-color: var(--color-bg-main);
-    margin-bottom: 2rem;
+    margin-right: 1rem;
+}
+
+.sidebar {
+    flex: 3;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-left: 1px solid #ddd;
+}
+
+.calendar {
+    margin-bottom: 20px;
+}
+
+.menu {
+    margin-top: 20px;
+}
+
+.calendar, .menu {
+    background: white;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .board-article-list {

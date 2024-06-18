@@ -12,7 +12,7 @@
   <!--Load the AJAX API-->
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
   <script type="text/javascript">
-    google.charts.load('current', {'packages':['corechart']});
+    google.charts.load('current', {'packages':['corechart', 'bar']});
     google.charts.setOnLoadCallback(drawCharts);
 
     function drawCharts() {
@@ -34,7 +34,12 @@
         ['여', parseInt(female)]
       ]);
 
-      var options = {'title':'성비', 'width':400, 'height':300};
+      var options = {
+    		  'title':'부서별 성비', 
+    		  'width':400, 
+    		  'height':300,
+    		  'is3D': true
+    	};
       var chart = new google.visualization.PieChart(document.getElementById('gender_chart'));
       chart.draw(data, options);
     }
@@ -97,29 +102,7 @@
   </script>
 </head>
 <body>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">ERP 시스템</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
-        <li class="nav-item active">
-          <a class="nav-link" href="#">대시보드</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">사원 관리</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">부서 관리</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">급여 관리</a>
-        </li>
-      </ul>
-    </div>
-  </nav>
-
+<c:import url="../source/jsp/ChartMenubar.jsp"/>
   <div class="container-fluid mt-4">
     <div class="row">
       <div class="col-md-6">
@@ -174,8 +157,8 @@
   <c:set var="ageCounts" value="${dataMap.ageCounts}" />
 
   <span id="male" hidden>${male}</span>
-  <span id="female" hidden">${female}</span>
-  <span id="departmentData" hidden>${departmentCounts}</span>
+  <span id="female" hidden>${female}</span>
+  <span id="departmentData" hidden>${fn:escapeXml(departmentCounts)}</span>
   <span id="joinData" hidden>${fn:escapeXml(joinYearCounts)}</span>
   <span id="salaryData" hidden>${fn:escapeXml(averageSalaries)}</span>
   <span id="ageData" hidden>${fn:escapeXml(ageCounts)}</span>
@@ -186,4 +169,5 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
+
           

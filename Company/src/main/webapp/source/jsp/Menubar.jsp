@@ -6,27 +6,26 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-<!-- <link rel="stylesheet" href="../css/menubar.css?after"> -->
 <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+<script src="../source/js/menubar.js"></script>
 <%-- <c:import url="bootStrapLink.jsp" /> --%>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg bg-dark navbar-dark navbar-wrapper" id="menubar">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">Navbar</a>
+        <a class="navbar-brand" href="index.jsp">Main</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
-            <ul class="navbar-nav">
-                <li class="nav-item"><a class="nav-link active" aria-current="page" href="chart.do">Chart</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Features</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Pricing</a></li>
+            <ul class="navbar-nav" id="main-menu">
+                <li class="nav-item"><a class="nav-link" href="BoardListView.jsp">(공사중)게시판</a></li>
+                <li class="nav-item"><a class="nav-link" href="logout.do">(임시)로그아웃</a></li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">Dropdown link</a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
+                        <li><a class="dropdown-item" href="#">ee</a></li>
                         <li><a class="dropdown-item" href="#">Another action</a></li>
                         <li><a class="dropdown-item" href="#">Something else here</a></li>
                     </ul>
@@ -45,5 +44,8 @@
     	아이콘 관련 자료 : https://didyousee36sam.tistory.com/14
       -->
 </nav>
+<span id="uname" hidden>${sessionScope.dto.s_name}</span>
+
+
 </body>
 </html>

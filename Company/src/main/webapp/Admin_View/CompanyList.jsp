@@ -24,8 +24,7 @@
 <script src="../source/js/jquery.js"></script>
 </head>
 <body>
-
-	<c:import url="../source/jsp/Menubar.jsp"/>
+	<c:import url="../source/jsp/ChartMenubar.jsp"/>
 	<%-- <c:import url="../source/jsp/Menubar.jsp"/> --%>
 
 	<%-- <c:choose>

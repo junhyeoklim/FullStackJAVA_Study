@@ -17,7 +17,7 @@
 <script type="text/javascript" src="../source/js/jquery.js"></script>
 </head>
 <body>
-	<c:import url="../source/jsp/Menubar.jsp"/>
+	<c:import url="../source/jsp/ChartMenubar.jsp"/>
 	<form method="post" action="registerOK.do">
 		<table border="1" id="register">
 			<caption>사원 정보 입력</caption>

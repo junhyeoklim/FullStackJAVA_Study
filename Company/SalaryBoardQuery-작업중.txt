@@ -5,6 +5,7 @@ create table board(
 	title varchar(20) NOT NULL default "nothing",
 	content varchar(300) NOT NULL default "nothing",
 	s_id INT,
+	s_department char(20) NOT NULL default "nothing",
 	createTime DATETIME DEFAULT current_timestamp,
 	updateTime timestamp DEFAULT current_timestamp ON UPDATE CURRENT_TIMESTAMP,
 	views BIGINT,

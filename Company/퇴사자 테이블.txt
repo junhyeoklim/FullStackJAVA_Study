@@ -1,0 +1,7 @@
+create table resign(
+	s_department varchar(10) NOT NULL default "nothing",
+	s_gender varchar(6) NOT NULL default "not",
+	s_rank char(10) NOT NULL default "nothing",
+	s_birth char(8) NOT NULL default "nothing",
+	out_date timestamp default CURRENT_TIMESTAMP
+);

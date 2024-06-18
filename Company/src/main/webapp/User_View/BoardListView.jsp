@@ -43,7 +43,7 @@
                 </table>
                 <!-- 글작성 버튼 -->
                 <div class="create-post-wrapper">
-                    <a href="#" class="create-post">글작성</a>
+                    <a href="newboard.do" class="create-post">글작성</a>
                 </div>
                 
                 <!-- 검색 폼 -->
@@ -75,6 +75,26 @@
                 </div>
             </div>
         </article>
+        <aside class="sidebar">
+            <!-- 우측 상단 일정표/달력 -->
+            <div class="calendar">
+                <h2>일정표/달력</h2>
+                <!-- 여기 달력이나 일정표 코드를 추가하세요 -->
+            </div>
+            <!-- 우측 하단 구내 식당 메뉴 -->
+            <div class="menu">
+                <h2>구내 식당 점심 메뉴</h2>
+                <ul>
+                    <li>월요일: 메뉴1</li>
+                    <li>화요일: 메뉴2</li>
+                    <li>수요일: 메뉴3</li>
+                    <li>목요일: 메뉴4</li>
+                    <li>금요일: 메뉴5</li>
+                </ul>
+            </div>
+        </aside>
     </div>
 </body>
 </html>
+
+
