@@ -3,7 +3,7 @@
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.PreparedStatement"%>
 <%@page import="java.sql.SQLException"%>
-<%@page import="company.dao.JDBCConnector"%>
+<%@page import="common.db.JDBCConnector"%>
 <%@page import="java.sql.Connection"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
@@ -24,11 +24,11 @@
 <script src="../source/js/jquery.js"></script>
 </head>
 <body>
-	<c:import url="../source/jsp/ChartMenubar.jsp"/>
+	<c:import url="../source/jsp/ChartMenubar.jsp" />
 	<%-- <c:import url="../source/jsp/Menubar.jsp"/> --%>
 
 	<%-- <c:choose>
-	<c:when test="${sessionScope.dto.s_name == 'admin' }"> --%>
+    <c:when test="${sessionScope.dto.s_name == 'admin' }"> --%>
 	<%-- <c:import url="../source/sessionTest.jsp" /> --%>
 	<div class="content-wrapper clearfix">
 		<div class="containe-fluid board-article">
@@ -41,7 +41,7 @@
 					<td>이메일</td>
 					<td>전화번호</td>
 				</tr>
-				<c:forEach var="dto" items="${list}">
+				<c:forEach var="dto" items="${sessionScope.list}">
 					<tr>
 						<td>${dto.s_department}</td>
 						<td><a href="modify.do?name=${dto.s_name}">${dto.s_name}</a></td>
@@ -72,34 +72,78 @@
 				</div>
 			</nav>
 
-			<!-- 페이징 기능 JSTL로 바꾸기 -->
 			<nav class="pagination-wrapper">
 				<ul class="pagination justify-content-center">
-					<!-- 특정 페이지 넘어가면 보일 이전 부분 -->
-					<li class="page-item"><a class="page-link" href="#"
-						title="최신글 보기"><span class="ion-chevron-left"> << </span></a></li>
-					<li class="page-item"><a class="page-link" href="#"><span
-							class="ion-chevron-left"><</span></a></li>
-
-					<!-- 일반적으로 보이는 페이지 부분 -->
-					<li class="page-item"><a class="page-link" href="#">1</a></li>
-					<li class="page-item"><a class="page-link" href="#">2</a></li>
-
-
-					<!-- 끝 페이지로 넘어가면 사라질 부분  -->
-					<li class="page-item"><a class="page-link" href="#"><span
-							class="ion-chevron-right">></span></a></li>
-					<li class="page-item"><a class="page-link" href="#"
-						title="첫 글 보기"><span class="ion-chevron-right">>></span></a></li>
+					<c:if test="${sessionScope.pagingInfo.currentPage > 1}">
+						<li class="page-item"><a class="page-link"
+							href="<c:url value='list.do'>
+                                                        <c:param name='page' value='1'/>
+                                                        <c:if test='${not empty sessionScope.selectBox}'>
+                                                            <c:param name='select-box' value='${sessionScope.selectBox}'/>
+                                                        </c:if>
+                                                        <c:if test='${not empty sessionScope.search}'>
+                                                            <c:param name='search' value='${sessionScope.search}'/>
+                                                        </c:if>
+                                                       </c:url>"><<</a>
+						</li>
+						<li class="page-item"><a class="page-link"
+							href="<c:url value='list.do'>
+                                                        <c:param name='page' value='${sessionScope.pagingInfo.currentPage - 1}'/>
+                                                        <c:if test='${not empty sessionScope.selectBox}'>
+                                                            <c:param name='select-box' value='${sessionScope.selectBox}'/>
+                                                        </c:if>
+                                                        <c:if test='${not empty sessionScope.search}'>
+                                                            <c:param name='search' value='${sessionScope.search}'/>
+                                                        </c:if>
+                                                       </c:url>"><</a>
+						</li>
+					</c:if>
+					<c:forEach begin="1" end="${sessionScope.pagingInfo.noOfPages}"
+						var="i">
+						<li
+							class="page-item ${sessionScope.pagingInfo.currentPage == i ? 'active' : ''}">
+							<a class="page-link"
+							href="<c:url value='list.do'>
+                                                        <c:param name='page' value='${i}'/>
+                                                        <c:if test='${not empty sessionScope.selectBox}'>
+                                                            <c:param name='select-box' value='${sessionScope.selectBox}'/>
+                                                        </c:if>
+                                                        <c:if test='${not empty sessionScope.search}'>
+                                                            <c:param name='search' value='${sessionScope.search}'/>
+                                                        </c:if>
+                                                       </c:url>">${i}</a>
+						</li>
+					</c:forEach>
+					<c:if
+						test="${sessionScope.pagingInfo.currentPage < sessionScope.pagingInfo.noOfPages}">
+						<li class="page-item"><a class="page-link"
+							href="<c:url value='list.do'>
+                                                        <c:param name='page' value='${sessionScope.pagingInfo.currentPage + 1}'/>
+                                                        <c:if test='${not empty sessionScope.selectBox}'>
+                                                            <c:param name='select-box' value='${sessionScope.selectBox}'/>
+                                                        </c:if>
+                                                        <c:if test='${not empty sessionScope.search}'>
+                                                            <c:param name='search' value='${sessionScope.search}'/>
+                                                        </c:if>
+                                                       </c:url>">></a>
+						</li>
+						<li class="page-item"><a class="page-link"
+							href="<c:url value='list.do'>
+                                                        <c:param name='page' value='${sessionScope.pagingInfo.noOfPages}'/>
+                                                        <c:if test='${not empty sessionScope.selectBox}'>
+                                                            <c:param name='select-box' value='${sessionScope.selectBox}'/>
+                                                        </c:if>
+                                                        <c:if test='${not empty sessionScope.search}'>
+                                                            <c:param name='search' value='${sessionScope.search}'/>
+                                                        </c:if>
+                                                       </c:url>">>></a>
+						</li>
+					</c:if>
 				</ul>
 			</nav>
 		</div>
 	</div>
-	<%-- 	</c:when>
-	<c:otherwise>
-		<c:redirect url="login.do"></c:redirect>
-	</c:otherwise>
-	</c:choose> --%>
+
 	<script src="../source/js/list.js"></script>
 </body>
 </html>

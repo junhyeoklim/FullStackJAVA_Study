@@ -13,7 +13,7 @@ public class CompanyDTO {
 	private String s_phoneNumber;
 	private String date;
 	private String updateTime;
-	
+
 	public int getS_birth() {
 		return s_birth;
 	}
