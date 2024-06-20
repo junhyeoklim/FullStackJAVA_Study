@@ -37,7 +37,7 @@ public class SearchListCommand implements Command {
             pageDTO.setCurrentPage(1);
         }
 
-        pageDTO.setRecordsPerPage(5);
+        pageDTO.setRecordsPerPage(10);
         
 		if(name != null)
 			list = dao.searchDAO(name);

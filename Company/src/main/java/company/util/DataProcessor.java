@@ -12,6 +12,7 @@ public class DataProcessor {
 
         int maleCount = 0;
         int femaleCount = 0;
+        int salaryCount = 0;
         Map<String, Integer> departmentCounts = new HashMap<>();
         Map<String, Integer> joinYearCounts = new HashMap<>();
         Map<String, Integer> salarySums = new HashMap<>();
@@ -46,6 +47,9 @@ public class DataProcessor {
             else if (age < 50) ageCounts[2]++;
             else if (age < 60) ageCounts[3]++;
             else ageCounts[4]++;
+            
+            // Total Salary_man Count
+            salaryCount++;
         }
 
         Map<String, Integer> averageSalaries = new HashMap<>();
@@ -61,6 +65,7 @@ public class DataProcessor {
         dataMap.put("joinYearCounts", joinYearCounts);
         dataMap.put("averageSalaries", averageSalaries);
         dataMap.put("ageCounts", ageCounts);
+        dataMap.put("salaryCount", salaryCount);
 
         return dataMap;
     }

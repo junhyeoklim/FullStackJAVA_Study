@@ -1,0 +1,123 @@
+body,fieldset,div,label,button,form{
+	user-select: none;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    vertical-align: baseline;
+    background: transparent;
+    font-style: normal;
+}
+body{
+	font-size: 12px;
+}
+label{
+	cursor: default;
+}
+input,select,textarea,button{
+	border-radius: 0;
+	vertical-align: middle;
+}
+
+a{
+	text-decoration: none;
+	margin-top: 200px;
+}
+
+input[type="submit"]{
+	cursor: pointer;
+	appearance: auto;
+    text-rendering: auto;
+    letter-spacing: normal;
+    word-spacing: normal;
+    text-transform: none;
+    text-indent: 0px;
+    display: inline-block;
+    align-items: flex-start;
+    box-sizing: border-box;
+    padding-block: 1px;
+    padding-inline: 6px;
+}
+
+.login_wrap{
+    position: relative;
+    width: 248px;
+    height: 160px;
+    border: 1px solid #29367c;
+    border-radius: 5px 5px 5px 5px;
+    color: #333;
+	margin: 80px auto;
+}
+
+.log_inr{
+	padding: 30px 0;
+}
+.log_inr > form{
+	padding: 0 14px;
+}
+.login_inp{	
+	float: left;
+}
+
+.login_set{	
+	float: left;
+	margin-left: 7px;
+	font-size: 11px;
+	color: #555;
+	position: absolute;
+	top: 26px;
+	right: 14px;
+	width: 66px; 
+	height: 79px;
+}
+.input_box:first-child{
+	margin-top: 0px;
+}
+.input_box{
+	margin-top: 5px
+}
+.input_box{
+	position: relative;
+	width: 145px;
+	height: 37px;
+	background: #f3f3f3;
+}
+
+.lab_login{
+    overflow: hidden;
+    position: absolute;
+    height: 37px;
+    line-height: 38px;
+    padding: 0 3px 0 10px;
+    font-size: 13px;
+    color: #999;
+}
+.inp_txt{
+    width: 132px;
+    height: 37px;
+    line-height: 38px;
+    padding: 0 3px 0 10px;
+    font-size: 14px;
+    color: #555;
+    border: none;
+    background: transparent;
+}
+.btn_inout.login{
+    width: 65px;
+    height: 37px;
+    line-height: 35px;
+    margin-top: 5px;
+    font-size: 14px;
+}
+.btn_inout{
+	float: right;
+	border: 1px solid #29367c;
+    background: #0a90f0;
+    text-align: center;
+    color: #fff;
+    font-weight: bold;
+    text-shadow: 0px 1px #1d2761;
+}
+.btn_inout:hover {
+	background-color: #418abd;
+}
+

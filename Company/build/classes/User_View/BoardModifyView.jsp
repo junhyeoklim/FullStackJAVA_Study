@@ -5,8 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Main Home</title>
+<title>Insert title here</title>
 <c:import url="../source/jsp/bootStrapLink.jsp" />
 <link rel="icon" href="../source/ico/company.ico" />
 <link rel="stylesheet" href="../source/css/defaultStyle.css?after">
@@ -15,9 +14,6 @@
 <script src="../source/js/jquery.js"></script>
 </head>
 <body>
-	<%-- <c:import url="../source/sessionTest.jsp"/> --%> 
-	<c:import url="../source/jsp/Menubar.jsp"/>
-	
-    <script src="../source/js/menuber.js"></script>
+<c:import url="../source/jsp/Menubar.jsp"/>
 </body>
 </html>

@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import common.db.JDBCConnector;
 import common.dto.PageDTO;
@@ -28,10 +30,12 @@ public class CompanyDAO {
         String sql = "SELECT SQL_CALC_FOUND_ROWS * FROM "+TABLE_NAME+" ORDER BY Join_Date DESC  LIMIT "+(pageDTO.getCurrentPage()-1)*pageDTO.getRecordsPerPage()+","+pageDTO.getRecordsPerPage();
         ResultSet rs = null;
         
+        
+        
         try(PreparedStatement pstmt = con.prepareStatement(sql)) {
             rs = pstmt.executeQuery();
             
-            while(rs.next()) {
+            while(rs.next()) {            	
                 CompanyDTO newDto = new CompanyDTO();
                 newDto.setS_id(rs.getInt("s_id"));
                 newDto.setS_name(rs.getString("s_name"));
@@ -261,4 +265,49 @@ public class CompanyDAO {
 		}
 		return flag;
 	}
+	
+	
+	public Map<String, Integer> getMonthlyNewHires(){
+		Map<String, Integer> newHires = new HashMap<>();
+        String sql = "SELECT DATE_FORMAT(Join_Date, '%Y-%m') AS month, COUNT(*) AS new_hires "
+                + "FROM salary_man "
+                + "WHERE Join_Date >= DATE_SUB(CURDATE(), INTERVAL 1 YEAR) "
+                + "GROUP BY DATE_FORMAT(Join_Date, '%Y-%m') "
+                + "order by month asc";
+        
+        try(PreparedStatement pstmt = con.prepareStatement(sql);
+        	ResultSet rs = pstmt.executeQuery();) {			
+        	
+        	while(rs.next()) {
+        		newHires.put(rs.getString("month"), rs.getInt("new_hires"));
+        	}
+        	
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+        
+		return newHires;
+	}
+	
+	public Map<String, Integer> getMonthlyResignations() {
+	        Map<String, Integer> resignations = new HashMap<>();
+	        String sql = "SELECT DATE_FORMAT(s_date, '%Y-%m') AS month, COUNT(*) AS resignations "
+	                   + "FROM join_resign "
+	                   + "WHERE s_date >= DATE_SUB(CURDATE(), INTERVAL 1 YEAR) "
+	                   + "GROUP BY DATE_FORMAT(s_date, '%Y-%m') "
+	                   + "order by month asc";
+
+	        try (PreparedStatement pstmt = con.prepareStatement(sql); ResultSet rs = pstmt.executeQuery()) {
+	            while (rs.next()) {
+	                resignations.put(rs.getString("month"), rs.getInt("resignations"));
+	            }
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+
+	        return resignations;
+	    }
+	
+	
+	
 }

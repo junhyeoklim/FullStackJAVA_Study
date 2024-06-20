@@ -1,0 +1,153 @@
+ul{
+	margin: 0;
+	border: 0;
+	vertical-align: baseline;
+	list-style: none;
+}
+span{
+	margin: 0;
+	padding: 0;
+	border: 0;
+	vertical-align: baseline;
+}
+.textarea_input{
+	resize: none;
+	border-radius: 5px 5px 5px 5px;
+}
+.se-l-document-toolbar{
+	position: relative;
+	z-index: 17;
+}
+.se-document-toolbar{
+	padding: 2px 7px 3px;
+	background: #fbfbfb;
+	display: flex;
+	-webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-box-align: stretch;
+    align-items: stretch;
+    -webkit-box-flex: 1;
+    border-bottom: 1px solid #e5e5e5;
+}
+.se-document-toolbar .se-toolbar-item{
+	padding-left: 10px;
+	-webkit-box-align: stretch;
+	align-items: stretch;
+}
+.se-text-icon-toolbar-button{
+	min-width: 40px;
+	height: 54px;
+	padding-top: 37px;
+	text-align: center;
+}
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    margin-top: 25px;
+}
+
+.WritingWrap {
+    border: 1px solid #ccc;
+    padding: 16px;
+}
+
+.WritingHeader .title {
+    margin: 0;
+    font-size: 1.5em;
+}
+
+.WritingContent {
+    margin-top: 16px;
+}
+
+.FlexableTextArea .textarea_input {
+    width: 100%;
+    border: 1px solid #ccc;
+    padding: 8px;
+}
+
+.CafeEditor {
+    margin-top: 16px;
+}
+
+.se-wrap {
+    border: 1px solid #ccc;
+    padding: 8px;
+}
+
+.se-container {
+    min-height: 300px;
+}
+
+.se-component-content {
+    min-height: 300px;
+}
+
+.se-drop-indicator {
+    margin: 8px 0;
+}
+
+.se-placeholder {
+    color: #999;
+    pointer-events: none;
+}
+
+.se-image {
+    text-align: center;
+}
+ .se-document-toolbar-basic-button{
+ 	position: relative;
+ }
+.se-image-toolbar-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+.se-toolbar-icon {
+    position: absolute;
+    top: 0;
+    bottom: 17px;
+    right: 0;
+    left: 0;
+    margin: auto;
+    width: 20px;
+    height: 20px;
+    background-position: -374px -565px;
+}
+.se-toolbar-icon {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    background: url('../ico/photo.png') no-repeat center center;/* <a href="https://www.flaticon.com/kr/free-icons/" title="사진 아이콘">사진 아이콘 제작자: Freepik - Flaticon</a> */    
+    background-size: contain;
+}
+.se-toolbar-label{
+	top: -5px;
+	color: #979797;
+	position: relative;
+    white-space: nowrap;
+    user-select: none;
+}
+.se-toolbar-tooltip {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    -webkit-transform: translate(-50%);
+    transform: translate(-50%);
+    padding: 6px 8px;
+    border-radius: 3px;
+    -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .1);
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .1);
+    border: 1px solid rgba(0, 0, 0, .1);
+    background-color: #4a4d51;
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 1;
+    color: #fff;
+    white-space: nowrap;
+    z-index: -1;
+    opacity: 0;
+    pointer-events: none;
+    -webkit-transition: opacity 0s;
+    transition: opacity 0s;
+}

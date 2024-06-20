@@ -30,7 +30,7 @@ public class CompanyListCommand implements Command {
             pageDTO.setCurrentPage(1);
         }
         
-        pageDTO.setRecordsPerPage(5);
+        pageDTO.setRecordsPerPage(10);
         ArrayList<CompanyDTO> list = dao.listDAO(pageDTO);
         
         HttpSession session = request.getSession();

@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import company.command.ChartCommand;
 import company.command.Command;
 import company.command.InsertCommand;
 import company.command.CompanyListCommand;
@@ -83,7 +85,8 @@ public class CompanyFrontController extends HttpServlet {
             redirectToListPage(request, response, commandName);
             return;
         } else if (commandName.equals(USER_VIEW + "/chart.do")) {
-            handleChartCommand(request);
+            command = new ChartCommand();
+            command.excute(request, response);
             viewPage = "../Admin_View/chartEX.jsp";
         } else if (commandName.equals(USER_VIEW + "/newboard.do")) {
             viewPage = "BoardCreateView.jsp";
@@ -174,10 +177,5 @@ public class CompanyFrontController extends HttpServlet {
         }
     }
 
-    private void handleChartCommand(HttpServletRequest request) {
-        CompanyDAO dao = CompanyDAO.getCompanyDAO();
-        ArrayList<CompanyDTO> list = dao.listDAO();
-        Map<String, Object> dataMap = DataProcessor.processData(list);
-        request.setAttribute("dataMap", dataMap);
-    }
+
 }
