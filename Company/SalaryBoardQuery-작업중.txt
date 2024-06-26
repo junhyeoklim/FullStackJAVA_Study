@@ -1,17 +1,16 @@
 /*(임시)유저 게시판 쿼리문*/
 
-create table board(
-	b_id BINGINT,
-	title varchar(20) NOT NULL default "nothing",
-	content varchar(300) NOT NULL default "nothing",
-	s_id INT,
-	s_department char(20) NOT NULL default "nothing",
-	createTime DATETIME DEFAULT current_timestamp,
-	updateTime timestamp DEFAULT current_timestamp ON UPDATE CURRENT_TIMESTAMP,
-	views BIGINT,
-	commentCnt INT
-	filename varchar(150),
-	filepath varchar(300)
+CREATE TABLE board (
+    b_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    post_num INT NOT NULL,
+    title VARCHAR(20) NOT NULL DEFAULT 'nothing',
+    content VARCHAR(300) NOT NULL DEFAULT 'nothing',
+    s_id INT,
+    s_department CHAR(20) NOT NULL DEFAULT 'nothing',
+    createTime DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updateTime TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    views BIGINT DEFAULT 0,
+    commentCnt INT DEFAULT 0
 );
 
 * 게시물에 파일 업로드 관련 내용 

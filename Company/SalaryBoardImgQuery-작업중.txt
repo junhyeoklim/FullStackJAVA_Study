@@ -1,0 +1,7 @@
+CREATE TABLE board_images (
+    img_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    b_id BIGINT,
+    filename VARCHAR(150),
+    filepath VARCHAR(300),
+    FOREIGN KEY (b_id) REFERENCES board(b_id) ON DELETE CASCADE
+);

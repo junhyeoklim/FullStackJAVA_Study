@@ -23,11 +23,11 @@
 			<caption>사원 정보 입력</caption>
 			<tr>
 				<td><label for="name">이름</label></td>
-				<td><input type="text" name="name" id="name" required></td>
+				<td><input type="text" class="form-control" name="name" id="name" required></td>
 			</tr>
 			<tr>
 				<td><label for="year">생년월일</label></td>
-				<td><input type="number" name="year" id="year"> <select
+				<td><input type="number" class="form-control" name="year" id="year"> <select
 					name="month" id="birth">
 						<option selected disabled>선택</option>
 						<c:forEach var="i" begin="1" end="12" step="1">
@@ -35,7 +35,7 @@
 								<fmt:formatNumber value="${i}" pattern="00" />
 							</option>
 						</c:forEach>
-				</select> <input type="number" name="date" id="date"></td>
+				</select> <input type="number" class="form-control" name="date" id="date"></td>
 			</tr>
 			<tr>
 				<td>성별</td>
@@ -71,9 +71,9 @@
 				<td>
 					<div class="container">
 						<div class="mail">
-							<input type="text" name="first" id="first" required
+							<input type="text" class="form-control" name="first" id="first" required
 								placeholder="이메일 입력"> @ <input type="text" name="second"
-								class="cursor" id="second" required readonly> <select
+								class="form-control cursor" id="second" required readonly> <select
 								id="selectBox">
 								<option selected disabled>선택</option>
 								<option value="1">naver.com</option>
@@ -90,7 +90,7 @@
 
 			<tr>
 				<td><label for="phone">전화번호</label></td>
-				<td colspan="2"><input type="number" name="phone" id="phone"
+				<td colspan="2"><input type="number" class="form-control" name="phone" id="phone"
 					required placeholder="'-'없이 번호만 입력"></td>
 			</tr>
 
