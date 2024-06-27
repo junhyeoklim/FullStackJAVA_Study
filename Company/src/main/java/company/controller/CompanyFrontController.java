@@ -1,9 +1,6 @@
 package company.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.Map;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,9 +16,6 @@ import company.command.CompanyListCommand;
 import company.command.LoginCommand;
 import company.command.SearchListCommand;
 import company.command.UpdateCommand;
-import company.dao.CompanyDAO;
-import company.dto.CompanyDTO;
-import company.util.DataProcessor;
 
 @WebServlet("*.do")
 public class CompanyFrontController extends HttpServlet {
@@ -57,40 +51,50 @@ public class CompanyFrontController extends HttpServlet {
         if (isListCommand(commandName)) {
             command = handleListCommand(request, response);
             viewPage = getViewPageForList(commandName);
-        } else if (isSearchCommand(commandName)) {
+        } 
+        else if (isSearchCommand(commandName)) {
             command = new SearchListCommand();
             command.excute(request, response);
             viewPage = getViewPageForList(commandName);
-        } else if (isRegisterCommand(commandName)) {
+        } 
+        else if (isRegisterCommand(commandName)) {
             viewPage = getViewPageForRegister(commandName);
-        } else if (isRegisterOKCommand(commandName)) {
+        } 
+        else if (isRegisterOKCommand(commandName)) {
             command = new InsertCommand();
             command.excute(request, response);
             redirectToListPage(request, response, commandName);
             return;
-        } else if (commandName.equals("/login.do")) {
+        } 
+        else if (commandName.equals("/login.do")) {
             viewPage = "LoginUI.jsp";
-        } else if (commandName.equals("/loginOK.do")) {
+        } 
+        else if (commandName.equals("/loginOK.do")) {
             command = new LoginCommand();
             command.excute(request, response);
             response.sendRedirect(request.getContextPath() + "/AlertView/alert.jsp");
             return;
-        } else if (isModifyCommand(commandName)) {
+        } 
+        else if (isModifyCommand(commandName)) {
             command = new SearchListCommand();
             command.excute(request, response);
             viewPage = getViewPageForModify(commandName);
-        } else if (isModifyOKCommand(commandName)) {
+        } 
+        else if (isModifyOKCommand(commandName)) {
             command = new UpdateCommand();
             command.excute(request, response);
             redirectToListPage(request, response, commandName);
             return;
-        } else if (commandName.equals(USER_VIEW + "/chart.do")) {
+        } 
+        else if (commandName.equals(USER_VIEW + "/chart.do")) {
             command = new ChartCommand();
             command.excute(request, response);
             viewPage = "../Admin_View/chartEX.jsp";
-        } else if (commandName.equals(USER_VIEW + "/newboard.do")) {
+        } 
+        else if (commandName.equals(USER_VIEW + "/newboard.do")) {
             viewPage = "BoardCreateView.jsp";
-        } else if (isLogoutCommand(commandName)) {
+        } 
+        else if (isLogoutCommand(commandName)) {
             session.invalidate();
             response.sendRedirect(request.getContextPath() + "/LoginUI.jsp");
             return;

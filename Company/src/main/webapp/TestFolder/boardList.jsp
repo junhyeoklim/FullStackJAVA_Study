@@ -39,7 +39,7 @@
                 %>
                 <tr>
                     <td><%= board.getPostNum() %></td>
-                    <td><a href="viewPost.jsp?b_id=<%= board.getBId() %>"><%= board.getTitle() %></a></td>
+                    <td><a href="../IncreaseViewCountServlet?b_id=<%= board.getBId() %>&redirect=TestFolder/viewPost.jsp?b_id=<%= board.getBId() %>"><%= board.getTitle() %></a></td>
                     <td><%= board.getSDepartment() %></td>
                     <td><%= board.getCreateTime() %></td>
                     <td><%= board.getViews() %></td>

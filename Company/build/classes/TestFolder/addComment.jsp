@@ -1,10 +1,9 @@
 <%@page import="test.board.BoardDao"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="application/json; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
 <%
     request.setCharacterEncoding("UTF-8");
-    response.setContentType("text/html; charset=UTF-8");
+    response.setContentType("application/json; charset=UTF-8");
 
     String b_idParam = request.getParameter("b_id");
     String userName = request.getParameter("userName");
@@ -15,15 +14,18 @@
             long b_id = Long.parseLong(b_idParam);
             BoardDao boardDao = new BoardDao();
             boardDao.insertComment(b_id, userName, content, null);
-            response.sendRedirect("viewPost.jsp?b_id=" + b_id);
+            response.getWriter().write("{\"status\":\"success\"}");
         } catch (NumberFormatException e) {
             e.printStackTrace();
-            out.println("Invalid format.");
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            response.getWriter().write("{\"status\":\"error\", \"message\":\"Invalid format.\"}");
         } catch (Exception e) {
             e.printStackTrace();
-            out.println("An error occurred while adding the comment.");
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            response.getWriter().write("{\"status\":\"error\", \"message\":\"An error occurred while adding the comment.\"}");
         }
     } else {
-        out.println("Missing required parameters.");
+        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        response.getWriter().write("{\"status\":\"error\", \"message\":\"Missing required parameters.\"}");
     }
 %>

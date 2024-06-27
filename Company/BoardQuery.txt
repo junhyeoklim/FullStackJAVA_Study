@@ -4,7 +4,7 @@ CREATE TABLE board (
     b_id BIGINT AUTO_INCREMENT PRIMARY KEY,
     post_num INT NOT NULL,
     title VARCHAR(20) NOT NULL DEFAULT 'nothing',
-    content VARCHAR(300) NOT NULL DEFAULT 'nothing',
+    content LONGTEXT NOT NULL,
     s_id INT,
     s_department CHAR(20) NOT NULL DEFAULT 'nothing',
     createTime DATETIME DEFAULT CURRENT_TIMESTAMP,

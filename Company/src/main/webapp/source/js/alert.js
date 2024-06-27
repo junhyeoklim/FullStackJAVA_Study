@@ -2,12 +2,11 @@
 		
 		if(!isNull(uname.text()) && uname.text() == 'admin'){
 			alert("관리자 모드로 진입 하였습니다!");			
-			/*location.href = "../Admin_View/list.do";*/
-			location.href = "../User_View/BoardListView.jsp";
+			location.href = "../BoardList.board";
 		}
 		else if(!isNull(uname.text())){
 			alert("로그인에 성공하였습니다!");
-			location.href = "../User_View/BoardListView.jsp";
+			location.href = "../BoardList.board";
 		}
 		else if(isNull(uname.text())){
 			alert("이름 또는 사원 번호가 틀렸습니다.");

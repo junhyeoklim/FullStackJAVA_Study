@@ -165,8 +165,10 @@ public class CompanyDAO {
 				ResultSet rs = pstmt.executeQuery();
 				ResultSet ars = apstmt.executeQuery();) {
 
-			if(rs.next())
+			if(rs.next()) {
+				dto.setS_department(rs.getString("s_department"));
 				return;
+			}
 			else {
 				if(ars.next())
 					return;

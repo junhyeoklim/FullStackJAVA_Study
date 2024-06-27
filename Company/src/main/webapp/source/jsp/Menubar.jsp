@@ -5,13 +5,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-<link rel="stylesheet" href="../source/css/defaultStyle.css">
+<link rel="stylesheet" href="${contextPath}/source/css/defaultStyle.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-<script type="text/javascript" src="../source/js/chartMenu.js"></script>
 <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-<script src="../source/js/menubar.js"></script>
+<script src="${contextPath}/source/js/menubar.js"></script>
 <style>
 	.navbar-collapse{
 		/* width: 1300px; */
@@ -22,7 +22,7 @@
 <body>
 <nav class="navbar navbar-expand-lg bg-dark navbar-dark navbar-wrapper" id="menubar">
     <div class="container-fluid">
-        <a class="navbar-brand" href="BoardListView.jsp">Main</a>
+        <a class="navbar-brand" href="BoardList.board">Main</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>

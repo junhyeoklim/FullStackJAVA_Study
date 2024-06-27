@@ -30,7 +30,6 @@ public class BoardDao {
                 pstmt.setInt(8, 0);
                 pstmt.executeUpdate();
 
-                // 삽입된 레코드의 ID 가져오기
                 try (ResultSet rs = pstmt.getGeneratedKeys()) {
                     if (rs.next()) {
                         generatedId = rs.getLong(1);
@@ -38,22 +37,9 @@ public class BoardDao {
                 }
             }
         }
+        System.out.println("Generated post ID in DAO: " + generatedId);
         return generatedId;
     }
-
-    // 이미지 정보 삽입 메서드
-    public void insertImage(long b_id, String filename, String filepath) throws Exception {
-        try (Connection conn = getConnection()) {
-            String sql = "INSERT INTO board_images (b_id, filename, filepath) VALUES (?, ?, ?)";
-            try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-                pstmt.setLong(1, b_id);
-                pstmt.setString(2, filename);
-                pstmt.setString(3, filepath);
-                pstmt.executeUpdate();
-            }
-        }
-    }
-    
 
     public void deletePost(int postNum) throws Exception {
         Connection conn = null;
@@ -215,9 +201,7 @@ public class BoardDao {
         }
         return boards;
     }
-    
-    
-    
+
     public void updateComment(long commentId, String content) throws Exception {
         Connection conn = null;
         PreparedStatement pstmt = null;
@@ -235,8 +219,7 @@ public class BoardDao {
             if (conn != null) try { conn.close(); } catch (Exception e) { }
         }
     }
-    
-    
+
     public void deleteComment(long commentId) throws Exception {
         Connection conn = null;
         PreparedStatement pstmt = null;
@@ -252,6 +235,21 @@ public class BoardDao {
             if (pstmt != null) try { pstmt.close(); } catch (Exception e) { }
             if (conn != null) try { conn.close(); } catch (Exception e) { }
         }
+    }
+    public List<String> getImagesByPostId(long b_id) throws Exception {
+        List<String> imageUrls = new ArrayList<>();
+        try (Connection conn = getConnection()) {
+            String sql = "SELECT filepath FROM board_images WHERE b_id = ?";
+            try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                pstmt.setLong(1, b_id);
+                try (ResultSet rs = pstmt.executeQuery()) {
+                    while (rs.next()) {
+                        imageUrls.add(rs.getString("filepath"));
+                    }
+                }
+            }
+        }
+        return imageUrls;
     }
 }
 
