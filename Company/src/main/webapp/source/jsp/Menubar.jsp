@@ -12,6 +12,7 @@
 <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 <script src="${contextPath}/source/js/menubar.js"></script>
+
 <style>
 	.navbar-collapse{
 		/* width: 1300px; */
@@ -28,8 +29,8 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav" id="main-menu">
-                <li class="nav-item"><a class="nav-link" href="BoardListView.jsp">(공사중)게시판</a></li>
-                <li class="nav-item"><a class="nav-link" href="logout.do">(임시)로그아웃</a></li>
+                <li class="nav-item"><a class="nav-link" href="${contextPath}/BoardList.board">(공사중)게시판</a></li>
+                <li class="nav-item"><a class="nav-link" href="${contextPath}/logout.do">(임시)로그아웃</a></li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">Dropdown link</a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">

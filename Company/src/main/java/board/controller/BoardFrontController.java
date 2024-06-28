@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import board.command.Command;
 import board.command.InsertBoardCommand;
 import board.command.ListBoardCommand;
+import board.command.SearchBoardCommand;
 
 
 @WebServlet("*.board")
@@ -38,15 +39,13 @@ public class BoardFrontController extends HttpServlet {
 		response.setContentType("text/html;charset=UTF-8");
 		
 		String commandName = request.getServletPath();
-		final String afolderName = "/Admin_View";
-		final String ufolderName = "/User_View";
 		String viewPage = null;
 		Command command = null;	
 		
 		if(commandName.equals("/BoardList.board")) {
 			command = new ListBoardCommand();
 			command.excute(request, response);
-			viewPage = "/User_View/BoardListView.jsp";
+			viewPage = USER_VIEW+"/BoardListView.jsp";
 		}
 		else if(commandName.equals("/SubmitPost.board")) {
 			command = new InsertBoardCommand();
@@ -54,6 +53,14 @@ public class BoardFrontController extends HttpServlet {
 			response.sendRedirect(request.getContextPath() + USER_VIEW + "/BoardList.board");
             return;
 		}
+		else if(commandName.equals("/Newboard.board")) {
+			viewPage = USER_VIEW+"/BoardCreateView.jsp";
+		}
+		else if (commandName.equals("/Search.board")) {
+            command = new SearchBoardCommand();
+            command.excute(request, response);
+            viewPage = USER_VIEW + "/BoardListView.jsp";
+        }
 
         if (viewPage != null) {
             RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);

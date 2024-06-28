@@ -6,10 +6,11 @@
 <html>
 <head>
   <title>ERP 대시보드</title>
-  <link rel="icon" href="../source/ico/company.ico" />
+  <c:set var="contextPath" value="${pageContext.request.contextPath}" />
+  <link rel="icon" href="${contextPath}/source/ico/company.ico" />
   <!--Load the AJAX API-->
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-  <script type="text/javascript" src="../source/js/jquery.js"></script>
+  <script type="text/javascript" src="${contextPath}/source/js/jquery.js"></script>
   <script type="text/javascript">
     google.charts.load('current', {'packages':['corechart', 'bar']});
     google.charts.setOnLoadCallback(drawCharts);

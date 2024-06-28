@@ -1,22 +1,35 @@
 package board.dto;
 
-import java.sql.Timestamp;
 
 public class BoardDTO {
     private long b_id;
     private int post_num;
     private String title;
     private String content;
+    private String s_name;
     private int s_id;
     private String s_department; // 필드 이름 확인
-    private Timestamp createTime;
-    private Timestamp updateTime;
+    private String createTime;
+    private String updateTime;
     private long views;
     private int commentCnt;
+    private boolean is_notice;
     
     
     
     
+	public String getS_name() {
+		return s_name;
+	}
+	public void setS_name(String s_name) {
+		this.s_name = s_name;
+	}
+	public boolean isIs_notice() {
+		return is_notice;
+	}
+	public void setIs_notice(boolean is_notice) {
+		this.is_notice = is_notice;
+	}
 	public long getB_id() {
 		return b_id;
 	}
@@ -53,16 +66,17 @@ public class BoardDTO {
 	public void setS_department(String s_department) {
 		this.s_department = s_department;
 	}
-	public Timestamp getCreateTime() {
+
+	public String getCreateTime() {
 		return createTime;
 	}
-	public void setCreateTime(Timestamp createTime) {
+	public void setCreateTime(String createTime) {
 		this.createTime = createTime;
 	}
-	public Timestamp getUpdateTime() {
+	public String getUpdateTime() {
 		return updateTime;
 	}
-	public void setUpdateTime(Timestamp updateTime) {
+	public void setUpdateTime(String updateTime) {
 		this.updateTime = updateTime;
 	}
 	public long getViews() {

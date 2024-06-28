@@ -185,9 +185,9 @@ public class CompanyDAO {
 		}
 	}
 	
-	public ArrayList<CompanyDTO> searchDAO(String name) {
+	public ArrayList<CompanyDTO> searchDAO(String s_id) {
 		ArrayList<CompanyDTO> list = new ArrayList<CompanyDTO>();
-		String sql = "SELECT * FROM "+TABLE_NAME+" WHERE s_name='"+name+"'";		
+		String sql = "SELECT * FROM "+TABLE_NAME+" WHERE s_id='"+s_id+"'";		
 
 
 		try(PreparedStatement pstmt = con.prepareStatement(sql);

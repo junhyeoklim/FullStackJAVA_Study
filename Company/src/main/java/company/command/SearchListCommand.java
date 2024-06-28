@@ -24,7 +24,7 @@ public class SearchListCommand implements Command {
 
         String select = request.getParameter("select-box");
         String search = request.getParameter("search");
-		String name = request.getParameter("name");
+		String s_id = request.getParameter("s_id");
         
         try {
             if (request.getParameter("page") != null) {
@@ -39,8 +39,8 @@ public class SearchListCommand implements Command {
 
         pageDTO.setRecordsPerPage(10);
         
-		if(name != null)
-			list = dao.searchDAO(name);
+		if(s_id != null)
+			list = dao.searchDAO(s_id);
 		else if (select != null && search != null && !search.isEmpty()) {
             search = search.replaceAll("'", "''"); // 작은 따옴표를 이스케이프 처리
             list = dao.searchDAO(pageDTO, Integer.parseInt(select), search);
@@ -48,10 +48,10 @@ public class SearchListCommand implements Command {
             list = dao.listDAO(pageDTO);
         }
 
-        HttpSession session = request.getSession();
-        session.setAttribute("pagingInfo", pageDTO);
-        session.setAttribute("list", list);
-        session.setAttribute("selectBox", select);
-        session.setAttribute("search", search);
+		/* HttpSession session = request.getSession(); */
+        request.setAttribute("pagingInfo", pageDTO);
+        request.setAttribute("list", list);
+        request.setAttribute("selectBox", select);
+        request.setAttribute("search", search);
     }
 }

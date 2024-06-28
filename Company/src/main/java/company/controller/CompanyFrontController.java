@@ -11,8 +11,8 @@ import javax.servlet.http.HttpSession;
 
 import company.command.ChartCommand;
 import company.command.Command;
-import company.command.InsertCommand;
 import company.command.CompanyListCommand;
+import company.command.InsertCommand;
 import company.command.LoginCommand;
 import company.command.SearchListCommand;
 import company.command.UpdateCommand;
@@ -66,8 +66,8 @@ public class CompanyFrontController extends HttpServlet {
             redirectToListPage(request, response, commandName);
             return;
         } 
-        else if (commandName.equals("/login.do")) {
-            viewPage = "LoginUI.jsp";
+        else if (isLoginCommand(commandName)) {
+            viewPage = getViewPageLogin(commandName);
         } 
         else if (commandName.equals("/loginOK.do")) {
             command = new LoginCommand();
@@ -91,9 +91,6 @@ public class CompanyFrontController extends HttpServlet {
             command.excute(request, response);
             viewPage = "../Admin_View/chartEX.jsp";
         } 
-        else if (commandName.equals(USER_VIEW + "/newboard.do")) {
-            viewPage = "BoardCreateView.jsp";
-        } 
         else if (isLogoutCommand(commandName)) {
             session.invalidate();
             response.sendRedirect(request.getContextPath() + "/LoginUI.jsp");
@@ -103,35 +100,39 @@ public class CompanyFrontController extends HttpServlet {
         if (viewPage != null) {
             RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
             dispatcher.forward(request, response);
+        } else {
+            response.sendError(HttpServletResponse.SC_NOT_FOUND, "Page not found");
         }
     }
 
     private boolean isListCommand(String commandName) {
-        return commandName.equals(ADMIN_VIEW + "/list.do") || commandName.equals(USER_VIEW + "/list.do");
+        return commandName.equals(ADMIN_VIEW + "/list.do") || commandName.equals(USER_VIEW + "/list.do") || commandName.equals("/list.do");
     }
 
     private boolean isSearchCommand(String commandName) {
-        return commandName.equals(ADMIN_VIEW + "/search.do") || commandName.equals(USER_VIEW + "/search.do");
+        return commandName.equals(ADMIN_VIEW + "/search.do") || commandName.equals(USER_VIEW + "/search.do") || commandName.equals("/search.do");
     }
 
     private boolean isRegisterCommand(String commandName) {
-        return commandName.equals(ADMIN_VIEW + "/register.do") || commandName.equals(USER_VIEW + "/register.do");
+        return commandName.equals(ADMIN_VIEW + "/register.do") || commandName.equals(USER_VIEW + "/register.do") || commandName.equals("/register.do");
     }
 
     private boolean isRegisterOKCommand(String commandName) {
-        return commandName.equals(ADMIN_VIEW + "/registerOK.do") || commandName.equals(USER_VIEW + "/registerOK.do");
+        return commandName.equals(ADMIN_VIEW + "/registerOK.do") || commandName.equals(USER_VIEW + "/registerOK.do") || commandName.equals("/registerOK.do");
     }
 
     private boolean isModifyCommand(String commandName) {
-        return commandName.equals(ADMIN_VIEW + "/modify.do") || commandName.equals(USER_VIEW + "/modify.do");
+        return commandName.equals(ADMIN_VIEW + "/modify.do") || commandName.equals(USER_VIEW + "/modify.do") || commandName.equals("/modify.do");
     }
 
     private boolean isModifyOKCommand(String commandName) {
-        return commandName.equals(ADMIN_VIEW + "/modifyOK.do") || commandName.equals(USER_VIEW + "/modifyOK.do");
+        return commandName.equals(ADMIN_VIEW + "/modifyOK.do") || commandName.equals(USER_VIEW + "/modifyOK.do") || commandName.equals("/modifyOK.do");
     }
-
+    private boolean isLoginCommand(String commandName) {
+        return commandName.equals(ADMIN_VIEW + "/login.do") || commandName.equals(USER_VIEW + "/login.do") || commandName.equals("/login.do");
+    }
     private boolean isLogoutCommand(String commandName) {
-        return commandName.equals(ADMIN_VIEW + "/logout.do") || commandName.equals(USER_VIEW + "/logout.do");
+        return commandName.equals(ADMIN_VIEW + "/logout.do") || commandName.equals(USER_VIEW + "/logout.do") || commandName.equals("/logout.do");
     }
 
     private Command handleListCommand(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -150,8 +151,8 @@ public class CompanyFrontController extends HttpServlet {
     }
 
     private String getViewPageForList(String commandName) {
-        if (commandName.equals(ADMIN_VIEW + "/list.do")) {
-            return "CompanyList.jsp";
+        if (commandName.equals("/list.do") || commandName.equals("/search.do")) {
+        	 return "/Admin_View/CompanyList.jsp"; 
         } else {
             return "../Admin_View/CompanyList.jsp";
         }
@@ -172,6 +173,13 @@ public class CompanyFrontController extends HttpServlet {
             return "../Admin_View/ModifyUI.jsp";
         }
     }
+    private String getViewPageLogin(String commandName) {
+        if (commandName.equals("/login.do")) {
+            return "LoginUI.jsp";
+        } else {
+            return "../LoginUI.jsp";
+        }
+    }
 
     private void redirectToListPage(HttpServletRequest request, HttpServletResponse response, String commandName) throws IOException {
         if (commandName.equals(ADMIN_VIEW + "/registerOK.do") || commandName.equals(ADMIN_VIEW + "/modifyOK.do")) {
@@ -180,6 +188,4 @@ public class CompanyFrontController extends HttpServlet {
             response.sendRedirect(request.getContextPath() + USER_VIEW + "/list.do");
         }
     }
-
-
 }

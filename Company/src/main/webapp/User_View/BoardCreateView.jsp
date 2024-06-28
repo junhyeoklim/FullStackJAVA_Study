@@ -1,27 +1,39 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <title>게시글 작성</title>
-    <c:import url="../source/jsp/bootStrapLink.jsp" />
-    <link rel="icon" href="../source/ico/company.ico" />
-    <link rel="stylesheet" href="../source/css/boardcreateView.css?after">
-    <link rel="stylesheet" href="../source/css/defaultStyle.css?after">
-    <link rel="stylesheet" href="../source/css/companyList.css?after">
-    <link rel="stylesheet" href="../source/css/menubar.css?after">
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-bs4.min.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-bs4.css" rel="stylesheet">
-    <script src="../source/js/boardcreateView.js"></script>
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />
+<meta charset="UTF-8">
+<title>게시글 작성</title>
+<c:import url="../source/jsp/bootStrapLink.jsp" />
+<link rel="icon" href="${contextPath}/source/ico/company.ico" />
+<link rel="stylesheet"
+	href="${contextPath}/source/css/boardcreateView.css?after">
+<link rel="stylesheet"
+	href="${contextPath}/source/css/defaultStyle.css?after">
+<link rel="stylesheet"
+	href="${contextPath}/source/css/companyList.css?after">
+<link rel="stylesheet"
+	href="${contextPath}/source/css/menubar.css?after">
+<link
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-bs4.min.js"></script>
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-bs4.css"
+	rel="stylesheet">
+<script src="${contextPath}/source/js/boardcreateView.js"></script>
 </head>
 <body>
-    <c:import url="../source/jsp/Menubar.jsp"/>
+    <c:import url="../source/jsp/Menubar.jsp" />
     <section class="container">
         <div class="WritingWrap">
             <div class="WritingHeader">
@@ -40,6 +52,13 @@
                     </div>
                     <div id="SmartEditor" class="CafeEditor">
                         <div id="summernote"></div>
+                        <c:if test="${sessionScope.dto.s_name == 'admin'}">
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="is_notice" name="is_notice">
+                                <label for="is_notice" class="form-check-label">공지 사항으로 설정</label>
+                                <input type="hidden" name="is_admin" value="true">
+                            </div>
+                        </c:if>
                         <button id="submit" class="btn btn-primary">제출</button>
                     </div>
                 </div>
