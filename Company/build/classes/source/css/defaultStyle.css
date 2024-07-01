@@ -6,9 +6,11 @@ body{
 }
 table{
 	margin: 0 auto;
-} 
-table,tr{	
+}
+table:not(.list-view) {
     margin-top: 5%;
+}
+table,tr{	
 	border-radius: 10px 10px 10px 10px;
 }
 td{

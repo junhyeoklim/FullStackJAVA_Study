@@ -10,9 +10,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
+import common.util.DataProcessor;
 import company.dao.CompanyDAO;
 import company.dto.CompanyDTO;
-import company.util.DataProcessor;
 
 public class ChartCommand implements Command {
 

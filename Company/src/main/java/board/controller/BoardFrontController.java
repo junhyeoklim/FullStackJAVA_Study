@@ -13,6 +13,7 @@ import board.command.Command;
 import board.command.InsertBoardCommand;
 import board.command.ListBoardCommand;
 import board.command.SearchBoardCommand;
+import board.command.ViewBoardCommand;
 
 
 @WebServlet("*.board")
@@ -61,6 +62,11 @@ public class BoardFrontController extends HttpServlet {
             command.excute(request, response);
             viewPage = USER_VIEW + "/BoardListView.jsp";
         }
+		else if(commandName.equals("/view.board")) {
+			command = new ViewBoardCommand();
+			command.excute(request, response);
+			viewPage = USER_VIEW + "/BoardView.jsp";
+		}
 
         if (viewPage != null) {
             RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);

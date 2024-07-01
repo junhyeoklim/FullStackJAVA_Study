@@ -159,7 +159,7 @@ public class CompanyDAO {
     
 	public void searchDAO(CompanyDTO dto) {
 		String sql = "SELECT * FROM salary_man WHERE s_id="+dto.getS_id()+" AND s_name = '"+dto.getS_name()+"'";
-		String asql = "SELECT * FROM admin WHERE id="+dto.getS_id()+" AND name = '"+dto.getS_name()+"'"; 
+		String asql = "SELECT * FROM admin WHERE s_id="+dto.getS_id()+" AND s_name = '"+dto.getS_name()+"'"; 
 		try(PreparedStatement pstmt = con.prepareStatement(sql);
 				PreparedStatement apstmt = con.prepareStatement(asql);				
 				ResultSet rs = pstmt.executeQuery();
@@ -234,7 +234,7 @@ public class CompanyDAO {
 	}
 
 	public void updateOK(CompanyDTO dto) {
-		String sql = "UPDATE "+TABLE_NAME+" SET s_name=?,s_birth=?, s_department=?,s_rank=?,s_mail=?,s_phoneNumber = ? WHERE s_name=?";
+		String sql = "UPDATE "+TABLE_NAME+" SET s_name=?,s_birth=?, s_department=?,s_rank=?,s_mail=?,s_phoneNumber = ? WHERE s_id=?";
 
 		try(PreparedStatement pstmt = con.prepareStatement(sql);) {
 			pstmt.setString(1, dto.getS_name());
@@ -243,7 +243,7 @@ public class CompanyDAO {
 			pstmt.setString(4, dto.getS_rank());
 			pstmt.setString(5, dto.getS_mail());
 			pstmt.setString(6, dto.getS_phoneNumber());
-			pstmt.setString(7, dto.getS_name());
+			pstmt.setInt(7, dto.getS_id());
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();

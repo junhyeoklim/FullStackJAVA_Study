@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function () {
         var adminMenuItem = document.createElement('li');
         adminMenuItem.className = 'nav-item';
         adminMenuItem.id = 'admin-menu-item';  // ID 추가
-        adminMenuItem.innerHTML = '<a class="nav-link active" aria-current="page" href="/Company/User_View/chart.do"">Chart</a>';
+        adminMenuItem.innerHTML = '<a class="nav-link active" aria-current="page" href="/Company/chart.do"">Chart</a>';
         document.getElementById('main-menu').prepend(adminMenuItem);
     }
 });

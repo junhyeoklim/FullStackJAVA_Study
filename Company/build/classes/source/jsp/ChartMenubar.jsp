@@ -11,7 +11,7 @@
 </head>
 <body>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="chart.do">ERP 시스템</a>
+    <a class="navbar-brand" href="${contextPath}/chart.do">ERP 시스템</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -21,7 +21,7 @@
           <a class="nav-link" href="#">대시보드</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="list.do">사원 관리</a>
+          <a class="nav-link" href="${contextPath}/list.do">사원 관리</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">부서 관리</a>

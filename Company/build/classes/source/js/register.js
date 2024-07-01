@@ -4,7 +4,7 @@ let regular =  /^[A-Za-z]/;
 
 /*취소 버튼을 눌렀을 경우 뒤로 가는 기능*/
 $('#back').click(function (){
-	location.href = "list.do";
+	location.href = "/Company/list.do";
 });
 
 

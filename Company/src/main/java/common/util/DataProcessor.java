@@ -1,4 +1,4 @@
-package company.util;
+package common.util;
 
 import java.util.HashMap;
 import java.util.List;

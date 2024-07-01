@@ -19,11 +19,11 @@ public class LoginCommand implements Command {
 		HttpSession session = request.getSession();
 		
 		
-		String id = request.getParameter("id");
-		String name = request.getParameter("name");
+		String pwd = request.getParameter("id");
+		String id = request.getParameter("name");
 		
-		dto.setS_id(Integer.parseInt(id));
-		dto.setS_name(name);
+		dto.setS_id(Integer.parseInt(pwd));
+		dto.setS_name(id);
 		dao.searchDAO(dto);
 		
 		session.setAttribute("dto", dto);

@@ -17,12 +17,17 @@ public class UpdateCommand implements Command {
 		CompanyDTO dto = new CompanyDTO();
 		
 		String name = request.getParameter("name");
-		String birth = request.getParameter("year").concat(request.getParameter("month")).concat(request.getParameter("date"));
+		String month = request.getParameter("month");
+		String id = request.getParameter("id");
+		if(Integer.parseInt(month) > 0 && Integer.parseInt(month) < 10)
+			month = '0' + month;
+		String birth = request.getParameter("year").concat(month).concat(request.getParameter("date"));
 		String department = request.getParameter("dpartment-box");
 		String rank = request.getParameter("rank");
 		String mail = request.getParameter("email");
 		String phone = request.getParameter("phone");
 		
+		dto.setS_id(Integer.parseInt(id));
 		dto.setS_name(name);
 		dto.setS_birth(Integer.parseInt(birth));
 		dto.setS_department(department);

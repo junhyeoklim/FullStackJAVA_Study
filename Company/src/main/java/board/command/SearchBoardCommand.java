@@ -36,7 +36,10 @@ public class SearchBoardCommand implements Command {
 
         String select = request.getParameter("kindOfSearch");
         String keyword = request.getParameter("searchKeyword");
-
+        
+        if(keyword.equals("관리자"))
+        	keyword = "admin";
+        
         ArrayList<BoardDTO> list = null;
 
         if (select != null && keyword != null && !keyword.isEmpty()) {

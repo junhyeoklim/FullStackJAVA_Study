@@ -1,3 +1,4 @@
+<%@page import="java.time.LocalDate"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -11,7 +12,7 @@
 <title>사원 게시판</title>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
-<c:import url="../source/jsp/bootStrapLink.jsp" />
+<c:import url="/source/jsp/bootStrapLink.jsp" />
 <link rel="icon" href="${contextPath}/source/ico/company.ico" />
 <link rel="stylesheet"
     href="${contextPath}/source/css/defaultStyle.css?after">
@@ -26,11 +27,12 @@
 <body>
     <c:choose>
         <c:when test="${not empty sessionScope.dto}">
-            <c:import url="../source/jsp/Menubar.jsp" />
+        	<c:set var="today" value="<%= LocalDate.now() %>"/>
+            <c:import url="/source/jsp/Menubar.jsp" />
             <div class="content-wrapper">
                 <article class="board-article">
                     <div class="board-article-list">
-                        <table>
+                        <table class="list-view">
                             <thead>
                                 <tr>
                                     <th>번호</th>
@@ -46,10 +48,19 @@
                                     <tr>
                                         <td>공지</td>
                                         <td><a
-                                            href="view.do?no=${board.post_num}&id=${board.s_id}">${board.title}</a></td>
+                                            href="${contextPath}/view.board?category=notice&id=${board.b_id}">${board.title}</a></td>
                                         <td>관리자</td>
-                                        <td>${board.createTime}</td>
-                                        <td>${board.views}</td>
+                                        <td>
+                                            <c:choose>
+                                                <c:when test="${fn:substring(board.createTime, 0, 10) == fn:substring(today, 0, 10)}">
+                                                    ${fn:substring(board.createTime, 11, 16)}
+                                                </c:when>
+                                                <c:otherwise>
+                                                    ${fn:substring(board.createTime, 0, 16)}
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </td>
+                                        <td>${board.views}</td>                                        
                                     </tr>
                                 </c:forEach>
                                 <!-- 일반 게시글 출력 -->
@@ -57,7 +68,7 @@
                                     <tr>
                                         <td>${board.post_num }</td>
                                         <td><a
-                                            href="view.do?no=${board.post_num}&id=${board.s_id}">${board.title}</a></td>
+                                            href="${contextPath}/view.board?category=nomal&id=${board.b_id}">${board.title}</a></td>
                                         <td>
                                             <c:choose>
                                                 <c:when test="${board.s_name eq 'admin'}">
@@ -68,7 +79,16 @@
                                                 </c:otherwise>
                                             </c:choose>
                                         </td>
-                                        <td>${board.createTime}</td>
+                                        <td>
+                                            <c:choose>
+                                                <c:when test="${fn:substring(board.createTime, 0, 10) == fn:substring(today, 0, 10)}">
+                                                    ${fn:substring(board.createTime, 11, 16)}
+                                                </c:when>
+                                                <c:otherwise>
+                                                    ${fn:substring(board.createTime, 0, 16)}
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </td>
                                         <td>${board.views}</td>
                                     </tr>
                                 </c:forEach>
@@ -178,7 +198,7 @@
             </div>
         </c:when>
         <c:otherwise>
-            <c:redirect url="login.do" />
+            <c:redirect url="/login.do" />
         </c:otherwise>
     </c:choose>
 

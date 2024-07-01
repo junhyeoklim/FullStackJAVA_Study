@@ -58,7 +58,7 @@ public class BoardDAO {
 
 
 		if(is_notice) {
-			sql = "INSERT INTO "+TABLE_NOTICE+" (post_num, title, content, s_name ,s_id,views, commentCnt) VALUES ((SELECT IFNULL(MAX(post_num), 0) + 1 FROM notice_board AS subquery), ?, ?, ?, ?, ?, ?)";
+			sql = "INSERT INTO "+TABLE_NOTICE+" (post_num, title, content, s_name ,views, commentCnt) VALUES ((SELECT IFNULL(MAX(post_num), 0) + 1 FROM notice_board AS subquery), ?, ?, ?, ?, ?)";
 		}
 		else
 			sql = "INSERT INTO "+TABLE_BOARD+" (post_num, title, content, s_name ,s_id,views, commentCnt) VALUES ((SELECT IFNULL(MAX(post_num), 0) + 1 FROM board AS subquery), ?, ?, ?, ?, ?, ?)";
@@ -67,9 +67,16 @@ public class BoardDAO {
 			pstmt.setString(1, title);
 			pstmt.setString(2, content);
 			pstmt.setString(3, userName);
-			pstmt.setInt(4, s_id);
-			pstmt.setLong(5, 0);
-			pstmt.setInt(6, 0);
+			
+			if(!is_notice) {
+				pstmt.setInt(4, s_id);
+				pstmt.setLong(5, 0);
+				pstmt.setInt(6, 0);
+			}
+			else {
+				pstmt.setLong(4, 0);
+				pstmt.setInt(5, 0);
+			}
 			pstmt.executeUpdate();
 
 			try (ResultSet rs = pstmt.getGeneratedKeys()) {
@@ -81,10 +88,6 @@ public class BoardDAO {
 		System.out.println("Generated post ID in DAO: " + generatedId);
 		return generatedId;
 	}
-
-
-
-
 
 	public void deletePost(int postNum) {
 		String deleteQuery = "DELETE FROM " + TABLE_BOARD + " WHERE post_num = ?";
@@ -105,36 +108,14 @@ public class BoardDAO {
 		}
 	}
 
-	public BoardDTO getBoardById(long b_id) {
-		BoardDTO board = null;
-		String sql = "SELECT * FROM " + TABLE_BOARD + " WHERE b_id = ?";
 
-		try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-			pstmt.setLong(1, b_id);
-			try (ResultSet rs = pstmt.executeQuery()) {
-				if (rs.next()) {
-					board = new BoardDTO();
-					board.setB_id(rs.getLong("b_id"));
-					board.setPost_num(rs.getInt("post_num"));
-					board.setTitle(rs.getString("title"));
-					board.setContent(rs.getString("content"));
-					board.setS_id(rs.getInt("s_id"));
-					board.setS_department(rs.getString("s_department"));
-					board.setCreateTime(rs.getString("createTime"));
-					board.setUpdateTime(rs.getString("updateTime"));
-					board.setViews(rs.getLong("views"));
-					board.setCommentCnt(rs.getInt("commentCnt"));
-				}
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
-		return board;
-	}
-
-	public void increaseViewCount(long b_id) {
-		String sql = "UPDATE " + TABLE_BOARD + " SET views = views + 1 WHERE b_id = ?";
+	public void increaseViewCount(long b_id, String category) {
+		String sql = null;
+		
+		if(category.equals("nomal"))
+		 sql = "UPDATE " + TABLE_BOARD + " SET views = views + 1 WHERE b_id = ?";
+		else if(category.equals("notice"))
+		 sql = "UPDATE " + TABLE_NOTICE + " SET views = views + 1 WHERE b_id = ?";
 
 		try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setLong(1, b_id);
@@ -162,8 +143,8 @@ public class BoardDAO {
 		}
 	}
 
-	public List<CommentDTO> getCommentsByPostId(long b_id) {
-		List<CommentDTO> comments = new ArrayList<>();
+	public ArrayList<CommentDTO> getCommentsByPostId(long b_id) {
+		ArrayList<CommentDTO> comments = new ArrayList<>();
 		String sql = "SELECT * FROM " + TABLE_COMMENT + " WHERE b_Id = ? ORDER BY createTime ASC";
 
 		try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -188,134 +169,133 @@ public class BoardDAO {
 		return comments;
 	}
 
-    public ArrayList<BoardDTO> listBoard(PageDTO pageDTO) {
-        ArrayList<BoardDTO> list = new ArrayList<>();
-        String sql = "SELECT SQL_CALC_FOUND_ROWS * FROM " + TABLE_BOARD + " ORDER BY post_num DESC LIMIT ?, ?";
-        ResultSet rs = null;
+	public ArrayList<BoardDTO> listBoard(PageDTO pageDTO) {
+		ArrayList<BoardDTO> list = new ArrayList<>();
+		String sql = "SELECT SQL_CALC_FOUND_ROWS * FROM " + TABLE_BOARD + " ORDER BY post_num DESC LIMIT ?, ?";
+		ResultSet rs = null;
 
-        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setInt(1, (pageDTO.getCurrentPage() - 1) * pageDTO.getRecordsPerPage());
-            pstmt.setInt(2, pageDTO.getRecordsPerPage());
-            rs = pstmt.executeQuery();
+		try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			pstmt.setInt(1, (pageDTO.getCurrentPage() - 1) * pageDTO.getRecordsPerPage());
+			pstmt.setInt(2, pageDTO.getRecordsPerPage());
+			rs = pstmt.executeQuery();
 
-            while (rs.next()) {
-                BoardDTO board = new BoardDTO();
-                board.setB_id(rs.getLong("b_id"));
-                board.setPost_num(rs.getInt("post_num"));
-                board.setTitle(rs.getString("title"));
-                board.setContent(rs.getString("content"));
-                board.setS_id(rs.getInt("s_id"));
-                board.setS_name(rs.getString("s_name"));
-                board.setCreateTime(rs.getString("createTime"));
-                board.setUpdateTime(rs.getString("updateTime"));
-                board.setViews(rs.getLong("views"));
-                board.setCommentCnt(rs.getInt("commentCnt"));
-                list.add(board);
-            }
-            rs.close();
-            rs = pstmt.executeQuery("SELECT FOUND_ROWS()");
+			while (rs.next()) {
+				BoardDTO board = new BoardDTO();
+				board.setB_id(rs.getLong("b_id"));
+				board.setPost_num(rs.getInt("post_num"));
+				board.setTitle(rs.getString("title"));
+				board.setContent(rs.getString("content"));
+				board.setS_id(rs.getInt("s_id"));
+				board.setS_name(rs.getString("s_name"));
+				board.setCreateTime(rs.getString("createTime"));
+				board.setUpdateTime(rs.getString("updateTime"));
+				board.setViews(rs.getLong("views"));
+				board.setCommentCnt(rs.getInt("commentCnt"));
+				list.add(board);
+			}
+			rs.close();
+			rs = pstmt.executeQuery("SELECT FOUND_ROWS()");
 
-            if (rs.next()) {
-                pageDTO.setNoOfRecords(rs.getInt(1));
-            }
-            pageDTO.setNoOfPages((int) Math.ceil(pageDTO.getNoOfRecords() * 1.0 / pageDTO.getRecordsPerPage()));
+			if (rs.next()) {
+				pageDTO.setNoOfRecords(rs.getInt(1));
+			}
+			pageDTO.setNoOfPages((int) Math.ceil(pageDTO.getNoOfRecords() * 1.0 / pageDTO.getRecordsPerPage()));
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            if (rs != null) try { rs.close(); } catch (SQLException e) { e.printStackTrace(); }
-        }
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null) try { rs.close(); } catch (SQLException e) { e.printStackTrace(); }
+		}
 
-        return list;
-    }
+		return list;
+	}
 
-    public ArrayList<BoardDTO> searchBoard(PageDTO pageDTO, String kindOfSearch, String searchKeyword) {
-        ArrayList<BoardDTO> list = new ArrayList<>();
-        String sql = "";
-        
-        if ("searchTitle".equals(kindOfSearch)) {
-            sql = "SELECT SQL_CALC_FOUND_ROWS * FROM " + TABLE_BOARD + " WHERE title LIKE ? ORDER BY post_num DESC LIMIT ?, ?";
-        } else if ("searchTitleAndContents".equals(kindOfSearch)) {
-            sql = "SELECT SQL_CALC_FOUND_ROWS * FROM " + TABLE_BOARD + " WHERE title LIKE ? OR content LIKE ? ORDER BY post_num DESC LIMIT ?, ?";
-        } else if ("searchId".equals(kindOfSearch)) {
-            sql = "SELECT SQL_CALC_FOUND_ROWS * FROM " + TABLE_BOARD + " WHERE s_name LIKE ? ORDER BY post_num DESC LIMIT ?, ?";
-        }
-        
-        ResultSet rs = null;
+	public ArrayList<BoardDTO> searchBoard(PageDTO pageDTO, String kindOfSearch, String searchKeyword) {
+		ArrayList<BoardDTO> list = new ArrayList<>();
+		String sql = "";
 
-        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            if ("searchTitleAndContents".equals(kindOfSearch)) {
-                pstmt.setString(1, "%" + searchKeyword + "%");
-                pstmt.setString(2, "%" + searchKeyword + "%");
-                pstmt.setInt(3, (pageDTO.getCurrentPage() - 1) * pageDTO.getRecordsPerPage());
-                pstmt.setInt(4, pageDTO.getRecordsPerPage());
-            } else {
-                pstmt.setString(1, "%" + searchKeyword + "%");
-                pstmt.setInt(2, (pageDTO.getCurrentPage() - 1) * pageDTO.getRecordsPerPage());
-                pstmt.setInt(3, pageDTO.getRecordsPerPage());
-            }
+		if ("searchTitle".equals(kindOfSearch)) {
+			sql = "SELECT SQL_CALC_FOUND_ROWS * FROM " + TABLE_BOARD + " WHERE title LIKE ? ORDER BY post_num DESC LIMIT ?, ?";
+		} else if ("searchTitleAndContents".equals(kindOfSearch)) {
+			sql = "SELECT SQL_CALC_FOUND_ROWS * FROM " + TABLE_BOARD + " WHERE title LIKE ? OR content LIKE ? ORDER BY post_num DESC LIMIT ?, ?";
+		} else if ("searchId".equals(kindOfSearch)) {
+			sql = "SELECT SQL_CALC_FOUND_ROWS * FROM " + TABLE_BOARD + " WHERE s_name LIKE ? ORDER BY post_num DESC LIMIT ?, ?";
+		}
 
-            rs = pstmt.executeQuery();
+		ResultSet rs = null;
 
-            while (rs.next()) {
-                BoardDTO board = new BoardDTO();
-                board.setB_id(rs.getLong("b_id"));
-                board.setPost_num(rs.getInt("post_num"));
-                board.setTitle(rs.getString("title"));
-                board.setContent(rs.getString("content"));
-                board.setS_id(rs.getInt("s_id"));
-                board.setS_name(rs.getString("s_name"));
-                board.setCreateTime(rs.getString("createTime"));
-                board.setUpdateTime(rs.getString("updateTime"));
-                board.setViews(rs.getLong("views"));
-                board.setCommentCnt(rs.getInt("commentCnt"));
-                list.add(board);
-            }
+		try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			if ("searchTitleAndContents".equals(kindOfSearch)) {
+				pstmt.setString(1, "%" + searchKeyword + "%");
+				pstmt.setString(2, "%" + searchKeyword + "%");
+				pstmt.setInt(3, (pageDTO.getCurrentPage() - 1) * pageDTO.getRecordsPerPage());
+				pstmt.setInt(4, pageDTO.getRecordsPerPage());
+			} else {
+				pstmt.setString(1, "%" + searchKeyword + "%");
+				pstmt.setInt(2, (pageDTO.getCurrentPage() - 1) * pageDTO.getRecordsPerPage());
+				pstmt.setInt(3, pageDTO.getRecordsPerPage());
+			}
 
-            rs.close();
-            rs = pstmt.executeQuery("SELECT FOUND_ROWS()");
+			rs = pstmt.executeQuery();
 
-            if (rs.next()) {
-                pageDTO.setNoOfRecords(rs.getInt(1));
-            }
-            pageDTO.setNoOfPages((int) Math.ceil(pageDTO.getNoOfRecords() * 1.0 / pageDTO.getRecordsPerPage()));
+			while (rs.next()) {
+				BoardDTO board = new BoardDTO();
+				board.setB_id(rs.getLong("b_id"));
+				board.setPost_num(rs.getInt("post_num"));
+				board.setTitle(rs.getString("title"));
+				board.setContent(rs.getString("content"));
+				board.setS_id(rs.getInt("s_id"));
+				board.setS_name(rs.getString("s_name"));
+				board.setCreateTime(rs.getString("createTime"));
+				board.setUpdateTime(rs.getString("updateTime"));
+				board.setViews(rs.getLong("views"));
+				board.setCommentCnt(rs.getInt("commentCnt"));
+				list.add(board);
+			}
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            if (rs != null) try { rs.close(); } catch (SQLException e) { e.printStackTrace(); }
-        }
+			rs.close();
+			rs = pstmt.executeQuery("SELECT FOUND_ROWS()");
 
-        return list;
-    }
+			if (rs.next()) {
+				pageDTO.setNoOfRecords(rs.getInt(1));
+			}
+			pageDTO.setNoOfPages((int) Math.ceil(pageDTO.getNoOfRecords() * 1.0 / pageDTO.getRecordsPerPage()));
 
-    public ArrayList<BoardDTO> getNoticeBoards() {
-        ArrayList<BoardDTO> boards = new ArrayList<>();
-        String sql = "SELECT * FROM " + TABLE_NOTICE + " ORDER BY post_num DESC";
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null) try { rs.close(); } catch (SQLException e) { e.printStackTrace(); }
+		}
 
-        try (PreparedStatement pstmt = conn.prepareStatement(sql);
-             ResultSet rs = pstmt.executeQuery()) {
+		return list;
+	}
 
-            while (rs.next()) {
-                BoardDTO board = new BoardDTO();
-                board.setB_id(rs.getLong("b_id"));
-                board.setPost_num(rs.getInt("post_num"));
-                board.setTitle(rs.getString("title"));
-                board.setContent(rs.getString("content"));
-                board.setS_id(rs.getInt("s_id"));
-                board.setS_name(rs.getString("s_name"));
-                board.setCreateTime(rs.getString("createTime"));
-                board.setUpdateTime(rs.getString("updateTime"));
-                board.setViews(rs.getLong("views"));
-                board.setCommentCnt(rs.getInt("commentCnt"));
-                boards.add(board);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+	public ArrayList<BoardDTO> getNoticeBoards() {
+		ArrayList<BoardDTO> boards = new ArrayList<>();
+		String sql = "SELECT * FROM " + TABLE_NOTICE + " ORDER BY post_num DESC";
 
-        return boards;
-    }
+		try (PreparedStatement pstmt = conn.prepareStatement(sql);
+				ResultSet rs = pstmt.executeQuery()) {
+
+			while (rs.next()) {
+				BoardDTO board = new BoardDTO();
+				board.setB_id(rs.getLong("b_id"));
+				board.setPost_num(rs.getInt("post_num"));
+				board.setTitle(rs.getString("title"));
+				board.setContent(rs.getString("content"));
+				board.setS_name(rs.getString("s_name"));
+				board.setCreateTime(rs.getString("createTime"));
+				board.setUpdateTime(rs.getString("updateTime"));
+				board.setViews(rs.getLong("views"));
+				board.setCommentCnt(rs.getInt("commentCnt"));
+				boards.add(board);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return boards;
+	}
 
 	public void updateComment(long commentId, String content) {
 		String sql = "UPDATE " + TABLE_COMMENT  + " SET content = ?, updateTime = CURRENT_TIMESTAMP WHERE comment_Id = ?";
@@ -338,5 +318,42 @@ public class BoardDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public BoardDTO getBoard(long boardId,String category) {
+		String sql = null;
+		BoardDTO board = null;
+		if(category.equals("notice")) {
+			sql = "SELECT * FROM "+TABLE_NOTICE+" WHERE b_id="+boardId;
+		}
+		else if(category.equals("nomal")) {
+			sql = "SELECT * FROM "+TABLE_BOARD+" WHERE b_id="+boardId;
+		}
+
+		try(PreparedStatement pstmt = conn.prepareStatement(sql);
+				ResultSet rs = pstmt.executeQuery();) {
+
+			while(rs.next()) {
+				board = new BoardDTO();
+				board.setB_id(rs.getLong("b_id"));
+				board.setPost_num(rs.getInt("post_num"));
+				board.setTitle(rs.getString("title"));
+				board.setContent(rs.getString("content"));
+				board.setS_name(rs.getString("s_name"));
+				if(category.equals("nomal")) {
+					board.setS_id(rs.getInt("s_id"));
+					board.setS_department(rs.getString("s_department"));
+				}
+				board.setCreateTime(rs.getString("createTime"));
+				board.setUpdateTime(rs.getString("updateTime"));
+				board.setViews(rs.getLong("views"));
+				board.setCommentCnt(rs.getInt("commentCnt"));
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return board;
 	}
 }
