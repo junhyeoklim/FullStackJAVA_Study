@@ -3,7 +3,6 @@ package board.command;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -26,6 +25,10 @@ public class ViewBoardCommand implements Command {
                 BoardDTO board = dao.getBoard(b_id, category);
                 ArrayList<CommentDTO> comments = dao.getCommentsByPostId(b_id);
 
+                // 디버깅 메시지
+                System.out.println("Board: " + board);
+                System.out.println("Comments: " + comments);
+
                 request.setAttribute("board", board);
                 request.setAttribute("comments", comments);
             } catch (NumberFormatException e) {
@@ -33,6 +36,8 @@ public class ViewBoardCommand implements Command {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+        } else {
+            System.out.println("Category or boardId is null");
         }
     }
 }

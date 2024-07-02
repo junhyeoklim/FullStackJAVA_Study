@@ -3,19 +3,24 @@
     max-width: 1300px;
     margin: 0 auto;
     padding: 1rem;
+    overflow-x: auto;
 }
 
 .board-article {
-    flex: 7;
+    width: 850px;
     background-color: var(--color-bg-main);
     margin-right: 1rem;
 }
 
 .sidebar {
-    flex: 3;
+    width: 460px;
     padding: 20px;
     background-color: #f9f9f9;
     border-left: 1px solid #ddd;
+}
+
+.sidebar .calendar, .sidebar .menu {
+    overflow: hidden;
 }
 
 .calendar {
@@ -84,7 +89,7 @@
 }
 
 .create-post:hover {
-	color: #fff;
+    color: #fff;
     background-color: #0056b3;
 }
 
@@ -191,3 +196,109 @@
     border-color: #dee2e6;
 }
 
+@media (max-width: 850px) {
+    .board-article {
+        width: 100%;
+        margin-right: 0;
+    }
+}
+
+@media (max-width: 1300px) {
+    .sidebar {
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        display: none;
+    }
+
+    .content-wrapper {
+        overflow-x: auto;
+        flex-wrap: nowrap;
+    }
+}
+
+/* 추가된 스타일 */
+.vrow {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    text-decoration: none;
+    color: inherit;
+}
+
+.vrow-top, .vrow-bottom {
+    display: flex;
+    justify-content: space-between;
+}
+
+.vcol {
+    padding: 5px;
+}
+
+.vcol.col-id {
+    width: 50px;
+    flex-shrink: 0;
+}
+
+.vcol.col-title {
+    flex-grow: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.vcol.col-author {
+    width: 150px;
+    flex-shrink: 0;
+}
+
+.vcol.col-time, .vcol.col-view {
+    width: 100px;
+    flex-shrink: 0;
+}
+
+.vrow-inner {
+    display: flex;
+    flex-direction: column;
+}
+
+@media (min-width: 768px) {
+    .vrow {
+        flex-direction: row;
+        align-items: center;
+    }
+    
+    .vrow-inner {
+        flex-direction: row;
+        flex: 1;
+    }
+    
+    .vrow-top, .vrow-bottom {
+        flex-direction: row;
+        flex: 1;
+    }
+    
+    .vcol {
+        padding: 5px 10px;
+    }
+}
+
+@media (max-width: 767px) {
+    .head {
+        display: none;
+    }
+}
+
+.content-wrapper {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto; /* 추가: 화면이 좁아지면 가로 스크롤바가 나타나게 설정 */
+}
+
+.board-article {
+    flex: 1;
+}

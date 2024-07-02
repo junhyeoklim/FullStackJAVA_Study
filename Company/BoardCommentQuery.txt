@@ -3,13 +3,15 @@
 CREATE TABLE comment (
     comment_id BIGINT AUTO_INCREMENT PRIMARY KEY,
     b_id BIGINT,
+    s_id INT,
     user_name VARCHAR(50) NOT NULL,
     content VARCHAR(500) NOT NULL,
     createTime DATETIME DEFAULT CURRENT_TIMESTAMP,
     updateTime TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     parent_comment_id BIGINT,
+    is_deleted BOOLEAN DEFAULT FALSE, 
     FOREIGN KEY (b_id) REFERENCES board(b_id) ON DELETE CASCADE,
-    FOREIGN KEY (parent_comment_id) REFERENCES comment(comment_id) ON DELETE CASCADE
+    FOREIGN KEY (parent_comment_id) REFERENCES comment(comment_id)
 );
 
 

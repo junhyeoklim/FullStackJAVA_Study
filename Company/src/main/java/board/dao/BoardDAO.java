@@ -5,9 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.List;
 
 import board.dto.BoardDTO;
 import board.dto.CommentDTO;
@@ -126,49 +124,76 @@ public class BoardDAO {
 	}
 
 	public void insertComment(CommentDTO comment) {
-		String sql = "INSERT INTO " + TABLE_COMMENT + " (b_Id, userName, content, parentCommentId) VALUES (?, ?, ?, ?)";
+	    String sql = "INSERT INTO comment (b_id, s_id, user_name, content, parent_comment_id, is_deleted) VALUES (?, ?, ?, ?, ?, ?)";
 
-		try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-			pstmt.setLong(1, comment.getB_Id());
-			pstmt.setString(2, comment.getUserName());
-			pstmt.setString(3, comment.getContent());
-			if (comment.getParentCommentId() == null) {
-				pstmt.setNull(4, java.sql.Types.BIGINT);
-			} else {
-				pstmt.setLong(4, comment.getParentCommentId());
-			}
-			pstmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+	    try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+	        pstmt.setLong(1, comment.getB_Id());
+	        pstmt.setInt(2, comment.getS_id());
+	        pstmt.setString(3, comment.getUserName());
+	        pstmt.setString(4, comment.getContent());
+	        if (comment.getParentCommentId() == null) {
+	            pstmt.setNull(5, java.sql.Types.BIGINT);
+	        } else {
+	            pstmt.setLong(5, comment.getParentCommentId());
+	        }
+	        pstmt.setBoolean(6, comment.isIs_deleted());
+	        pstmt.executeUpdate();
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
 	}
 
-	public ArrayList<CommentDTO> getCommentsByPostId(long b_id) {
-		ArrayList<CommentDTO> comments = new ArrayList<>();
-		String sql = "SELECT * FROM " + TABLE_COMMENT + " WHERE b_Id = ? ORDER BY createTime ASC";
+    public void updateComment(long commentId, String content) {
+        String sql = "UPDATE " + TABLE_COMMENT  + " SET content = ?, updateTime = CURRENT_TIMESTAMP WHERE comment_Id = ?";
 
-		try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-			pstmt.setLong(1, b_id);
-			try (ResultSet rs = pstmt.executeQuery()) {
-				while (rs.next()) {
-					CommentDTO comment = new CommentDTO();
-					comment.setComment_Id(rs.getLong("comment_Id"));
-					comment.setB_Id(rs.getLong("b_Id"));
-					comment.setUserName(rs.getString("userName"));
-					comment.setContent(rs.getString("content"));
-					comment.setCreateTime(rs.getTimestamp("createTime"));
-					comment.setUpdateTime(rs.getTimestamp("updateTime"));
-					comment.setParentCommentId(rs.getLong("parentCommentId"));
-					comments.add(comment);
-				}
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, content);
+            pstmt.setLong(2, commentId);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
-		return comments;
-	}
+    public void deleteComment(long commentId) {
+        String sql = "UPDATE comment SET is_deleted = TRUE WHERE comment_id = ?";
 
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setLong(1, commentId);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public ArrayList<CommentDTO> getCommentsByPostId(long b_id) {
+        ArrayList<CommentDTO> comments = new ArrayList<>();
+        String sql = "SELECT * FROM comment WHERE b_Id = ? ORDER BY createTime ASC";
+
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setLong(1, b_id);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    CommentDTO comment = new CommentDTO();
+                    comment.setComment_Id(rs.getLong("comment_id"));
+                    comment.setB_Id(rs.getLong("b_id"));
+                    comment.setS_id(rs.getInt("s_id"));
+                    comment.setUserName(rs.getString("user_name"));
+                    comment.setContent(rs.getString("content"));
+                    comment.setCreateTime(rs.getString("createTime"));
+                    comment.setUpdateTime(rs.getString("updateTime"));
+                    comment.setParentCommentId(rs.getLong("parent_comment_id"));
+                    comment.setIs_deleted(rs.getBoolean("is_deleted"));
+                    comments.add(comment);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return comments;
+    }
+    
 	public ArrayList<BoardDTO> listBoard(PageDTO pageDTO) {
 		ArrayList<BoardDTO> list = new ArrayList<>();
 		String sql = "SELECT SQL_CALC_FOUND_ROWS * FROM " + TABLE_BOARD + " ORDER BY post_num DESC LIMIT ?, ?";
@@ -295,29 +320,6 @@ public class BoardDAO {
 		}
 
 		return boards;
-	}
-
-	public void updateComment(long commentId, String content) {
-		String sql = "UPDATE " + TABLE_COMMENT  + " SET content = ?, updateTime = CURRENT_TIMESTAMP WHERE comment_Id = ?";
-
-		try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-			pstmt.setString(1, content);
-			pstmt.setLong(2, commentId);
-			pstmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
-
-	public void deleteComment(long commentId) {
-		String sql = "DELETE FROM " + TABLE_COMMENT + " WHERE comment_Id = ?";
-
-		try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-			pstmt.setLong(1, commentId);
-			pstmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
 	}
 
 	public BoardDTO getBoard(long boardId,String category) {

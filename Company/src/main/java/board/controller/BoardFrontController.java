@@ -10,10 +10,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import board.command.Command;
+import board.command.DeleteCommentCommand;
 import board.command.IncreaseViewCountCommand;
 import board.command.InsertBoardCommand;
+import board.command.InsertCommentCommand;
 import board.command.ListBoardCommand;
 import board.command.SearchBoardCommand;
+import board.command.UpdateCommentCommand;
 import board.command.ViewBoardCommand;
 
 
@@ -72,6 +75,24 @@ public class BoardFrontController extends HttpServlet {
 		    command = new IncreaseViewCountCommand();
 		    command.excute(request, response);
 		}
+        else if(commandName.equals("/addComment.board")) {
+            command = new InsertCommentCommand();
+            command.excute(request, response);
+        }
+        else if(commandName.equals("/addReply.board")) {
+            command = new InsertCommentCommand();
+            command.excute(request, response);
+        }
+        else if(commandName.equals("/editComment.board")) {
+            command = new UpdateCommentCommand();
+            command.excute(request, response);
+        }
+        else if(commandName.equals("/deleteComment.board")) {
+            command = new DeleteCommentCommand();
+            command.excute(request, response);
+        }
+		
+		
 
         if (viewPage != null) {
             RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);

@@ -1,15 +1,15 @@
 package board.dto;
 
-import java.sql.Timestamp;
-
 public class CommentDTO {
     private long comment_Id;
     private long b_Id;
+    private int s_id;
     private String userName;
     private String content;
-    private Timestamp createTime;
-    private Timestamp updateTime;
+    private String createTime;
+    private String updateTime;
     private Long parentCommentId;
+    private boolean is_deleted;
     
     
 	public long getComment_Id() {
@@ -24,6 +24,13 @@ public class CommentDTO {
 	public void setB_Id(long b_Id) {
 		this.b_Id = b_Id;
 	}
+	
+	public int getS_id() {
+		return s_id;
+	}
+	public void setS_id(int s_id) {
+		this.s_id = s_id;
+	}
 	public String getUserName() {
 		return userName;
 	}
@@ -36,16 +43,16 @@ public class CommentDTO {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public Timestamp getCreateTime() {
+	public String getCreateTime() {
 		return createTime;
 	}
-	public void setCreateTime(Timestamp createTime) {
+	public void setCreateTime(String createTime) {
 		this.createTime = createTime;
 	}
-	public Timestamp getUpdateTime() {
+	public String getUpdateTime() {
 		return updateTime;
 	}
-	public void setUpdateTime(Timestamp updateTime) {
+	public void setUpdateTime(String updateTime) {
 		this.updateTime = updateTime;
 	}
 	public Long getParentCommentId() {
@@ -54,4 +61,11 @@ public class CommentDTO {
 	public void setParentCommentId(Long parentCommentId) {
 		this.parentCommentId = parentCommentId;
 	}
+	public boolean isIs_deleted() {
+		return is_deleted;
+	}
+	public void setIs_deleted(boolean is_deleted) {
+		this.is_deleted = is_deleted;
+	}
+	
 }
