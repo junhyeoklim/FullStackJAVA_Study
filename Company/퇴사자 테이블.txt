@@ -1,4 +1,4 @@
-CREATE TABLE join_resign (
+CREATE TABLE resign (
   id INT auto_increment PRIMARY key,
   s_date date ,
   s_department varchar(10) NOT NULL default "nothing",

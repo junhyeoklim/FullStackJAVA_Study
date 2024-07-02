@@ -48,7 +48,7 @@
                                     <tr>
                                         <td>공지</td>
                                         <td><a
-                                            href="${contextPath}/view.board?category=notice&id=${board.b_id}">${board.title}</a></td>
+                                            href="${contextPath}/view.board?category=notice&b_id=${board.b_id}">${board.title}</a></td>
                                         <td>관리자</td>
                                         <td>
                                             <c:choose>
@@ -67,8 +67,7 @@
                                 <c:forEach var="board" items="${list}">
                                     <tr>
                                         <td>${board.post_num }</td>
-                                        <td><a
-                                            href="${contextPath}/view.board?category=nomal&id=${board.b_id}">${board.title}</a></td>
+                                        <td><a href="${contextPath}/increaseViewCount.board?category=nomal&b_id=${board.b_id}&redirect=${contextPath}/view.board?category=nomal&b_id=${board.b_id}">${board.title}</a></td>
                                         <td>
                                             <c:choose>
                                                 <c:when test="${board.s_name eq 'admin'}">

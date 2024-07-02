@@ -7,7 +7,7 @@ DELIMITER $$
 CREATE PROCEDURE InsertRandomEmployees()
 BEGIN
     DECLARE v_start_date DATE DEFAULT '2022-01-01';
-    DECLARE v_end_date DATE DEFAULT '2024-06-19';
+    DECLARE v_end_date DATE DEFAULT CURRENT_DATE;
     DECLARE v_current_date DATE;
     DECLARE v_dept_code CHAR(3);
     DECLARE v_s_id CHAR(8);
@@ -24,6 +24,9 @@ BEGIN
     DECLARE v_counter INT;
     DECLARE v_rand_id CHAR(5);
     DECLARE v_email_prefix VARCHAR(64);
+    DECLARE v_birth_year INT;
+    DECLARE v_birth_month INT;
+    DECLARE v_birth_day INT;
 
     SET v_current_date = v_start_date;
 
@@ -48,7 +51,21 @@ BEGIN
             END WHILE;
 
             SET v_s_name = CONCAT('홍길동', FLOOR(1 + (RAND() * 1000)));
-            SET v_s_birth = CONCAT(FLOOR(1970 + (RAND() * 31)), '0101');
+
+            -- 생년월일 생성
+            SET v_birth_year = FLOOR(1970 + (RAND() * 31));
+            SET v_birth_month = FLOOR(1 + (RAND() * 12));
+            SET v_birth_day = CASE
+                                WHEN v_birth_month = 2 THEN
+                                    CASE
+                                        WHEN MOD(v_birth_year, 4) = 0 AND (MOD(v_birth_year, 100) != 0 OR MOD(v_birth_year, 400) = 0) THEN FLOOR(1 + (RAND() * 29))
+                                        ELSE FLOOR(1 + (RAND() * 28))
+                                    END
+                                WHEN v_birth_month IN (4, 6, 9, 11) THEN FLOOR(1 + (RAND() * 30))
+                                ELSE FLOOR(1 + (RAND() * 31))
+                              END;
+            SET v_s_birth = CONCAT(v_birth_year, LPAD(v_birth_month, 2, '0'), LPAD(v_birth_day, 2, '0'));
+
             SET v_s_gender = CASE FLOOR(1 + (RAND() * 2))
                             WHEN 1 THEN 'male'
                             ELSE 'female'
@@ -92,6 +109,7 @@ BEGIN
 END$$
 
 DELIMITER ;
+
 
 
 

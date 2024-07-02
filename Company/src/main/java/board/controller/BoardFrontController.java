@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import board.command.Command;
+import board.command.IncreaseViewCountCommand;
 import board.command.InsertBoardCommand;
 import board.command.ListBoardCommand;
 import board.command.SearchBoardCommand;
@@ -66,6 +67,10 @@ public class BoardFrontController extends HttpServlet {
 			command = new ViewBoardCommand();
 			command.excute(request, response);
 			viewPage = USER_VIEW + "/BoardView.jsp";
+		}
+		else if(commandName.equals("/increaseViewCount.board")) {
+		    command = new IncreaseViewCountCommand();
+		    command.excute(request, response);
 		}
 
         if (viewPage != null) {

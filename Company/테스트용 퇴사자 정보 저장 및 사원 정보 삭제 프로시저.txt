@@ -7,7 +7,7 @@ DELIMITER $$
 CREATE PROCEDURE ProcessResignations()
 BEGIN
     DECLARE v_start_date DATE DEFAULT '2022-01-01';
-    DECLARE v_end_date DATE DEFAULT '2024-06-19';
+    DECLARE v_end_date DATE DEFAULT CURRENT_DATE;
     DECLARE v_current_date DATE;
     DECLARE v_num_of_resignations INT;
     DECLARE v_counter INT;
