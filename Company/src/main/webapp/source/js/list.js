@@ -1,11 +1,13 @@
+
+let contextPath = $('#contextPath').text();
 $('#search').on(
 				'keyup',
 				function(e) {
 					if (e.keyCode == 13) {
-						location.href = "search.do";
+						location.href = contextPath+"/search.do";
 					}
 	});
 	
 $('#btn').on('click',()=>{
-		location.href = "register.do";
+		location.href = contextPath+"/register.do";
 });

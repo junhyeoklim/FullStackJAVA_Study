@@ -159,15 +159,39 @@ public class BoardDAO {
         }
     }
 
-    public void deleteComment(long commentId) {
-        String sql = "UPDATE comment SET is_deleted = TRUE WHERE comment_id = ?";
+    public boolean deleteComment(long commentId) {
+        boolean hasChildren = false;
 
-        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setLong(1, commentId);
-            pstmt.executeUpdate();
+        String checkChildrenSql = "SELECT COUNT(*) FROM comment WHERE parent_comment_id = ?";
+        String updateSql = "UPDATE comment SET is_deleted = TRUE WHERE comment_id = ?";
+        String deleteSql = "DELETE FROM comment WHERE comment_id = ?";
+
+        try (PreparedStatement checkStmt = conn.prepareStatement(checkChildrenSql)) {
+            checkStmt.setLong(1, commentId);
+            try (ResultSet rs = checkStmt.executeQuery()) {
+                if (rs.next()) {
+                    hasChildren = rs.getInt(1) > 0;
+                }
+            }
+
+            if (hasChildren) {
+                try (PreparedStatement updateStmt = conn.prepareStatement(updateSql)) {
+                    updateStmt.setLong(1, commentId);
+                    updateStmt.executeUpdate();
+                }
+            } else {
+                try (PreparedStatement deleteStmt = conn.prepareStatement(deleteSql)) {
+                    deleteStmt.setLong(1, commentId);
+                    deleteStmt.executeUpdate();
+                }
+            }
+
+            return true;
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        return false;
     }
 
     public ArrayList<CommentDTO> getCommentsByPostId(long b_id) {
@@ -399,6 +423,21 @@ public class BoardDAO {
                     return rs.getInt(1);
                 }
             }
+        }
+        return 0;
+    }
+    
+    public int getCommentCount(long b_id) {
+        String sql = "SELECT COUNT(*) FROM comment WHERE b_id = ? AND is_deleted = FALSE";
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setLong(1, b_id);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt(1);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
         return 0;
     }

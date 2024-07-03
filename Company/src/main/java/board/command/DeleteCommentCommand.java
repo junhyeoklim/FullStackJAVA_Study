@@ -18,12 +18,12 @@ public class DeleteCommentCommand implements Command {
         long commentId = Long.parseLong(request.getParameter("commentId"));
 
         BoardDAO dao = BoardDAO.getBoardDAO();
-        dao.deleteComment(commentId);
+        boolean success = dao.deleteComment(commentId);
 
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
         Gson gson = new Gson();
-        String jsonResponse = gson.toJson(new Response("success"));
+        String jsonResponse = gson.toJson(new Response(success ? "success" : "error"));
         response.getWriter().write(jsonResponse);
     }
 

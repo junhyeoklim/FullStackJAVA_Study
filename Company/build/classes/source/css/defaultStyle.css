@@ -47,6 +47,11 @@ table#login tr:last-of-type td{
 	margin: 0 auto;
 }
 
+.selectable {
+    user-select: text;
+    caret-color: transparent;
+}
+
 
 
 

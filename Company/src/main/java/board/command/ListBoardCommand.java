@@ -34,6 +34,8 @@ public class ListBoardCommand implements Command{
 	        ArrayList<BoardDTO> list = dao.listBoard(pageDTO);
 	        ArrayList<BoardDTO> noticeList = dao.getNoticeBoards();
 	        
+	        
+	        
 	        request.setAttribute("noticeList", noticeList);
 	        request.setAttribute("list", list);
 	        request.setAttribute("pagingInfo", pageDTO);

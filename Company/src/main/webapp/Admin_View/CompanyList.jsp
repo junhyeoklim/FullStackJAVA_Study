@@ -16,7 +16,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>사원 목록</title>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
-<c:import url="../source/jsp/bootStrapLink.jsp" />
+<c:import url="/source/jsp/bootStrapLink.jsp" />
 <link rel="icon" href="${contextPath}/source/ico/company.ico" />
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -24,12 +24,12 @@
 	href="${contextPath}/source/css/defaultStyle.css?after">
 <link rel="stylesheet"
 	href="${contextPath}/source/css/companyList.css?after">
-<script src="../source/js/jquery.js"></script>
+<script src="${contextPath}/source/js/jquery.js"></script>
 </head>
 <body>
 	<c:choose>
 		<c:when test="${sessionScope.dto.s_name == 'admin' }">
-			<c:import url="../source/jsp/ChartMenubar.jsp" />
+			<c:import url="/source/jsp/ChartMenubar.jsp" />
 			<div class="content-wrapper clearfix">
 				<div class="container-fluid board-article">
 					<table border="1" id="main">
@@ -152,6 +152,7 @@
 			<c:redirect url="/login.do" />
 		</c:otherwise>
 	</c:choose>
+	<span id="contextPath" hidden>${contextPath}</span>
 	<script src="${contextPath}/source/js/list.js"></script>
 	<script
 		src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>

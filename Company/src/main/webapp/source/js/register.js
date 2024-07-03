@@ -1,10 +1,10 @@
 
 let selectBox = $("#selectBox");
 let regular =  /^[A-Za-z]/;
-
+let contextPath = $('#contextPath').text();
 /*취소 버튼을 눌렀을 경우 뒤로 가는 기능*/
 $('#back').click(function (){
-	location.href = "/Company/list.do";
+	location.href = contextPath+"/list.do";
 });
 
 

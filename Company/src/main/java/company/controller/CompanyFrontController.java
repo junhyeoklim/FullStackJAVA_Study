@@ -57,7 +57,7 @@ public class CompanyFrontController extends HttpServlet {
 			command.excute(request, response);
 			viewPage = getViewPageForList(commandName);
 		} 
-		else if (isRegisterCommand(commandName)) {
+		else if (commandName.equals("/register.do")) {
 			viewPage = getViewPageForRegister(commandName);
 		} 
 		else if (isRegisterOKCommand(commandName)) {
@@ -158,7 +158,7 @@ public class CompanyFrontController extends HttpServlet {
 		if (commandName.equals(ADMIN_VIEW + "/register.do")) {
 			return "RegisterUI.jsp";
 		} else {
-			return "../Admin_View/RegisterUI.jsp";
+			return "Admin_View/RegisterUI.jsp";
 		}
 	}
 

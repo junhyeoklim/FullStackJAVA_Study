@@ -24,7 +24,7 @@
 <body>
 	<c:choose>
 		<c:when test="${sessionScope.dto.s_name == 'admin' }">
-			<c:import url="../source/jsp/ChartMenubar.jsp" />
+			<c:import url="/source/jsp/ChartMenubar.jsp" />
 			<c:forEach var="dto" items="${list}">
 				<form method="post" action="${contextPath}/modifyOK.do">
 					<table border="1" id="modify">
@@ -121,6 +121,7 @@
 			<c:redirect url="/login.do"/>
 		</c:otherwise>
 	</c:choose>
+	<span id="contextPath" hidden>${contextPath}</span>
 	<script type="text/javascript" src="${contextPath}/source/js/register.js"></script>
 </body>
 </html>
