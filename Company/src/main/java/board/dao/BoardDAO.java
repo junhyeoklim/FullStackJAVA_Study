@@ -46,7 +46,6 @@ public class BoardDAO {
 				}
 			}
 		}
-		System.out.println("Generated post ID in DAO: " + generatedId);
 		return generatedId;
 	}
 
@@ -83,7 +82,6 @@ public class BoardDAO {
 				}
 			}
 		}
-		System.out.println("Generated post ID in DAO: " + generatedId);
 		return generatedId;
 	}
 
@@ -123,25 +121,31 @@ public class BoardDAO {
 		}
 	}
 
-	public void insertComment(CommentDTO comment) {
-	    String sql = "INSERT INTO comment (b_id, s_id, user_name, content, parent_comment_id, is_deleted) VALUES (?, ?, ?, ?, ?, ?)";
+    public void insertComment(CommentDTO comment) {
+        String sql = "INSERT INTO comment (b_id, s_id, user_name, content, parent_comment_id, is_deleted, depth, orderNumber) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
-	    try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-	        pstmt.setLong(1, comment.getB_Id());
-	        pstmt.setInt(2, comment.getS_id());
-	        pstmt.setString(3, comment.getUserName());
-	        pstmt.setString(4, comment.getContent());
-	        if (comment.getParentCommentId() == null) {
-	            pstmt.setNull(5, java.sql.Types.BIGINT);
-	        } else {
-	            pstmt.setLong(5, comment.getParentCommentId());
-	        }
-	        pstmt.setBoolean(6, comment.isIs_deleted());
-	        pstmt.executeUpdate();
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	    }
-	}
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setLong(1, comment.getB_Id());
+            pstmt.setInt(2, comment.getS_id());
+            pstmt.setString(3, comment.getUserName());
+            pstmt.setString(4, comment.getContent());
+            if (comment.getParentCommentId() == null) {
+                pstmt.setNull(5, java.sql.Types.BIGINT);
+                comment.setDepth(0);
+                comment.setOrderNumber(getNextOrderNumberForPost(comment.getB_Id()));
+            } else {
+                pstmt.setLong(5, comment.getParentCommentId());
+                comment.setDepth(getCommentDepth(comment.getParentCommentId()) + 1);
+                comment.setOrderNumber(getCommentOrderNumber(comment.getParentCommentId()));
+            }
+            pstmt.setBoolean(6, comment.isIs_deleted());
+            pstmt.setInt(7, comment.getDepth());
+            pstmt.setInt(8, comment.getOrderNumber());
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     public void updateComment(long commentId, String content) {
         String sql = "UPDATE " + TABLE_COMMENT  + " SET content = ?, updateTime = CURRENT_TIMESTAMP WHERE comment_Id = ?";
@@ -168,7 +172,7 @@ public class BoardDAO {
 
     public ArrayList<CommentDTO> getCommentsByPostId(long b_id) {
         ArrayList<CommentDTO> comments = new ArrayList<>();
-        String sql = "SELECT * FROM comment WHERE b_Id = ? ORDER BY createTime ASC";
+        String sql = "SELECT * FROM comment WHERE b_Id = ? ORDER BY orderNumber ASC, depth ASC";
 
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setLong(1, b_id);
@@ -184,6 +188,8 @@ public class BoardDAO {
                     comment.setUpdateTime(rs.getString("updateTime"));
                     comment.setParentCommentId(rs.getLong("parent_comment_id"));
                     comment.setIs_deleted(rs.getBoolean("is_deleted"));
+                    comment.setDepth(rs.getInt("depth"));
+                    comment.setOrderNumber(rs.getInt("orderNumber"));
                     comments.add(comment);
                 }
             }
@@ -358,4 +364,42 @@ public class BoardDAO {
 
 		return board;
 	}
+    private int getNextOrderNumberForPost(long b_id) throws SQLException {
+        String sql = "SELECT MAX(orderNumber) FROM comment WHERE b_id = ?";
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setLong(1, b_id);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt(1) + 1;
+                }
+            }
+        }
+        return 0;
+    }
+
+    private int getCommentDepth(long parentCommentId) throws SQLException {
+        String sql = "SELECT depth FROM comment WHERE comment_id = ?";
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setLong(1, parentCommentId);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt(1);
+                }
+            }
+        }
+        return 0;
+    }
+
+    private int getCommentOrderNumber(long parentCommentId) throws SQLException {
+        String sql = "SELECT orderNumber FROM comment WHERE comment_id = ?";
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setLong(1, parentCommentId);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt(1);
+                }
+            }
+        }
+        return 0;
+    }
 }

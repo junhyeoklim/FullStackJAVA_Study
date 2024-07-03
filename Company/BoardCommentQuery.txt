@@ -9,7 +9,9 @@ CREATE TABLE comment (
     createTime DATETIME DEFAULT CURRENT_TIMESTAMP,
     updateTime TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     parent_comment_id BIGINT,
-    is_deleted BOOLEAN DEFAULT FALSE, 
+    is_deleted BOOLEAN DEFAULT FALSE,
+    depth INT DEFAULT 0,
+    orderNumber INT,
     FOREIGN KEY (b_id) REFERENCES board(b_id) ON DELETE CASCADE,
     FOREIGN KEY (parent_comment_id) REFERENCES comment(comment_id)
 );

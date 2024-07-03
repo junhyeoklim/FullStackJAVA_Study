@@ -1,12 +1,10 @@
 package board.command;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import com.google.gson.Gson;
 import board.dao.BoardDAO;
 import board.dto.CommentDTO;
@@ -14,8 +12,8 @@ import company.dto.CompanyDTO;
 
 public class InsertCommentCommand implements Command {
 
-	@Override
-	public void excute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    @Override
+    public void excute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         CompanyDTO user = (CompanyDTO) session.getAttribute("dto"); // 세션에서 사용자 정보를 가져옴
 
@@ -29,7 +27,6 @@ public class InsertCommentCommand implements Command {
         }
 
         long b_id = Long.parseLong(request.getParameter("b_id"));
-        String userName = request.getParameter("userName");
         String content = request.getParameter("content");
         String parentCommentIdParam = request.getParameter("parentCommentId");
         Long parentCommentId = parentCommentIdParam == null || parentCommentIdParam.isEmpty() ? null : Long.parseLong(parentCommentIdParam);
@@ -37,7 +34,7 @@ public class InsertCommentCommand implements Command {
         CommentDTO comment = new CommentDTO();
         comment.setB_Id(b_id);
         comment.setS_id(user.getS_id()); // 사용자 ID 설정
-        comment.setUserName(userName);
+        comment.setUserName(user.getS_name()); // 사용자 이름을 설정
         comment.setContent(content);
         comment.setParentCommentId(parentCommentId);
         comment.setIs_deleted(false); // 초기값 설정

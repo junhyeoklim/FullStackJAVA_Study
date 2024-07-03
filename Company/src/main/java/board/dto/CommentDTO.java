@@ -10,6 +10,8 @@ public class CommentDTO {
     private String updateTime;
     private Long parentCommentId;
     private boolean is_deleted;
+    private int depth;
+    private int orderNumber;
     
     
 	public long getComment_Id() {
@@ -66,6 +68,18 @@ public class CommentDTO {
 	}
 	public void setIs_deleted(boolean is_deleted) {
 		this.is_deleted = is_deleted;
+	}
+	public int getDepth() {
+		return depth;
+	}
+	public void setDepth(int depth) {
+		this.depth = depth;
+	}
+	public int getOrderNumber() {
+		return orderNumber;
+	}
+	public void setOrderNumber(int orderNumber) {
+		this.orderNumber = orderNumber;
 	}
 	
 }

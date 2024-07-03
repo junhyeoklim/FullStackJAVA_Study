@@ -25,10 +25,6 @@ public class ViewBoardCommand implements Command {
                 BoardDTO board = dao.getBoard(b_id, category);
                 ArrayList<CommentDTO> comments = dao.getCommentsByPostId(b_id);
 
-                // 디버깅 메시지
-                System.out.println("Board: " + board);
-                System.out.println("Comments: " + comments);
-
                 request.setAttribute("board", board);
                 request.setAttribute("comments", comments);
             } catch (NumberFormatException e) {
