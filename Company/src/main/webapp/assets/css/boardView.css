@@ -3,40 +3,12 @@
     max-width: 1300px;
     margin: 0 auto;
     padding: 1rem;
-    overflow-x: auto;
 }
 
 .board-article {
     width: 850px;
     background-color: var(--color-bg-main);
     margin-right: 1rem;
-}
-
-.sidebar {
-    width: 460px;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-left: 1px solid #ddd;
-}
-
-.sidebar .calendar, .sidebar .menu {
-    overflow: hidden;
-}
-
-.calendar {
-    margin-bottom: 20px;
-}
-
-.menu {
-    margin-top: 20px;
-}
-
-.calendar, .menu {
-    background: white;
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .board-article-list {
@@ -46,29 +18,6 @@
     padding: 1rem;
     display: flex;
     flex-direction: column;
-}
-
-.board-article-list table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-.board-article-list th, .board-article-list td {
-    padding: .75rem;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-}
-
-.board-article-list th {
-    background-color: #f8f9fa;
-}
-
-.board-article-list a {
-    text-decoration: none;
-}
-
-.board-article-list a:hover {
-    text-decoration: underline;
 }
 
 /* 글작성 버튼 스타일 */
@@ -93,43 +42,6 @@
     background-color: #0056b3;
 }
 
-/* 검색 폼 스타일 */
-.search-form {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    margin-bottom: 1rem;
-}
-
-.search-label {
-    margin-right: .5rem;
-    font-weight: bold;
-}
-
-.search-select {
-    padding: .3rem;
-    margin-right: .5rem;
-    border: 1px solid #ced4da;
-    border-radius: 4px;
-    background-color: #fff;
-}
-
-.search-input {
-    padding: .3rem;
-    margin-right: .5rem;
-    border: 1px solid #ced4da;
-    border-radius: 4px;
-    width: 200px; /* 적절한 너비로 설정 */
-}
-
-.search-button {
-    padding: .3rem 1rem;
-    border: 1px solid #007bff;
-    border-radius: 4px;
-    background-color: #007bff;
-    color: #fff;
-    cursor: pointer;
-}
 
 .search-button:hover {
     background-color: #0056b3;
@@ -196,29 +108,7 @@
     border-color: #dee2e6;
 }
 
-@media (max-width: 850px) {
-    .board-article {
-        width: 100%;
-        margin-right: 0;
-    }
-}
 
-@media (max-width: 1300px) {
-    .sidebar {
-        width: 100%;
-    }
-}
-
-@media (max-width: 768px) {
-    .sidebar {
-        display: none;
-    }
-
-    .content-wrapper {
-        overflow-x: auto;
-        flex-wrap: nowrap;
-    }
-}
 
 /* 추가된 스타일 */
 .vrow {
@@ -302,3 +192,4 @@
 .board-article {
     flex: 1;
 }
+

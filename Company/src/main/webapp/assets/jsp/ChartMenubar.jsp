@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <link rel="stylesheet" href="${contextPath}/source/css/defaultStyle.css">
+  <link rel="stylesheet" href="${contextPath}/assets/css/defaultStyle.css">
 </head>
 <body>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">

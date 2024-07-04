@@ -12,19 +12,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>사원정보 변경</title>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
-<c:import url="../source/jsp/bootStrapLink.jsp" />
-<link rel="icon" href="${contextPath}/source/ico/company.ico" />
+<c:import url="../assets/jsp/bootStrapLink.jsp" />
+<link rel="icon" href="${contextPath}/assets/ico/company.ico" />
 <link rel="stylesheet"
-	href="${contextPath}/source/css/defaultStyle.css?after">
-<link rel="stylesheet" href="${contextPath}/source/css/modify.css?after">
+	href="${contextPath}/assets/css/defaultStyle.css?after">
+<link rel="stylesheet" href="${contextPath}/assets/css/modify.css?after">
 <link rel="stylesheet"
-	href="${contextPath}/source/css/menubar.css?after">
-<script type="text/javascript" src="${contextPath}/source/js/jquery.js"></script>
+	href="${contextPath}/assets/css/menubar.css?after">
+<script type="text/javascript" src="${contextPath}/assets/js/jquery.js"></script>
 </head>
 <body>
 	<c:choose>
 		<c:when test="${sessionScope.dto.s_name == 'admin' }">
-			<c:import url="/source/jsp/ChartMenubar.jsp" />
+			<c:import url="/assets/jsp/ChartMenubar.jsp" />
 			<c:forEach var="dto" items="${list}">
 				<form method="post" action="${contextPath}/modifyOK.do">
 					<table border="1" id="modify">
@@ -122,6 +122,6 @@
 		</c:otherwise>
 	</c:choose>
 	<span id="contextPath" hidden>${contextPath}</span>
-	<script type="text/javascript" src="${contextPath}/source/js/register.js"></script>
+	<script type="text/javascript" src="${contextPath}/assets/js/register.js"></script>
 </body>
 </html>

@@ -7,12 +7,12 @@
 <meta charset="UTF-8">
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script src="${contextPath}/source/js/jquery.js"></script>
+<script src="${contextPath}/assets/js/jquery.js"></script>
 </head>
 <body>	
 	<span id="uname" hidden>${sessionScope.dto.s_name}</span>
 	<span id="update" hidden></span>
 	<span id="contextPath" hidden>${contextPath}</span>
-	<script src="${contextPath}/source/js/alert.js"></script>
+	<script src="${contextPath}/assets/js/alert.js"></script>
 </body>
 </html>

@@ -13,7 +13,7 @@ public class BoardDTO {
     private String updateTime;
     private long views;
     private int commentCnt;
-    private boolean is_notice;
+    private boolean isNotice;
     
     
     
@@ -24,12 +24,13 @@ public class BoardDTO {
 	public void setS_name(String s_name) {
 		this.s_name = s_name;
 	}
-	public boolean isIs_notice() {
-		return is_notice;
-	}
-	public void setIs_notice(boolean is_notice) {
-		this.is_notice = is_notice;
-	}
+    public boolean isNotice() {
+        return isNotice;
+    }
+
+    public void setNotice(boolean isNotice) {
+        this.isNotice = isNotice;
+    }
 	public long getB_id() {
 		return b_id;
 	}

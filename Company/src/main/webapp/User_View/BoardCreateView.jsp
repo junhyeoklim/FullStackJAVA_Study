@@ -7,16 +7,16 @@
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <meta charset="UTF-8">
 <title>게시글 작성</title>
-<c:import url="../source/jsp/bootStrapLink.jsp" />
-<link rel="icon" href="${contextPath}/source/ico/company.ico" />
+<c:import url="../assets/jsp/bootStrapLink.jsp" />
+<link rel="icon" href="${contextPath}/assets/ico/company.ico" />
 <link rel="stylesheet"
-	href="${contextPath}/source/css/boardcreateView.css?after">
+	href="${contextPath}/assets/css/boardcreateView.css?after">
 <link rel="stylesheet"
-	href="${contextPath}/source/css/defaultStyle.css?after">
+	href="${contextPath}/assets/css/defaultStyle.css?after">
 <link rel="stylesheet"
-	href="${contextPath}/source/css/companyList.css?after">
+	href="${contextPath}/assets/css/companyList.css?after">
 <link rel="stylesheet"
-	href="${contextPath}/source/css/menubar.css?after">
+	href="${contextPath}/assets/css/menubar.css?after">
 <link
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 	rel="stylesheet">
@@ -30,12 +30,12 @@
 <link
 	href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-bs4.css"
 	rel="stylesheet">
-<script src="${contextPath}/source/js/boardcreateView.js"></script>
+<script src="${contextPath}/assets/js/boardcreateView.js"></script>
 </head>
 <body>
 	<c:choose>
 		<c:when test="${not empty sessionScope.dto}">
-			<c:import url="../source/jsp/Menubar.jsp" />
+			<c:import url="/assets/jsp/Menubar.jsp" />
 			<section class="container">
 				<div class="WritingWrap">
 					<div class="WritingHeader">

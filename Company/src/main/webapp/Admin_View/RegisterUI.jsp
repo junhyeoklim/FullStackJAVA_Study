@@ -10,15 +10,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>사원등록</title>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
-<c:import url="/source/jsp/bootStrapLink.jsp" />
-<link rel="icon" href="${contextPath}/source/ico/company.ico" />
-<link rel="stylesheet" href="${contextPath}/source/css/defaultStyle.css?after">
-<link rel="stylesheet" href="${contextPath}/source/css/register.css?after">
-<link rel="stylesheet" href="${contextPath}/source/css/menubar.css?after">
-<script type="text/javascript" src="${contextPath}/source/js/jquery.js"></script>
+<c:import url="/assets/jsp/bootStrapLink.jsp" />
+<link rel="icon" href="${contextPath}/assets/ico/company.ico" />
+<link rel="stylesheet" href="${contextPath}/assets/css/defaultStyle.css?after">
+<link rel="stylesheet" href="${contextPath}/assets/css/register.css?after">
+<link rel="stylesheet" href="${contextPath}/assets/css/menubar.css?after">
+<script type="text/javascript" src="${contextPath}/assets/js/jquery.js"></script>
 </head>
 <body>
-	<c:import url="/source/jsp/ChartMenubar.jsp"/>
+	<c:import url="/assets/jsp/ChartMenubar.jsp"/>
 	<form method="post" action="${contextPath}/registerOK.do">
 		<table border="1" id="register">
 			<caption>사원 정보 입력</caption>
@@ -102,6 +102,6 @@
 		</table>
 	</form>
 	<span id="contextPath" hidden>${contextPath}</span>
-	<script type="text/javascript" src="${contextPath}/source/js/register.js"></script>
+	<script type="text/javascript" src="${contextPath}/assets/js/register.js"></script>
 </body>
 </html>

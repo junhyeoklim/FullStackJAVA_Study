@@ -23,7 +23,6 @@ import board.command.ViewBoardCommand;
 @WebServlet("*.board")
 public class BoardFrontController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    private static final String ADMIN_VIEW = "/Admin_View";
     private static final String USER_VIEW = "/User_View";
     
     public BoardFrontController() {

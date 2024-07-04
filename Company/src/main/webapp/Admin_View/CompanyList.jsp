@@ -16,20 +16,20 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>사원 목록</title>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
-<c:import url="/source/jsp/bootStrapLink.jsp" />
-<link rel="icon" href="${contextPath}/source/ico/company.ico" />
+<c:import url="/assets/jsp/bootStrapLink.jsp" />
+<link rel="icon" href="${contextPath}/assets/ico/company.ico" />
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <link rel="stylesheet"
-	href="${contextPath}/source/css/defaultStyle.css?after">
+	href="${contextPath}/assets/css/defaultStyle.css?after">
 <link rel="stylesheet"
-	href="${contextPath}/source/css/companyList.css?after">
-<script src="${contextPath}/source/js/jquery.js"></script>
+	href="${contextPath}/assets/css/companyList.css?after">
+<script src="${contextPath}/assets/js/jquery.js"></script>
 </head>
 <body>
 	<c:choose>
 		<c:when test="${sessionScope.dto.s_name == 'admin' }">
-			<c:import url="/source/jsp/ChartMenubar.jsp" />
+			<c:import url="/assets/jsp/ChartMenubar.jsp" />
 			<div class="content-wrapper clearfix">
 				<div class="container-fluid board-article">
 					<table border="1" id="main">
@@ -72,79 +72,7 @@
 							</form>
 						</div>
 					</nav>
-
-					<nav class="pagination-wrapper">
-						<ul class="pagination justify-content-center">
-							<c:if test="${requestScope.pagingInfo.currentPage > 1}">
-								<li class="page-item"><a class="page-link"
-									href="<c:url value='list.do'>
-                                        <c:param name='page' value='1'/>
-                                        <c:if test='${not empty requestScope.selectBox}'>
-                                            <c:param name='select-box' value='${requestScope.selectBox}'/>
-                                        </c:if>
-                                        <c:if test='${not empty requestScope.search}'>
-                                            <c:param name='search' value='${requestScope.search}'/>
-                                        </c:if>
-                                    </c:url>">&lt;&lt;</a>
-								</li>
-								<li class="page-item"><a class="page-link"
-									href="<c:url value='list.do'>
-                                        <c:param name='page' value='${requestScope.pagingInfo.currentPage - 1}'/>
-                                        <c:if test='${not empty requestScope.selectBox}'>
-                                            <c:param name='select-box' value='${requestScope.selectBox}'/>
-                                        </c:if>
-                                        <c:if test='${not empty requestScope.search}'>
-                                            <c:param name='search' value='${requestScope.search}'/>
-                                        </c:if>
-                                    </c:url>">&lt;</a>
-								</li>
-							</c:if>
-							<c:set var="startPage"
-								value="${requestScope.pagingInfo.currentPage - 4 > 0 ? requestScope.pagingInfo.currentPage - 4 : 1}" />
-							<c:set var="endPage"
-								value="${startPage + 9 <= requestScope.pagingInfo.noOfPages ? startPage + 9 : requestScope.pagingInfo.noOfPages}" />
-							<c:forEach begin="${startPage}" end="${endPage}" var="i">
-								<li
-									class="page-item ${requestScope.pagingInfo.currentPage == i ? 'active' : ''}">
-									<a class="page-link"
-									href="<c:url value='list.do'>
-                                        <c:param name='page' value='${i}'/>
-                                        <c:if test='${not empty requestScope.selectBox}'>
-                                            <c:param name='select-box' value='${requestScope.selectBox}'/>
-                                        </c:if>
-                                        <c:if test='${not empty requestScope.search}'>
-                                            <c:param name='search' value='${requestScope.search}'/>
-                                        </c:if>
-                                    </c:url>">${i}</a>
-								</li>
-							</c:forEach>
-							<c:if
-								test="${requestScope.pagingInfo.currentPage < requestScope.pagingInfo.noOfPages}">
-								<li class="page-item"><a class="page-link"
-									href="<c:url value='list.do'>
-                                        <c:param name='page' value='${requestScope.pagingInfo.currentPage + 1}'/>
-                                        <c:if test='${not empty requestScope.selectBox}'>
-                                            <c:param name='select-box' value='${requestScope.selectBox}'/>
-                                        </c:if>
-                                        <c:if test='${not empty requestScope.search}'>
-                                            <c:param name='search' value='${requestScope.search}'/>
-                                        </c:if>
-                                    </c:url>">&gt;</a>
-								</li>
-								<li class="page-item"><a class="page-link"
-									href="<c:url value='list.do'>
-                                        <c:param name='page' value='${requestScope.pagingInfo.noOfPages}'/>
-                                        <c:if test='${not empty requestScope.selectBox}'>
-                                            <c:param name='select-box' value='${requestScope.selectBox}'/>
-                                        </c:if>
-                                        <c:if test='${not empty requestScope.search}'>
-                                            <c:param name='search' value='${requestScope.search}'/>
-                                        </c:if>
-                                    </c:url>">&gt;&gt;</a>
-								</li>
-							</c:if>
-						</ul>
-					</nav>
+					<c:import url="/assets/jsp/pagination.jsp"/>
 				</div>
 			</div>
 		</c:when>
@@ -153,7 +81,7 @@
 		</c:otherwise>
 	</c:choose>
 	<span id="contextPath" hidden>${contextPath}</span>
-	<script src="${contextPath}/source/js/list.js"></script>
+	<script src="${contextPath}/assets/js/list.js"></script>
 	<script
 		src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
 	<script
