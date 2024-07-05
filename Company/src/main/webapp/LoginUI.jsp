@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Login</title>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
-<link rel="icon" href="${contextPath}/source/ico/company.ico" />
-<link rel="stylesheet" href="${contextPath}/source/css/login.css?after">
-<script src="${contextPath}/source/js/jquery.js"></script>
+<link rel="icon" href="${contextPath}/assets/ico/company.ico" />
+<link rel="stylesheet" href="${contextPath}/assets/css/login.css?after">
+<script src="${contextPath}/assets/js/jquery.js"></script>
 </head>
 <body>
     <div id="login" class="login_wrap">
@@ -35,6 +35,6 @@
             </form>
         </div>
     </div>
-<script src="${contextPath}/source/js/login.js"></script>
+<script src="${contextPath}/assets/js/login.js"></script>
 </body>
 </html>

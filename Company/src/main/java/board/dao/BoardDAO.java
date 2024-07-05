@@ -85,25 +85,41 @@ public class BoardDAO {
 		return generatedId;
 	}
 
-	public void deletePost(int postNum) {
-		String deleteQuery = "DELETE FROM " + TABLE_BOARD + " WHERE post_num = ?";
-		String updateQuery = "UPDATE " + TABLE_BOARD + " SET post_num = post_num - 1 WHERE post_num > ?";
+	public boolean deletePost(int b_id, boolean isNotice) {
+	    String sql = null;
+	    if (isNotice)
+	        sql = "DELETE FROM " + TABLE_NOTICE + " WHERE b_id = ?";
+	    else
+	        sql = "DELETE FROM " + TABLE_BOARD + " WHERE b_id = ?";
 
-		try (PreparedStatement pstmt = conn.prepareStatement(deleteQuery)) {
-			pstmt.setInt(1, postNum);
-			pstmt.executeUpdate();
-
-			pstmt.close();
-
-			try (PreparedStatement pstmtUpdate = conn.prepareStatement(updateQuery)) {
-				pstmtUpdate.setInt(1, postNum);
-				pstmtUpdate.executeUpdate();
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+	    try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+	        pstmt.setInt(1, b_id);
+	        int affectedRows = pstmt.executeUpdate();
+	        return affectedRows > 0; // 삭제된 행의 수가 0보다 크면 true 반환
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return false; // 예외 발생 시 false 반환
 	}
+	public boolean updatePost(long b_id, String title, String content, boolean isNotice) {
+	    String sql;
+	    if (isNotice) {
+	        sql = "UPDATE " + TABLE_NOTICE + " SET title = ?, content = ? WHERE b_id = ?";
+	    } else {
+	        sql = "UPDATE " + TABLE_BOARD + " SET title = ?, content = ? WHERE b_id = ?";
+	    }
 
+	    try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+	        pstmt.setString(1, title);
+	        pstmt.setString(2, content);
+	        pstmt.setLong(3, b_id);
+	        int affectedRows = pstmt.executeUpdate();
+	        return affectedRows > 0;
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return false;
+	}
 
 	public void increaseViewCount(long b_id, String category) {
 		String sql = null;
@@ -376,7 +392,6 @@ public class BoardDAO {
 	                board.setTitle(rs.getString("title"));
 	                board.setContent(rs.getString("content"));
 	                board.setS_name(rs.getString("s_name"));
-	                
 	                if (category.equals("nomal")) {
 	                    board.setS_id(rs.getInt("s_id"));
 	                    board.setS_department(rs.getString("s_department"));
@@ -385,7 +400,6 @@ public class BoardDAO {
 	                board.setUpdateTime(rs.getString("updateTime"));
 	                board.setViews(rs.getLong("views"));
 	                board.setCommentCnt(getCommentCount(boardId));
-	                System.out.println("CommentCnt test : "+board.getCommentCnt());
 	            }
 	        }
 	    } catch (SQLException e) {

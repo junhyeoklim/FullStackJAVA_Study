@@ -27,7 +27,7 @@ public class InsertCommentCommand implements Command {
         }
 
         long b_id = Long.parseLong(request.getParameter("b_id"));
-        String content = request.getParameter("content");
+        String content = request.getParameter("content").trim();
         String parentCommentIdParam = request.getParameter("parentCommentId");
         Long parentCommentId = parentCommentIdParam == null || parentCommentIdParam.isEmpty() ? null : Long.parseLong(parentCommentIdParam);
 

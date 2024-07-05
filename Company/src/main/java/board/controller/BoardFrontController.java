@@ -10,13 +10,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import board.command.Command;
+import board.command.DeleteBoardCommand;
 import board.command.DeleteCommentCommand;
 import board.command.IncreaseViewCountCommand;
 import board.command.InsertBoardCommand;
 import board.command.InsertCommentCommand;
 import board.command.ListBoardCommand;
 import board.command.SearchBoardCommand;
-import board.command.UpdateCommentCommand;
+import board.command.UpdateBoardCommand;
+import board.command.ModifyCommentCommand;
 import board.command.ViewBoardCommand;
 
 
@@ -54,8 +56,22 @@ public class BoardFrontController extends HttpServlet {
 		else if(commandName.equals("/SubmitPost.board")) {
 			command = new InsertBoardCommand();
 			command.excute(request, response);
-			response.sendRedirect(request.getContextPath() + USER_VIEW + "/BoardList.board");
+		}
+		else if(commandName.equals("/DeletePost.board")) {
+			command = new DeleteBoardCommand();
+			command.excute(request, response);
+            response.sendRedirect(request.getContextPath() + USER_VIEW + "/BoardList.board");
             return;
+		}
+		else if(commandName.equals("/editPost.board")) {
+			command = new ViewBoardCommand();
+			command.excute(request, response);
+			viewPage = USER_VIEW + "/BoardModifyView.jsp";
+		}
+		else if(commandName.equals("/UpdatePost.board")) {
+		    command = new UpdateBoardCommand();
+		    command.excute(request, response);
+		    return;
 		}
 		else if(commandName.equals("/Newboard.board")) {
 			viewPage = USER_VIEW+"/BoardCreateView.jsp";
@@ -83,7 +99,7 @@ public class BoardFrontController extends HttpServlet {
             command.excute(request, response);
         }
         else if(commandName.equals("/editComment.board")) {
-            command = new UpdateCommentCommand();
+            command = new ModifyCommentCommand();
             command.excute(request, response);
         }
         else if(commandName.equals("/deleteComment.board")) {

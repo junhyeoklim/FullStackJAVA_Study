@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 import board.dao.BoardDAO;
 
-public class UpdateCommentCommand implements Command {
+public class ModifyCommentCommand implements Command {
 
     @Override
     public void excute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

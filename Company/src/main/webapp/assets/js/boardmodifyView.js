@@ -53,6 +53,7 @@ $(document).ready(function() {
         var title = $('#title').val();
         var content = $('#summernote').summernote('code');
         var is_notice = $('#is_notice').is(':checked') ? 'true' : 'false';
+        var b_id = $('#b_id').val();
 
         if (title === "" || $('#summernote').summernote('isEmpty')) {
             if (title === "") {
@@ -69,8 +70,9 @@ $(document).ready(function() {
 
         $.ajax({
             type: 'POST',
-            url: '/Company/SubmitPost.board',
+            url: '/Company/UpdatePost.board',
             data: {
+                b_id: b_id,
                 title: title,
                 content: content,
                 is_notice: is_notice
@@ -80,7 +82,7 @@ $(document).ready(function() {
             },
             error: function(xhr, status, error) {
                 console.log(xhr.responseText);
-                alert('게시글 작성에 실패했습니다: ' + error);
+                alert('게시글 수정에 실패했습니다: ' + error);
             }
         });
     });

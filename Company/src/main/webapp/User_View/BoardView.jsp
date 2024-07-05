@@ -26,226 +26,6 @@
 	rel="stylesheet">
 
 <style>
-body {
-    margin: 0;
-    padding: 0;
-}
-textarea, pre {
-    font-family: Arial, sans-serif; /* 원하는 글꼴로 설정 */
-}
-.container {
-    margin-top: 20px; /* Menubar와의 여백 조절 */
-}
-
-.board-content {
-    margin-bottom: 15px; /* board-content와 comment-section 사이 여백 조절 */
-}
-
-.comment, .reply, .edit-comment, .reply-form {
-    position: relative;
-    margin-left: calc(var(--depth, 0) * 20px);
-    padding: 5px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    margin-bottom: 10px;
-}
-
-.comment-header, .edit-comment-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 5px;
-    border-bottom: 1px solid #ddd;
-}
-
-.comment-body {
-    padding: 5px;
-}
-
-.comment-actions, .reply-actions {
-    display: flex;
-    gap: 5px;
-}
-
-.btn-custom {
-    border-radius: 20px;
-    background-color: #4CAF50; /* 기본 버튼 색상 */
-    color: #fff;
-    padding: 5px 10px;
-    border: none;
-}
-
-.btn-custom:hover {
-    background-color: #45a049; /* 호버 시 버튼 색상 */
-}
-
-.btn-container {
-    display: flex;
-    gap: 5px;
-}
-
-.edit-form-header {
-    padding: 5px;
-    border-bottom: 1px solid #ddd;
-}
-
-.edit-container, .comment-container {
-    display: flex;
-    flex-direction: column;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    padding: 10px;
-    margin-bottom: 10px;
-    position: relative;
-}
-
-.edit-container textarea, .comment-container textarea {
-    width: 100%;
-    border: none;
-    resize: none;
-    padding: 10px;
-    box-sizing: border-box;
-}
-
-.edit-container button, .comment-container button {
-    bottom: 10px;
-    right: 10px;
-}
-
-.edit-container textarea:focus, .comment-container textarea:focus {
-    caret-color: auto;
-    outline: none;
-}
-
-.comment-form-section {
-    margin-top: 20px;
-}
-
-.submit-button {
-    display: flex;
-    justify-content: flex-end;
-    width: 100%;
-    box-sizing: border-box;
-    padding: 0 10px 10px 10px;
-}
-
-.btn-submit {
-    visibility: hidden;
-}
-
-.submit-button button {
-    flex-shrink: 0;
-}
-
-.comment-section {
-    border-top: 1px solid #ddd;
-    border-bottom: 1px solid #ddd;
-    margin-bottom: 30px;
-    padding: 10px 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.comment-section h2 {
-    margin: 0;
-}
-
-.create-post-button {
-    background-color: #2196F3;
-    color: white;
-    padding: 10px 20px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    border-radius: 20px;
-    border: none;
-}
-
-.create-post-button:hover {
-    background-color: #0b7dda;
-}
-
-.post-header {
-    padding: 10px 10px;
-    border-top: 1px solid black;
-    border-bottom: 1px solid black;
-    background-color: #dcdcdc;
-}
-
-.post-title {
-    font-size: 18px; /* 적당한 크기로 줄임 */
-    display: flex;
-    align-items: center;
-    padding: 2.5px 0;
-}
-
-.notice-label {
-    background-color: black;
-    color: white;
-    padding: 2px 8px;
-    margin-right: 10px;
-    border-radius: 5px;
-}
-
-.post-meta {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid #ddd;
-    padding: 10px 0;
-    margin-bottom: 30px;
-}
-
-.post-author {
-    font-weight: bold;
-}
-
-.post-info span {
-    background-color: #f0f0f0;
-    padding: 5px 10px;
-    border-radius: 5px;
-}
-
-/* 로딩 애니메이션 */
-.loader {
-    border: 4px solid #f3f3f3; /* Light grey */
-    border-top: 4px solid #3498db; /* Blue */
-    border-radius: 50%;
-    width: 20px;
-    height: 20px;
-    animation: spin 1s linear infinite;
-    margin: auto;
-}
-
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-/* 버튼의 로딩 상태 스타일 */
-.button-container.loading,
-.submit-button.loading,
-.comment-header.loading {
-    position: relative;
-}
-
-.button-container.loading .btn-submit,
-.submit-button.loading .btn-submit,
-.comment-header.loading .btn-submit {
-    visibility: hidden;
-}
-
-.button-container.loading .loader,
-.submit-button.loading .loader,
-.comment-header.loading .loader {
-    display: block;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
 </style>
 </head>
 <body>
@@ -256,14 +36,33 @@ textarea, pre {
 				<article class="board-article">
 					<div class="container">
 						<c:if test="${not empty board}">
-							<div class="board-content">
+							<div id="boardContent" class="board-content">
+								<c:choose>
+									<c:when test="${param.category eq 'notice'}">
+										<div id="actionLinks" class="action-links">
+											<button class="btn-custom" id="deleteBtn">삭제</button>
+											<button class="btn-custom" id="editBtn">수정</button>
+										</div>
+									</c:when>
+									<c:otherwise>
+										<c:if
+											test="${board.s_id eq sessionScope.dto.s_id || sessionScope.dto.s_name eq 'admin'}">
+											<div id="actionLinks" class="action-links">
+												<c:if test="${sessionScope.dto.s_name eq 'admin'}">
+													<button class="btn-custom" id="deleteBtn">삭제</button>
+												</c:if>
+												<c:if test="${board.s_id eq sessionScope.dto.s_id}">
+													<button class="btn-custom" id="editBtn">수정</button>
+												</c:if>
+											</div>
+										</c:if>
+									</c:otherwise>
+								</c:choose>
 								<div class="post-header">
 									<div class="post-title">
-										<c:choose>
-											<c:when test="${param.category eq 'notice'}">
-												<span class="notice-label">공지</span>
-											</c:when>
-										</c:choose>
+										<c:if test="${param.category eq 'notice'}">
+											<span class="notice-label">공지</span>
+										</c:if>
 										${board.title}
 									</div>
 								</div>
@@ -382,12 +181,52 @@ textarea, pre {
     }
 
     document.addEventListener('DOMContentLoaded', function() {
+    	
+        // 삭제 버튼 이벤트 핸들러
+        $(document).on('click', '#deleteBtn', function() {
+            const isNotice = "${param.category}" === "notice";
+            const b_id = ${board.b_id};
+
+            if (confirm('게시물을 삭제하시겠습니까?')) {
+                console.log("삭제 요청 데이터: ", { b_id: b_id, isNotice: isNotice }); // 요청 데이터 출력
+
+                $.ajax({
+                    type: 'POST',
+                    url: '${contextPath}/DeletePost.board', // 서버에서 삭제 처리를 위한 URL
+                    data: { b_id: b_id, isNotice: isNotice },
+                    success: function(response) {
+                    	 alert('게시물 삭제에 실패했습니다.');
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('AJAX 오류: ', error); // 오류 메시지를 콘솔에 출력
+                        console.error('서버 응답: ', xhr.responseText); // 서버 응답을 콘솔에 출력
+
+                        if (xhr.responseJSON && xhr.responseJSON.status === 'success') {
+                        	alert('게시물이 삭제되었습니다.');
+                            window.location.href = '${contextPath}/BoardList.board'; // 게시물 목록 페이지로 이동
+                        } else {
+                            alert('게시물 삭제 중 오류가 발생했습니다.');
+                        }
+                    }
+                });
+            }
+        });
+
+
+        // 수정 버튼 이벤트 핸들러
+         $(document).on('click','#editBtn', function() {
+            window.location.href = '${contextPath}/editPost.board?b_id=${board.b_id}&category=${param.category}'; // 수정 페이지로 이동
+        });
+    	
+    	
+    	
         $('#comment-form').submit(function(e) {
             e.preventDefault();
+            const content = $('#content').val().trim();
             $.ajax({
                 type: 'POST',
                 url: '${contextPath}/addComment.board',
-                data: $(this).serialize(),
+                data: $(this).serialize() + '&content=' + encodeURIComponent(content),
                 success: function(response) {
                     if (response.status === 'success') {
                         location.reload(); // 댓글 추가 후 페이지 새로고침
@@ -400,7 +239,7 @@ textarea, pre {
                 }
             });
         });
-
+        
         $(document).on('click', '.reply-btn', function() {
             const parentComment = $(this).closest('.comment, .reply');
             const existingReplyForm = parentComment.next('.reply-form');
@@ -602,6 +441,17 @@ textarea, pre {
         $(document).on('click', '.comment-container', function() {
             $(this).find('textarea').focus();
         });
+        
+        const actionLinks = document.getElementById('actionLinks');
+        const boardContent = document.getElementById('boardContent');
+
+        if (actionLinks) {
+            boardContent.style.paddingTop = '0'; // 링크가 있을 때의 padding 값
+        } else {
+            boardContent.style.paddingTop = '32px'; // 링크가 없을 때의 padding 값
+        }
+        
+        
     });
     </script>
 </body>
