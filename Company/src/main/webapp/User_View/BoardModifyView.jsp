@@ -33,6 +33,115 @@
             href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-bs4.css"
             rel="stylesheet">
     <script src="${contextPath}/assets/js/boardmodifyView.js"></script>
+    <style>
+        .file-item {
+            margin-bottom: 10px;
+            margin-left: 10px;
+            margin-right: 10px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .file-header {
+            display: flex;
+            align-items: center;
+            padding: 5px 10px;
+            background-color: #F7F7F9;
+            border-bottom: solid 1px #E6E6EA;
+            position: sticky;
+            top: 0;
+            z-index: 1;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .file-header .file-info {
+            flex-grow: 1;
+            margin-left: 10px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .file-size-header {
+            margin-left: auto;
+            margin-right: 10px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .file-list-container {
+            max-width: 50em;
+            margin-top: 10px;
+            border: solid 1px #E6E6EA;
+            width: 100%;
+        }
+
+        #fileCount {
+            margin-left: 10px;
+            font-weight: bold;
+        }
+
+        .hidden-file-input {
+            display: none;
+        }
+
+        .form-check, .btn-create-submit {
+            margin-top: 10px;
+        }
+
+        .btn-file-select, .btn-submit-post {
+            background-color: #C0C0C0 !important;
+            border: 1px solid #CED4DA;
+            font-weight: bold !important;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .btn-file-select:hover, .btn-submit-post:hover {
+            background-color: #A9A9A9 !important;
+            border-color: #A9A9A9 !important;
+        }
+
+        .btn-submit-post {
+            margin-top: 10px;
+        }
+
+        @media (max-width: 600px) {
+            .file-list-container, .file-header, .file-item, .file-info, .file-size-header, .btn-file-select, .btn-submit-post, #fileCount {
+                width: 100%;
+                margin: 0;
+                padding: 5px;
+            }
+
+            .file-header, .file-item {
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+            }
+
+            .file-size-header {
+                margin-left: 0;
+                margin-top: 5px;
+            }
+
+            .btn-file-select, .btn-submit-post {
+                width: 100%;
+                margin-top: 10px;
+            }
+
+            .file-info {
+                flex-grow: 1;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+        }
+    </style>
 </head>
 <body>
 <c:choose>
@@ -54,6 +163,36 @@
                                          <input type="hidden" id="b_id" value="${board.b_id}">
                                     </div>
                                 </div>
+                            </div>
+                            <div class="mt-3 d-flex align-items-center">
+                                <span>
+                                    <button type="button" class="btn btn-file-select" id="fileSelectButton">파일 선택</button>
+                                    <input type="file" id="fileAttachment" name="fileAttachment" class="hidden-file-input" multiple>
+                                </span>
+                                <c:choose>
+                                    <c:when test="${empty files}">
+                                        <span id="fileCount">선택된 파일 없음</span>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <span id="fileCount">선택된 파일: ${fn:length(files)}개</span>
+                                    </c:otherwise>
+                                </c:choose>
+                            </div>
+                            <div id="fileList" class="mt-3 file-list-container" style="max-height: 150px; overflow-y: auto;">
+                                <div class="file-header">
+                                    <button type="button" class="btn btn-danger btn-sm remove-all-files">x</button>
+                                    <span class="file-info">파일명</span>
+                                    <span class="file-size-header">용량</span>
+                                </div>
+                                <c:forEach var="file" items="${files}">
+                                    <div class="file-item d-flex justify-content-between align-items-center mt-2">
+                                        <div class="d-flex align-items-center">
+                                            <button type="button" class="btn btn-danger btn-sm remove-file mr-2" data-filepath="${file.file_path}">x</button>
+                                            <span class="file-info">${file.file_name}</span>
+                                        </div>
+                                        <span class="existing-file-size" data-filepath="${file.file_path}">계산 중...</span>
+                                    </div>
+                                </c:forEach>
                             </div>
                         </div>
                         <div id="SmartEditor" class="CafeEditor">
