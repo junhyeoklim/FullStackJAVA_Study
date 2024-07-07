@@ -44,6 +44,7 @@ span{
     max-width: 800px;
     margin: 0 auto;
     margin-top: 25px;
+    margin-bottom: 2em;
 }
 
 .WritingWrap {
@@ -54,6 +55,10 @@ span{
 .WritingHeader .title {
     margin: 0;
     font-size: 1.5em;
+    
+}
+.WritingHeader{
+	text-align: center;
 }
 
 .WritingContent {

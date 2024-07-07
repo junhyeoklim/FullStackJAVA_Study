@@ -12,6 +12,12 @@ textarea, pre {
 .board-content {
     margin-bottom: 15px; /* board-content와 comment-section 사이 여백 조절 */
 }
+.board-custom-content{
+	padding-left: 10px;
+	padding-right: 10px;
+	margin-top: 15px;
+	margin-bottom: 15px;
+}
 
 .comment, .reply, .edit-comment, .reply-form {
     position: relative;
@@ -176,7 +182,8 @@ textarea, pre {
     align-items: center;
     border-bottom: 1px solid #ddd;
     padding: 10px 0;
-    margin-bottom: 30px;
+  	padding-left: 10px;
+    margin-bottom: 10px;
 }
 
 .post-author {

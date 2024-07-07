@@ -6,9 +6,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 
 import board.dto.BoardDTO;
 import board.dto.CommentDTO;
+import board.dto.FileDTO;
 import common.db.JDBCConnector;
 import common.dto.PageDTO;
 
@@ -17,6 +19,7 @@ public class BoardDAO {
 	private final String TABLE_BOARD = "board";
 	private final String TABLE_NOTICE = "notice_board";
 	private final String TABLE_COMMENT = "comment";
+	private final String TABLE_FILE = "file";
 	private static Connection conn;
 
 	private BoardDAO() {
@@ -84,6 +87,22 @@ public class BoardDAO {
 		}
 		return generatedId;
 	}
+	public void insertFiles(List<FileDTO> fileList) throws SQLException {
+	    String sql = "INSERT INTO file (b_id, s_id, user_type, file_name, file_path, board_type) VALUES (?, ?, ?, ?, ?, ?)";
+	    try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+	        for (FileDTO file : fileList) {
+	            pstmt.setLong(1, file.getB_id());
+	            pstmt.setInt(2, file.getS_id());
+	            pstmt.setString(3, file.getUser_type());
+	            pstmt.setString(4, file.getFile_name());
+	            pstmt.setString(5, file.getFile_path());
+	            pstmt.setString(6, file.getBoard_type());
+	            pstmt.addBatch();
+	        }
+	        pstmt.executeBatch();
+	    }
+	}
+
 
 	public boolean deletePost(int b_id, boolean isNotice) {
 	    String sql = null;
@@ -285,6 +304,33 @@ public class BoardDAO {
 
         return list;
     }
+    
+    public ArrayList<FileDTO> getFilesByBoardId(long b_id) {
+        ArrayList<FileDTO> files = new ArrayList<>();
+        String sql = "SELECT * FROM file WHERE b_id = ?";
+
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setLong(1, b_id);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    FileDTO file = new FileDTO();
+                    file.setF_id(rs.getLong("f_id"));
+                    file.setB_id(rs.getLong("b_id"));
+                    file.setS_id(rs.getInt("s_id"));
+                    file.setUser_type(rs.getString("user_type"));
+                    file.setFile_name(rs.getString("file_name"));
+                    file.setFile_path(rs.getString("file_path"));
+                    file.setUploadTime(rs.getString("uploadTime"));
+                    file.setBoard_type(rs.getString("board_type"));
+                    files.add(file);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return files;
+    }
+    
 
 	public ArrayList<BoardDTO> searchBoard(PageDTO pageDTO, String kindOfSearch, String searchKeyword) {
 		ArrayList<BoardDTO> list = new ArrayList<>();

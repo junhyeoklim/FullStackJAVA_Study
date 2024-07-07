@@ -72,7 +72,7 @@
 							</form>
 						</div>
 					</nav>
-					<c:import url="/assets/jsp/pagination.jsp"/>
+					<c:import url="/assets/jsp/companyPagination.jsp"/>
 				</div>
 			</div>
 		</c:when>

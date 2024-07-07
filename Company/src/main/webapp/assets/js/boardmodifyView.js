@@ -25,6 +25,10 @@ $(document).ready(function() {
         ]
     });
 
+    // Add this line to set the content to summernote
+    var content = $('#content').text();
+    $('#summernote').summernote('code', content);
+
     $("#title").on('input', function() {
         isFormModified = true;
     });

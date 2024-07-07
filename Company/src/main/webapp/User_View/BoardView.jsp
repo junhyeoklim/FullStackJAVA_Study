@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html>
@@ -26,6 +25,50 @@
 	rel="stylesheet">
 
 <style>
+    .file-dropdown {
+        display: inline-block;
+        position: relative;
+        margin-bottom: 10px;
+    }
+
+    .file-dropdown-content {
+        display: none;
+        position: absolute;
+        top: 80%;
+        right: 0; /* 오른쪽 끝에 맞춤 */
+        background-color: #f9f9f9;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+        max-height: 200px; /* 최대 높이 설정 */
+        overflow-y: auto; /* 스크롤 생기게 하기 */
+    }
+
+    .file-dropdown:hover .file-dropdown-content {
+        display: block;
+    }
+
+    .file-dropdown-content a {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+        white-space: nowrap; /* 줄 바꿈 안 하게 설정 */
+        overflow: hidden;
+        text-overflow: ellipsis; /* 넘칠 경우 ... 표시 */
+    }
+
+    .file-dropdown-content a:hover {
+        background-color: #f1f1f1;
+    }
+   .post-files {
+        margin-top: 0;
+        margin-right: 10px;
+        text-align: right; /* 우측 정렬 */
+    }
+    .btn-file{
+    	margin-bottom: 15px;
+    }
 </style>
 </head>
 <body>
@@ -79,7 +122,28 @@
 											${board.views}</span> | <span>작성일 ${board.createTime}</span>
 									</div>
 								</div>
-								<div class="board-content">
+									<div class="post-files">
+										<c:choose>
+											<c:when test="${not empty files}">
+												<div class="file-dropdown">
+													<button class="btn btn-info btn-file">
+														첨부파일 [${fn:length(files)}]
+													</button>
+													<div class="file-dropdown-content">
+														<c:forEach var="file" items="${files}">
+															<a href="${contextPath}${file.file_path}" download="${file.file_name}">
+																${file.file_name}
+															</a>
+														</c:forEach>
+													</div>
+												</div>
+											</c:when>
+											<c:otherwise>
+												<span class="btn btn-info btn-file">첨부파일 [0]</span>
+											</c:otherwise>
+										</c:choose>
+									</div>
+								<div class="board-content board-custom-content">
 									<div>${board.content}</div>
 								</div>
 							</div>
@@ -195,15 +259,16 @@
                     url: '${contextPath}/DeletePost.board', // 서버에서 삭제 처리를 위한 URL
                     data: { b_id: b_id, isNotice: isNotice },
                     success: function(response) {
-                    	 alert('게시물 삭제에 실패했습니다.');
+                    	alert('게시물이 삭제되었습니다.');
+                        window.location.href = '${contextPath}/BoardList.board'; // 게시물 목록 페이지로 이동
+                    	 
                     },
                     error: function(xhr, status, error) {
                         console.error('AJAX 오류: ', error); // 오류 메시지를 콘솔에 출력
                         console.error('서버 응답: ', xhr.responseText); // 서버 응답을 콘솔에 출력
 
                         if (xhr.responseJSON && xhr.responseJSON.status === 'success') {
-                        	alert('게시물이 삭제되었습니다.');
-                            window.location.href = '${contextPath}/BoardList.board'; // 게시물 목록 페이지로 이동
+                        	alert('게시물 삭제에 실패했습니다.');	
                         } else {
                             alert('게시물 삭제 중 오류가 발생했습니다.');
                         }

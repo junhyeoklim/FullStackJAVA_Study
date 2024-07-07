@@ -1,5 +1,6 @@
 package board.dto;
 
+import java.util.List;
 
 public class BoardDTO {
     private long b_id;
@@ -14,7 +15,7 @@ public class BoardDTO {
     private long views;
     private int commentCnt;
     private boolean isNotice;
-    
+    private List<FileDTO> fileList; 
     
     
     
@@ -92,4 +93,12 @@ public class BoardDTO {
 	public void setCommentCnt(int commentCnt) {
 		this.commentCnt = commentCnt;
 	}
+	public List<FileDTO> getFileList() {
+		return fileList;
+	}
+	public void setFileList(List<FileDTO> fileList) {
+		this.fileList = fileList;
+	}
+	
+	
 }

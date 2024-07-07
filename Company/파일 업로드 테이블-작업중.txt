@@ -1,9 +1,0 @@
-CREATE TABLE file (
-    file_id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    b_id BIGINT,
-    filename VARCHAR(150) NOT NULL,
-    filepath VARCHAR(300) NOT NULL,
-    filetype VARCHAR(50) NOT NULL,
-    uploadTime DATETIME DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (b_id) REFERENCES board(b_id) ON DELETE CASCADE
-);
