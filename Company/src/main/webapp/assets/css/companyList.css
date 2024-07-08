@@ -1,158 +1,64 @@
-table#main{
-    width: 700px;
-} 
-table#main tr:nth-of-type(1) td{
-    border-bottom: 1px solid black;
+body {
+    background-color: #f8f9fa;
 }
 
-table#main tr td:nth-of-type(1){
-    padding-left: 10px; 
+.container {
+    max-width: 1200px;
 }
 
-table#main tr td:nth-of-type(2),
-table#main tr td:nth-of-type(3){
-    padding-left: 10px;
-    padding-right: 10px;
+.card {
+    border-radius: 0.75rem;
 }
 
-#page_control{
-    text-align: center;
-    position: relative;
-    margin-bottom: 100px
-}
-
-a{
-     text-decoration:none !important; 
-}
-
-#search {
-    width : 200px;
-    vertical-align: middle;
-}
-
-#select-box{
-    margin-right: 10px;
-}
-
-#select-box,#search,#sbtn{
-    height: 34px;
-    margin-top: 5px;
-}
-
-#listsearch{
-    width: 300px;
-    margin: 0 auto;
-    text-align: right;
-}
-
-.content-wrapper{
-    max-width: 1300px;
-    display: grid;
-}
-
-@media screen and (max-width: 991px) {
-    .content-wrapper {
-        grid-template-columns: 1fr !important;
-    }
-}
-
-@media screen and (max-width: 991px) {
-    .containe-fluid {
-        border-width: 0;
-        border-radius: 0;
-    }
-}
-
-@media screen and (max-width: 991px) {
-    .board-article {
-        margin-right: 0;
-        padding: 1rem 0 1rem 1rem;
-    }
-}
-
-.page-item:first-child, .page-link{
-    margin-left: 0;
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-}
-
-.pagination-wrapper {
-    margin-top: .5rem;
-    margin-bottom: 20px;
-}
-
-.pagination{
-    margin: 0;
-    text-align: center;
-    flex-wrap: wrap;
-    display: flex;
-    padding-left: 0;
-    list-style: none;
-    border-radius: 0;
-}
-
-.justify-content-center {
-    justify-content: center !important;
-}
-
-.page-link {
-    color: var(--color-text);
-    background-color: var(--color-bg-main);
-    border-color: var(--color-bd-outer);
-    padding: .5rem .6rem;
-}
-
-.page-link{
-    position: relative;
-    display: block;
-    padding: .5rem .75rem;
-    margin-left: -1px;
-    line-height: 1.25;
+.card-header {
     background-color: #fff;
-    border: 1px solid #dee2e6;
+    border-bottom: 1px solid #dee2e6;
 }
 
-/* 추가된 스타일 */
-
-.vcol {
-    display: inline-block;
-    vertical-align: top;
-    text-align: center;
-    white-space: nowrap;
+.card-title {
+    margin-bottom: 0.75rem;
 }
 
-.col-id {
-    width: 50px; /* 고정 너비 값으로 설정하여 번호 열의 크기 조정 */
+.card-footer {
+    background-color: #fff;
+    border-top: 1px solid #dee2e6;
 }
 
-.col-title {
-    width: calc(100% - 200px); /* 제목의 너비를 나머지 공간으로 설정 */
-}
-
-.col-author {
-    width: 100px; /* 작성자 열의 너비 조정 */
-}
-
-.col-time {
-    width: 120px; /* 작성일 열의 너비 조정 */
-    overflow: hidden;
-    text-overflow: ellipsis; /* 텍스트 오버플로우 시 생략 표시(...) 추가 */
-}
-
-.col-view {
-    width: 80px; /* 조회수 열의 너비 조정 */
-}
-
-.vrow-top, .vrow-bottom {
+.form-inline {
     display: flex;
-    justify-content: space-between;
+    flex-wrap: nowrap;
     align-items: center;
 }
 
-.vrow-top {
-    padding: 10px 0;
+.form-inline .form-group {
+    margin-right: 1rem;
 }
 
-.vrow-bottom {
-    padding: 5px 0;
+.form-inline .form-control {
+    margin-right: 0.5rem;
+}
+
+.form-inline .btn {
+    margin-right: 0.5rem;
+}
+
+.text-center {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+@media (max-width: 768px) {
+    .form-inline {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .form-inline .form-group {
+        margin-bottom: 1rem;
+        margin-right: 0;
+    }
+    
+    .form-inline .form-control {
+        margin-bottom: 0.5rem;
+    }
 }

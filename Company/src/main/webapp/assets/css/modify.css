@@ -1,20 +1,32 @@
-table#modify{
-    width: 600px;
-    height: 200px;
-}
-table#modify td:first-of-type{
-    text-align: center;
-}
-table#modify td:not(:first-of-type){
-    padding-left: 10px;
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
 }
 
-table#modify input:not(input[type="submit"],input[type="reset"],input[type="button"]){    
-    height: 16px; /* 입력 박스 높이 고정 */
-    line-height: 30px; /* 입력 박스 줄 간격 고정 */
+.card {
+    margin-bottom: 20px;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
-table#modify input[type="number"]::-webkit-outer-spin-button,
-table#modify input[type="number"]::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
+
+.card-body {
+    padding: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-control {
+    height: calc(1.5em + 0.75rem + 2px);
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+}
+
+.text-center {
+    margin-top: 20px;
 }
