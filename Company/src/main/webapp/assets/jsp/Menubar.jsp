@@ -14,45 +14,60 @@
 <script src="${contextPath}/assets/js/menubar.js"></script>
 
 <style>
-	.navbar-collapse{
-		/* width: 1300px; */
-		text-align: left;
-	}
+    .navbar-collapse {
+        text-align: left;
+    }
+    .user-menu-link {
+        margin-right: 10px;
+        display: flex;
+        align-items: center;
+    }
+    .navbar-wrapper .navbar-nav .user-info {
+        color: white;
+        display: flex;
+        align-items: center;
+    }
+    .user-ion {
+        font-size: 1.5rem;
+        margin-left: 5px;
+    }
+    /* 드롭다운 화살표 숨기기 */
+    .dropdown-toggle::after {
+        display: none;
+    }
 </style>
 </head>
 <body>
+<span id="uname" hidden>${sessionScope.dto.s_name}</span>
 <nav class="navbar navbar-expand-lg bg-dark navbar-dark navbar-wrapper" id="menubar">
     <div class="container-fluid">
-        <a class="navbar-brand" href="BoardList.board">Main</a>
+        <a class="navbar-brand" href="${contextPath}/BoardList.board">Main</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
-            <ul class="navbar-nav" id="main-menu">
-                <li class="nav-item"><a class="nav-link" href="${contextPath}/BoardList.board">(공사중)게시판</a></li>
-                <li class="nav-item"><a class="nav-link" href="${contextPath}/logout.do">(임시)로그아웃</a></li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">Dropdown link</a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <li><a class="dropdown-item" href="#">ee</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
-                    </ul>
-                </li>
-            </ul>
-            <ul class="nav navbar-nav ml-auto ml-lg-0">
-                <li>
-                    <a href="#" class="nav-link user-menu-link">
-                        <ion-icon name="person-outline" class="user-ion"></ion-icon>
+            <ul class="nav navbar-nav ml-auto mr-2">
+                <li class="nav-item dropdown user-info">
+                    <c:if test="${not empty sessionScope.dto }">
+                        <c:choose>
+                            <c:when test="${sessionScope.dto.s_name eq 'admin' }">
+                                관리자
+                            </c:when>
+                            <c:otherwise>
+                                ${sessionScope.dto.s_name }
+                            </c:otherwise>
+                        </c:choose>
+                    </c:if>
+                    <a class="nav-link dropdown-toggle user-menu-link" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <ion-icon name="settings-outline" class="user-ion"></ion-icon>
                     </a>
+                    <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown" id="user-dropdown-menu">
+                        <li><a class="dropdown-item" href="${contextPath}/logout.do">로그아웃</a></li>
+                    </ul>
                 </li>
             </ul>
         </div>
     </div>
-    <!--
-    	아이콘 관련 자료 : https://didyousee36sam.tistory.com/14
-      -->
 </nav>
-<span id="uname" hidden>${sessionScope.dto.s_name}</span>
 </body>
 </html>

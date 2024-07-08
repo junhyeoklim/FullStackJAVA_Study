@@ -105,21 +105,65 @@ public class BoardDAO {
 
 
 	public boolean deletePost(int b_id, boolean isNotice) {
-	    String sql = null;
-	    if (isNotice)
-	        sql = "DELETE FROM " + TABLE_NOTICE + " WHERE b_id = ?";
-	    else
-	        sql = "DELETE FROM " + TABLE_BOARD + " WHERE b_id = ?";
+	    String deletePostSql = null;
+	    String deleteFilesSql = "DELETE FROM file WHERE b_id = ? AND board_type = ?";
+	    String resetNumSql = "SET @num := 0";
+	    String updateSql = null;
 
-	    try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-	        pstmt.setInt(1, b_id);
-	        int affectedRows = pstmt.executeUpdate();
-	        return affectedRows > 0; // 삭제된 행의 수가 0보다 크면 true 반환
+	    if (isNotice) {
+	        deletePostSql = "DELETE FROM notice_board WHERE b_id = ?";
+	        updateSql = "UPDATE notice_board SET post_num = @num := (@num+1) ORDER BY post_num";
+	    } else {
+	        deletePostSql = "DELETE FROM board WHERE b_id = ?";
+	        updateSql = "UPDATE board SET post_num = @num := (@num+1) ORDER BY post_num";
+	    }
+
+	    try {
+	        conn.setAutoCommit(false); // 트랜잭션 시작
+
+	        // 파일 삭제
+	        try (PreparedStatement deleteFilesPstmt = conn.prepareStatement(deleteFilesSql)) {
+	            deleteFilesPstmt.setInt(1, b_id);
+	            deleteFilesPstmt.setString(2, isNotice ? "notice" : "board");
+	            deleteFilesPstmt.executeUpdate();
+	        }
+
+	        // 게시물 삭제
+	        try (PreparedStatement deletePostPstmt = conn.prepareStatement(deletePostSql)) {
+	            deletePostPstmt.setInt(1, b_id);
+	            int affectedRows = deletePostPstmt.executeUpdate();
+
+	            if (affectedRows > 0) {
+	                // 변수 초기화
+	                try (Statement resetStmt = conn.createStatement()) {
+	                    resetStmt.execute(resetNumSql);
+	                }
+
+	                // post_num 순서대로 업데이트
+	                try (Statement updateStmt = conn.createStatement()) {
+	                    updateStmt.executeUpdate(updateSql);
+	                }
+	                conn.commit(); // 트랜잭션 커밋
+	                return true;
+	            }
+	        } catch (SQLException e) {
+	            conn.rollback(); // 예외 발생 시 롤백
+	            e.printStackTrace();
+	        }
 	    } catch (SQLException e) {
 	        e.printStackTrace();
+	    } finally {
+	        try {
+	            conn.setAutoCommit(true); // 자동 커밋 모드로 복귀
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
 	    }
-	    return false; // 예외 발생 시 false 반환
+	    return false;
 	}
+
+
+	
 	public boolean updatePost(long b_id, String title, String content, boolean isNotice) {
 	    String sql;
 	    if (isNotice) {
@@ -371,7 +415,7 @@ public class BoardDAO {
 				board.setCreateTime(rs.getString("createTime"));
 				board.setUpdateTime(rs.getString("updateTime"));
 				board.setViews(rs.getLong("views"));
-				board.setCommentCnt(rs.getInt("commentCnt"));
+				board.setCommentCnt(getCommentCount(board.getB_id()));
 				list.add(board);
 			}
 

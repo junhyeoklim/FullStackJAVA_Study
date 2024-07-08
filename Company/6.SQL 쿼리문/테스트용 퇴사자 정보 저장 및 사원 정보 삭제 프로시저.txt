@@ -1,0 +1,67 @@
+/*DROP PROCEDURE IF EXISTS ProcessResignations;*/
+
+
+
+DELIMITER $$
+
+CREATE PROCEDURE ProcessResignations()
+BEGIN
+    DECLARE v_start_date DATE DEFAULT '2022-01-01';
+    DECLARE v_end_date DATE DEFAULT CURRENT_DATE;
+    DECLARE v_current_date DATE;
+    DECLARE v_num_of_resignations INT;
+    DECLARE v_counter INT;
+    DECLARE v_random_days INT;
+    DECLARE v_join_date DATE;
+    DECLARE v_resign_date DATE;
+    
+    -- 초기 날짜 설정
+    SET v_current_date = v_start_date;
+    
+    -- 날짜별로 반복
+    WHILE v_current_date <= v_end_date DO
+        -- 각 월마다 1~10명의 퇴사자를 랜덤으로 설정
+        SET v_num_of_resignations = FLOOR(1 + (RAND() * 10));
+        
+        -- 각 월의 퇴사자 처리
+        SET v_counter = 0;
+        WHILE v_counter < v_num_of_resignations DO
+            -- 랜덤으로 퇴사자를 선택
+            SET @selected_id = (
+                SELECT s_id 
+                FROM salary_man 
+                WHERE DATE_FORMAT(Join_Date, '%Y-%m') <= DATE_FORMAT(v_current_date, '%Y-%m')
+                ORDER BY RAND()
+                LIMIT 1
+            );
+            
+            -- 퇴사자 join_date를 가져옴
+            SET v_join_date = (SELECT Join_Date FROM salary_man WHERE s_id = @selected_id);
+            
+            -- 최소 1일에서 최대 1년 후의 랜덤 날짜를 계산
+            SET v_random_days = FLOOR(1 + (RAND() * 365));
+            SET v_resign_date = DATE_ADD(v_join_date, INTERVAL v_random_days DAY);
+            
+            -- 퇴사자 정보를 join_resign 테이블에 삽입
+            INSERT INTO join_resign (s_date, s_department, s_gender, s_rank, s_birth)
+            VALUES (v_resign_date, 
+                    (SELECT s_department FROM salary_man WHERE s_id = @selected_id),
+                    (SELECT s_gender FROM salary_man WHERE s_id = @selected_id),
+                    (SELECT s_rank FROM salary_man WHERE s_id = @selected_id),
+                    (SELECT s_birth FROM salary_man WHERE s_id = @selected_id)
+                   );
+            
+            -- salary_man 테이블에서 삭제
+            DELETE FROM salary_man WHERE s_id = @selected_id;
+            
+            SET v_counter = v_counter + 1;
+        END WHILE;
+        
+        -- 다음 달로 이동
+        SET v_current_date = DATE_ADD(v_current_date, INTERVAL 1 MONTH);
+    END WHILE;
+END$$
+
+DELIMITER ;
+
+CALL ProcessResignations();

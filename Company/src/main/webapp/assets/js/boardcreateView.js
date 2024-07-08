@@ -123,6 +123,12 @@ $(document).ready(function() {
 
         var title = $('#title').val();
         var content = $('#summernote').summernote('code');
+
+        // 첫 번째 이미지 태그를 찾고 그 앞에 <br> 태그를 추가하는 부분
+        var contentWithBreak = content.replace(/(<img[^>]*>)/, function(match, imgTag) {
+            return '<br>' + imgTag;
+        });
+
         var is_notice = $('#is_notice').is(':checked') ? 'true' : 'false';
 
         if (title === "" || $('#summernote').summernote('isEmpty')) {
@@ -143,7 +149,7 @@ $(document).ready(function() {
             url: '/Company/SubmitPost.board',
             data: {
                 title: title,
-                content: content,
+                content: contentWithBreak,
                 is_notice: is_notice
             },
             success: function(response) {

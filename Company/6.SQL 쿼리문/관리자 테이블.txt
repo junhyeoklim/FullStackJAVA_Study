@@ -1,0 +1,15 @@
+/*CREATE TABLE admin(
+	id varchar(20) PRIMARY KEY,
+	name varchar(10) NOT NULL,
+	pwd varchar(10) NOT NULL
+);*/
+/*테스트용 관리자 아이디 */
+INSERT INTO admin VALUES('admin','관리자',1234);
+
+
+CREATE TABLE admin(
+	s_id INT PRIMARY KEY,
+	s_name varchar(10) NOT NULL
+);
+
+INSERT INTO admin VALUES(1234,'admin');

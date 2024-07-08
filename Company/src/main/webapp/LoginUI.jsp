@@ -29,7 +29,6 @@
                     </div>
                     <div class="login_set">
                         <input type="submit" value="로그인" class="btn_inout login">
-                        <div class="a_container"><a href="/Company/Admin_View/list.do">임시 리스트 확인 페이지</a></div>
                     </div>
                 </fieldset>
             </form>

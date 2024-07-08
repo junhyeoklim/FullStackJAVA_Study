@@ -24,52 +24,6 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 	rel="stylesheet">
 
-<style>
-    .file-dropdown {
-        display: inline-block;
-        position: relative;
-        margin-bottom: 10px;
-    }
-
-    .file-dropdown-content {
-        display: none;
-        position: absolute;
-        top: 80%;
-        right: 0; /* 오른쪽 끝에 맞춤 */
-        background-color: #f9f9f9;
-        min-width: 160px;
-        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-        z-index: 1;
-        max-height: 200px; /* 최대 높이 설정 */
-        overflow-y: auto; /* 스크롤 생기게 하기 */
-    }
-
-    .file-dropdown:hover .file-dropdown-content {
-        display: block;
-    }
-
-    .file-dropdown-content a {
-        color: black;
-        padding: 12px 16px;
-        text-decoration: none;
-        display: block;
-        white-space: nowrap; /* 줄 바꿈 안 하게 설정 */
-        overflow: hidden;
-        text-overflow: ellipsis; /* 넘칠 경우 ... 표시 */
-    }
-
-    .file-dropdown-content a:hover {
-        background-color: #f1f1f1;
-    }
-   .post-files {
-        margin-top: 0;
-        margin-right: 10px;
-        text-align: right; /* 우측 정렬 */
-    }
-    .btn-file{
-    	margin-bottom: 15px;
-    }
-</style>
 </head>
 <body>
 	<c:choose>
@@ -83,22 +37,22 @@
 								<c:choose>
 									<c:when test="${param.category eq 'notice'}">
 										<div id="actionLinks" class="action-links">
-											<button class="btn-custom" id="deleteBtn">삭제</button>
-											<button class="btn-custom" id="editBtn">수정</button>
+											<c:if test="${sessionScope.dto.s_name eq 'admin' }">
+												<button class="btn-custom" id="deleteBtn">삭제</button>
+												<button class="btn-custom" id="editBtn">수정</button>
+											</c:if>
 										</div>
 									</c:when>
 									<c:otherwise>
-										<c:if
-											test="${board.s_id eq sessionScope.dto.s_id || sessionScope.dto.s_name eq 'admin'}">
-											<div id="actionLinks" class="action-links">
-												<c:if test="${sessionScope.dto.s_name eq 'admin'}">
-													<button class="btn-custom" id="deleteBtn">삭제</button>
-												</c:if>
-												<c:if test="${board.s_id eq sessionScope.dto.s_id}">
-													<button class="btn-custom" id="editBtn">수정</button>
-												</c:if>
-											</div>
-										</c:if>
+										<div id="actionLinks" class="action-links">
+											<c:if
+												test="${board.s_id eq sessionScope.dto.s_id || sessionScope.dto.s_name eq 'admin'}">
+												<button class="btn-custom" id="deleteBtn">삭제</button>
+											</c:if>
+											<c:if test="${board.s_id eq sessionScope.dto.s_id}">
+												<button class="btn-custom" id="editBtn">수정</button>
+											</c:if>
+										</div>
 									</c:otherwise>
 								</c:choose>
 								<div class="post-header">
@@ -122,29 +76,29 @@
 											${board.views}</span> | <span>작성일 ${board.createTime}</span>
 									</div>
 								</div>
-									<div class="post-files">
-										<c:choose>
-											<c:when test="${not empty files}">
-												<div class="file-dropdown">
-													<button class="btn btn-info btn-file">
-														첨부파일 [${fn:length(files)}]
-													</button>
-													<div class="file-dropdown-content">
-														<c:forEach var="file" items="${files}">
-															<a href="${contextPath}${file.file_path}" download="${file.file_name}">
-																${file.file_name}
-															</a>
-														</c:forEach>
-													</div>
+								<div class="post-files">
+									<c:choose>
+										<c:when test="${not empty files}">
+											<div class="file-dropdown">
+												<button class="btn btn-info btn-file">첨부파일
+													[${fn:length(files)}]</button>
+												<div class="file-dropdown-content">
+													<c:forEach var="file" items="${files}">
+														<a href="${contextPath}${file.file_path}"
+															download="${file.file_name}"> ${file.file_name} </a>
+													</c:forEach>
 												</div>
-											</c:when>
-											<c:otherwise>
-												<span class="btn btn-info btn-file">첨부파일 [0]</span>
-											</c:otherwise>
-										</c:choose>
-									</div>
+											</div>
+										</c:when>
+										<c:otherwise>
+											<span class="btn btn-info btn-file">첨부파일 [0]</span>
+										</c:otherwise>
+									</c:choose>
+								</div>
 								<div class="board-content board-custom-content">
-									<div>${board.content}</div>
+									<div>
+										<c:out value="${board.content}" escapeXml="false"/>
+									</div>
 								</div>
 							</div>
 						</c:if>
@@ -467,7 +421,10 @@
                     dataType: 'json',
                     success: function(response) {
                         if (response.status === 'success') {
-                            location.reload(); // 댓글 삭제 후 페이지 새로고침
+                            // 댓글 삭제 후 "삭제된 댓글입니다" 메시지 표시
+                            $(`div[data-comment-id="${commentId}"] .comment-body`).html('<p>삭제된 댓글입니다</p>');
+                            $(`div[data-comment-id="${commentId}"] .comment-header div:nth-child(2)`).remove(); // 수정, 삭제 버튼 제거
+                            location.reload();
                         } else {
                             alert('댓글 삭제에 실패했습니다.');
                         }

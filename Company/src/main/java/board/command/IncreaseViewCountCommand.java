@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import board.dao.BoardDAO;
 import board.dto.BoardDTO;
-import test.board.BoardDao;
 
 public class IncreaseViewCountCommand implements Command {
 
