@@ -304,3 +304,32 @@
     font-weight: bold; /* 댓글 개수 굵기 */
     margin-left: 5px; /* 제목과 댓글 개수 사이의 간격 */
 }
+.board-article-list a, .board-article-list a:hover {
+    text-decoration: none;
+}
+.vcol.col-id {
+    width: 60px;  /* 너비를 60px로 조정 */
+    flex-shrink: 0;
+    text-align: center;  /* "번호" 칼럼 가운데 정렬 */
+}
+
+.vcol.col-title {
+    flex-grow: 1;
+    text-align: center;  /* "제목" 칼럼 가운데 정렬 */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.vrow {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.vrow-inner {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}

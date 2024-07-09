@@ -12,7 +12,7 @@ function check(){
 	let id = $('#id');
 	let name = $('#name')
 	if(isNull(id.val()) || isNull(name.val())){
-		alert("이름 또는 번호를 입력 해주세요!");
+		alert("이름 또는 사원번호를 입력 해주세요!");
 		id.val("");
 		name.val("");
 		name.focus();
