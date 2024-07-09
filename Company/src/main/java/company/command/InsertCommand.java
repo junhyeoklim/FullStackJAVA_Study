@@ -23,7 +23,7 @@ public class InsertCommand implements Command {
 		String name = request.getParameter("name");
 		String birth = request.getParameter("year").concat(request.getParameter("month")).concat(request.getParameter("date"));
 		String gender = request.getParameter("gender");
-		String department = request.getParameter("dpartment-box");
+		String department = request.getParameter("department-box");
 		String rank = request.getParameter("rank");
 		String mail = request.getParameter("first").concat("@"+request.getParameter("second"));
 		String phone = request.getParameter("phone");

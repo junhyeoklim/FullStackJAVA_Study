@@ -26,11 +26,6 @@ public class InsertBoardCommand implements Command {
         String content = request.getParameter("content");
         boolean is_notice = Boolean.parseBoolean(request.getParameter("is_notice"));
 
-        System.out.println("Title: " + title);
-        System.out.println("Content: " + content);
-        System.out.println("User Name: " + userName);
-        System.out.println("User ID: " + userId);
-        System.out.println("Is Notice: " + is_notice);
 
         BoardDAO board = BoardDAO.getBoardDAO();
         long b_id = 0;
