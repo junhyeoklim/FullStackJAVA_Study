@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="speaker" class="polymorphism.AppleSpeaker"/>
+<!-- 	<bean id="samsungTV" class="polymorphism.SamsungTV">
+		<property name="speaker" ref="speaker"></property>
+		<property name="price" value="2700000"></property>
+	</bean> -->
+	<bean id="samsungTV" class="polymorphism.SamsungTV" p:speaker-ref="speaker" p:price="2700000"/>
+</beans>

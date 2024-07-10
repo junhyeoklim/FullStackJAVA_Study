@@ -1,5 +1,7 @@
 INDEX VERSION 1.131
 C:\JavaStudy\sts3Test\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2806564625.index
 \BoardWeb\src\main\java
+C:\JavaStudy\Spring\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\1888190774.index
+\CouplingEX4\src\main\java
 C:\JavaStudy\sts3Test\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\1888190774.index
 \CouplingEX4\src\main\java

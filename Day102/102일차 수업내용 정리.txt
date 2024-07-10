@@ -1,3 +1,37 @@
 	<!-- 생략시 : scope = singletone -> 객체 1개 생성
 	     prototype? : 호출 할 때마다 객체 생성 
 	  -->
+
+
+2. <!-- 	<bean id="samsungTV" class="polymorphism.SamsungTV">
+		<property name="speaker" ref="speaker"></property>
+		<property name="price" value="2700000"></property>
+	</bean> --> 이런 방법도 있고
+ - <bean id="samsungTV" class="polymorphism.SamsungTV" p:speaker-ref="speaker" p:price="2700000"/>
+	이런 방법도 있다.(단, Namespaces에서 p를 추가하거나 beans xmlns에다가
+	xmlns:p="http://www.springframework.org/schema/p" 이걸 추가해준다)
+
+
+
+3.<bean id="tv" class="polymorphism.SamsungTV" lazy-init="true" init-method="initMethod" destroy-method="destroyMethod"/>
+
+ *  lazy-init 속성
+    ApplicationContext를 이용하여 컨테이너를 구동하면 컨테이너가 구동되는 시점에 
+    스프링 설정 파일에 등록된 <bean>들을 생성하는 즉시 로딩 (pre-loading) 방식으로 동작한다. 
+
+   그런데 어떤 <bean>은 자주 사용되지도 않으면서 메모리를 많이 차지하여 시스템에 부담을 주는 경우도 있다.
+
+   따라서 스프링에서는 컨테이너가 구동되는 시점이 아닌 해당 <bean>이 사용되는 시점에 객체를 생성하도록
+   init-lazy 속성을 제공한다. 특정 <bean>을 등록할 때, lazy-init="true"로 설정하면 
+   스프링 컨테이너는 해당 <bean>을 미리 생성하지 않고 클라이언트가 요청하는 시점에
+   생성한다. 결국, 메모리 관리를 더 효율적으로 할 수 있게 된다.
+
+
+4. **<context:component-scan base-package="polymorphism"/>
+   -> Namespace에 있는 context를 추가 해줘야 함
+   -> polmorphism 밑에 있는 package중 @component가 설정 되어 있는 모든 것을 객체 생성 후 메모리에 올림
+   -> @Component("tv") 이런식으로 이름을 안 주면 첫 글자가 소문자인 lgTV 이런식으로 생성 된다
+   -> @Autowired -> ex) 메모리에 speaker형 객체가 있으면 @Autowired Speaker 여기다 집어 넣는다
+   -> 만약 speaker 객체가 2개 이상 있을때 정확하게 구분하기 위해서 @Qualifier("apple") 이걸 쓴다
+
+5. @Resource() -> @Autowired+@Qualifier()
