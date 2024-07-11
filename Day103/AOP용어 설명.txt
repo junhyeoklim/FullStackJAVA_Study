@@ -1,0 +1,65 @@
+1. 조인 포인트 (Join Point)
+설명: 조인 포인트는 AOP에서 어드바이스가 적용될 수 있는 특정 지점입니다. 스프링에서 주로 메소드 실행이 조인 포인트가 됩니다.
+
+예시:
+
+java
+코드 복사
+public void insertBoard(BoardVO vo) {
+	boardDAO.insertBoard(vo);
+}
+여기서 insertBoard(vo) 메소드 호출은 조인 포인트입니다. 이 메소드 실행 전후로 로깅이나 보안 검사 등의 어드바이스를 적용할 수 있습니다.
+
+2. 횡단 관심 (Cross-cutting Concern)
+설명: 횡단 관심은 여러 컴포넌트 또는 모듈에 걸쳐 있는 공통의 관심사입니다. 로깅, 트랜잭션 관리, 보안 등이 여기에 해당합니다.
+
+예시:
+
+java
+코드 복사
+public class LogAdvice {
+	public void printLog() {
+		System.out.println("[공통 로그] 비즈니스 로직 수행 전 동작");
+	}
+}
+LogAdvice 클래스의 printLog() 메소드는 로깅을 수행하는 횡단 관심의 예입니다. 이 메소드는 다양한 메소드 실행 전에 호출되어 로그를 기록합니다.
+
+3. 핵심 관심 (Core Concern)
+설명: 핵심 관심은 애플리케이션의 주된 기능을 담당하는 비즈니스 로직을 의미합니다.
+
+예시:
+
+java
+코드 복사
+public void insertBoard(BoardVO vo) {
+	boardDAO.insertBoard(vo);
+}
+insertBoard() 메소드는 게시글을 데이터베이스에 삽입하는 주된 비즈니스 로직(핵심 관심)을 수행합니다.
+
+4. 포인트컷 (Pointcut)
+설명: 포인트컷은 조인 포인트를 세밀하게 지정하여, 어드바이스가 적용될 조인 포인트의 집합을 정의합니다.
+
+예시:
+
+xml
+코드 복사
+<aop:pointcut expression="execution(* com.springbook.biz..*Impl.*(..))" id="allPointcut"/>
+이 포인트컷은 com.springbook.biz 패키지 및 하위 패키지에 있는 *Impl로 끝나는 모든 클래스의 모든 메소드를 조인 포인트로 지정합니다.
+
+5. 위빙 (Weaving)
+설명: 위빙은 어드바이스를 타깃 객체에 적용하는 과정입니다. 컴파일 시간, 로드 시간, 또는 런타임에 수행될 수 있습니다.
+
+예시:
+실행 시점에서 스프링 AOP는 위빙을 통해 LogAdvice의 printLog() 메소드를 비즈니스 메소드 실행 전에 호출하도록 합니다.
+
+6. 어스펙트 (Aspect)
+설명: 어스펙트는 횡단 관심을 모듈화한 클래스입니다. 어드바이스와 포인트컷을 포함할 수 있습니다.
+
+예시:
+
+xml
+코드 복사
+<aop:aspect ref="log">
+	<aop:before pointcut-ref="allPointcut" method="printLogging"/>
+</aop:aspect>
+LogAdvice 클래스는 printLogging 메소드를 포함하며, 이 메소드는 allPointcut에 정의된 조인 포인트에서 실행되기 전에 호출됩니다. 이 설정은 XML 구성 파일에서 어스펙트로 구성됩니다.

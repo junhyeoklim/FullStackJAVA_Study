@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- 1번 -->
+	<!-- <bean id="tv" class="polymorphism.SamsungTV">
+		<constructor-arg ref="sony"/>
+	</bean>
+	<bean id="sony" class="polymorphism.SonySpeaker"/> -->
+	<!-- 2번 -->	
+	<!-- <bean id="tv" class="polymorphism.SamsungTV">
+		<constructor-arg ref="speaker"/>
+		<constructor-arg value="2700000"/>
+	</bean>
+	<bean id="speaker" class="polymorphism.AppleSpeaker"/> -->
+	
+	<!-- 4번 -->
+	<!-- <bean id="tv" class="polymorphism.SamsungTV">
+		<property name="speaker" ref="apple"/>
+		<property name="price" value="2700000"/>
+	</bean>
+	<bean id="apple" class="polymorphism.AppleSpeaker"/>
+	<bean id="sony" class="polymorphism.SonySpeaker"/> -->
+	
+	<!-- 5번 -->
+	<!-- <bean id="tv" class="polymorphism.SamsungTV" p:speaker-ref="sony" p:price="2700000"/>
+	<bean id="sony" class="polymorphism.SonySpeaker"/> -->
+	
+	<!-- 6번 -->
+	<bean id="collectionBean" class="polymorphism.CollectionBean">
+		<property name="addressList">
+			<set value-type="java.lang.String">
+				<value>서울시 강남구 역삼동</value>
+				<value>서울시 성동구 성수동</value>
+				<value>서울시 성동구 성수동</value>
+			</set>		
+		</property>
+	</bean>
+
+</beans>
