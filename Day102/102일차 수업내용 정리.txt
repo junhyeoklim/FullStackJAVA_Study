@@ -31,7 +31,7 @@
    -> Namespace에 있는 context를 추가 해줘야 함
    -> polmorphism 밑에 있는 package중 @component가 설정 되어 있는 모든 것을 객체 생성 후 메모리에 올림
    -> @Component("tv") 이런식으로 이름을 안 주면 첫 글자가 소문자인 lgTV 이런식으로 생성 된다
-   -> @Autowired -> ex) 메모리에 speaker형 객체가 있으면 @Autowired Speaker 여기다 집어 넣는다
+   -> @Autowired -> ex) 메모리에 Speaker형 객체가 있으면 @Autowired speaker 여기다 집어 넣는다
    -> 만약 speaker 객체가 2개 이상 있을때 정확하게 구분하기 위해서 @Qualifier("apple") 이걸 쓴다
 
 5. @Resource() -> @Autowired+@Qualifier()
