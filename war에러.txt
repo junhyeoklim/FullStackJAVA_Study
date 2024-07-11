@@ -1,0 +1,9 @@
+<war> -> 에러가 뜨는 경우 이게 없어서 뜰 수 도 있으니 추가 해줘라 
+       <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-war-plugin</artifactId>
+            <version>3.3.2</version>
+            <configuration>
+                <failOnMissingWebXml>false</failOnMissingWebXml>
+            </configuration>
+        </plugin>
