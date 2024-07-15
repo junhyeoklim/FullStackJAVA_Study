@@ -1,0 +1,22 @@
+com.springbook.biz.common 패키지에 AfterThrowingAdvice 클래스를 만든다.
+AfterThrowingAdvice 클래스에 exceptionLog 메소드를 만들고, 그 메소드 안에서 예외가 발생했을 때의 비즈니스 메소드와 예외 메시지를 출력한다.
+
+애너테이션으로 다음을 설정한다.
+AfterThrowingAdvice 객체를 만든다.
+com.springbook.biz의 하위 패키지에 Impl로 끝나는 클래스의 모든 메소드에 예외가 발생했을 때 AfterThrowingAdvice 클래스의 exceptionLog 메소드를 실행한다.
+IllegalArgumentException 예외가 발생했으면, "부적합한 값이 입력되었습니다."라고 출력하고,
+NumberFormatException 예외가 발생했으면, "숫자 형식의 값이 아닙니다." 라고 출력하고,
+나머지 예외는 "문제가 발생했습니다." 라고 출력한다.
+
+BoardServiceClient 클래스의 main 메소드를 실행시켜서 실행 결과를 본다.
+
+참고:
+예외가 발생했을 때 실행되는 것을 보기위해 
+BoardServiceImpl 클래스에 insertBoard 메소드에서 예외를 강제로 발생시켰다.
+
+	@Override
+	public void insertBoard(BoardVO vo) {
+		int num = 0;
+		if(num==0) throw new IllegalArgumentException("0번 글은 등록할 수 없습니다.");
+		boardDAO.insertBoard(vo);
+	}

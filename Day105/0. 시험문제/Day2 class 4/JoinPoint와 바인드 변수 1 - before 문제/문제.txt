@@ -1,0 +1,9 @@
+com.springbook.biz.common 패키지에
+BeforeAdvice 클래스를 만든다.
+그 클래스에 beforeLog라는 메소드를 만든다.
+그 메소드 안에서 비즈니스 메소드의 시그너처와 매개변수를 출력한다.
+
+스프링 설정파일에서 BeforeAdvice객체를 생성한다.
+com.springbook.biz하위 패키지에 클래스 이름이 Impl로 끝나는 모든 메소드에 메소드가 실행되기 전에 BeforeAdvice 클래스의 beforeLog라는 메소드가 실행되게 한다.
+
+BoardServiceClient 클래스에 main 메소드를 실행시켜서 결과를 확인한다.

@@ -1,0 +1,14 @@
+어드바이스 동작 시점
+
+어드바이스는 각 조인포인트에 삽입되어 동작할 횡단 관심에 해당하는 공통 기능이며, 동작시점은 각 AOP 기술마다 다르다. 스프링에서는 다섯 가지의 동작 시점을 제공한다.
+
+다음 동작 시점에 대해서 서술하시오.
+
+동작 시점			설명
+Before		
+After		- After Returning : 
+		- After Throwing : 
+		- After : 
+Around		
+
+어드바이스 메소드의 동작 시점은 <aop:aspect> 엘리먼트 하위에 각각 <aop:before>, <aop:after-returning>, <aop:after-throwing>, <aop:after>, <aop:after-around> 엘리먼트를 이용하여 지정한다.

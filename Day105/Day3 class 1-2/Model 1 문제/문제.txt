@@ -1,0 +1,17 @@
+Model 1
+
+UserDAO와 BoardDAO를 이용하여 다음을 코딩하시오.
+login.jsp에서 아이디랑 비밀번호를 입력하면
+login_proc.jsp에서 처리한다. 아이디랑 비밀번호가 맞으면 getBoardList.jsp로 이동
+아이디랑 비밀번호가 다르면 login.jsp로 이동
+getBoardList.jsp에서 새글등록을 누르면 insertBoard.jsp로 이동. 글제목을 누르면 getBoard.jsp로 이동
+getBoard.jsp에서 제목과 내용을 수정할 수 있다. 수정을 누르면 updateBoard_proc.jsp로 이동
+updateBoard_proc.jsp에서는 수정을 완료한후 getBoardList.jsp로 이동
+getBoard.jsp에서 글등록을 누르면 insertBoard.jsp로 이동
+getBoard.jsp에서 글삭제를 누르면 deleteBoard_proc.jsp로 이동
+deleteBoard_proc.jsp에서 글 삭제후 getBoardList.jsp로 이동
+getBoard.jsp에서 글목록을 누르면 getBoardList.jsp로 이동
+insertBoard.jsp에서 새글 등록을 누르면 insertBoard_proc.jsp로 이동
+insertBoard_proc.jsp에서 글 등록 처리를 하고 getBoardList.jsp로 이동
+
+주어진 소스, 주어진이미지와 위에 지시를 참고하여 Model 1 으로 완성하시오.

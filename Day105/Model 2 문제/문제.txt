@@ -1,0 +1,20 @@
+FrontController인 com.springbook.view.controller.DispatcherServlet 을 만든다.
+확장자가 do인 모든 요청을 받게한다.
+login.jsp에서 로그인을 누르면 login.do가 실행돼서 DispatcherServlet이 처리한다.
+getBoard.jsp에서 Log-out을 클릭하면 logout.do가 실행되게 한다.
+getBoard.jsp에서 글 수정을 클릭하면 updateBoard.do가 실행되게 한다.
+getBoard.jsp에서 글 삭제를 클릭하면 deleteBoard.do가 실행되게 한다.
+글목록을 누르면 getBoardList.jsp로 이동하게 한다.
+getBoardList.jsp에서 Log-out을 클릭하면 Logout.do가 실행되게 한다.
+새글 등록을 클릭하면 insertBoard.jsp로 이동한다.
+insertBoard.jsp에 새글등록을 누르면 insertBoard.do가 실행되게 한다.
+insertBoard.jsp에서 글 목록 가기를 클릭하면 getBoardList.jsp로 이동한다.
+
+프론트 콘트롤러에서 확장자가 do인 요청들을 처리한다.
+글목록은 우선은 session에 저장하도록 하자.
+
+참고
+기능		구성 요소		개발 주체
+Model		VO,DAO 클래스	자바 개발자
+View		JSP 페이지	웹 디자이너
+Controller	Servlet 클래스	자바 개발자 또는 MVC 프레임워크

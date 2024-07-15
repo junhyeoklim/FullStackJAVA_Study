@@ -1,0 +1,7 @@
+com.springbook.biz.common 패키지에 AroundAdvice 클래스를 만든다.
+AroundAdvice 클래스에 aroundLog 메소드를 만들고 비즈니스 메소드가 실행되는데 걸린 시간을 출력하도록 하자.
+
+스프링 설정파일에서 AroundAdvice 객체를 만든다.
+com.springbook.biz의 하위 패키지에 클래스 이름이 Impl로 끝나는 클래스의 모든 메소드에 시간을 재도록 하자. 그때 AroundAdvice 클래스의 aroundLog 메소드가 호출되도록 하자.
+
+BoardServiceClient의 main 메소드를 실행해서 실행결과를 확인하자.

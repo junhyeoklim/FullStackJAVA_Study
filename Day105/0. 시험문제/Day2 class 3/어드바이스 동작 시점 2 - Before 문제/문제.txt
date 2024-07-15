@@ -1,0 +1,5 @@
+주어진 소스코드를 활용하여
+BeforeAdvice 객체를 생성한다.
+com.springbook.biz의 하위 패키지에 있는 클래스 이름이 Impl로 끝나는 모든 메소드 시작전 BeforeAdvice클래스의 beforeLog 메소드를 실행한다.
+
+BoardServiceClient 클래스의 main 메소드를 실행한다.

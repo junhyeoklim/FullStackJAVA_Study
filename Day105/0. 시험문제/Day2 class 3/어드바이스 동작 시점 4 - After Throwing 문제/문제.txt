@@ -1,0 +1,12 @@
+AOP After Throwing을 테스트 하기 위해
+BoardServiceImpl의 insertBoard에 일부러 예외를 발생 시켰다.
+	@Override
+	public void insertBoard(BoardVO vo) {
+		int num = 0;
+		if(num==0) throw new IllegalArgumentException("0번 글은 등록할 수 없습니다.");
+		boardDAO.insertBoard(vo);
+	}
+
+주어진 소스를 이용하여 AfterThrowingAdvice 객체를 생성하고, com.springbook.biz의 하위 패키지에 클래스 이름이 Impl로 끝나는 클래스의 모든 메소드에서 예외가 발생했을 때 AfterThrowingAdvice의 exceptionLog 메소드가 실행되게 한다.
+
+BoardServiceClient 클래스의 main 메소드를 실행해 본다.

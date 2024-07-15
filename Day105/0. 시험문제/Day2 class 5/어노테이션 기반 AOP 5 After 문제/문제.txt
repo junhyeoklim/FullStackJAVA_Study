@@ -1,0 +1,22 @@
+com.springbook.biz.common 패키지에
+AfterAdvice 클래스를 만든다. AfterAdvice 클래스의 다음 메소드를 만든다.
+	public void finallyLog() {
+		System.out.println("[사후 처리] 비즈니스 로직 수행 후 무조건 동작");
+	}
+
+다음을 애너테이션으로 구현한다.
+AfterAdvice 객체를 만든다.
+com.springbook.biz의 하위 패키지에 클래스 이름이 Impl로 끝나는 클래스의 모든 메소드에, 메소드 종류후 finallyLog가 실행되게 한다.
+BoardServiceClient의 main 메소드를 실행한다. 예외가 발생해도
+	동작하는 것을 확인할 수 있다.
+
+참고:
+예외가 발생했을 때도 실행되는 것을 보기위해 
+BoardServiceImpl 클래스에 insertBoard 메소드에서 예외를 강제로 발생시켰다.
+
+	@Override
+	public void insertBoard(BoardVO vo) {
+		int num = 0;
+		if(num==0) throw new IllegalArgumentException("0번 글은 등록할 수 없습니다.");
+		boardDAO.insertBoard(vo);
+	}
