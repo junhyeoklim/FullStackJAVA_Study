@@ -1,0 +1,31 @@
+#register {
+    width: 100%;
+}
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.error-msg {
+    font-size: 12px;
+    padding-top: 4px;
+    width: 100%;
+    color: red;
+}
+
+.cursor {
+    caret-color: transparent;
+}
+
+.select-spacing {
+    margin-left: 10px;
+}
+
+.form-control-select {
+    background: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4 5"><path fill="%23333" d="M2 0L0 2h4zM2 5L0 3h4z"/></svg>') no-repeat right 0.75rem center/8px 10px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    padding-right: 1.75rem;
+}

@@ -1,0 +1,64 @@
+body {
+    background-color: #f8f9fa;
+}
+
+.container {
+    max-width: 1200px;
+}
+
+.card {
+    border-radius: 0.75rem;
+}
+
+.card-header {
+    background-color: #fff;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.card-title {
+    margin-bottom: 0.75rem;
+}
+
+.card-footer {
+    background-color: #fff;
+    border-top: 1px solid #dee2e6;
+}
+
+.form-inline {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+}
+
+.form-inline .form-group {
+    margin-right: 1rem;
+}
+
+.form-inline .form-control {
+    margin-right: 0.5rem;
+}
+
+.form-inline .btn {
+    margin-right: 0.5rem;
+}
+
+.text-center {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+@media (max-width: 768px) {
+    .form-inline {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .form-inline .form-group {
+        margin-bottom: 1rem;
+        margin-right: 0;
+    }
+    
+    .form-inline .form-control {
+        margin-bottom: 0.5rem;
+    }
+}
