@@ -1,0 +1,17 @@
+p320 그림 참고
+
+스프링 MVC의 수행 흐름
+1. 클라이언트로부터의 모든 ".do" 요청을 DispatcherServlet이 받는다.
+2. DispatcherServlet은 HandlerMapping을 통해 요청을 처리할 Controller를 검색한다.
+3. DispatcherServlet은 검색된 Controller를 실행하여 클라이언트의 요청을 처리한다.
+4. Controller는 비즈니스 로직의 수행 결과로 얻어낸 Model 정보와 Model을 보여줄 View 정보를 ModelAndView 객체에 저장하여 리턴한다.
+5. DispatcherServlet은 ModelAndView로부터 View 정보를 추출하고, ViewResolver를 이용하여 응답으로 사용할 View를 얻어낸다.
+6. DispatcherServlet은 ViewResolver를 통해 찾아낸 View를 실행하여 응답을 전송한다.
+
+Spring MVC의 구조와 수행 흐름이 현재 SpringBoard 프로젝트에 적용된 Controller 구조와 유사하다는 것을 느낄 것이다. 유일하게 다른 점 하나가 Controller의 리턴타입이 String이 아닌 ModelAndView로 바뀐 것이다.
+
+DispatcherServlet 등록 및 스프링 컨테이너 구동
+DispatcherServlet 등록
+Spring MVC에서 가장 중요한 요소가 모든 클라이언트의 요청을 가장 먼저 받아들이는 DispatcherServlet이다. 따라서 Spring MVC 적용에서 가장 먼저 해야 할 일은 WEB-INF/web.xml 파일에 등록된 DispatcherServlet 클래스를 스프링 프레임워크에서 제공하는 DispatcherServlet으로 변경하는 것이다.
+DispatcherServlet 클래스를 스프링에서 제공하는 DispatcherServlet으로 변경한 것을 제외하면 달라진 것은 없다. web.xml 파일을 수정했으면 톰캣 서버를 재구동하고, login.jsp 파일을 실행한다. 로그인 화면이 브라우저에 출력되겠지만 아직 서블릿 컨테이너는 반응하지 않는다. 서블릿 컨테이너는 클라이언트의 ".do" 요청이 있어야 DispatcherServlet 객체를 생성한다.
+클라이언트가 로그인 버튼을 클릭하여 "login.do" 요청을 서버에 전달하면 서블릿 컨테이너는 web.xml 파일에 action이라는 이름으로 등록된 DispatcherServlet 클래스의 객체를 생성한다.

@@ -1,0 +1,1 @@
+web.xml 에서 우리가 만든 DispatcherServlet을 Spring이 제공하는 DispatcherServlet으로 변경
