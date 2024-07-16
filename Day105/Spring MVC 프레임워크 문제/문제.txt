@@ -1,0 +1,37 @@
+(Controller를 구성하는 요소 중에서 DispatcherServlet은 클라이언트의 요청을 가장 먼저 받아들이는 Front Controller이다. 하지만 클라이언트의 요청을 처리하기 위해 DipatcherServlet이 하는 일은 거의 없으며, 실질적인 요청 처리는 각 Controller에서 담당한다.)
+
+Controller 인터페이스 작성
+
+package com.springbook.view.controller;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+public interface Controller {
+	String handleRequest(HttpServletRequest request, HttpServletResponse response);
+}
+
+
+com.springbook.view.board 패키지에 Contrller 인터페이스를 구현한 Controller 들을 만든다.
+DeleteBoardController
+GetBoardController
+GetBoardListController
+InsertBoardController
+UpdateBoardController
+
+com.springbook.view.user 패키지에 Contrller 인터페이스를 구현한 Controller 들을 만든다.
+LoginController
+LogoutController
+
+com.springbook.view.controller 패키지에 HandlerMapping 클래스 작성
+( HandlerMapping은 모든 Controller 객체들을 저장하고 있다가, 클라이언트의 요청이 들어오면 요청을 처리할 특정 Controller를 검색하는 기능을 제공한다.)
+
+com.springbook.view.controller 패키지에 ViewResolver 클래스 작성
+(ViewResolver 클래스는 Controller가 리턴한 View 이름에 접두사(prefix)와 접미사(suffix)를 결하여 최종으로 실행될 View 경로와 파일명을 완성한다. 
+
+DispatcherServlet에서 HandlerMapping 클래스와 ViewResolver 클래스를 생성하고, ViewResolver 클래스의 prefix와 suffix를 초기화한다.
+DispatcherServlet에서 클라이언트의 요청 path 정보를 추출하고, HandlerMapping을 통해 path에 해당하는 Contrller를 검색한다. 검색된 Controller를 실행하고, ViewResolver를 화면을 검색하고, 최종적으로 검색된 화면으로 이동한다.
+
+jsp 페이지는 el과 jstl을 이용해서 변경한다.
+jstl을 쓰기위해서는 지시자를 다음과 같이 해야 한다.
+<%@taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"  %>    

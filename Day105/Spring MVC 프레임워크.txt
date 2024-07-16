@@ -1,0 +1,27 @@
+MVC 프레임워크
+
+클래스		기능
+DispatcherServlet	유일한 서블릿 클래스로서 모든 클라이언트의 요청을 가장 먼저 처리하는 Front Controller
+HandlerMapping	클라이언트의 요청을 처리할 Controller 매핑
+Controller		실질적인 클라이언트의 요청 처리
+ViewResolver	Controller가 리턴한 View 이름으로 실행될 JSP 경로 완성
+
+MVC 프레임워크 구현
+Controller 인터페이스 작성
+Controller를 구성하는 요소 중에서 DispatcherServlet은 클라이언트의 요청을 가장 먼저 받아들이는 Front Controller이다. 하지만 클라이언트의 요청을 처리하기 위해 DispatcherServlet이 하는 일은 거의 없으며, 실질적인 요청 처리는 각 Controller에서 담당한다.
+구체적인 Controller 클래스들을 구현하기에 앞서 모든 Controller를 같은 타입으로 관리하기 위한 인터페이스를 만들어야 한다. 클라이언트의 요청을 받은 DispatcherServlet은 HandlerMapping을 통해 Controller 객체를 검색하고, 검색된 Controller를 실행한다. 이때 어떤 Controller 객체가 검색되더라도 같은 코드로 실행하려면 모든 Controller의 최상위 인터페이스가 필요하다.
+
+HandlerMapping 클래스 작성
+HandlerMapping은 모든 Controller 객체들을 저장하고 있다가, 클라이언트의 요청이 들어오면 요청을 처리할 특정 Controller를 검색하는 기능을 제공한다. HandlerMapping 객체는 DispatcherServlet이 사용하는 객체이다. 따라서 DispatcherServlet이 생성되고 init() 메소드가 호출될 때 단 한 번 생성된다.
+
+ViewResolver 클래스 작성
+ViewResolver 클래스는 Controller가 리턴한 View 이름에 접두사(prefix)와 점미사(suffix)를 결합하여 최종으로 실행될 View 경로와 파일명을 완성한다. ViewResolver도 HandlerMapping과 마찬가지로 DispatcherServlet의 init() 메소드가 호출될 때 생성된다.
+
+p300
+1. 클라이언트가 로그인 버튼을 클릭하여 "/login.do" 요청을 전송하면 DispatcherServlet이 요청을 받는다.
+2. DispatcherServlet은 HandlerMapping 객체를 통해 로그인 요청을 처리할 LoginController를 검색하고,
+3. 검색된 LoginController의 handlerRequest() 메소드를 호출하면 로그인 로직이 처리된다.
+4. 로그인 처리 후에 이동할 화면정보가 리턴되면
+5. DispatcherServlet은 ViewResolver를 통해 접두사와 접미사가 붙은 JSP 파일의 이름과 경로를 리턴받는다.
+6. 그리고 최종적으로 JSP를 실행하고 실행 결과가 브라우저에 응답된다.
+
