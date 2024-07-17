@@ -17,11 +17,8 @@ public class InsertController {
 	
 	@RequestMapping("/register.do")
 	public String insertSalaryUI() {
-	    System.out.println("요청 들어왔다");
-	    System.out.println("경로: " + Constants.ADMIN_VIEW + "/registerUI.jsp");
-	    return Constants.ADMIN_VIEW + "/registerUI.jsp";
+		return Constants.ADMIN_VIEW+"/registerUI.jsp";
 	}
-
 	
 	
 	
