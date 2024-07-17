@@ -1,0 +1,4 @@
+getBoardList.jsp에서 검색 버튼을 누르면
+searchCondition의 내용과 searchKeyword의 내용을 
+BoardController의 getBoardList 메소드에서
+콘솔창에 출력하자.

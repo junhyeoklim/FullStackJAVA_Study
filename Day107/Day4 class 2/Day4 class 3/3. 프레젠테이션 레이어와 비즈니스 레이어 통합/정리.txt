@@ -1,0 +1,1 @@
+따라서 src/main/resources 소스 폴더에 있는 applicationContext.xml 파일을 WEB-INF 폴더에 복사하면 ContextLoaderListener는 해당 XML 파일을 읽어 스프링 컨테이너를 정상적으로 구동할 수 있다.

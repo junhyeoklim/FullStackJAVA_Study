@@ -1,0 +1,7 @@
+login.jsp에서
+
+<td>아이디</td><td><input type="text" name="id" value="${user.id}" /></td>
+<td>비밀번호</td><td><input type="password" name="password" value="${user.password}" /></td>
+
+이와 같이 쓸수 있도록
+loginView 메소드를 수정하시오.

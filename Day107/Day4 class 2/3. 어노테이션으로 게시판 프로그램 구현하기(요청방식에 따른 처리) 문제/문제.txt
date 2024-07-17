@@ -1,0 +1,23 @@
+LoginController에 "/login.do"로 get 방식으로 요청이 들어오면 UserVO에 아이디(test), 비밀번호(test123)을 셋해서 login.jsp로 이동해서 아이디와 비밀번호를 위에 것으로 입력되어있게 하는 loginView 메소드를 만든다.
+
+LoginController에 "/login.do"로 post 방식으로 요청이 들어오면
+아이디와 비밀번호가 db에 있는 것과 일치하면 리스트항목으로 이동하게 하고, 일치하지 않으면 "login.jsp"로 이동하게 하자.
+
+테스트를 위해 index.jsp를 만들고 다음 내용을 넣자.
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Main Page</title>
+</head>
+<body>
+	<h1>게시판 프로그램</h1>
+	<hr>
+		<a href="login.do">로그인</a><br><br><br>
+		<a href="getBoardList.do">글 목록 바로가기</a>
+	<hr>
+
+</body>
+</html>

@@ -1,0 +1,16 @@
+src/main/resources 소스 폴더에는 비즈니스 레이어에 해당하는 설정 파일인 applicationContext.xml이 있으며, /WEB-INF/config 폴더에는 프레젠테이션 레이어에 해당하는 설정 파일인 presentation-layer.xml이 있다.
+DispatcherServlet이 생성되어 presentation-layer.xml 파일을 읽고 스프링 컨테이너를 구동하면 Controller 객체들이 메모리에 생성된다. 하지만 Controller 객체들이 생성되기 전에 누군가가 먼저 src/main/resources 소스 폴더에 있는 applicationContext.xml 파일을 읽어 비즈니스 컴포넌트들을 메모리에 생성해야 한다. 이때 사용하는 클래스가 스프링에서 제공하는 ContextLoaderListener다.
+
+ContextLoaderListener 등록
+Listener는 Servlet이나 Filter 클래스와 마찬가지로 web.xml 파일에 등록한다. <listener> 태그 하위에 <listener-class> 태그를 이용하여 스프링에서 제공하는 ContextLoaderListener 클래스를 등록하면 된다.
+중요한 것은 ContextLoaderListener 클래스는 서블릿 컨테이너가 web.xml 파일을 읽어서 구동될 때, 자동으로 메모리에 생성된다. 즉, ContextLoaderListener는 클라이언트의 요청이 없어도 컨테이너가 구동될 때 Pre-Loading 되는 객체다. 다음과 같이 web.xml 파일에 ContextLoaderListener 클래스를 등록하자.
+
+web.xml
+
+	<listener>
+		<listener-class>
+			org.springframework.web.context.ContextLoaderListener
+		</listener-class>
+	</listener>
+
+이제 서버를 재구동하여 서블릿 컨테이너가 ContextLoaderListener 객체를 생성하는지 확인해보면 된다. 그런데 막상 서버를 재구동하면 곧바로 FileNotFoundException이 발생하는데 이는 ContextLoaderListener가 기본적으로 /WEB-INF/applciationContext.xml 파일을 읽어 스프링 컨테이너를 구동하기 때문이다.

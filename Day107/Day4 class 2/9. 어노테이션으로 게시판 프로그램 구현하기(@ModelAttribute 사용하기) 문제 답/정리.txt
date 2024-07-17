@@ -1,0 +1,16 @@
+@ModelAttribute 사용하기
+우리는 앞에서 @ModelAttribute를 Controller 메소드의 매개변수로 선언된 Command 객체의 이름을 변경할 때 사용했었다. 이처럼 Command 객체의 이름을 변경할 목적으로 @ModelAttribute를 사용할 수 있지만, View(JSP)에서 사용할 데이터를 설정하는 용도로도 사용할 수도 있다.
+@ModelAttribute가 설정된 메소드는 @ReqeustMapping 어노테이션이 적용된 메소드보다 먼저 호출된다. 그리고 @ModelAttribute 메소드 실행 결과로 리턴된 객체는 자동으로 Model에 저장된다. 따라서 @ModelAttribute 메소드의 실행 결과로 리턴된 객체를 View 페이지에서 사용할 수 있다.
+
+@Controller
+public class BoardController {
+	// 검색 조건 목록 설정
+	@ModelAttribute("conditionMap")
+	public Map<String, String> searchConditionMap() {
+		Map<String, String> conditionMap = new HashMap<String, String>();
+		conditionMap.put("제목", "TITLE");
+		conditionMap.put("내용", "CONTENT");
+		return conditionMap;
+	}
+
+p392 이미지 참고

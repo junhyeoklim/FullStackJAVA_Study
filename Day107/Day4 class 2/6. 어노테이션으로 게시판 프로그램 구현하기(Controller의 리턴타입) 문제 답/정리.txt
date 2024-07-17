@@ -1,0 +1,43 @@
+Controller의 리턴타입
+
+Controller에 메소드를 정의할 때, 리턴타입은 개발자 마음대로 결정할 수 있으며, 지금까지 다양한 리턴타입을 사용하여 메소드를 구현했었다. 예를 들어, 리턴타입을 String으로 설정하면 완벽한 View 이름을 문자열로 리턴하겠다는 것이고, ModelAndView로 설정하면 검색된 Model 데이터와 View 이름을 모두 저장하여 리턴하겠다는 의미이다.
+
+다음은 ModelAndView와 String을 리턴타입으로 사용한 경우를 비교한 것이다.
+
+리턴타입			소스 비교
+ModelAndView		public ModelAndView login(UserVO vo, UserDAO userDAO, ModelAndView mav){
+				if(userDAO.getUser(vo) != null) mav.setViewName("getBoardList.jsp");
+				else mav.setViewName("login.jsp");
+				return mav;
+			}
+
+
+String			public String login(UserVO vo, UserDAO userDAO) {
+				if(userDAO.getUser(vo) != null) return "getBoardList.jsp";
+				else return "login.jsp";
+			}
+
+
+위 소스코드의 실행 결과는 같지만 대부분 프로젝트는 일관성 있는 코드를 중요하게 생각한다. 따라서 메소드마다 리턴타입을 다르게 하는 것보다는 하나로 통일하여 사용하며, ModelAndView 보다 String을 사용하는 것이 조금 더 간결하기 때문에 대부분 리턴타입을 String으로 통일한다.
+BoardController의 getBoard()와 getBoardList() 메소드의 리턴타입을 String으로 수정해보자.
+
+	// 글 상세 조회
+	@RequestMapping("/getBoard.do")
+	public String getBoard(BoardVO vo, BoardDAO boardDAO, Model model) {
+		System.out.println("글 상세 조회 처리");
+
+		model.addAttribute("board", boardDAO.getBoard(vo));		// Model 정보 저장
+		return "getBoard.jsp";		// View 이름 리턴
+	}	
+	
+	// 글 목록 검색
+	@RequestMapping("/getBoardList.do")
+	public String getBoardList(BoardVO vo, BoardDAO boardDAO, Model model) {
+		System.out.println("글 목록 검색 처리");
+		
+		model.addAttribute("boardList", boardDAO.getBoardList(vo));		// Model 정보 저장
+    	return "getBoardList.jsp";							
+	}	
+
+우선 두 메소드는 리턴타입을 String으로 변경했으므로 더는 ModelAndView 객체를 사용할 필요가 없다. 그리고 View 정보를 ModelAndView 객체에 저장하지 않고 리턴하고 있는데, 이렇게 View 이름이 문자열로 리턴되면 스프링 컨테이너는 리턴된 JSP 파일을 찾아 실행한다.
+그리고 매개변수가 ModelAndView에서 Model로 변경되었는데, ModelAndView에 저장했던 검색 결과는 이제 Model에 저장해야 한다. ModelAndView는 Model과 View 정보를 모두 저장하여 리턴할 때 사용하지만, 이제 리턴된 JSP 화면에서 검색 결과를 출력하려면 검색 결과를 ModelAndView가 아닌 Model에 저장해야 한다. 그리고 이렇게 Model에 저장된 데이터는 ModelAndView와 동일하게 리턴된 JSP 화면에서 사용할 수 있다.

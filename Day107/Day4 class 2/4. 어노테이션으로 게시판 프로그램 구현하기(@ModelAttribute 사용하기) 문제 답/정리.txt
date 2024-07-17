@@ -1,0 +1,2 @@
+@ModelAttribute 사용하기
+스프링 컨테이너가 생성하는 Command 객체의 이름은 클래스 이름의 첫 글자를 소문자로 변경한 이름이 자동으로 설정된다. 따라서 login.jsp 화면에서 UserVO 객체의 변수에 접근할 때 "${userVO.변수명}"을 사용한 것이다. 그런데 Command 객체의 이름을 변경하려면 @ModelAttribute를 사용해야 한다.

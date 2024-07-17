@@ -1,0 +1,123 @@
+어노테이션 관련 설정
+스프링은 MVC에서 어노테이션을 사용하려면, 먼저 <bean> 루트 엘리먼트에 context 네임스페이스를 추가한다. 그리고 HandlerMapping, Controller, ViewResolver 클래스에 대한 <bean> 등록을 모두 삭제하고 <context:conponent-scan> 엘리먼트로 대체한다.
+
+presentation-layer.xml
+
+<context:component-scan base-package="com.springbook.view"></context:component-scan>
+
+이때, 모든 Controller 클래스가 스캔 범위에 포함되도록 하고자 <context:component-scan> 엘리먼트의 base-package 속성에 Controller 클래스들이 있는 가장 상위 패키지인 'com.springbook.view'를 등록한다.
+
+또한, 어노테이션 활용에 집중하기 위해서 스프링 설정 파일에 등록한 ViewResolver 설정을 삭제한다. getBoard.jsp와 getBoardList.jsp 파일의 위치도 원래대로 src/main/webapp 폴더 밑으로 되돌려 놓아야 한다.
+
+@Controller 사용하기
+
+import org.springframework.stereotype.Controller;
+
+@Controller
+public class InsertBoardController{
+}
+
+@Component를 상속한 @Controller는 @Controller가 붙은 클래스의 객체를 메모리에 생성하는 기능을 제공한다. 하지만 단순히 객체를 생성하는 것에 그치지 않고, DispatcherServlet이 인식하는 Controller 객체로 만들어 준다.
+만일 @Controller를 사용하지 않는다면, 다음의 예처럼 모든 컨트롤러 클래스는 반드시 스프링에서 제공하는 Controller 인터페이스를 구현해야 한다. 그리고 handlerRequest() 메소드를 반드시 재정의하여 DispatcherServlet이 모든 Controller의 handleRequest() 메소드를 호출할 수 있도록 해야 한다.
+
+insertBoardController.java
+
+package com.springbook.view.board;
+
+import org.springframework.web.servlet.mvc.Controller;
+
+public class InsertBoardController implements Controller {
+	@Override
+	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) {
+		System.out.println("글 등록 처리");
+		return null;
+	}
+}
+
+하지만 이렇게 구현한 Controller는 스프링 프레임워크가 지향하는 POJO(Plain Old Java Object) 스타일의 클래스가 아니다. Controller를 POJO 스타일의 클래스로 구현하려면 우선 클래스 선언부에 있는 "implements Controller"를 제거하고 클래스 위에 "@Controller"를 선언해야 한다. 스프링 컨테이너는 @Controller가 선언된 객체를 자동으로 Controller 객체로 인식한다.
+
+@Controller
+public class InsertBoardController{
+
+	public void insertBoard(HttpServletRequest request) {
+		System.out.println("글 등록 처리");
+		
+		// 1. 사용자 입력 정보 추출
+		String title = request.getParameter("title");
+		String writer = request.getParameter("writer");
+		String content = request.getParameter("content");
+		
+		// 2. DB 연동 처리
+		BoardVO vo = new BoardVO();
+		vo.setTitle(title);
+		vo.setWriter(writer);
+		vo.setContent(content);
+		
+		BoardDAO boardDAO = new BoardDAO();
+		boardDAO.insertBoard(vo);
+	}
+}
+
+InsertBoardController 클래스 객체는 스프링 컨테이너가 자동으로 생성하고, Controller 객체로 인식한다. 그리고 중요한 것은 InsertBoardController가 POJO 클래스로 변경되었으므로 메소드 이름을 insertBoard, 리턴타입을 void, 매개변수를 HttpServletRequest로 변경할 수 있다.
+
+@RequestMapping 사용하기
+
+앞에서처럼 @Controller를 클래스 위에 추가함으로써 InsertBoardController 객체를 생성하고 Controller로 인식하게 할 수는 있지만, 클라이언트의 "/insertBoard.do" 요청에 대해서 insertBoard() 메소드가 실행되도록 할 수는 없다. 기존에는 HandlerMapping을 이용하여 클라이언트의 요청을 매핑했었다.
+스프링에서는 @RequestMapping을 이용하여 HandlerMapping 설정을 대체한다. 다음과 같이 @RequestMapping을 insertBoard() 메소드 위에 설정한다.
+
+@Controller
+public class InsertBoardController{
+
+	@RequestMapping(value="/insertBoard.do")
+	public void insertBoard(HttpServletRequest request) {
+	...
+	}
+}
+
+위 설정은 클라이언트로부터 "/insertBoard.do"라는 요청이 있을 때, insertBoard() 메소드를 매핑하겠다는 설정이다. 여기에서 @RequestMapping의 value 속성은 생략할 수 있으며, 특별한 경우가 아니면 대부분 생략한다.
+그리고 이 설정은 다음과 같은 XML 설정 방식과 동일한 결과를 가져온다.
+
+presentation-layer.xml
+<bean id="handlerMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+	<property name="mappings">
+		<props>
+			<prop key="/insertBoard.do">insertBoard</prop>
+		</props>
+	</property>
+</bean>
+
+<bean id="insertBoard" class="com.springbook.view.board.InsertBoardController">
+</bean>
+
+클라이언트 요청 처리
+대부분 Controller는 사용자의 입력 정보를 추출하여 VO(Value Object) 객체에 저장한다. 그리고 비즈니스 컴포넌트의 메소드를 호출할 때 VO 객체를 인자로 전달한다.
+
+@Controller
+public class InsertBoardController{
+
+	@RequestMapping(value="/insertBoard.do")
+	public void insertBoard(HttpServletRequest request) {
+		System.out.println("글 등록 처리");
+		
+		// 1. 사용자 입력 정보 추출
+		String title = request.getParameter("title");
+		String writer = request.getParameter("writer");
+		String content = request.getParameter("content");
+		
+		// 2. DB 연동 처리
+		BoardVO vo = new BoardVO();
+		vo.setTitle(title);
+		vo.setWriter(writer);
+		vo.setContent(content);
+		
+		BoardDAO boardDAO = new BoardDAO();
+		boardDAO.insertBoard(vo);
+	}
+}
+
+사용자 입력 정보는 HttpServletRequest의 getParameter() 메소드를 사용하여 추출한다. 따라서 InsertBoardController를 위와 같이 작성하고 실행해도 글 등록 작업은 정상으로 처리된다. 문제는 사용자가 입력하는 정보가 많거나 변경되는 상황이다. 사용자 입력 정보가 많으면 그만큼의 자바 코드가 필요할 것이고, 입력 정보가 변경될 때마다 Controller 클래스는 수정되어야 한다.
+하지만 Command 객체를 이용하면 이런 문제를 모두 해결할 수 있다. Command 객체는 Controller 메소드 매개변수로 받은 VO(Value Object) 객체라고 보면 된다. InsertBoardController 클래스의 insertBoard() 메소드를 Command 객체를 이용하여 구현한다.
+
+insertBoard() 메소드의 매개변수로 사용자가 입력한 값을 매핑할 BoardVO 클래스를 선언하면, 스프링 컨테이너가 insertBoard() 메소드를 실행할 때 Command 객체를 생성하여 넘겨준다. 그리고 이때 사용자가 입력한 값들을 Command 객체에 세팅까지 해서 넘겨준다. 결과적으로 사용자 입력 정보 추출과 VO 객체 생성, 그리고 값 설정을 모두 컨테이너가 자동으로 처리하는 것이다.
+
+여기서 중요한 것은 Form 태그 안의 파라미터 이름과 Command 객체의 Setter 메소드 이름이 반드시 일치해야 한다. 즉, 각 파라미터 이름에 해당하는 setTitle(), setWriter(), setContent() 메소드가 있어야 Setter 인젝션에 의해 자동으로 사용자 입력값이 저장된다.

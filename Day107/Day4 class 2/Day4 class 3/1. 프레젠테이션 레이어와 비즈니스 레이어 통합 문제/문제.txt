@@ -1,0 +1,1 @@
+BoardController의 모든 메소드를 BoardService 컴포넌트의 인터페이스를 이용하도록 수정해 보자.

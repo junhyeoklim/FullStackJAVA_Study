@@ -1,0 +1,51 @@
+null 업데이트 방지
+이번에는 @SessionAttributes를 이용하여 writer 컬럼값이 null로 업데이트되지 않도록 처리해보자. 먼저 BoardController 클래스를 다음과 같이 수정한다.
+
+	// 글 수정
+	@RequestMapping("/updateBoard.do")
+	public String updateBoard(@ModelAttribute("board") BoardVO vo, BoardDAO boardDAO) {
+		System.out.println("글 수정 처리");
+		
+		System.out.println("번호 : " + vo.getSeq());
+		System.out.println("제목 : " + vo.getTitle());
+		System.out.println("작성자 : " + vo.getWriter());
+		System.out.println("내용 : " + vo.getContent());
+		System.out.println("등록일 : " + vo.getRegDate());
+		System.out.println("조회수 : " + vo.getCnt());
+		
+		boardDAO.updateBoard(vo);
+		return "getBoardList.do";
+	}
+
+수정된 소스를 저장하고 일단 실행 결과를 확인해보자. 글 목록 화면에서 특정 게시글의 제목을 클릭하면 BoardController의 getBoard() 메소드가 실행되고 상세 화면이 출력 될 것이다.
+이제 여기서부터가 중요한데 제목과 내용에 수정할 값을 입력하고 글 수정 버튼을 클릭하면 updateBoard() 메소드가 실행된다. 이때 콘솔에 사용자가 입력한 title, content 파라미터 정보뿐만 아니라 writer, regDate, cnt 파라미터 정보도 모두 설정된 것을 확인할 수 있다.
+어떻게 된 것일까? 먼저 사용자가 상세 화면을 요청하면 getBoard() 메소드는 검색 결과인 BoardVO 객체를 board라는 이름으로 Model에 저장한다. 이때, BoardController 클래스에 선언된 @SessionAttributes("board") 설정이 매우 중요한데, 이는 Model에 "board"라는 이름으로 저장되는 데이터가 있다면 그 데이터를 세션(HttpSession)에도 자동으로 저장하라는 설정이다.
+
+	// 글 상세 조회
+	@RequestMapping("/getBoard.do")
+	public String getBoard(BoardVO vo, BoardDAO boardDAO, Model model) {
+		System.out.println("글 상세 조회 처리");
+		model.addAttribute("board", boardDAO.getBoard(vo));	// Model 정보 저장
+		return "getBoard.jsp";		// View 이름 리턴
+	}
+
+따라서 getBoard() 메소드가 실행되어 상세 화면이 출력되면 일차적으로 Model에 board라는 이름으로 BoardVO 객체가 저장되고, 세션에도 board라는 이름으로 BoardVO 객체가 저장된다. 당연히 이 BoardVO 객체에는 상세 화면에 출력된 모든 정보(seq, title, writer, content, regDate, cnt)가 저장되어 있다.
+이제 사용자가 글 수정 버튼을 클릭하여 글 수정을 요청하는 상황으로 넘어가보자. 사용자가 글 수정 버튼을 클릭하면, updateBoard() 메소드가 실행된다. 이때, 중요한 것이 매개변수로 선언된 BoardVO 앞에 @ModelAttribute가 추가된 것이다.
+
+	// 글 수정
+	@RequestMapping("/updateBoard.do")
+	public String updateBoard(@ModelAttribute("board") BoardVO vo, BoardDAO boardDAO) {
+		System.out.println("글 수정 처리");
+		
+		System.out.println("번호 : " + vo.getSeq());
+		System.out.println("제목 : " + vo.getTitle());
+		System.out.println("작성자 : " + vo.getWriter());
+		System.out.println("내용 : " + vo.getContent());
+		System.out.println("등록일 : " + vo.getRegDate());
+		System.out.println("조회수 : " + vo.getCnt());
+		
+		boardDAO.updateBoard(vo);
+		return "getBoardList.do";
+	}
+
+BoardController의 updateBoard() 메소드가 호출될 때, 스프링 컨테이너는 우선 @ModelAttribute("board") 설정을 해석하여 세션에 board라는 이름으로 저장된 데이터가 있는지를 확인한다. 그리고 있다면 해당 객체를 세션에서 꺼내서 매개변수로 선언된 vo 변수에 할당한다. 그리고 사용자가 입력한 파라미터값을 vo 객체에 할당한다. 이때 사용자가 입력한 수정 정보(title,content) 값만 새롭게 할당되고, 나머지(seq, writer, regDate, cnt)는 상세 보기를 했을 때 세션에 저장된 데이터가 유지된다.

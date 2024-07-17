@@ -1,0 +1,1 @@
+@ModelAttribute를 BoardController에 사용하여 getBoardList.jsp에서 Select 태그에 내용, 제목을 출력하도록 하자.

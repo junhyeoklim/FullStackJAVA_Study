@@ -1,0 +1,26 @@
+@SessionAttributes 사용하기
+null 업데이트
+@SessionAttributes는 수정 작업을 처리할 때, 유용하게 사용할 수 있는 어노테이션이다. 예를 들어, 상세 화면에서 게시글을 수정한다고 가정해보자. 글 수정 버튼을 클릭하면 사용자가 입력한 수정 제목과 수정 내용 정보를 가지고 "/updateBoard.do" 요청을 전송할 것이고 BoardController의 updateBoard() 메소드에서는 사용자가 입력한 정보를 이용해서 글 수정 작업을 처리할 것이다. 그런데 문제는 사용자가 입력한 정보가 제목과 내용뿐이고, 작성자(write) 정보는 전달되지 않았기 때문에 Command 객체인 BoardVO에 writer 정보가 저장되지 않는다.
+물론 현재 상황에서는 BoardDAO에 updateBoard() 메소드가 제목과 내용 정보만 수정하도록 구현돼서 문제가 발생되지 않는다. 하지만 만약 다음처럼 작성자 컬럼까지 수정하도록 돼있다면 작성자(writer) 파라미터 정보가 전달되지 않으므로 WRITER 컬럼은 null로 수정된다.
+
+private final String BOARD_UPDATE = "update board set title=?, writer=?, content=? where seq=?";
+
+이런 문제를 방지하기 위해 스프링에서는 @SessionAttribute 어노테이션을 제공한다. 우선 @SessionAttribute를 사용하기 전 상황을 살펴보자. BoardController 클래스에 updateBoard() 메소드에서 수정할 작성자 이름을 확인해보는 코드를 추가한다.
+
+	// 글 수정
+	@RequestMapping("/updateBoard.do")
+	public String updateBoard(BoardVO vo, BoardDAO boardDAO) {
+		System.out.println("글 수정 처리");
+		
+		System.out.println("작성자 이름 : " + vo.getWriter());
+		
+		boardDAO.updateBoard(vo);
+		return "getBoardList.do";
+	}
+
+그리고 나서 다음과 같이 상세 화면으로 이동한 후에, 글 수정 버튼을 클릭하여 수정 요청을 했을 때, 콘솔에 출력되는 이름을 확인해보면 된다.
+
+당연히 콘솔에는 writer 파라미터 정보가 전달되지 않았으므로 null이 출력된다.
+
+작성자 이름 : null
+
