@@ -1,0 +1,9 @@
+WEB-INF에 board라는 이름의 폴더를 만든다.
+그리고 거기에 getBoard.jsp와 getBoardList.jsp를 옮긴다.
+
+presentation-layer에 ViewResolver를 등록한다.
+prefix에 /WEB-INF/board/
+suffix에 .jsp를 준다.
+
+프로젝트에 ViewResolver에 맞게 돌아가게끔 Controller를 수정해 준다.
+

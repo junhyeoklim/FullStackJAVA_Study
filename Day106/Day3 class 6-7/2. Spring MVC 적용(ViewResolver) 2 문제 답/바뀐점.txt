@@ -1,0 +1,28 @@
+presentation-layer에 
+	<!-- ViewResolver 등록 -->
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/board/"></property>
+		<property name="suffix" value=".jsp"></property>
+	</bean>
+
+LoginController.java
+
+		// 3. 화면 네비게이션
+		if(user != null) mav.setViewName("redirect:getBoardList.do");
+		else mav.setViewName("redirect:login.jsp");
+
+
+
+GetBoardListController
+
+    	// 3. 검색 결과와 화면 정보를 ModelAndView에 저장하여 리턴한다.
+    	mav.setViewName("getBoardList");		// View 정보 저장
+
+GetBoardController
+
+		mav.setViewName("getBoard");	// View 정보 저장
+
+InsertBoardController, UpdateBoardController, DeleteBoardController
+
+		mav.setViewName("redirect:getBoardList.do");
+	
