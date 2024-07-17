@@ -8,12 +8,16 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
+
 import com.springbook.biz.board.BoardVO;
 import com.springbook.biz.board.CommentVO;
 import com.springbook.biz.board.FileVO;
 import com.springbook.biz.common.JDBCUtil;
 import com.springbook.biz.common.PageVO;
 
+
+@Repository("boardDAO")
 public class BoardDAO {
 	private static BoardDAO boardDAO = new BoardDAO();
 	private final String TABLE_BOARD = "board";

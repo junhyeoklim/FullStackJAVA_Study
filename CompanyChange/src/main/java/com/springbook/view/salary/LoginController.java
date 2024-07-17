@@ -1,32 +1,32 @@
 package com.springbook.view.salary;
 
-import java.io.IOException;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+import com.springbook.biz.common.Constants;
 import com.springbook.biz.salary.CompanyVO;
 import com.springbook.biz.salary.impl.CompanyDAO;
-import com.springbook.view.controller.Controller;
 
-public class LoginController implements Controller {
+@Controller
+public class LoginController {
 
-    @Override
-    public String handleRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        CompanyDAO dao = CompanyDAO.getCompanyDAO();
-        CompanyVO VO = new CompanyVO();
-        HttpSession session = request.getSession();
+    @Autowired
+    private CompanyDAO companyDAO;
 
-        String pwd = request.getParameter("id");
-        String id = request.getParameter("name");
-
-        VO.setS_id(Integer.parseInt(pwd));
-        VO.setS_name(id);
-        dao.searchDAO(VO);
-
-        session.setAttribute("vo", VO);
-
-        return "AlertView/alert"; // 로그인 성공 시 이동할 뷰 이름
+    @RequestMapping(value = "/loginOK.do", method = RequestMethod.POST)
+    public String handleRequest(HttpSession session, CompanyVO vo, Model model) {
+        CompanyVO userVO = companyDAO.searchDAO(vo);
+        if (userVO != null) {
+            session.setAttribute("vo", userVO);
+            return Constants.ALERT_VIEW + "/alert.jsp"; // 로그인 성공 시 이동할 뷰 이름
+        } else {
+            model.addAttribute("message", "Invalid username or password");
+            return "LoginUI.jsp"; // 로그인 실패 시 다시 로그인 페이지로 이동
+        }
     }
 }

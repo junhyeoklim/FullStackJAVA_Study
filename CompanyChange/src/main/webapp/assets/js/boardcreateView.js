@@ -1,6 +1,7 @@
 $(document).ready(function() {
     var isFormModified = false;
     var fileList = [];
+    var contextPath = $('#contextPath').text(); // contextPath 설정
 
     $('#summernote').summernote({
         height: 300,
@@ -102,7 +103,7 @@ $(document).ready(function() {
         data.append('file', file);
         data.append('category', 'normal');
         $.ajax({
-            url: '/Company/UploadImageController',
+            url: contextPath + '/uploadImage.do', // 변경된 경로
             type: 'POST',
             data: data,
             contentType: false,
@@ -146,7 +147,7 @@ $(document).ready(function() {
 
         $.ajax({
             type: 'POST',
-            url: '/Company/SubmitPost.board',
+            url: contextPath + '/insertBoard.do', // 변경된 경로
             data: {
                 title: title,
                 content: contentWithBreak,
@@ -169,13 +170,13 @@ $(document).ready(function() {
                 // 파일 업로드
                 $.ajax({
                     type: 'POST',
-                    url: '/biz/UploadFileController',
+                    url: contextPath + '/uploadFiles.do', // 변경된 경로
                     data: formData,
                     contentType: false,
                     processData: false,
                     success: function(response) {
                         console.log("Files uploaded successfully");
-                        window.location.href = '/biz/listBoard.do';
+                        window.location.href = contextPath + '/getBoardList.do';
                     },
                     error: function(xhr, status, error) {
                         console.log("Error uploading files: " + error);

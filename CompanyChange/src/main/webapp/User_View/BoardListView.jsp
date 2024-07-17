@@ -49,7 +49,7 @@
 							</div>
 							<c:forEach var="board" items="${noticeList}">
 								<a class="vrow column notice-board"
-									href="${contextPath}/increaseViewCount.board?category=notice&b_id=${board.b_id}&redirect=${contextPath}/view.board?category=notice&b_id=${board.b_id}">
+									href="${contextPath}/increaseViewCount.do?category=notice&b_id=${board.b_id}&redirect=${contextPath}/viewBoard.do?category=notice&b_id=${board.b_id}">
 									<div class="vrow-inner">
 										<div class="vrow-top">
 											<span class="vcol col-id"><b>공지</b></span> <span
@@ -97,7 +97,7 @@
 							</c:forEach>
 						</div>
 						<div class="create-post-wrapper">
-							<a href="${contextPath}/BoardCreateView.jsp" class="create-post">글쓰기</a>
+							<a href="${contextPath}/newBoard.do" class="create-post">글쓰기</a>
 						</div>
 
 						<form class="search-form" method="post"

@@ -32,7 +32,7 @@
     rel="stylesheet">
 <script src="${contextPath}/assets/js/boardcreateView.js"></script>
 <style>
-.file-item {
+/* .file-item {
     margin-bottom: 10px;
     margin-left: 10px;
     margin-right: 10px;
@@ -137,21 +137,22 @@
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
-    }
+    } */
 }
 
 </style>
 </head>
 <body>
+  <span id="contextPath" hidden>${contextPath}</span>
     <c:choose>
-        <c:when test="${not empty sessionScope.dto}">
+        <c:when test="${not empty sessionScope.vo}">
             <c:import url="/assets/jsp/Menubar.jsp" />
             <section class="container">
                 <div class="WritingWrap">
                     <div class="WritingHeader">
                         <h2 class="title">게시글 작성</h2>
                     </div>
-                        <c:if test="${sessionScope.dto.s_name == 'admin'}">
+                        <c:if test="${sessionScope.vo.s_name == 'admin'}">
                             <div class="form-check">
                                 <input type="checkbox" class="form-check-input" id="is_notice"
                                     name="is_notice"> <label for="is_notice"

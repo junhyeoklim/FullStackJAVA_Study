@@ -20,11 +20,11 @@
                     <div class="login_inp">
                         <div class="input_box">
                             <label for="name" class="lab_login">NAME</label>
-                            <input type="text" name="name" id="name" class="inp_txt" maxlength="10">
+                            <input type="text" name="s_name" id="name" class="inp_txt" maxlength="10">
                         </div>
                         <div class="input_box">
                             <label for="id" class="lab_login">ID</label>
-                            <input type="password" name="id" id="id" class="inp_txt">
+                            <input type="password" name="s_id" id="id" class="inp_txt">
                         </div>
                     </div>
                     <div class="login_set">

@@ -206,23 +206,21 @@
             const b_id = ${board.b_id};
 
             if (confirm('게시물을 삭제하시겠습니까?')) {
-                console.log("삭제 요청 데이터: ", { b_id: b_id, isNotice: isNotice }); // 요청 데이터 출력
-
                 $.ajax({
                     type: 'POST',
-                    url: '${contextPath}/DeletePost.board', // 서버에서 삭제 처리를 위한 URL
-                    data: { b_id: b_id, isNotice: isNotice },
+                    url: '${contextPath}/deleteBoard.do', // 서버에서 삭제 처리를 위한 URL
+                    contentType: 'application/json',
+                    data: JSON.stringify({ b_id: b_id, isNotice: isNotice }),
                     success: function(response) {
-                    	alert('게시물이 삭제되었습니다.');
+                        alert('게시물이 삭제되었습니다.');
                         window.location.href = '${contextPath}/BoardList.board'; // 게시물 목록 페이지로 이동
-                    	 
                     },
                     error: function(xhr, status, error) {
                         console.error('AJAX 오류: ', error); // 오류 메시지를 콘솔에 출력
                         console.error('서버 응답: ', xhr.responseText); // 서버 응답을 콘솔에 출력
 
-                        if (xhr.responseJSON && xhr.responseJSON.status === 'success') {
-                        	alert('게시물 삭제에 실패했습니다.');	
+                        if (xhr.responseJSON && xhr.responseJSON.status === 'error') {
+                            alert('게시물 삭제에 실패했습니다.');	
                         } else {
                             alert('게시물 삭제 중 오류가 발생했습니다.');
                         }

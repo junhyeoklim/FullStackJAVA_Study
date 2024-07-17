@@ -41,7 +41,7 @@
 <span id="uname" hidden>${sessionScope.vo.s_name}</span>
 <nav class="navbar navbar-expand-lg bg-dark navbar-dark navbar-wrapper" id="menubar">
     <div class="container-fluid">
-        <a class="navbar-brand" href="${contextPath}/BoardList.board">Main</a>
+        <a class="navbar-brand" href="${contextPath}/listBoard.do">Main</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>

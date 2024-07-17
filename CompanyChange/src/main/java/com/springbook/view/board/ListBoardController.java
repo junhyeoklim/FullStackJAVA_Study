@@ -6,14 +6,17 @@ import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
 import com.springbook.biz.board.BoardVO;
 import com.springbook.biz.board.impl.BoardDAO;
 import com.springbook.biz.common.PageVO;
-import com.springbook.view.controller.Controller;
 
-public class ListBoardController implements Controller {
+@Controller
+public class ListBoardController{
 
-    @Override
+    @RequestMapping(value = "/listBoard.do")
     public String handleRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
         BoardDAO dao = BoardDAO.getBoardDAO();
         
@@ -38,6 +41,6 @@ public class ListBoardController implements Controller {
         request.setAttribute("list", list);
         request.setAttribute("pagingInfo", pageVO);
 
-        return "User_View/BoardListView"; // 뷰 이름 반환
+        return "User_View/BoardListView.jsp"; // 뷰 이름 반환
     }
 }

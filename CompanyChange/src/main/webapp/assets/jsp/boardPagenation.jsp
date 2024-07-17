@@ -3,7 +3,7 @@
 						<ul class="pagination justify-content-center">
 							<c:if test="${requestScope.pagingInfo.currentPage > 1}">
 								<li class="page-item"><a class="page-link"
-									href="<c:url value='/BoardList.board'>
+									href="<c:url value='/listBoard.do'>
                     <c:param name='page' value='1'/>
                     <c:if test='${not empty requestScope.kindOfSearch}'>
                         <c:param name='kindOfSearch' value='${requestScope.kindOfSearch}'/>
@@ -14,7 +14,7 @@
                 </c:url>">&lt;&lt;</a>
 								</li>
 								<li class="page-item"><a class="page-link"
-									href="<c:url value='/BoardList.board'>
+									href="<c:url value='/listBoard.do'>
                     <c:param name='page' value='${requestScope.pagingInfo.currentPage - 1}'/>
                     <c:if test='${not empty requestScope.kindOfSearch}'>
                         <c:param name='kindOfSearch' value='${requestScope.kindOfSearch}'/>
@@ -33,7 +33,7 @@
 								<li
 									class="page-item ${requestScope.pagingInfo.currentPage == i ? 'active' : ''}">
 									<a class="page-link"
-									href="<c:url value='/BoardList.board'>
+									href="<c:url value='/listBoard.do'>
                     <c:param name='page' value='${i}'/>
                     <c:if test='${not empty requestScope.kindOfSearch}'>
                         <c:param name='kindOfSearch' value='${requestScope.kindOfSearch}'/>
@@ -47,7 +47,7 @@
 							<c:if
 								test="${requestScope.pagingInfo.currentPage < requestScope.pagingInfo.noOfPages}">
 								<li class="page-item"><a class="page-link"
-									href="<c:url value='/BoardList.board'>
+									href="<c:url value='/listBoard.do'>
                     <c:param name='page' value='${requestScope.pagingInfo.currentPage + 1}'/>
                     <c:if test='${not empty requestScope.kindOfSearch}'>
                         <c:param name='kindOfSearch' value='${requestScope.kindOfSearch}'/>
@@ -58,7 +58,7 @@
                 </c:url>">&gt;</a>
 								</li>
 								<li class="page-item"><a class="page-link"
-									href="<c:url value='/BoardList.board'>
+									href="<c:url value='/listBoard.do'>
                     <c:param name='page' value='${requestScope.pagingInfo.noOfPages}'/>
                     <c:if test='${not empty requestScope.kindOfSearch}'>
                         <c:param name='kindOfSearch' value='${requestScope.kindOfSearch}'/>

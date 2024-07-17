@@ -1,72 +1,36 @@
 package com.springbook.view.board;
 
-import java.io.IOException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.google.gson.Gson;
-import com.springbook.biz.board.BoardVO;
 import com.springbook.biz.board.impl.BoardDAO;
-import com.springbook.view.controller.Controller;
+import com.springbook.biz.common.DeleteRequest;
+import com.springbook.biz.common.Response;
 
-public class DeleteBoardController implements Controller {
+@Controller
+public class DeleteBoardController {
 
-    @Override
-    public String handleRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    @Autowired
+    private BoardDAO boardDAO;
+
+    @RequestMapping(value = "/deleteBoard.do", method = RequestMethod.POST)
+    @ResponseBody
+    public Response deleteBoard(@RequestBody DeleteRequest deleteRequest) {
         System.out.println("글 삭제 처리");
-        
-        // 1. 사용자 입력 정보 추출
-        int b_id = Integer.parseInt(request.getParameter("b_id"));
-        boolean isNotice = Boolean.parseBoolean(request.getParameter("isNotice"));
 
-        // 2. DB 연동 처리
-        BoardDAO dao = BoardDAO.getBoardDAO();
-        boolean success = dao.deletePost(b_id, isNotice);
+        int b_id = deleteRequest.getB_id();
+        boolean isNotice = deleteRequest.isNotice();
 
-        // 3. JSON 응답 생성
-        response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
-        Gson gson = new Gson();
-        
-        String jsonResponse;
+        boolean success = boardDAO.deletePost(b_id, isNotice);
+
         if (success) {
-            jsonResponse = gson.toJson(new Response("success"));
+            return new Response("success");
         } else {
-            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            jsonResponse = gson.toJson(new Response("error", "게시물 삭제에 실패했습니다."));
-        }
-        
-        response.getWriter().write(jsonResponse);
-        return null; // AJAX 요청이므로 뷰 네비게이션이 필요 없음
-    }
-
-    class Response {
-        private String status;
-        private String message;
-
-        public Response(String status) {
-            this.status = status;
-        }
-
-        public Response(String status, String message) {
-            this.status = status;
-            this.message = message;
-        }
-
-        public String getStatus() {
-            return status;
-        }
-
-        public void setStatus(String status) {
-            this.status = status;
-        }
-
-        public String getMessage() {
-            return message;
-        }
-
-        public void setMessage(String message) {
-            this.message = message;
+            return new Response("error", "게시물 삭제에 실패했습니다.");
         }
     }
 }

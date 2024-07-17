@@ -31,7 +31,7 @@
 				<h2 class="text-center mb-4">사원 목록</h2>
 				<div class="card mb-4">
 					<div class="card-header">
-						<form class="form-inline" method="post" action="${contextPath}/search.do">
+						<form class="form-inline" method="post" action="${contextPath}/companyList.do">
 							<div class="form-group mr-3">
 								<label for="select-box" class="mr-2">검색</label>
 								<select id="select-box" name="select-box" class="form-control">

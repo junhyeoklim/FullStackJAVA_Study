@@ -6,46 +6,45 @@ import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.springbook.biz.common.Constants;
 import com.springbook.biz.common.PageVO;
 import com.springbook.biz.salary.CompanyVO;
 import com.springbook.biz.salary.impl.CompanyDAO;
-import com.springbook.view.controller.Controller;
 
-public class CompanyListController implements Controller {
+@Controller
+public class CompanyListController {
 
-    @Override
-    public String handleRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    @Autowired
+    private CompanyDAO companyDAO;
+
+    @RequestMapping("/companyList.do")
+    public String companyList(HttpServletRequest request, HttpServletResponse response,
+                              @RequestParam(value = "select-box", required = false) String select,
+                              @RequestParam(value = "search", required = false) String search,
+                              @RequestParam(value = "s_id", required = false) String s_id,
+                              @RequestParam(value = "page", required = false, defaultValue = "1") int page) throws IOException {
+
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
 
-        CompanyDAO dao = CompanyDAO.getCompanyDAO();
         PageVO pageVO = new PageVO();
-        ArrayList<CompanyVO> list = null;
-
-        String select = request.getParameter("select-box");
-        String search = request.getParameter("search");
-        String s_id = request.getParameter("s_id");
-        
-        try {
-            if (request.getParameter("page") != null) {
-                String pageStr = request.getParameter("page").replaceAll("[^\\d]", "");
-                pageVO.setCurrentPage(Integer.parseInt(pageStr));
-            } else {
-                pageVO.setCurrentPage(1);
-            }
-        } catch (NumberFormatException e) {
-            pageVO.setCurrentPage(1);
-        }
-
+        pageVO.setCurrentPage(page);
         pageVO.setRecordsPerPage(10);
-        
-        if(s_id != null) {
-            list = dao.searchDAO(s_id);
+
+        ArrayList<CompanyVO> list;
+
+        if (s_id != null) {
+            list = companyDAO.searchDAO(s_id);
         } else if (select != null && search != null && !search.isEmpty()) {
             search = search.replaceAll("'", "''"); // 작은 따옴표를 이스케이프 처리
-            list = dao.searchDAO(pageVO, Integer.parseInt(select), search);
+            list = companyDAO.searchDAO(pageVO, Integer.parseInt(select), search);
         } else {
-            list = dao.listDAO(pageVO);
+            list = companyDAO.listDAO(pageVO);
         }
 
         // request 객체에 데이터 저장
@@ -54,6 +53,6 @@ public class CompanyListController implements Controller {
         request.setAttribute("selectBox", select);
         request.setAttribute("search", search);
 
-        return "Admin_View/companyList"; // 뷰 이름 반환
+        return Constants.ADMIN_VIEW + "/companyList.jsp"; // 뷰 이름 반환
     }
 }

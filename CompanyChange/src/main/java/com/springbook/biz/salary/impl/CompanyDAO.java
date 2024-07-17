@@ -8,11 +8,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.stereotype.Repository;
+
 import com.springbook.biz.common.JDBCUtil;
 import com.springbook.biz.common.PageVO;
 import com.springbook.biz.salary.CompanyVO;
 
-
+@Repository("companyDAO")
 public class CompanyDAO {
     private static CompanyDAO companyDAO = new CompanyDAO();
     private final String TABLE_NAME = "salary_man";
@@ -158,33 +160,43 @@ public class CompanyDAO {
         return list;
     }
     
-	public void searchDAO(CompanyVO VO) {
-		String sql = "SELECT * FROM salary_man WHERE s_id="+VO.getS_id()+" AND s_name = '"+VO.getS_name()+"'";
-		String asql = "SELECT * FROM admin WHERE s_id="+VO.getS_id()+" AND s_name = '"+VO.getS_name()+"'"; 
-		try(PreparedStatement pstmt = con.prepareStatement(sql);
-				PreparedStatement apstmt = con.prepareStatement(asql);				
-				ResultSet rs = pstmt.executeQuery();
-				ResultSet ars = apstmt.executeQuery();) {
+    public CompanyVO searchDAO(CompanyVO VO) {
+        String sql = "SELECT * FROM salary_man WHERE s_id=? AND s_name=?";
+        String asql = "SELECT * FROM admin WHERE s_id=? AND s_name=?";
+        CompanyVO resultVO = null;
 
-			if(rs.next()) {
-				VO.setS_department(rs.getString("s_department"));
-				return;
-			}
-			else {
-				if(ars.next())
-					return;
-				else {
-					System.out.println("존재하지 않음");
-					VO.setS_id(0);
-					VO.setS_name(null);
-				}
-			}
+        try (PreparedStatement pstmt = con.prepareStatement(sql);
+             PreparedStatement apstmt = con.prepareStatement(asql)) {
 
+            pstmt.setInt(1, VO.getS_id());
+            pstmt.setString(2, VO.getS_name());
+            apstmt.setInt(1, VO.getS_id());
+            apstmt.setString(2, VO.getS_name());
 
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
+            try (ResultSet rs = pstmt.executeQuery();
+                 ResultSet ars = apstmt.executeQuery()) {
+
+                if (rs.next()) {
+                    resultVO = new CompanyVO();
+                    resultVO.setS_id(rs.getInt("s_id"));
+                    resultVO.setS_name(rs.getString("s_name"));
+                    resultVO.setS_department(rs.getString("s_department"));
+                } else if (ars.next()) {
+                    resultVO = new CompanyVO();
+                    resultVO.setS_id(ars.getInt("s_id"));
+                    resultVO.setS_name(ars.getString("s_name"));
+                } else {
+                    System.out.println("존재하지 않음");
+                    VO.setS_id(0);
+                    VO.setS_name(null);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return resultVO;
+    }
 	
 	public ArrayList<CompanyVO> searchDAO(String s_id) {
 		ArrayList<CompanyVO> list = new ArrayList<CompanyVO>();

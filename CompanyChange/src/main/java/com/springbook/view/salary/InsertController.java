@@ -2,67 +2,87 @@ package com.springbook.view.salary;
 
 import java.io.IOException;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.springbook.biz.common.Constants;
 import com.springbook.biz.salary.CompanyVO;
 import com.springbook.biz.salary.impl.CompanyDAO;
-import com.springbook.view.controller.Controller;
 
-public class InsertController implements Controller {
+@Controller
+public class InsertController {
 
-	@Override
-	public String handleRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		CompanyDAO dao = CompanyDAO.getCompanyDAO();
-		CompanyVO VO = new CompanyVO();
-
-		int cnt = 0;
-		String id = null;
-		String name = request.getParameter("name");
-		String birth = request.getParameter("year").concat(request.getParameter("month"))
-				.concat(request.getParameter("date"));
-		String gender = request.getParameter("gender");
-		String department = request.getParameter("department-box");
-		String rank = request.getParameter("rank");
-		String mail = request.getParameter("first").concat("@" + request.getParameter("second"));
-		String phone = request.getParameter("phone");
-
-		if (department.equals("경영"))
-			id = "101";
-		else if (department.equals("인사"))
-			id = "102";
-		else if (department.equals("개발"))
-			id = "103";
-
-		while (true) {
-			if (cnt == 5) {
-				if (!dao.searchID(id)) {
-					break;
-				} else {
-					cnt = 0;
-
-					if (department.equals("경영"))
-						id = "101";
-					else if (department.equals("인사"))
-						id = "102";
-					else if (department.equals("개발"))
-						id = "103";
-				}
-			} else {
-				id += (int) (Math.random() * 10);
-				cnt++;
-			}
-		}
-		VO.setS_id(Integer.parseInt(id));
-		VO.setS_name(name);
-		VO.setS_birth(Integer.parseInt(birth));
-		VO.setS_gender(gender);
-		VO.setS_department(department);
-		VO.setS_rank(rank);
-		VO.setS_mail(mail);
-		VO.setS_phoneNumber(phone);
-		dao.insertOK(VO);
-
-		return "insertResult"; // 뷰 이름 반환
+	
+	@RequestMapping("/register.do")
+	public String insertSalaryUI() {
+	    System.out.println("요청 들어왔다");
+	    System.out.println("경로: " + Constants.ADMIN_VIEW + "/registerUI.jsp");
+	    return Constants.ADMIN_VIEW + "/registerUI.jsp";
 	}
+
+	
+	
+	
+    @Autowired
+    private CompanyDAO companyDAO;
+
+    @RequestMapping(value = "/registerOK.do")
+    public String insertSalary(@RequestParam("name") String name,
+                               @RequestParam("year") String year,
+                               @RequestParam("month") String month,
+                               @RequestParam("date") String date,
+                               @RequestParam("gender") String gender,
+                               @RequestParam("department-box") String department,
+                               @RequestParam("rank") String rank,
+                               @RequestParam("first") String first,
+                               @RequestParam("second") String second,
+                               @RequestParam("phone") String phone) throws IOException {
+        
+        CompanyVO VO = new CompanyVO();
+        String id = null;
+        int cnt = 0;
+        String birth = year.concat(month).concat(date);
+        String mail = first.concat("@" + second);
+
+        if (department.equals("경영"))
+            id = "101";
+        else if (department.equals("인사"))
+            id = "102";
+        else if (department.equals("개발"))
+            id = "103";
+
+        while (true) {
+            if (cnt == 5) {
+                if (!companyDAO.searchID(id)) {
+                    break;
+                } else {
+                    cnt = 0;
+
+                    if (department.equals("경영"))
+                        id = "101";
+                    else if (department.equals("인사"))
+                        id = "102";
+                    else if (department.equals("개발"))
+                        id = "103";
+                }
+            } else {
+                id += (int) (Math.random() * 10);
+                cnt++;
+            }
+        }
+
+        VO.setS_id(Integer.parseInt(id));
+        VO.setS_name(name);
+        VO.setS_birth(Integer.parseInt(birth));
+        VO.setS_gender(gender);
+        VO.setS_department(department);
+        VO.setS_rank(rank);
+        VO.setS_mail(mail);
+        VO.setS_phoneNumber(phone);
+        companyDAO.insertOK(VO);
+
+        return Constants.ADMIN_VIEW + "/companyList.jsp"; // 뷰 이름 반환
+    }
 }
