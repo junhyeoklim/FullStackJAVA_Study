@@ -12,10 +12,10 @@
 	<form action="login.do" method="post">
 		<table border="1">
 			<tr>
-				<td>아이디</td><td><input type="text" name="id"/></td>
+				<td>아이디</td><td><input type="text" name="id" value="${user.id}" /></td>
 			</tr>
 			<tr>
-				<td>비밀번호</td><td><input type="password" name="password"/></td>
+				<td>비밀번호</td><td><input type="password" name="password" value="${user.password}" /></td>
 			</tr>
 			<tr>
 				<td colspan="2"><input type="submit" value="로그인" /></td>

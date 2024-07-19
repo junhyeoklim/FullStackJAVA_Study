@@ -12,7 +12,6 @@ public class PointcutCommon {
 	public void getPointcut(){}
 }
 
-
 /*
 	외부 Pointcut 참조하기
 	XML 설정으로 포인트컷을 관리했을 때는 스프링 설정 파일에 포인트컷을 여러 개 등록했다.

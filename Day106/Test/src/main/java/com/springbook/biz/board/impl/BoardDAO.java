@@ -96,10 +96,17 @@ public class BoardDAO {
 	public List<BoardVO> getBoardList(BoardVO vo){
 		System.out.println("===> JDBC로 getBoardList() 기능 처리");
 		List<BoardVO> boardList = new ArrayList<BoardVO>();
-		final String SQL = "SELECT * FROM BOARD ORDER BY SEQ DESC";
+		String searchKeyword = vo.getSearchKeyword();
+		
+		String sqlT = "SELECT * FROM BOARD WHERE TITLE LIKE '%" + searchKeyword +"%' ORDER BY SEQ DESC";
+		String sqlC = "SELECT * FROM BOARD WHERE CONTENT LIKE '%" + searchKeyword + "%' ORDER BY SEQ DESC";
+		String sql = null;
+		if(vo.getSearchCondition().equals("TITLE")) sql = sqlT;
+		else if(vo.getSearchCondition().equals("CONTENT")) sql = sqlC;		
+		System.out.println("sql" + sql);
 		
 		try(Connection conn = JDBCUtil.getConnection();
-				PreparedStatement pstmt = conn.prepareStatement(SQL);
+				PreparedStatement pstmt = conn.prepareStatement(sql);
 				ResultSet rs = pstmt.executeQuery())
 		{
 			while(rs.next()) {
