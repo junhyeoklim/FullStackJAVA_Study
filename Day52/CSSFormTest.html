@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div{
+            border-radius: 5px;
+            background-color: rgb(215, 210, 210);
+            padding: 20px;
+        }
+        input[type="text"],select{
+            display: inline-block;
+            width: 100%;
+            margin: 10px 0;
+            padding: 12px 20px;
+            box-sizing: border-box;
+            border-radius: 4px;
+        }
+        input[type="submit"]{
+            width: 100%;
+            border-radius: 4px;
+            padding: 12px 0;
+            background-color: rgb(24, 179, 24);
+            color: white;
+            border: none;
+        }
+
+        input[type="submit"]:hover{
+            background:  rgb(18, 146, 18);
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>   
+    <h1>Using CSS to style an HTML Form</h1>
+    <div>
+        <form action="/action_page.php">
+            <label for="fname">Frist Name</label>
+            <input type="text" id="fname" name="firstname" placeholder="Your name..">
+
+            <label for="lname">Last Name</label>
+            <input type="text" id="lname" name="lastname" placeholder="Your last name..">
+
+            <label for="country">Country</label>
+            <select name="country" id="country">
+                <option value="australia">Australia</option>
+                <option value="canada">Canada</option>
+                <option value="usa">USA</option>
+            </select>
+            <input type="submit" value="submit">
+        </form>
+    </div>
+
+</body>
+</html>

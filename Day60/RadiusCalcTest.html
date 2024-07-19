@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RadiusCalcTest</title>
+    <style>
+        body{
+            user-select: none;
+        }
+        #container{
+            border: 1px solid black;
+            padding: 5px 50px 50px 50px;
+        }
+        div{
+            width: 230px;
+            margin: 0 auto;
+        }
+        label{
+            display: block;
+        }
+        .content , hr{
+            margin-bottom: 20px;
+        }
+        .result{
+            border-radius: 10px 10px 10px 10px;
+            border: 3px solid black;            
+            padding: 5px 0;
+            width: 230px;
+            height: 25px;
+        }
+        #radius{
+            border-radius: 10px 10px 10px 10px;
+            border: 3px solid black;
+            padding: 10px 0;
+        }
+        span{
+            border: 1px solid black;
+            border-radius: 5px 5px 5px 5px;
+            padding: 5px 10px;
+            background-color: antiquewhite;
+        }
+        #calc:hover{
+            background-color: #9d9285;
+        }
+        #calc:active{
+            color: white;
+            background-color: rgb(56, 52, 47);
+        }
+
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h2>원 둘레와 넓이 계산</h2>
+        <div class="content">
+            <label for="radius">반지름:</label>
+            <input type="text" id="radius">
+            <span id="calc">계산</span>
+        </div>
+        <hr>
+        <div class="content">
+            <label>원둘레:</label>
+            <input type="text" id="round" class="result" readonly>
+        </div>
+        <div>
+            <label>원넓이:</label>
+            <input type="text" id="area" class="result" readonly>
+        </div>
+    </div>
+    <script> 
+        let PI = Math.trunc(Math.PI *100)/100;       
+        let radius = document.querySelector("#radius");
+        let calc = document.querySelector("#calc");
+
+        calc.addEventListener("click",calcResult);
+        calc.addEventListener("mousedown", () =>{
+            calc.style.color = "white";
+            calc.style.backgroundColor = "#38342f";
+        });
+        calc.addEventListener("mouseup", () =>{
+            calc.style.color = "black";
+            calc.style.backgroundColor = "antiquewhite";
+        });
+        calc.addEventListener("mouseover",() =>
+         calc.style.backgroundColor = "#9d9285"
+        );
+        calc.addEventListener("mouseout",() =>
+         calc.style.backgroundColor = "antiquewhite"
+        );
+
+        radius.addEventListener("keydown",(e) =>{
+            if(e.key === "Enter")
+            {
+                calcResult();
+                calc.style.color = "white";
+                calc.style.backgroundColor = "#38342f";
+            }
+        });
+
+        radius.addEventListener("keyup",(e) => {
+            if(e.key === "Enter")
+            {
+                calc.style.color = "black";
+                calc.style.backgroundColor = "antiquewhite";
+            }
+        });
+        
+        function calcResult() {            
+            if(!isNaN(parseInt(radius.value)))
+            { 
+                document.querySelector("#round").value =  Math.trunc((2 * Math.PI * Number(radius.value))*100)/100;
+                document.querySelector("#area").value =  Math.trunc((Math.PI*Math.pow(parseInt(radius.value),2))*100)/100;            
+                radius.focus();
+            }
+            else
+            {
+                alert("올바른 값을 입력 해주세요!");
+                document.querySelector("#round").value = "";
+                document.querySelector("#area").value = "";
+                radius.focus();
+            }
+        }
+    </script>
+</body>
+</html>

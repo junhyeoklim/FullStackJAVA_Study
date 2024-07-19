@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test</title>
+</head>
+<body>
+    <script>
+        // 1번 문제
+        // try {
+        //     gk.bye();
+        // } catch (error) {
+        //     console.log("catch부분");
+        // }
+
+        // 2번 문제
+        // try {
+        //     gk.bye();
+        // } catch (error) {
+        //     console.log("catch부분");
+        // }
+        // finally{
+        //     console.log("finally부분");
+        // }
+
+        // 3번 문제
+    //     function test() {
+    //     try {
+    //       alert('A 위치입니다.')
+    //       throw "예외 강제 발생"
+    //     } catch (exception) {
+    //       alert('B 위치입니다.')
+    //       return
+    //     }
+    //     alert('C 위치입니다.')
+    //   }
+
+    //   // 함수를 호출합니다.
+    //   test()
+      
+
+
+        // 4번 문제
+    //     function test() {
+    //     try {
+    //       alert('A 위치입니다.')
+    //       throw "예외 강제 발생"
+    //     } catch (exception) {
+    //       alert('B 위치입니다.')
+    //       return
+    //     } finally {
+    //       alert('C 위치입니다.')
+    //     }
+    //   }
+
+    //   // 함수를 호출합니다.
+    //   test()
+
+        // 예상a,b,c 다 호출 ''
+
+        // 6-1번 문제
+        // try {
+        //     let arr = new Array(1000000000000000000000000000000000);
+        // } catch (error) {
+        //     console.log(error);
+        // }
+
+        // 6-2~3번 문제
+        // try {
+        //     console.log("try");
+        //     throw djsak;
+        //     // throw new Error(jdisa);
+        // } catch (error) {
+        //     console.log("예외 처리");
+        //     console.log(error);
+        // }
+        // try{
+        //     console.log('try 구문입니다')
+        //     const array = ['사과', '바나나', '귤']
+        //     array.forEach(()=>{
+        //         throw '예외를 강제로 발생시킵니다.'
+        //     })
+        //     } catch(e){
+        //         console.log('catch 구문입니다.')
+        //     } finally {
+        //         console.log('finally 구문입니다.')
+        //     }
+
+
+        // 1번 문제 : 2
+        // 1번 문제 : 추상화란 프로그램에 필요한 요소만 사용해서 객체를 표현 하는 것
+
+    //     const students = []
+    //     students.push({ 이름: '구름', 국어: 87, 영어: 98, 수학: 88, 과학: 90})
+    //     students.push({ 이름: '별이', 국어: 92, 영어: 98, 수학: 96, 과학: 88})
+    //     students.push({ 이름: '겨울', 국어: 76, 영어: 96, 수학: 94, 과학: 86})
+    //     students.push({ 이름: '바다', 국어: 98, 영어: 52, 수학: 98, 과학: 92}) 
+
+    //     for (const s of students) {
+    //         s.getSum = function () {
+    //             return this.국어+this.영어+this.수학+this.과학;
+    //         }
+
+    //         s.getAverage = function () {
+    //                 return this.getSum()/4;
+    //         }
+            
+    //     }
+
+    //     let output = '이름\t총점\t평균\n'
+    //   for (const s of students) {
+    //     output += `${s.이름}\t${s.getSum()}점\t${s.getAverage()}점\n`
+    //   }
+    //   console.log(output)
+
+    // function createStudent(이름,국어,영어,수학,과학) {
+    //     return {
+    //         이름 : 이름,
+    //         국어 : 국어,
+    //         영어 : 영어,
+    //         수학 : 수학,
+    //         과학 : 과학,
+
+    //         getSum(){
+    //             return this.국어+this.영어+this.수학+this.과학
+    //         },
+
+    //         getAverage(){
+    //             return this.getSum()/4
+    //         },
+
+    //         toString(){
+    //             return `${this.이름}\t${this.getSum()}점\t${this.getAverage()}점\n`
+    //         }
+    //     }
+    // }
+
+    // const students = []
+    //   students.push(createStudent('구름', 87, 98, 88, 90))
+    //   students.push(createStudent('별이', 92, 98, 96, 88))
+    //   students.push(createStudent('겨울', 76, 96, 94, 86))
+    //   students.push(createStudent('바다', 98, 52, 98, 92))
+    
+    //   // 출력합니다.
+    //   let output = '이름\t총점\t평균\n'
+    //   for (const s of students) {
+    //     output += s.toString()
+    //   }
+    //   console.log(output)
+
+    // class Student {
+    //     constructor (이름,국어,영어,수학,과학){
+    //         this.이름 = 이름
+    //         this.국어 = 국어
+    //         this.영어 = 영어
+    //         this.수학 = 수학
+    //         this.과학 = 과학
+    //     }
+    // }
+
+    // const students = []
+    //   students.push(new Student('구름', 87, 98, 88, 90))
+    //   students.push(new Student('별이', 92, 98, 96, 88))
+    //   students.push(new Student('겨울', 76, 96, 94, 86))
+    //   students.push(new Student('바다', 98, 52, 98, 92))
+
+    // class Student{
+    //     constructor (이름,국어,영어,수학,과학){
+    //         this.이름 = 이름
+    //         this.국어 = 국어
+    //         this.영어 = 영어
+    //         this.수학 = 수학
+    //         this.과학 = 과학
+    //     }
+
+    //     getSum(){
+    //         return this.국어+this.영어+this.수학+this.과학
+    //     }
+
+    //     getAverage(){
+    //         return this.getSum()/4
+    //     }
+
+    //     toString () {
+    //       return `${this.이름}\t${this.getSum()}점\t${this.getAverage()}점\n`
+    //     }
+    // }
+
+    // const students = []
+    //   students.push(new Student('구름', 87, 98, 88, 90))
+    //   students.push(new Student('별이', 92, 98, 96, 88))
+    //   students.push(new Student('겨울', 76, 96, 94, 86))
+    //   students.push(new Student('바다', 98, 52, 98, 92))
+
+
+    //   let output = '이름\t총점\t평균\n'
+    //   for (const s of students) {
+    //     output += s.toString()
+    //   }
+    //   console.log(output)
+
+    // class Rectangle{
+    //     constructor (x,y){
+    //         this.x = x;
+    //         this.y = y;
+    //     }
+
+    //     Area(){
+    //         return this.x*this.y;
+    //     }
+
+    //     Round(){
+    //         return (this.x+this.y)*2;
+    //     }
+    // }
+
+    // class Square extends Rectangle{
+    //     constructor(x){
+    //         super(x,x);
+    //     }
+    // }
+
+
+    // let s = new Rectangle(10,20);
+    // let s2 = new Square(10);
+
+    // console.log("둘레 : "+s2.Round());
+    // console.log("넓이 : "+s2.Area());
+
+
+    // 정사각형 클래스
+    // class Square {
+    //     constructor (length) {
+    //         if(length < 0)
+    //             alert("다시 입력 해주세요.");
+
+    //         else
+    //             this.length = length
+    //     }
+    //     getPerimeter () { return 4 * this.length }
+    //     getArea () { return this.length * this.length }
+    //   }
+
+    //     // 클래스 사용하기
+        // const square = new Square(-10)
+        // console.log(`정사각형의 둘레: ${square.getPerimeter()}`)
+        // console.log(`정사각형의 넓이: ${square.getArea()}`)
+
+
+    // class Square{
+    //     #length;
+    //     constructor (length){
+    //         this.length = length;
+    //     }
+
+    //     getArea(){
+    //         return this.length*2;
+    //     }
+
+    //     getPerimeter(){
+    //         return this.length*4;
+    //     }
+
+    //     getLength(){
+    //         return this.length;
+    //     }
+    //     setLength(length){
+    //         if(length < 0)
+    //             alert("다시 입력 하세요")
+    //         else
+    //             this.length = length;
+    //     }
+    // }
+    // const square = new Square();
+    // square.setLength(10);
+
+    //     console.log(`정사각형의 둘레: ${square.getPerimeter()}`)
+    //     console.log(`정사각형의 넓이: ${square.getArea()}`)
+
+
+
+
+    // class Square{
+    //     #length;
+    //     static#counter = 0;
+
+    //     static get counter () {
+    //         return Square.#counter;
+    //     }
+
+    //     constructor(length){
+    //         this.length = length;
+    //         Square.#counter += 1;
+    //     }
+
+    //     static getPerimeterOf(length) {
+    //         return length*4;
+    //     }
+
+    //     static getAreaOf(length){
+    //         return length*2;
+    //     }
+
+    //     getLength(){
+    //         return this.length;
+    //     }
+
+    //     getPerimeter(){
+    //         return this.length*4;
+    //     }
+
+    //     getArea() {
+    //         return this.length*2;
+    //     }
+
+    //     set (length){
+    //         if(length < 0)
+    //             throw("다시 입력 해주세요");
+    //         else
+    //             this.length = length;
+    //     }
+    // }
+
+    // let s1 = new Square(10);
+    // let s2 = new Square(20);
+    // let s3 = new Square(30);
+    
+    // console.log(`지금까지 생성된 Square 인스턴스 ${Square.counter} 개`)
+    // console.log(`한 변의 길이가 20인 정사각형의 둘레는 ${Square.getPerimeterOf(20)}입니다.`)
+    //   console.log(`한 변의 길이가 30인 정사각형의 면적은 ${Square.getAreaOf(30)}입니다.`)
+
+    // 오버라이딩 : 부모클래스의 메소드를 자식이 상속 받아 재정의 한것.
+    // class LifeCycle {
+    //     call () {
+    //       this.a()
+    //       this.b()
+    //       this.c()         
+    //     }
+
+    //     a () { console.log('a() 메소드를 호출합니다.')}
+    //     b () { console.log('b() 메소드를 호출합니다.')}
+    //     c () { console.log('c() 메소드를 호출합니다.')}
+    //   }
+
+    //   class Child extends LifeCycle {
+    //     a () {
+    //       console.log('자식의 a() 메소드입니다.')
+    //     }
+    //   }
+
+    //   // 인스턴스를 생성합니다.
+    //   new Child().call()
+    // 실행 결과 : 자식의 a() 메소드입니다. b() 메소드를 호출합니다. c() 메소드를 호출합니다.
+
+
+    // 클래스를 선언합니다.
+    // class LifeCycle {
+    //     call () {
+    //       this.a()
+    //       this.b()
+    //       this.c()         
+    //     }
+
+    //     a () { console.log('a() 메소드를 호출합니다.')}
+    //     b () { console.log('b() 메소드를 호출합니다.')}
+    //     c () { console.log('c() 메소드를 호출합니다.')}
+    //   }
+
+    //   class Child extends LifeCycle {
+    //     a () {
+    //       super.a()
+    //       console.log('자식의 a() 메소드입니다.')
+    //     }
+    //   }
+
+    //   // 인스턴스를 생성합니다.
+    //   new Child().call()    
+
+    // 실행 결과 : a() 메소드를 호출합니다. 자식의 a() 메소드입니다. b() 메소드를 호출합니다. c() 메소드를 호출합니다.
+
+
+    //  모든 클래스의 초상위 클래스 : Object
+    
+    </script>
+</body>
+</html>

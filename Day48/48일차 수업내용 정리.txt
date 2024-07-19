@@ -1,0 +1,107 @@
+
+1. margin
+
+ -  margin 속성은 테두리(border)와 이웃하는 요소 사이의 간격인 마진 영역의 크기를 설정합니다.
+
+    이러한 마진 영역은 패딩 영역과는 달리 background-color 속성으로 설정하는 배경색의 영향을 받지 않습니다.
+
+2. margin 속성
+
+ -  margin-top
+
+ -  margin-right
+
+ -  margin-bottom
+
+ -  margin-left
+
+ * margin 속성값을 음수로 설정하여 해당 요소를 다른 요소의 위에 겹치게 할 수도 있습니다.
+ 
+ * margin 속성값을 inherit로 설정하면, 부모(parent) 요소의 margin 속성값을 그대로 물려받습니다.
+
+
+
+ 3. 마진 축약 표현(margin shorthand)
+
+ - 4개의 margin 속성값을 가질 때는 top, right, bottom, left 순으로 설정합니다.
+
+    ex) margin: 10px 20px 30px 40px;
+
+
+ - 3개의 margin 속성값을 가질 때는 top, right와 left, bottom 순으로 설정합니다.
+
+    ex) margin: 10px 20px 30px;
+
+
+ - 2개의 margin 속성값을 가질 때는 top과 bottom, right와 left 순으로 설정합니다.
+
+   ex) margin: 10px 20px;
+
+ - 1개의 margin 속성값을 가질 때는 모든 마진값을 같게 설정합니다.
+
+    ex) margin: 10px;
+
+
+ * margin 속성값에 auto를 사용하는 이유
+
+ - margin 속성값을 auto로 설정하면, 웹 브라우저가 수평 방향 마진(margin) 값을 자동으로 설정합니다.
+
+   즉, 해당 HTML 요소의 왼쪽과 오른쪽 마진을 자동으로 설정하게 됩니다.
+
+   그 결과 해당 요소는 그 요소를 포함하고 있는 부모(parent) 요소의 정중앙에 위치하게 됩니다.
+
+
+ 4. padding
+
+ - padding 속성은 내용(content)과 테두리(border) 사이의 간격인 패딩 영역의 크기를 설정합니다.
+
+   이러한 패딩 영역은 background-color 속성으로 설정하는 배경색의 영향을 함께 받습니다.
+
+   CSS를 사용하면 패딩 영역의 크기를 방향별로 따로 설정할 수 있습니다.
+
+
+ 5. 패딩(padding) 속성
+
+ - padding-top
+
+ - padding-right
+
+ - padding-bottom
+
+ - padding-left
+
+
+
+ 6. 패딩 축약 표현(padding shorthand)
+
+ - 4개의 padding 속성값을 가질 때는 top, right, bottom, left 순으로 설정합니다.
+
+   ex) padding: 10px 20px 30px 40px;
+
+ - 3개의 padding 속성값을 가질 때는 top, right와 left, bottom 순으로 설정합니다.
+
+   ex) padding: 10px 20px 30px;
+
+ - 2개의 padding 속성값을 가질 때는 top과 bottom, right와 left 순으로 설정합니다.
+
+   ex) padding: 10px 20px;
+
+ - 1개의 padding 속성값을 가질 때는 모든 패딩값을 같게 설정합니다.
+
+   ex) padding: 10px;
+
+
+
+7. size_em
+
+ - 배수를 뜻 한다 (폰트 사이즈가 12px이고 3.0em이 설정 되었다면 12px에 3배인 36px가 설정 된다)
+
+
+8. inline
+
+ - width,height,margin-top,margin-bottom이 안 먹힌다 ->div와 같은 block 속성이면 가능
+
+
+9. inline-block
+
+ - inline 속성에서 안되는 속성들이 적용 가능

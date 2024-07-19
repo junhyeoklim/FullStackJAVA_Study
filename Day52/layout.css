@@ -1,0 +1,130 @@
+* { 
+    margin: 0; 
+    padding: 0; 
+}
+ul{
+    margin: 0;
+    padding: 0;
+}
+
+li {
+    list-style: none;
+}
+
+a{
+    text-decoration: none;
+}
+
+#main_header{
+    position: relative;
+    width: 960px;
+    height: 160px;
+    margin: 0 auto;
+}
+
+#main_gnb{
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+#title{
+    position: absolute;
+    left: 20px;
+    top: 30px;
+    font-family: "Jacquard 24", system-ui;
+    font-weight: 400;
+    font-style: normal;
+}
+
+#main_gnb ul{
+    overflow: hidden;
+}
+
+#main_gnb li{
+    float: left;
+}
+
+#main_gnb a{
+    display: block;
+    padding: 2px 10px;
+    border: 1px solid black;
+}
+
+#main_gnb li:first-child a{
+    border-radius: 10px 0 0 10px;
+}
+
+#main_gnb li:last-child a{
+    border-radius: 0 10px 10px 0;
+}
+
+#main_gnb li:hover a{
+    background-color: black;
+    color: white;
+}
+
+#main_lnb{
+    position: absolute;
+    right: 0;
+    bottom: 10px;
+}
+
+#main_lnb li{
+    float: left;
+}
+
+#main_lnb a{
+    border: 1px solid black;
+    display: block;
+    padding: 5px 10px;
+}
+
+#main_lnb li:first-child a{
+    border-radius: 10px 0 0 10px;
+}
+
+#main_lnb li:last-child a{
+    border-radius: 0 10px 10px 0;
+}
+
+#main_lnb li:hover a{
+    background-color: black;
+    color: white;
+}
+
+
+#content {
+    /* 중앙 정렬 */
+    width: 960px; margin: 0 auto;
+
+    /* 수평 레이아웃 구성 */
+    overflow: hidden;
+}
+#content > #main_section {
+    width: 750px;
+    float: left;
+}
+#content > #main_aside {
+    width: 200px;
+    float: right;
+}
+.main_article{    
+    margin-bottom: 10px;
+    padding: 20px;
+    border: 1px solid black;
+}
+
+
+
+#main_footer{
+    width: 960px;
+    margin: 0 auto;
+    margin-bottom: 10px;
+    padding: 10px;
+
+    box-sizing: border-box;
+    text-align: center;
+    border: 1px solid black;
+    
+}

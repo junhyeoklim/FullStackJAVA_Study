@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQueryEventTest</title>
+    <script src="js/jquery.js"></script>
+    <script>
+        $(function(){
+            // 1번 문제
+            // $('#user_id_1, #user_pw_1').on('mouseover focus', function () {
+            //     $(this).css('background-color','pink');
+            // });
+
+            // $('#user_id_1, #user_pw_1').on('mouseout blur',function () {
+            //    $(this).css('background-color','white');
+            // });
+
+
+            // $('#frm_2').on('focusin',function () {
+            //     $(this).css('background-color','pink');
+            // });
+
+            // $('#frm_2').on('focusout',function () {
+            //    $(this).css('background-color','white');
+            // });
+
+            // 2번 문제
+            // $('#btn1').text('javascript');
+
+            // $('#btn1').on('mouseover',overFnc);
+            // $('#btn1').on('mouseout',outFnc);
+
+            // $('#btn2').on('mouseover focus',overFnc);
+            // $('#btn2').on('mouseout blur',outFnc);
+
+            // function overFnc() {
+            //     $('.txt').text('text');
+            // }
+
+            // function outFnc() {
+            //     $('.txt').text('');
+            // }
+
+
+            // 3번 문제
+            // $('#rel_site').on('change',function () {
+            //   $('.txt').text($(this).val()); 
+            // });
+
+
+            // 4번 문제
+            // $('#user_id').on('keydown',function (e) {
+                    
+            //     switch(e.keyCode){
+            //     case 37:
+            //         $(this).val('LEFT');
+            //     break;
+            //     case 38:
+            //         $(this).val('UP');
+            //     break;
+            //     case 39:
+            //         $(this).val('RIGHT');
+            //     break;
+            //     case 40:
+            //         $(this).val('BOTTOM');
+            //     break;
+            //     }
+            // })
+
+
+
+            // 5번 문제
+            // $('.menuWrap_1 a').on('click',function (e) {
+            //     e.preventDefault();
+            //    $('.menuWrap_1 a').css('background-color','#fff');
+            //    $(this).css('background-color','#ff0');
+            // });
+
+            // $('.menuWrap_2 a').on('click',function (e) {
+            //     e.preventDefault();
+            //     $('.menuWrap_2 a').css('background-color','#fff');
+            //     var idxNum = $('.menuWrap_2 a').index(this);
+
+            //     $('.menuWrap_2 a').eq(idxNum).css('background-color','#0ff');
+            //     console.log(idxNum);
+            // })
+
+
+
+            // 6번 문제
+            
+            $('.btn_1,.on').on('mouseover focus',function () {
+                alert("HELLO!");
+            });
+            $('.btn_1').addClass('on');
+
+            $('.btn_2,.on').on('mouseover focus',function () {
+               alert("WELCOME!");               
+            });
+            
+            $('.btn_2').addClass('on');
+          
+        })
+    </script>
+</head>
+<body>
+    <!-- <h1>focus / blur</h1>
+<form action="#">
+	<p>
+		<label for="user_id_1">ID</label>
+		<input type="text" name="user_id_1" id="user_id_1">
+	</p>
+	<p>
+		<label for="user_pw_1">PW</label>
+		<input type="password" name="user_pw_1" id="user_pw_1">
+	</p>
+</form>
+<h1>focusin / focusout</h1>
+<form action="#" id="frm_2">
+	<p>
+		<label for="user_id_2">ID</label>
+		<input type="text" name="user_id_2" id="user_id_2">
+	</p>
+	<p>
+		<label for="user_pw_2">PW</label>
+		<input type="password" name="user_pw_2" id="user_pw_2">
+	</p> -->
+
+    <!-- <p><button id="btn1">버튼1</button></p>
+	<p><button id="btn2">버튼2</button></p>
+	<p class="txt"></p>
+</form> -->
+    <!-- <select id="rel_site">
+		<option value="">사이트 선택</option>
+		<option value="www.google.com">구글</option>
+		<option value="www.naver.com">네이버</option>
+		<option value="www.daum.net">다음</option>
+</select>
+<p class="txt"></p> -->
+<!-- <p><input type="text" name="user_id" id="user_id"></p> -->
+<!-- <h2>$(this)</h2>
+<ul class="menuWrap_1">
+				<li><a href="#">메뉴1</a></li>
+				<li><a href="#">메뉴2</a></li>
+				<li><a href="#">메뉴3</a></li>
+</ul>
+<h2>Index( )</h2>   
+<ul class="menuWrap_2">
+				<li><a href="#">메뉴4</a></li>
+				<li><a href="#">메뉴5</a></li>
+				<li><a href="#">메뉴6</a></li>
+</ul>
+<p class="idxNum"></p> -->
+<div id="wrap">
+    <p><button class="btn_1">버튼1</button></p>
+    <p><button class="btn_2">버튼2</button></p>
+</div>
+</body>
+</html>

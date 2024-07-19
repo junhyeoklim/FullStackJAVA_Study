@@ -1,0 +1,132 @@
+1번 문제
+TINYINT
+SMALLINT
+INT
+BIGINT
+
+2번 문제
+UNSINGED
+
+3번 문제
+char
+
+4번 문제
+float
+double
+
+5번 문제
+DATE
+TIME
+DATETIME
+
+
+6번 문제
+
+SET @myVar1 = 4;
+SET @myVar2 = 4;
+
+SELECT @myVar1 + @myVar2;
+
+7번 문제
+SET @txt = "가수 이름==>";
+SET @height = 166;
+
+SELECT @txt, mem_name FROM member WHERE height > @height;
+
+
+8번 문제
+SET @count = 3;
+PREPARE myQuery FROM "SELECT mem_name.height FROM member ORDER BY height LIMIT ?";
+EXCUTE myQuery USING @count;
+DEALOCATE PREPARE myQuery;
+
+
+9번문제
+SELECT CONVERT(AVG(PRICE),SINGED) "평균 가격" FROM buy;
+
+10번 문제
+(1) SELECT CONVERT(AVG(PRICE),SINGED) "평균 가격" FROM buy;
+(2) SELECT CAST(AVG(PRICE) AS SINGED) "평균 가격" FROM buy;
+
+
+11번 문제
+다양한 구분자를 날짜형으로 변경할 수도 있다.
+
+
+12번 문제
+SELECT num,CONCAT(CONVERT(price,char),"X",CONVERT(amount,char),"=") "가격X수량", price*amount "구매액"
+FROM buy;
+
+
+13번 문제
+CAST(),CONVERT()를 사용 하지 않고도 형 변환이 일어나는것을 암시적인 변환이라고 한다
+
+
+14번 문제
+JOIN
+
+15번 문제
+SELECT *
+FROM buy INNER JOIN member
+    ON buy.member_id = member.mem_id
+WHERE buy.mem_id = "GRL";
+
+
+16번 문제
+SELECT m.mem_id,m.mem_name,b.prod_name,m.addr,CONCAT(PHONE1,PHONE2) "연락처"
+FROM buy b INNER JOIN member m
+    ON b.mem_id = m.mem_id;
+
+
+17번 문제
+SELECT m.mem_id,m.mem_name,m.addr
+FROM buy b INNER JOIN member m
+    ON b.mem_id= m.mem_id
+ORDER BY m.mem_id;
+
+
+18번 문제
+OUTER JOIN
+
+19번 문제
+SELECT m.mem_id,m.mem_name,b.prod_name,m.addr
+FROM buy b RIGHT JOIN member m
+    ON b.mem_id = m.mem_id
+ORDER BY mem_id;
+
+
+20번 문제
+SELECT m.mem_id,b.prod_name,m.mem_name,m.addr
+FROM member m LEFT JOIN buy b
+    ON m.mem_id = b.mem_id
+WHERE prod_name IS null
+ORDER BY mem_id;
+
+21번 문제
+FULL OUTER JOIN
+
+
+22번 문제
+상호 조인 - CROSS JOIN
+
+
+23번 문제
+SELECT *
+FROM buy CROSS JOIN member;
+
+
+24번 문제
+상호 조인 - CROSS JOIN
+
+
+25번 문제
+SELECT COUNT(*)
+FROM sakila.inventory CROSS JOOIN world.country;
+
+26번 문제
+CREATE TABLE cross_table(
+    SELECT * FROM sakila.actor CROSS JOIN world.country
+);
+
+
+27번 문제

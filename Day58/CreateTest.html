@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CreateTest</title>
+</head>
+<body>
+    <div id="dd">
+      <p>This is a paragraph.</p>
+    </div>
+      <input type="button" value="Create Button" id="button">
+    
+    <script>
+        let btn = document.getElementById("button");
+        let body = document.getElementById("dd");
+        let p = document.getElementsByTagName("p");
+        // 1번 문제
+        // btn.addEventListener("click",() => {
+        //     let newBtn = document.createElement("button");
+        //     newBtn.innerHTML = "Click Me";
+        //     document.body.appendChild(newBtn);
+        // });
+        btn.addEventListener("click",() => {
+            let newBtn = document.createElement("button");
+            newBtn.innerHTML = "Click Me";
+            body.insertBefore(newBtn,p);
+        });
+    </script>
+</body>
+</html>

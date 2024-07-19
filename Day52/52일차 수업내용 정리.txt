@@ -1,0 +1,139 @@
+1. emmet
+
+ - java eclipse syso+스페이스바 와 같이 코드를 빠르게 쓸 수 있게 하는 방법
+
+ - visual studio code는 기본적으로 emmet이 깔려있다.
+
+ - 밑에 예제를 보면 알겠지만 선택자를 알아야 쓸수 있다.
+
+ - 띄워쓰기는 쓰면 안된다 (원하는 형태로 출력이 안됨)
+
+ - <a href="">등과 같은 기본 형태를 나타내고 싶을 때는 
+    a[href] 이렇게 하지 말고 a만 써도 된다
+
+2. #name+tab
+
+ - <div id="name></div>
+
+ * 태그 이름을 설정하지 않으면 default로 div가 설정된다.
+** >li -> x 이런식으로는 못 쓴다!
+
+
+3. ! + tab
+
+ - html 기본 형태
+
+
+4. #name>ul+tab
+
+ - <div id="name">
+	<ul></ul>
+   </div> 
+
+
+5. #name+.name>ul
+
+ -   <div id="name"></div>
+    <div class="name">
+        <ul></ul>
+    </div> 
+
+
+6. ul>li*5
+
+ -  <ul>
+       <li></li>
+       <li></li>
+       <li></li>
+       <li></li>
+       <li></li>
+   </ul>
+
+
+7. (ul>li*3)*2
+
+ -  <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+    <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+
+
+8. h1{List}>li{list}*2
+
+ -  <h1>List
+        <li>list</li>
+        <li>list</li>
+    </h1>
+
+
+9. h1{List}>li{List$}*2
+
+ - <h1>List
+        <li>List1</li>
+        <li>List2</li>
+    </h1>
+
+
+10. h1{List}>li{List$@-}*5
+
+ -  <h1>List
+        <li>List5</li>
+        <li>List4</li>
+        <li>List3</li>
+        <li>List2</li>
+        <li>List1</li>
+    </h1>
+
+11. h1{List}>li.list{list$@3}*5
+
+ -   <h1>List
+        <li class="list">list3</li>
+        <li class="list">list4</li>
+        <li class="list">list5</li>
+        <li class="list">list6</li>
+        <li class="list">list7</li>
+    </h1>
+
+12. div+div>p>span+em^blockquote
+
+ -  <div></div>
+    <div>
+        <p><span></span><em></em></p>
+        <blockquote></blockquote>
+    </div>
+
+13. input[type="text" password="password" placehold="dsasa"]
+ - <input type="text" password="password" placehold="dsasa">
+
+14. a{click me}
+
+ - <a href="">click me</a>
+
+
+
+
+15. JavaScript
+
+ - 변수 형태는 var,let,const가 있는데 var 말고 let,const 위주로 쓰는걸 추천(const는 상수 형)
+
+ - return or 초기화를 하지 않으면 undefined가 설정 됨
+
+ - var : 함수 안에서만 지역변수로 인식하고 함수 밖에서는 전역변수로 인식한다.
+
+ - 대부분의 프로그램 랭귀지에서 변수들은 block level scope 를 가지고 있다.({} 이 안에 변수를 선언 하면 이 안에서만 쓸수 있는 지역변수)
+
+ - 변수 앞에 let or const를 붙이지 않으면 default 값인 var가 자동으로 설정 된다
+
+ - 호이스팅이라는 특징이 있다(var or function()) -> 밑에서 선언 해도 위에 선언한것 같은 효과를 보임
+    * let or const도 호이스팅이 되긴 하지만 var 처럼 undefind로 먼저 초기화가 되지 않기 떄문에 오류가 난다
+
+    ** 쉽게 설명 하자면 var는 변수 선언단계+초기화단계가 같이 일어나지만 let,const는 변수 선언단계+초기화단계가 분리되어 일어난다.
+
+
+*아이디 중복 체크 관련 소스 : https://blog.naver.com/cpdlc/222909903537

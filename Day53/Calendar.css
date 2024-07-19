@@ -1,0 +1,195 @@
+
+body{
+    user-select: none;
+    font-family: Verdana,sans-serif;
+}
+
+#content{
+    position: relative;
+    max-width: 100%;
+    height: 700px;
+    margin: 0 auto;
+    padding: 10px;
+    margin-top: 20px;
+    background-color: rgb(56, 57, 59);
+    overflow: hidden;
+}
+#clock{
+    position: absolute;
+    filter: brightness(110%);
+    top: 5px;
+    margin: 0 auto;
+    width: 100px;
+    height: 100px;
+    
+    
+}
+
+#top{     
+    /* position: absolute;     */
+    margin: 0 auto;      
+    padding: 10px;    
+    width: 500px;
+    color: white;
+    text-align: center;
+    font-size: 50px;
+    border: 1px solid white;
+    border-radius: 15px 15px 15px 15px;
+    
+}
+
+
+
+#center{    
+    top: 120px;
+    width: 100%;
+    position: absolute;
+    border-top: 1px solid silver;
+    border-bottom: 1px solid silver;
+    padding: 10px 0;
+}
+#icon{
+    filter: brightness(250%);    
+}
+li{
+    list-style: none;
+}
+
+.month{
+    position: relative;   
+}
+
+.showDate{
+    text-align:center;
+    font-size: 18px;
+}
+
+.prev a{    
+    position: absolute;
+    display: block;
+    left: 0;
+    padding-top: 5px;    
+    height: 30px;
+    
+    font-size: 30px;
+    color: white;
+}
+
+
+.next a{
+    position: absolute;
+    display: block;
+    right: 15px;
+    padding-top: 5px;
+    
+    height: 30px;
+
+    font-size: 30px;
+    color: white;
+}
+
+caption a{
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    color: white;
+    font-size: 15px;
+}
+
+caption a:hover{
+    color: rgb(174, 175, 177);
+}
+
+#weather{
+    position: absolute;    
+    left: 20px;
+    top: 20px;
+    padding: 10px;
+    border: 1px solid white;
+    border-radius: 15px 15px 15px 15px;
+    color: white; 
+    font-size: 20px;
+}
+
+#weather span{
+    display: block;
+    margin: 10px;
+    
+}
+
+table{             
+    color: white;
+    width: 600px;
+    margin: 0 auto;
+    font-size: 20px;
+    text-align: center;
+    caret-color: transparent;
+    cursor: default;
+}
+
+table:first-child{
+    text-align: center;
+}
+
+#today{
+    background-color: rgb(0, 120, 215);
+    box-shadow: 0 0 0 2px black inset;
+    border: 2px solid rgb(0, 120, 215);    
+    border-radius: 10%;
+    font-weight: bold;
+    color: white;
+}
+caption{
+    font-size:15px;
+    color: white;
+    text-align: left;
+    margin-left: 10px;
+}
+
+td{            
+    padding: 10px 15px;        
+    border: 2px solid rgb(56, 57, 59);
+    
+}
+
+tr:first-child td{
+    font-weight: bold;
+}
+
+tr:first-child > td:first-of-type{
+    color:red; 
+}
+
+tr:first-child > td:last-of-type{
+    color:rgb(87, 87, 242);    
+}
+
+tr:not(tr:first-child) > td:hover{
+    border: 1px solid rgb(139, 139, 139);
+}
+
+#today:hover{
+    border: 1px solid rgb(102, 174, 231);
+    
+}
+
+#firstLine, #lastLine{
+    color: rgb(127, 127, 127);
+}
+
+#today:active{
+    border: 1px solid rgb(153, 201, 239);
+}
+
+
+tr:not(tr:first-child) > td:active{
+    border: 1px solid rgb(176, 176, 176);
+}
+
+.sunDay{
+    color: red;
+}
+
+.saturDay{
+    color:rgb(87, 87, 242);
+}

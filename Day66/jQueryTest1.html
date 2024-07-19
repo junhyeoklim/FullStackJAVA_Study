@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQueryTest1</title>
+    <script src="js/jquery.js"></script>
+    <script>
+        $(function () {
+            // 1번 문제
+
+            // $('#move').css({
+            //     'display':'block',
+            //     'margin':'0 auto',
+            //     'width':'500px',
+            //     'text-align':'center'
+            // });
+
+            // $(document).on('click','#wrap button',eventChoice)
+
+
+
+            // function eventChoice() {
+            //     if($(this).hasClass('moveUp')){
+            //         $('#move').animate({
+            //             'margin-top':'50px'
+            //         },200);
+            //     }
+            //     else if($(this).hasClass('moveDown')){
+            //         $('#move').animate({
+            //             'margin-top':'500px'
+            //         },1000);
+            //     }
+            //     else if($(this).hasClass('addColor')){
+            //         $('#move').css({
+            //             'color':'purple'
+            //         });
+            //     }
+            //     else if($(this).hasClass('appear')){
+            //         $('#move').fadeToggle();
+            //     }
+            // }
+
+
+
+
+            // 2번 문제
+            // $(document).on('click','#text',function(){
+            //     $('#img').slideToggle();
+            // });
+
+
+            // 3번 문제
+            // $(document).on('click','#remove',function () {
+            //     $('li').remove();
+            // });
+
+
+            // 4번 문제
+            // $(document).on('click','#clickMe',function () {
+            //     $('#wrap p').append('<b>예를 들면 나처럼요 </b>')                
+            // })
+            
+
+            // 5번 문제
+            // $('section img').css({                
+            //         'cursor':'pointer'                      
+            // })      
+            
+            
+            // $(document).on('click','section img',function () {
+            //     let discountNum = Math.floor(Math.random()*6+5);
+            //     $('#discount').text('Your Discount is '+discountNum+'%');
+    
+            // });
+
+
+
+        })
+    </script>
+    <style>
+        /* div{
+            width: 220px;
+            height: 5ch;
+            padding: 10px;
+            text-align: center;
+            background-color: aquamarine;
+            border: 1px solid black;
+            
+        }
+        #img{
+            border-top: none;
+            height: 200px;               
+        }
+        #text{                      
+            padding: 10px;
+        }
+        img{            
+            width: inherit;
+            height: inherit;           
+        } */
+    /* ul{
+        list-style: none;
+    } */
+    #wrap{
+        border: 8px solid black;
+        width: 851px;
+        height: 500px;
+        padding-bottom: 10px;
+    }
+    #imgSection{
+        height: 45.5%;
+    }
+    p{
+        background-color: silver;
+        height: 48%;
+        padding-top: 20px;
+        text-align: center;
+        border-top: 8px solid black;
+    }
+    section{
+        width: inherit;
+        height: inherit;
+        float: left;
+    }
+    section:not(.force) img{        
+        border-right: 8px solid black;
+    }
+    section img:hover{
+        border: 4px solid rgb(54, 53, 53);
+    }
+    </style>
+</head>
+<body>
+    <!-- <div id="wrap">
+        <button type="button" class="moveUp">Move Up</button>
+        <button type="button" class="moveDown">Move Down</button>
+        <button type="button" class="addColor">Add Color</button>
+        <button type="button" class="appear">Disappear / Re-appear</button>
+    </div>
+
+    <p id="move">Make Me Do Stuff!</p> -->
+
+
+        <!-- <div id="text">
+            Show me the the Furry Friend of the Day            
+        </div>        
+        <div id="img">
+            <img src="images/dog.jpg" alt="dog" id="dog">
+        </div> -->
+
+        <!-- <div id="wrap">
+            <p>할 일 목록</p>
+            <ul id="list">
+                <li>1.jQuery를 배운다.</li>
+                <li>2.사장에게 임금 인상을 요구한다.</li>
+                <li>3.임금 인상에 대해 다룬다.</li>
+            </ul>
+            <button type="button" id="remove">Remove</button>
+        </div> -->
+
+        <!-- <div id="wrap">
+            <button type="button" id="clickMe">clickMe</button>
+            <p>jQuery는 기존 내용을 다시 로드하지 않고도 웹 페이지에 새로운 내용을 삽입할 수 있게 합니다.</p>
+        </div> -->
+        <!-- <h1>Jump for Joy Sale</h1>
+        <div id="wrap">
+            <main id="imgSection">
+                <section class="first">
+                    <img src="images/jump1.jpg">
+                </section>
+                <section class="second">
+                    <img src="images/jump2.jpg">
+                </section>
+                <section class="third">
+                    <img src="images/jump3.jpg">
+                </section>
+                <section class="force">
+                    <img src="images/jump4.jpg">
+                </section>
+            </main>
+
+            <p id="discount">dd</p>            
+        </div> -->
+</body>
+</html>

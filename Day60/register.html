@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+    <style>
+		#container {
+			width:500px;
+			margin:20px auto;
+		}
+		h1 {
+			font-size:2.5em;
+			text-align: center
+		}
+		form {
+			margin-top:50px;			
+		}
+		input[type="text"] {
+			float:left;
+			width:300px;
+			padding:12px;
+			border:none;
+			border-bottom:1px solid #ccc;
+			font-size:20px;
+		}
+		input:focus {
+			outline: none;
+		}
+		button {
+			width:100px;
+			border:1px solid #ccc;
+			border-radius:7px;
+			padding:12px;	
+			margin-left:30px;
+			font-size:20px;
+		}
+		button:hover {
+			background-color:#ccc;
+		}
+		hr {
+			clear:both;
+			visibility: hidden;
+		}
+		#nameList > p {
+			font-size:20px;
+			text-indent:50px;
+			line-height: 1.5;
+		}
+        .del {
+			font-size:20px;
+			text-align: center;
+			color:#ccc;
+			background:transparent;
+			float:right;
+			margin-right:10px;
+		}
+		.del:hover {
+			color:#222;
+			cursor: pointer;
+		}
+		.del:active {
+			outline:0;
+		}
+    </style>
+<body>
+    <div id="container">
+        <h1>참가 신청</h1>
+        <form action="">
+          <input type="text" id="userName" placeholder="이름" required autocomplete="off">
+          <button onclick="newRegister();return false;">신청</button>
+        </form>
+        <hr>
+        <div id="nameList"></div>
+      </div>
+    <script>
+        function newRegister() {
+      var newP = document.createElement("p");  // 새 p 요소 만들기 
+	var userName = document.querySelector("#userName");					
+	var newText = document.createTextNode(userName.value);  // 새 텍스트 노드 만들기
+	newP.appendChild(newText);  // 텍스트 노드를 p 요소의 자식 요소로 연결하기
+   
+  var delBttn = document.createElement("span"); 	// 새 button 요소 만들기 
+  var delText = document.createTextNode("X");  // 새 텍스트 노드 만들기
+  delBttn.setAttribute("class", "del");  // 버튼에 class 속성 설정하기
+  delBttn.appendChild(delText);  // 텍스트 노드를 button 요소의 자식 요소로 연결하기							
+  newP.appendChild(delBttn);  //	del 버튼을 p 요소의 자식 요소로 		
+
+  var nameList = document.querySelector("#nameList");  
+  nameList.insertBefore(newP, nameList.childNodes[0]);  // p 요소를 #nameList 맨 앞에 추가하기
+	// nameList.appendChild(newP); // p 요소를 #nameList의 자식 요소로 만들기
+  userName.value = "";  // 텍스트 필드 지우기
+  
+  var removeBttns = document.querySelectorAll(".del");
+          
+  for (var i=0; i<removeBttns.length; i++) {  // removeBttns에 있는 요소 전체를 반복
+    removeBttns[i].addEventListener("click", function() {  // i번째 버튼을 클릭했을 때 실행할 함수 선언
+      if (this.parentNode.parentNode)  // 현재 노드(this)의 부모 노드의 부모 노드가 있을 경우 실행
+        this.parentNode.parentNode.removeChild(this.parentNode);  // ‘현재 노드(this)의 부모 노드의 부모 노드’를 찾아 ‘현재 노드(this)의 부모 노드(p 노드)’ 삭제
+    });
+  }	
+}
+    </script>
+</body>
+</html>

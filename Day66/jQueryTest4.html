@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQueryTest4</title>
+    <script src="js/jquery.js"></script>
+    <script>
+        $(function (){
+
+            let hcnt = 0, ecnt = 0, ncnt = 0, mcnt = 0;
+
+            $(document).on('click','#wrap img',switchImg);
+            
+            // 초기화 기능
+            $(document).on('click','#head img',function () {
+                hcnt = 0, ecnt = 0, ncnt = 0, mcnt = 0;
+                $('#wrap img').animate({
+                    'margin-left':'0px'
+                },500);
+            })
+            $('#wrap img,#head img').css({
+                'cursor':'pointer'
+            });   
+            lightningOne();
+            lightningTwo();
+            lightningThree();
+            
+
+            function switchImg() {       
+
+                if($(this).hasClass('monsterHead'))
+                {
+                    hcnt++;                    
+                    if(hcnt > 9)
+                    {
+                        $(this).animate({
+                            'margin-left':'0px'
+                        },1000);
+                        hcnt = 0;
+                    }
+
+                    else
+                    $(this).animate({
+                        'margin-left':'-=367px'
+                    },100);
+                }
+                else if($(this).hasClass('monsterEye'))
+                {
+                    ecnt++
+
+                    if(ecnt > 9)
+                    {
+                        $(this).animate({
+                            'margin-left':'0px'
+                        },1000);
+                        ecnt = 0;
+                    }
+                    else
+                    $(this).animate({
+                        'margin-left':'-=367px'
+                    },100)
+                }
+                else if($(this).hasClass('monsterNose'))
+                {
+                    ncnt++;
+                    if(ncnt > 9)
+                    {
+                        $(this).animate({
+                            'margin-left':'0px'
+                        },1000);
+                        ncnt = 0;
+                    }
+                    else
+                    $(this).animate({
+                        'margin-left':'-=367px'
+                    },100)
+                }
+                else if($(this).hasClass('monsterMouth'))
+                {
+                    mcnt++;
+                    if(mcnt > 9)
+                    {
+                        $(this).animate({
+                            'margin-left':'0px'
+                        },1000);
+                        mcnt = 0;
+                    }
+                    else
+                    $(this).animate({
+                        'margin-left':'-=367px'
+                    },100)
+                }
+            }
+
+            function lightningOne () {
+                $('#light1').fadeIn('fast').fadeOut('fast');
+                setTimeout(() => {lightningOne()},1000);
+            }
+
+            function lightningTwo () {
+                $('#light2').fadeIn('fast').fadeOut('fast');
+                setTimeout(() => {lightningTwo()},1100);
+            }
+
+            function lightningThree () {
+                $('#light3').fadeIn('fast').fadeOut('fast');
+                setTimeout(() => {lightningThree()},1200);
+            }
+
+        })
+    </script>
+    <style>
+        body{
+            background-color: black;
+            user-select: none;
+        }
+        img{
+            display: block; 
+        }
+        #head img{            
+            margin: 50px 600px;
+            z-index: 30;
+        }
+        div#wrap{
+            width: 367px;            
+            top: 200px; 
+            left: 590px; 
+            overflow: hidden;            
+            z-index: 100;
+        }
+        .frame{                      
+            top: 120px;            
+            left: 500px;
+            z-index: 50;
+        }
+        .lightning{            
+            top: 100px;
+            left: 450px;
+            z-index: 20;
+        }
+        div#wrap,.frame, .lightning{
+            position: absolute;            
+        }
+    </style>
+</head>
+<body>
+    <div id="head">
+        <img src="images/Monster_Mashup.png" class="title"> 
+    </div>
+
+    <div id="wrap">        
+        <img src="images/headsstrip.jpg" alt="head" id="monsterHead" class="monsterHead">
+        <img src="images/eyesstrip.jpg" alt="eye" id="monsterEye" class="monsterEye">
+        <img src="images/nosesstrip.jpg" alt="nose" id="monsterNose" class="monsterNose">
+        <img src="images/mouthsstrip.jpg" alt="mouth" id="monsterMouth" class="monsterMouth">       
+    </div>
+    <img src="images/frame.png" alt="frame" class="frame">
+
+    <footer id="footer">
+        <img src="images/lightning-01.jpg" alt="lightning" class="lightning" id="light1">
+        <img src="images/lightning-02.jpg" alt="lightning" class="lightning" id="light2">
+        <img src="images/lightning-03.jpg" alt="lightning" class="lightning" id="light3">
+    </footer>
+</body>
+</html>

@@ -1,0 +1,62 @@
+1. ul {
+  list-style-type: none; ->ul 태그를 쓰면 앞 부분이 목차 보는 것 처럼 띄워지는데 그 부분을 없애 줌
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+
+
+2. text-decoration: none;
+
+ - a 속성을 쓰면 밑에 줄이 생기는데 그 줄을 없애준다
+
+
+3. li a:hover:not(.active) 
+
+ - .active 태그는 hover 속성을 적용 안 한다 라는 의미
+
+
+4. background-size
+
+ - background-size: 'width' 'height';
+
+ - background-size: 'first img size','second img size';
+
+
+
+5. background-repeat:repeat;
+
+ - 이미지 반복 출력 (default 값은 repeat이고 반복을 중단 시킬려면 no-repeat 키워드를 써주면 된다) 
+
+
+
+6. background-attachment
+
+ - background-attachment는 배경 이미지를 화면에 고정하는 속성. 
+   background-attachment 속성의 기본 키워드는 scroll입니다. 
+   화면 스크롤에 따라 배경 이미지가 함께 이동합니다.
+
+ - fixed 키워드 : 배경 이미지가 고정되어 화면을 움직이면 계속 이미지가 고정되어 보여진다.
+
+
+7. background-position
+
+ - top 키워드 : 상단에 위치
+ - botto 키워드 : 하단에 위치
+ - background-position: X축 위치;
+ - background-position: X축 위치 Y축 위치;
+
+
+8. attr -> atiribute(속성값)
+
+ - attr('속성이름') -> 속성 이름이 나옴
+
+
+9. data 속성
+
+ - 웹 표준에 따른면 각각의 태그에 지정된 속성 이외의 것을 사용하면 안 된다. 
+   하지만 속성 앞에 문자열 data-를 붙이면 사용자 지정 속성으로 인정해준다. 
+  
+   앞에 코드에서는 특정한 정보를 넣기 위해 사용자 지정 속성인 data-page 속성을 사용했다. 
+   실제로 data-page 속성은 웹 표준에 존재하지 않고 이 소스 코드의 저자가 임의로 지정한 것이다.

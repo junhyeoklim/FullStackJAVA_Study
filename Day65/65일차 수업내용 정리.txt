@@ -1,0 +1,7 @@
+1. .attr() vs .prop() 차이점
+
+ - attr() - HTML attribute 값이 모두 String 으로 넘어옴 
+ - prop() - 자바스크립트의 프로퍼티 값이 넘어오기 때문에 boolean, date, function 등도 가져올 수 있음
+ - prop()는 .attr() 보다 약 2.5 배 빠름
+
+더 자세한 내용 : https://devyj.tistory.com/26

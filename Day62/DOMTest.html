@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>    
+  </head>
+  <body>
+    <script>
+        // 1번 문제
+        // const pet = {
+        //     name : '구름',
+        //     eat : function (name) {
+        //         alert(pet.name+"은/는"+" "+name+"을/를 먹습니다.");
+        //     }
+        // };        
+        // pet.eat('밥');
+
+        // 2~3번 문제
+        // const student = {};
+
+        // student.이름 = "윤인성";
+        // student.취미 = "악기";
+        // student.장래희망 = "생명공학자";
+
+        // console.log(JSON.stringify(student,null,2));
+
+        // delete student.장래희망;
+
+        // console.log(JSON.stringify(student,null,2));
+
+        // 4번 문제
+        // const pet = {
+        //     name : '구름',
+        //     eat(name) {
+        //         alert(pet.name+"은/는"+" "+name+"을/를 먹습니다.")
+        //     }};        
+        // pet.eat('밥');
+
+        // 5번 문제
+        // const test = {
+        //     a : function () {
+        //         console.log(this);
+        //     },
+
+        //     b : () => {
+        //         console.log(this);
+        //     }
+        // }
+
+        // test.a();
+        // test.b();
+        let input = `
+        일자,달러,엔,유로
+        02,1141.8,1097.46,1262.37 
+        03,1148.7,1111.36,1274.65
+        04,1140.6,1107.81,1266.58  
+        07,1143.4,1099.58,1267.8
+        08,1141.6,1091.97,1261.07
+        `;
+
+        input = input.trim().split('\n').map(line=>line.split(','));
+console.log(input); 
+    </script>
+  </body>
+</html>

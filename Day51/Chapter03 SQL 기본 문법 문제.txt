@@ -1,0 +1,53 @@
+1. DROP TABLE IF EXISTS market_db;
+
+2. --
+
+3. select * from market_db.member;
+
+3-1. select addr "주소",debut_date "데뷔 일자",mem_name "이름" from member;
+
+3-2. select * from member where mem_name = "블랙핑크";
+
+3-3. select * from member where mem_number = 4;
+
+3-4. select mem_id,mem_name from member where height <= 162;
+
+3-5. select mem_name,height,mem_number from member where height >= 165 and mem_number > 6;
+
+3-6. select mem_name,height,mem_number from member where height >= 165 or mem_number > 6;
+
+3-7. select mem_name,height from member where height between 163 and 165;
+
+
+4.
+(1) select mem_name,addr from member where addr = "경기" or addr = "경남";
+(2) select mem_name,addr from member where addr IN("경기","경남");
+
+
+4-1. select * from member where mem_name LIKE "우%";
+
+4-2. select * from member where mem_name LIKE "__핑크";
+
+
+5. select mem_name,height from member where height > (select height from member where mem_name = "에이핑크");
+
+
+6-1. select mem_id,mem_name,debut_date from member ORDER BY debut_date;
+
+6-2. select mem_id, mem_name, debut_date from member ORDER BY debut_date desc;
+
+6-3. select mem_id, mem_name debut_date, height from member where height >= 164 ORDER BY height desc;
+
+6-4. select mem_id, mem_name, debut_date, height from member where height >= 164 ORDER BY height desc, debut_date;
+
+
+7-1. select * from member LIMIT 3;
+
+7-2. select mem_name, debut_date from member ORDER BY debut_date LIMIT 3;
+
+7-3. select mem_name, height from member ORDER BY height desc LIMIT 3,2;
+
+
+8. select distinct * from member;
+
+9.

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ArrayPrintTest</title>
+</head>
+<body>
+    <p>f12를 눌러 콘솔 출력을 확인해주세요</p>
+    <script>
+        // 1번 문제
+        // const fruits = ["Banana", "Orange", "Apple", "Mango"];
+        // console.log(fruits);
+
+        // 2번 문제
+        // const fruits = ["Banana", "Orange", "Apple", "Mango"];
+        // console.log(fruits.join("*"));
+
+        // 3번 문제
+        // const fruits = ["Banana", "Orange", "Apple", "Mango"];
+        // console.log(fruits.pop());
+
+        // 4번 문제
+        // const fruits = ["Banana", "Orange", "Apple", "Mango"];
+        // console.log(fruits.push("Kiwi"));
+
+        // 5번 문제
+        // const fruits = ["Banana", "Orange", "Apple", "Mango"];
+        // console.log(fruits.shift());
+
+        // 6번 문제
+        // const fruits = ["Banana", "Orange", "Apple", "Mango"];
+        // console.log(fruits.unshift("Lemon"));
+
+        // 7번 문제
+        // const fruits = ["Banana", "Orange", "Apple", "Mango"];
+        // fruits[fruits.length] = "Kiwi";
+        // console.log(fruits);
+
+        // 8번 문제
+        // const fruits = ["Banana", "Orange", "Apple", "Mango"];
+        // delete fruits[0];
+        // console.log(fruits);
+        // 차이점 : delete 는 배열의 Element만을 제거하여 공간이 남지만 pop,shift같은 경우 공간 자체를 없앤다.
+        
+        // 9번 문제
+        // const myGirls = ["Cecilie", "Lone"];
+        // const myBoys = ["Emil", "Tobias", "Linus"];        
+        // console.log(myGirls.concat(myBoys));
+
+        // 10번 문제
+        // const arr1 = ["Cecilie", "Lone"];
+        // const arr2 = ["Emil", "Tobias", "Linus"];
+        // const arr3 = ["Robin", "Morgan"];
+
+        // console.log(arr1.concat(arr2,arr3));
+
+        // 11번 문제
+        // const arr1 = ["Emil", "Tobias", "Linus"];
+        // console.log(arr1.concat("Peter"));
+
+        // 12번 문제
+        // const fruits = ["Banana", "Orange", "Apple", "Mango"];
+        // fruits.splice(2,0,"Lemon","Kiwi");
+        // console.log(fruits);
+
+        // 13번 문제
+        // const fruits = ["Banana", "Orange", "Apple", "Mango"];
+        // fruits.splice(2,2,"Lemon","Kiwi");
+        // console.log(fruits);
+
+        // 14번 문제
+        // const fruits = ["Banana", "Orange", "Apple", "Mango"];
+        // fruits.splice(2,1);
+        // console.log(fruits);
+
+        // 15번 문제
+        // const fruits = ["Banana", "Orange", "Lemon", "Apple", "Mango"];
+        // const copy = fruits.slice(1);
+        // console.log(copy);
+
+        // 16번 문제
+        // const fruits = ["Banana", "Orange", "Lemon", "Apple", "Mango"];
+        // const copy = fruits.slice(1,3);
+        // console.log(copy);
+
+        // 17번 문제
+        // const fruits = ["Banana", "Orange", "Apple", "Mango"];
+        // console.log(fruits.sort());
+
+        // 18번 문제
+        // const fruits = ["Banana", "Orange", "Apple", "Mango"];
+        // fruits.sort()
+        // console.log(fruits.reverse());
+
+        // 19번 문제
+        // const points = [40, 100, 1, 5, 25, 10];
+        // console.log(points.sort((a,b) => {
+        //     return a-b;
+        // }));
+
+        // 20번 문제
+        // const points = [40, 100, 1, 5, 25, 10];
+        // console.log(points.sort((a,b) => {
+        //     return b-a;
+        // }));
+
+        // 21번 문제
+        // const points = [40, 100, 1, 5, 25, 10];
+        // console.log(points.sort(() => {
+        //     return 0.5 - Math.random();
+        // }));
+
+        // 22번 문제
+        // const points = [40, 100, 1, 5, 25, 10];
+        // points.sort((a,b) => {
+        //     return b-a;
+        // });
+        // console.log(points[0]);
+
+        // 23번 문제
+        // const points = [40, 100, 1, 5, 25, 10];
+        // points.sort((a,b) => {
+        //     return a-b;
+        // });
+        // console.log(points[0]);
+
+        // 24번 문제
+        // const numbers = [45, 4, 9, 16, 25];
+        // numbers.forEach(element => {
+        //     console.log(element);
+        // });
+
+        // 25번 문제
+        // const numbers = [45, 4, 9, 16, 25];
+        // const newNumbers = numbers.map(element => {
+        //    return element*2;
+        // });
+
+        // console.log(newNumbers);
+
+        // 26번 문제
+        // const numbers = [45, 4, 9, 16, 25];
+        // const newNumbers = numbers.filter(element => {
+        //    return element >=18;
+        // });
+
+        // console.log(newNumbers);
+
+        // 27번 문제
+        // const numbers = [45, 4, 9, 16, 25];
+        // const newNumbers =  numbers.reduce((total,element,index,array) =>
+        //     {
+        //         return total + element
+        //     }
+        // );
+        //     console.log(newNumbers);
+
+        // 28번 문제
+        // const numbers = [45, 4, 9, 16, 25];
+        
+        // const newNumbers = numbers.reduce((Element,total) =>
+        // {
+        //     return Element+total;
+        // });
+        // console.log(newNumbers+100);
+
+        // 29번 문제
+        // const numbers = [45, 4, 9, 16, 25]; 
+        
+        // const newNumbers =  numbers.reduceRight((a,b) =>
+        //     {
+        //         return a+b;
+        //     }
+        // );
+        // console.log(newNumbers);
+
+        // 30번 문제
+        // const numbers = [45,4,9,16,25];
+
+        //     const newNumbers = numbers.every((a) =>
+        //     {
+        //         return a;
+        //     }
+        // );
+        // console.log(newNumbers);
+
+        // 31번 문제
+        // const numbers = [45, 4, 9, 16, 25];
+
+        // const newNumbers = numbers.some((a) =>
+        // {
+        //     return a > 18 ;
+        // });
+
+        // console.log(newNumbers);
+        
+        // 32번 문제
+        // const fruits = ["Apple", "Orange", "Apple", "Mango"];
+        // console.log(fruits.indexOf("Apple"));
+
+        // 33번 문제
+        // const fruits = ["Apple", "Orange", "Apple", "Mango"];
+        // console.log(fruits.lastIndexOf("Apple")+1);
+
+        // 34번 문제
+        // const numbers = [4, 9, 16, 25, 29];
+        // console.log(numbers.find(a =>
+        //     {
+        //         return a >18;
+        //     })
+        // );
+
+        // 35번 문제
+
+       
+    </script>
+</body>
+</html>

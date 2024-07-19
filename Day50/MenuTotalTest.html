@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <title>MenuTotalTest</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <style>
+        html {
+  font-family: 'Ubuntu', sans-serif;
+}
+
+        body,ul,li{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        a{
+            color: inherit;
+            text-decoration: none;
+        }
+        ul ul{
+            display: none;
+        }
+
+        ul{
+            background-color: black;
+            color: white;
+        }
+        ul > li{
+            display: inline-block;
+            position: relative;
+            padding: 10px 50px;
+        }
+        ul li:nth-child(1)
+        {
+            background-color: rgb(43, 217, 43);
+        }
+       ul > li > a{
+            display: block;
+        }
+        ul > li > ul{
+            position: absolute;
+            top: 100%;		/* 2차 메뉴를 1차 메뉴의 아래에 위치시킨다 */
+            left: 0;		/* 2차 메뉴를 1차 메뉴의 왼쪽 벽에 붙인다 */
+            width: 100%;
+
+        }
+        ul li:hover a{
+            background-color: silver;
+        }
+        ul > li:hover > ul{
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <ul>
+       <li>
+            <a href="#">Home</a>
+            <ul>
+                <li><a href="#">home</a></li>
+            </ul>
+       </li>
+
+       <li>
+            <a href="#">News</a>
+            <ul>
+                <li><a href="#">Sports</a></li>
+                <li><a href="#">Car</a></li>
+            </ul>
+       </li>
+
+       <li>
+            <a href="#">Contact</a>
+            <ul>
+                <li><a href="#">Call</a></li>
+                <li><a href="#">Map</a></li>
+            </ul>
+       </li>
+
+       <li>
+            <a href="#">About</a>
+            <ul>
+                <li><a href="#">History</a></li>
+                <li><a href="#">Company</a></li>
+            </ul>
+       </li>
+    </ul>
+</body>
+</html>

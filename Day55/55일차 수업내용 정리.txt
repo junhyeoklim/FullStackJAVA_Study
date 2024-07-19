@@ -1,0 +1,21 @@
+1. ?.
+
+ - object가 undefined or null이면 undefined를 리턴 한다
+
+* javascript는 0을 false로 값이 존재하면 true로 취급한다
+
+
+2. Array.prototype.entries()
+
+ - entries()메서드는 배열의 각 인덱스에 대한 키/값 쌍을 가지는 새로운 Array Iterator 객체를 반환합니다.
+
+3. 콜백 함수
+
+ - 전달인자로 다른 함수에 전달되는 함수
+   이는 일종의 루틴이나 동작을 완료하기 위해 외부 함수 내부에서 호출.
+
+ * const points = new Array(40); -> points의 길이는 40 vs const points = [40] -> points의 길이는 1
+
+*javascript내용 참고
+ 1. https://www.w3schools.com/js/js_array_methods.asp
+ 2. https://www.tcpschool.com/javascript/intro

@@ -1,0 +1,254 @@
+1. DROP DATABASE IF EXISTS market_db;
+
+2. --
+
+3. select * from market_db.member;
+
+3-1. select addr "주소", debut_date "데뷔 일자",mem_name "이름"
+     from member;
+3-2. select * from member where mem_name = "블랙핑크";
+
+3-3. select * from member where mem_number = 4;
+
+3-4. select mem_id, mem_name 
+     from member
+     where height <= 162;
+
+
+3-5. select mem_name, height, mem_number
+     from member
+     where height >= 165
+     and
+     mem_number > 6;
+
+3-6. select mem_name, height, mem_number
+     from member
+     where height >= 165
+     or
+     mem_number > 6;
+
+3-7. 
+(1)  select mem_name, height
+     from member
+     where height >= 163
+     and
+     height <= 165;
+
+(2)  select mem_name, height
+     from member
+     where height between 163
+     and 165;
+
+4.   
+(1)  select mem_name, addr
+     from member
+     where addr = "경기"
+     or
+     addr = "전남"
+     or
+     addr = "경남";
+
+(2)  select mem_name, addr
+     from member
+     where addr IN("경기","전남","경남");
+
+4-1. select *
+     from member
+     where mem_name LIKE = "우%";
+
+4-2. select *
+     from member
+     where mem_name LIKE = "__핑크";
+
+5.   select mem_name, height
+     from member
+     where height > 
+     (select height
+      from member
+      where mem_name = "에이핑크");
+
+6-1. select mem_id, mem_name, debut_date
+     from member
+     ORDER BY debut_date;
+
+6-2. select mem_id, mem_name, debut_date
+     from member
+     ORDER BY debut_date desc;
+
+6-3. select mem_id, mem_name, debut_date, height
+     from member
+     where height >= 164
+     ORDER BY height desc;
+
+6-4. select mem_id, mem_name, debut_date, height
+     from member
+     where height >= 164;
+     ORDER BY height desc, debut_date;
+
+7-1. select *
+     from member
+     LIMIT 3;
+
+7-2. select mem_name,debut_date
+     from member
+     ORDER BY debut_date
+     LIMIT 3;
+
+7-3. select mem_name, height
+     from member
+     ORDER BY height desc
+     LIMIT 3,2;
+
+8.   select distinct addr
+     from member;
+
+9.   select mem_id,amount
+     from buy
+     ORDER BY mem_id;
+
+10. (1) SUM()
+    (2) AVG()
+    (3) MIN()
+    (4) MAX()
+    (5) COUNT()
+    (6) COUNT(distinct)
+
+11. select mem_id "회원 아이디", SUM(amount) "총 구매 개수"
+    from buy
+    GROUP BY mem_id;
+
+12. select mem_id "회원 아이디", SUM(price*amount) "총 구매 금액"
+    from buy
+    GROUP BY mem_id;
+
+13. select AVG(amount) "평균 구매 개수"
+    from buy;
+
+14. select AVG(amount)
+    from buy
+    GROUP BY mem_id;
+
+15. select COUNT(*)
+    from member;
+
+16. select COUNT(phone1)
+    from member;
+
+17-1. select mem_id "회원 아이디", SUM(price*amount) "총 구매 금액"
+      from buy
+      GROUP BY mem_id;
+
+17-2. select mem_id "회원 아이디", SUM(price*amount) "총 구매 금액"
+      from buy
+      GROUP BY mem_id
+      HAVING SUM(price*amount) >= 1000;
+
+17-3. select mem_id "회원 아이디", SUM(price * amount) "총 구매 금액"
+      from buy
+      GROUP BY mem_id
+      HAVING SUM(price*amount) >= 1000
+      ORDER BY SUM(price*amount) desc;
+
+18.  use market_db;
+
+19   create table hongong1(
+     toy_id INT,
+     toy_name char(4)
+     age int
+);
+
+20. INSERT INTO hongong1 VALUES(1,"우디",25);
+
+21-1. INSERT INTO hongong1(toy_id,toy_name) VALUES(2,"버즈");
+
+21-2. INSERT INTO hongong1 VALUES(3,"제시",20);
+
+22.  create table hongong2(
+    toy_id INT AUTO_INCREMENT PRIMARY KEY,
+    toy_name char(4),
+    age INT
+);
+
+
+23.INSERT INTO hongong2 VALUES(NULL,"보핍",25) ,
+   (NULL,"슬랭키",22),
+   (NULL,"렉스",21);
+
+24. SELECT LAST_INSERT_ID();
+
+25. alter table hongong2 AUTO_INCREMENT = 100;
+
+26. INSERT INTO hongong2 VALUES(NULL,"재남",35);
+
+27. select *
+    from hongong2;
+
+28. create table hongong3 (
+    toy_id INT AUTO_INCREMENT PRIMARY KEY,
+    toy_name char(4),
+    age INT
+);
+
+29. alter table hongong3 AUTO_INCREMENT = 1000;
+
+30. SET @@auto_increment_increment = 3;
+
+31. SHOW GLOBAL VARIABLES;
+
+32. 토마스의 id가 1000이 될것이고 이후 삽입되는 데이터들의 id는 3씩 증가 할것이다.
+
+33. INSERT INTO hongong3 VALUES(NULL,"토마스",20) ,
+    (NULL,"제임스",23) ,
+    (NULL,"고든",25);
+
+34. select COUNT(*)
+    from word.city;
+
+35. create table city_popul (
+    city_name char(35),
+    population INT
+);
+
+36. INSERT INTO city_popul 
+    select Name,population
+    from world.city;
+
+37. use market_db;
+
+38. update city_popul set city_name = "서울"
+    where city_name = "Seoul";
+
+39. update city_popul set city_name = "뉴욕",
+    population = 0
+    where city_name = "New York";
+
+40. update city_popul set population = population/10000;
+    select population
+    from city_popul;
+
+41. delete from city_popul 
+    where city_name LIKE "New%";
+
+42. delete from city_popul
+    where city_name LIKE "New%"
+    LIMIT 5;
+
+43. CREATE TABLE big_table1(
+    SELECT * FROM world.city, sakila.country
+    );
+
+    CREATE TABLE big_table2(
+        SELECT * FROM world.city, sakila.country
+    );
+
+    CREATE TABLE big_table3(
+        SELECT * FROM world.city, sakila.country
+    );
+
+    SELECT COUNT(*) 
+    FROM big_table1;
+
+44. delete from big_table1;
+    drop table table2;
+    truncate table big_table3;
+

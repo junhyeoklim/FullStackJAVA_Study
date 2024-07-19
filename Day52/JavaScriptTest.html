@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendar</title>
+</head>
+
+<body>
+    <div id="now"></div>
+
+    <script>
+        // function name() {
+        //     for (let x = 2; x <= 9; x++){
+        //         // document.write(x+"단<br>");
+        //         document.write(`${x}단<br>`);
+        //         for (let y = 1; y <= 9; y++) {                   
+        //                 //  document.write(x+"*"+y+"="+(x*y)+"<br>");   
+        //             document.write(`${i}*${j}=${i*j}<br>`);
+                        
+        //         }                
+        //         document.write("<br>");
+        //     }
+        // }
+        // name();
+
+        // function change(){
+        //         document.getElementById("change").innerHTML = "Hello JavaScript";
+        // }
+
+        // function styleChange() {
+        //     document.getElementById("change").style.fontSize="25px";
+        //     document.getElementById("change").style.color = "red";
+        //     document.getElementById("change").style.backgroundColor = "yellow";
+        // }
+        // function swap(i) {
+        //     let pic;
+        //     if (i == 1) {
+        //         pic = "pic_bulbon.gif"
+        //     } else {
+        //         pic = "pic_bulboff.gif"
+        //     }
+        //     document.getElementById("myImage").src = pic;
+        // }
+        
+    //     let table = "<table border='1'>";
+    // let num = 1;
+    // for(let i=0;i<5;i++){
+    //     table += `<tr>`;
+    //     for(let j=0;j<5;j++){            
+    //         table += `<td>${num++}</td>`;
+    //     }
+    //     table += `</tr>`;
+    // }
+    // table += `</table>`;
+    // document.getElementById("demo").innerHTML = table;
+
+            // let table = `<table border="1">`;
+            // let num = 0;
+
+            // for (let x = 1; x <= 5; x++){
+            //     table += `<tr>`; 
+            //     for (let y = 1; y <= 5; y++) {
+            //         table += `<td>${num++}</td>`;                    
+            //     }
+            //    table += `</tr>`;
+            // }
+            // table += `</table>`;
+            // document.getElementById("demo").innerHTML=table;
+           
+            const now = new Date();
+            const curMonth = now.getMonth();
+            const curYear = now.getFullYear();
+            const nowTemp = new Date(curYear,curMonth,1);
+            const startDate = nowTemp.getDay();            
+            let week = ["일","월","화","수","목","금","토"];
+            let cell = 0;
+            let date = 1;            
+            let lastDay = maxDate(curMonth);
+            let numOfWeeks = Math.ceil((startDate+lastDay)/7);
+            
+           document.write(startDate);
+
+            function leapYear(dateYear) {
+                let check = true;
+                
+                if(dateYear%4 == 0 && dateYear%100 != 0)
+                    check = true;
+                else if(dateYear%400 == 0)
+                    check = true;
+                else 
+                    check = false;
+
+                return check ? 29 : 28;
+            }
+
+            
+       
+            function maxDate(date) {                
+                switch(date){
+                 case 1:
+                 case 3:
+                 case 5:
+                 case 7:
+                 case 8:
+                 case 10:                 
+                 case 12:                 
+                    return 31;
+                 case 4:
+                 case 6:
+                 case 9:
+                 case 11:
+                    return 30;
+                 case 2:
+                    // return leapYear(2024);
+                    return leapYear(curYear);
+                }
+            }           
+
+            let table = "<table border 1 style='margin-left:auto;margin-right:auto; font-weight:bold;'>";
+            
+            table += `<caption style='font-size:25px;'> ${curYear}년 ${curMonth+1}월</caption>`;
+
+            table += `<tr style='text-align: center;'>`;
+
+            for (let x = 0; x < 7; x++) {
+                if(x == 0)
+                    table += `<td style="color:red; padding: 10px;">`;
+                else if(x == 6)
+                    table += `<td style="color:blue; padding: 10px;">`;
+                 else
+                    table += `<td style="padding: 10px;">`;       
+                table += `${week[x]}</td>`;                
+            }
+
+            table += `</tr>`;
+            for (let y = 0; y < numOfWeeks; y++) {
+                table += `<tr style='text-align: center;'>`;
+                for (let x = 0; x < 7; x++) {
+
+                    if(cell<startDate)
+                        table += `<td style='padding: 10px;'>&nbsp;</td>`;
+                    else if(date <= lastDay)
+                    {
+                        table += `<td style='padding: 10px;'>${date}</td>`;                                 
+                        date++; 
+                    }
+                    else
+                        table += `<td style='padding: 10px;'>&nbsp;</td>`;
+                    cell++;
+                }
+                table += `</tr>`;
+            }
+            table += `</table>`;
+           
+            
+            document.getElementById("now").innerHTML = table;
+    </script>
+
+
+<!-- 
+    <form>
+        <input type="button" onclick="change()" value="Click Me" style="padding: 10px 50px; display: inline-block; background-color: beige; border: none; cursor: pointer;">
+    </form>
+    <p id="change">This is a demonstration.</p> -->
+    <!-- <form>
+        <input type="button" onClick="styleChange()" value="Click Me">
+    </form>
+
+    <p id="change">JavaScript can change the style of an HTML element.</p> -->
+<!-- 
+    <img src="pic_bulboff.gif" id="myImage">
+
+    <form action="">
+        <button type="button" onClick="swap(1)">Light On</button>
+        <button type="button" onClick="swap(0)">Light Off</button>
+    </form> -->
+
+
+</body>
+</html>

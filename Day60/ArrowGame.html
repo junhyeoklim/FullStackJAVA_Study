@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ArrowGame</title>
+</head>
+<body>
+    <script>
+        (function GameUI() {
+            let star = document.createElement("div");
+            let text = document.createTextNode("★");
+            star.setAttribute("id","star");
+            star.setAttribute("style","width: 20px");
+            star.appendChild(text);
+            document.body.appendChild(star);
+        })();
+
+        let star = document.querySelector("#star");        
+        let x = 0;
+        
+        // star.addEventListener("keydown",(e) => {
+        //     if(e.key === "")
+        // });
+        // https://haeeeell.tistory.com/54 참고
+    </script>
+</body>
+</html>

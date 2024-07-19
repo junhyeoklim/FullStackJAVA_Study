@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HangMan!</title>
+</head>
+<body>
+    <script>
+        const questionList = ["apple","banana","computer","money","car"];
+        const randomIndex = Math.floor(Math.random()*questionList.length);
+        let word = questionList[randomIndex];
+        let collect = new Array(word.length);
+        let flag = true;
+        collect.fill("_");
+
+        while(collect.indexOf("_") !== -1){
+        
+            let answer = prompt("글자를 입력하세요. 취소를 누르면 게임을 멈춥니다.");
+
+            if(answer === null)
+                {
+                    alert("정답은 "+ word +"였습니다! 게임을 종료합니다.");
+                    flag = false;
+                    break;
+                }
+            if(answer.length !== 1)
+            {
+                    alert("1글자만 입력 하세요!");
+                    continue;
+            }
+            
+            let idx = 0;
+
+            while((idx = word.indexOf(answer,idx)) !== -1)
+                collect[idx++] = answer;
+            
+            alert(collect.join(" "));
+        }
+
+        if(flag)
+            alert("정답입니다!");
+
+    </script>
+</body>
+</html>

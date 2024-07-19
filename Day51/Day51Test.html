@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <style>
+        /* .city{
+            float: left;
+            border: 1px solid black;
+            max-width: 300px;
+            padding: 8px;
+            margin: 8px;
+        } */
+        /* .dropdown{
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            position: relative;
+            display: inline-block;
+            
+        }
+        .big{
+            display: none;
+            position: absolute;
+            box-shadow: 5px 10px 10px 3px rgb(172, 165, 165);        
+        }
+        li p{
+            padding: 15px;
+            text-align: center;
+        }
+        .dropdown:hover .big{
+            display: block;
+        } */
+        ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: inline-block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover, .dropdown:hover  {
+  background-color: red;
+}
+
+li.dropdown {
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.dropdown-content a:hover {background-color: #f1f1f1;}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+    </style>
+</head>
+<body>
+    <!-- 1번 문제 -->
+
+    <!-- <h1>Responsive Web Design Demo</h1>
+    <h2>Resize this responsive page!</h2>
+
+    <div class="city">
+        <h2>London</h2>
+        <p>London is the capital of England</p>
+        <p>It is the most populous city in the United Kingdom, with a metropolitan
+        </thead></p>
+    </div>
+
+    <div class="city">
+        <h2>London</h2>
+        <p>London is the capital of England</p>
+        <p>It is the most populous city in the United Kingdom, with a metropolitan
+        </thead></p>
+    </div>
+
+    <div class="city">
+        <h2>London</h2>
+        <p>London is the capital of England</p>
+        <p>It is the most populous city in the United Kingdom, with a metropolitan
+        </thead></p>
+    </div>
+
+    <div class="city">
+        <h2>London</h2>
+        <p>London is the capital of England</p>
+        <p>It is the most populous city in the United Kingdom, with a metropolitan
+        </thead></p>
+    </div> -->
+
+    <!-- 2번 문제 -->
+    <!-- <h1>Dropdown Image</h1>
+    <p>Move the mouse over the image below to open the dropdown content.</p>
+    <ul class="dropdown">
+        <img src="img_5terre.jpg" width="100px" height="50px">        
+        <li class="big" >
+            <img src="img_5terre.jpg">
+            <p>Beautiful Cinque Terre</p>
+        </li>
+    <ul> -->
+
+    <!-- 3번 문제 -->
+    <ul>
+        <li>
+            <a href="#">Home</a>
+        </li>
+
+        <li>
+            <a href="#">News</a>
+        </li>
+
+        <li class="dropdown">
+            <a href="#" >Dropdown</a>
+            <div class="dropdown-content">
+                <a href="#">Link1</a>
+                <a href="#">Link2</a>
+                <a href="#">Link3</a>
+            </div>
+        </li>    
+    </ul>
+</body>
+</html>

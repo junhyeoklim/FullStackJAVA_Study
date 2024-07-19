@@ -1,0 +1,10 @@
+1. 익명함수 this vs 화살표 함수 this 차이점 관련 설명
+ - https://sangjuntech.tistory.com/24 여기 참고
+ - 화살표 함수에서 this는 항상 window 객체를 가르킨다.(bind 메소드 때문)
+ - window 객체에 접근하고 싶은게 아니라면 화살표 함수에서 this 사용은 지양 하자.
+
+2. form에서 name 속성을 사용해 접근 할려면  <form>태그 뿐만 아니라 form 요소에 모두
+   name 속성이 지정되어 있는지 확인 해야한다.
+
+3. form 요소에 id, class,name 같은 속성이 없을경우 배열을 사용해 접근하는데,
+   form에 접근하려면 forms 속성을 사용하고, form 요소에 접근하려면 elelments를 사용해야 한다.
