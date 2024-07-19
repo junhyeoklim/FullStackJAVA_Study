@@ -54,3 +54,9 @@ github default 브랜치 명 변경 방법
 
 5. 이미 git commit -m 한 파일이 있으므로 이 상태에서 git push를 해준다
     * git push --set-upstream origin 하라는 내용이 나오면 그대로 해준다
+
+
+
+- git revert 관련 설명 (push 전에 commit한 내용들 다루는 방법) -
+
+https://kyounghwan01.github.io/blog/etc/git/git-reset-revert/#%E1%84%8B%E1%85%B5-%E1%84%8C%E1%85%A1%E1%86%A8%E1%84%8B%E1%85%A5%E1%86%B8%E1%84%8B%E1%85%B3%E1%86%AF-%E1%84%92%E1%85%A1%E1%84%82%E1%85%B3%E1%86%AB-%E1%84%8B%E1%85%B5%E1%84%8B%E1%85%B2
