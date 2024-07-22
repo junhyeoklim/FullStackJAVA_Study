@@ -63,3 +63,11 @@ github default 브랜치 명 변경 방법
 https://kyounghwan01.github.io/blog/etc/git/git-reset-revert/#%E1%84%8B%E1%85%B5-%E1%84%8C%E1%85%A1%E1%86%A8%E1%84%8B%E1%85%A5%E1%86%B8%E1%84%8B%E1%85%B3%E1%86%AF-%E1%84%92%E1%85%A1%E1%84%82%E1%85%B3%E1%86%AB-%E1%84%8B%E1%85%B5%E1%84%8B%E1%85%B2
 =======
 >>>>>>> bc5b04a5101160896d56dda12216ffcb5bc5b97a
+
+
+
+
+- git bash로 내용 있는 파일 만드는 방법 -
+
+ echo "내용 입력" > 파일이름.txt 
+*공백 :  echo > bar_a.txt
