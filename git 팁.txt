@@ -71,3 +71,15 @@ https://kyounghwan01.github.io/blog/etc/git/git-reset-revert/#%E1%84%8B%E1%85%B5
 
  echo "내용 입력" > 파일이름.txt 
 *공백 :  echo > bar_a.txt
+
+
+
+
+- vi 편집기 관련 명령어들 - 
+
+1. 명령어 모음집
+https://blockdmask.tistory.com/25
+
+2. 생성 방법
+https://jjeongil.tistory.com/1578
+
