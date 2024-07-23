@@ -1,7 +1,9 @@
 package com.springbook.view.board;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -32,15 +35,14 @@ public class BoardController {
 
 	// 글 등록
 	@RequestMapping(value="/insertBoard.do")
-	public String insertBoard(BoardVO vo) throws Exception {
+	public String insertBoard(BoardVO vo) throws IOException {
 		System.out.println("글 등록 처리");
-		
+		// 파일 업로드 처리
 		MultipartFile uploadFile = vo.getUploadFile();
 		if(!uploadFile.isEmpty()) {
 			String fileName = uploadFile.getOriginalFilename();
-			uploadFile.transferTo(new File("D:/"+fileName));
+			uploadFile.transferTo(new File("c:/fileUpload/" + fileName));
 		}
-		
 		boardService.insertBoard(vo);
 		return "getBoardList.do";
 	}
@@ -85,5 +87,15 @@ public class BoardController {
 		
 		model.addAttribute("boardList", boardService.getBoardList(vo));		// Model 정보 저장 
     	return "getBoardList.jsp";							
-	}	
+	}
+	
+	//글 목록 변환기
+	@RequestMapping("/dataTransform.do")
+	@ResponseBody
+	public List<BoardVO> dataTransform(BoardVO vo){
+		vo.setSearchCondition("TITLE");
+		vo.setSearchKeyword("");
+		List<BoardVO> boardList = boardService.getBoardList(vo);
+		return boardList;
+	}
 }
