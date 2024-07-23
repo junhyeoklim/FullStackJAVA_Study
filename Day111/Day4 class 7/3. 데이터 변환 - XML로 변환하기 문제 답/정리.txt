@@ -1,0 +1,195 @@
+pom.xml에 추가
+
+// pom.xml
+
+
+	<properties>
+		<java-version>1.8</java-version>
+		<org.springframework-version>4.2.4.RELEASE</org.springframework-version>
+		<org.aspectj-version>1.6.10</org.aspectj-version>
+		<org.slf4j-version>1.6.6</org.slf4j-version>
+		<jaxb.version>2.2.11</jaxb.version>  <!-- 추가 -->
+	</properties>
+	<dependencies>
+
+	<!-- 추가 시작	-->
+      <dependency>
+            <groupId>javax.xml.bind</groupId>
+            <artifactId>jaxb-api</artifactId>
+            <version>${jaxb.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.xml.bind</groupId>
+            <artifactId>jaxb-core</artifactId>
+            <version>${jaxb.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.xml.bind</groupId>
+            <artifactId>jaxb-impl</artifactId>
+            <version>${jaxb.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.activation</groupId>
+            <artifactId>activation</artifactId>
+            <version>1.1.1</version>
+        </dependency>
+<!-- 추가 끝	-->
+
+
+BoardVO
+
+package com.springbook.biz.board;
+
+import java.util.Date;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlTransient;
+
+import org.springframework.web.multipart.MultipartFile;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+// VO(Value Object)
+@XmlAccessorType(XmlAccessType.FIELD)
+public class BoardVO {
+	@XmlAttribute
+	private int seq;
+	private String title;
+	private String writer;
+	private String content;
+	private Date regDate;
+	private int cnt;
+	@XmlTransient
+	private String searchCondition;
+	@XmlTransient
+	private String searchKeyword;
+	@XmlTransient
+	private MultipartFile uploadFile;
+	
+	public int getSeq() {
+		return seq;
+	}
+	public void setSeq(int seq) {
+		this.seq = seq;
+	}
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	public String getWriter() {
+		return writer;
+	}
+	public void setWriter(String writer) {
+		this.writer = writer;
+	}
+	public String getContent() {
+		return content;
+	}
+	public void setContent(String content) {
+		this.content = content;
+	}
+	public Date getRegDate() {
+		return regDate;
+	}
+	public void setRegDate(Date regDate) {
+		this.regDate = regDate;
+	}
+	public int getCnt() {
+		return cnt;
+	}
+	public void setCnt(int cnt) {
+		this.cnt = cnt;
+	}
+	@JsonIgnore
+	public String getSearchCondition() {
+		return searchCondition;
+	}
+	public void setSearchCondition(String searchCondition) {
+		this.searchCondition = searchCondition;
+	}
+	@JsonIgnore
+	public String getSearchKeyword() {
+		return searchKeyword;
+	}
+	public void setSearchKeyword(String searchKeyword) {
+		this.searchKeyword = searchKeyword;
+	}
+	@JsonIgnore
+	public MultipartFile getUploadFile() {
+		return uploadFile;
+	}
+	public void setUploadFile(MultipartFile uploadFile) {
+		this.uploadFile = uploadFile;
+	}
+	
+	@Override
+	public String toString() {
+		return "BoardVO [seq=" + seq + ", title=" + title + ", writer=" + writer + ", content=" + content + 
+				", regDate=" + regDate + ", cnt=" + cnt + "]";
+	}
+}
+
+BoardVO 클래스에 선언된 @XmlAccessorType은 BoardVO 객체를 XML로 변환할 수 있다는 의미이다. 그리고 XmlAccessType.FIELD 때문에 이 객체가 가진 필드, 즉 변수들은 자동으로 자식 엘리먼트로 표현된다. 하지만 이 중에서 seq 변수에만 @XmlAttribute가 붙었는데 이는 seq를 속성을 표현하라는 의미이다.
+그리고 searchCondition, searchKeyword, uploadFile 변수 위에 @XmlTransient가 설정되어 있는데, 이 세 개의 변수는 XML 변환에서 제외하라는 의미이다. 마치 JSON 변환에서 @JsonIgnore와 같은 개념의 어노테이션이라고 보면 된다.
+마지막으로 등록 날짜를 저장하는 regDate 변수는 이전까지는 java.sql.Date 클래스였다. 하지만 java.sql.Date 클래스에는 기본 생성자가 없다. 특정 자바 객체를 XML로 변환하려면 반드시 해당 클래스에 기본 생성자가 있어야만 한다. 따라서 regDate 변수를 기본 생성자가 있는 java.util.Date 타입의 변수로 변경한 것이다.
+
+BoardListVO 추가
+XML 문서는 반드시 단 하나의 루트 엘리먼트를 가져야 한다. BoardVO는 하나의 게시글 정보를 저장하려고 사용하는 객체이다. 하지만 우리는 여러 게시글 목록을 XML로 표현해야 하므로 BoardVO 객체 여러 개를 포함하면서 루트엘리먼트로 사용할 또 다른 자바 클래스가 필요하다. 루트 엘리먼트로 사용할 BoardListVO 클래스를 다음과 같이 추가로 작성한다.
+
+package com.springbook.biz.board;
+
+import java.util.List;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement(name="boardList")
+@XmlAccessorType(XmlAccessType.FIELD)
+public class BoardListVO {
+	@XmlElement(name="board")
+	private List<BoardVO> boardList;
+	
+	public List<BoardVO> getBoardList(){
+		return boardList;
+	}
+	
+	public void setBoardList(List<BoardVO> boardLIst) {
+		this.boardList = boardList;
+	}
+	
+}
+
+이 객체가 루트 엘리먼트에 해당하는 객체이며, 루트 엘리먼트 이름을 boardList로 절정하겠다는 의미로 @XmlRootElement(name="boardList") 설정을 추가했다.
+
+그리고 boardList 변수 위에도 @XmlElement(name = "board")를 추가했는데, 만약 이 설정이 없다면 변수 이름인 boardList가 엘리먼트 이름으로 사용된다. 따라서 @XmlElement를 사용하여 엘리먼트 이름을 boardList에서 board로 변경한것이다.
+
+Controller 수정
+BoardController 클래스에 dataTransform() 메소드만 수정하면 된다.
+
+@Controller
+@SessionAttributes("board")
+public class BoardController {
+	@Autowired
+	private BoardService boardService;
+	
+	@RequestMapping("/dataTransform.do")
+	@ResponseBody
+	public BoardListVO dataTransform(BoardVO vo){
+		vo.setSearchCondition("TITLE");
+		vo.setSearchKeyword("");
+		List<BoardVO> boardList = boardService.getBoardList(vo);
+		BoardListVO boardListVO = new BoardListVO();
+		boardListVO.setBoardList(boardList);
+		return boardListVO;
+	}
+
+우선 글 목록을 List 컬렉션으로 리턴했던 것을 @XmlRootElement가 선언된 BoardListVO로 수정한다. 그리고 검색 결과인 글 목록을 BoardListVO 객체에 저장하여 리턴하면 된다.
+
+실행 결과 확인
+우리는 앞에서 검색 결과를 JSON 형태로 변환하여 처리했었다. 이때 자바 객체를 JSON 응답보디로 변환해주는 MappingJackson2HttpMessageConverter를 스프링 설정 파일에 추가해야 하는데, 이를 <mvc:annotation-driven> 설정으로 대체했었다. 그런데 이 설정은 자바 객체를 XML 응답 보디로 변환할 때 사용하는 Jaxb2RootElementHttpMessageConverter 클래스도 같이 등록해준다. 따라서 이와 관련된 설정은 추가로 하지 않아도 된다.

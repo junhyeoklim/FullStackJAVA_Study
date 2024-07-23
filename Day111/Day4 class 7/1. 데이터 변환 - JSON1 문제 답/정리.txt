@@ -1,0 +1,73 @@
+시스템이 복잡해지면서 다른 시스템과 정보를 주고받을 일이 발생하는데, 이때 데이터 교환포맷으로 JSON을 사용할 수 있다. 검색한 글 목록을 JSON(JavaScript Object Notation) 형식의 데이터로 변환하여 브라우저에 출력해보자.
+
+JSON으로 변환하기
+
+Jackson2 라이브러리 내려받기
+검색 결과를 JSON 데이터로 변환하려면 가장 먼저 jackson2 라이브러리를 내려받아야 한다. BoardWeb 프로젝트의 pom.xml 파일을 열어서 jackson2 라이브러리를 내려받을 수 있또록 <dependency>를 추가한다.
+
+pom.xml
+
+		<!-- Jackson2 -->
+		<dependency>
+		    <groupId>com.fasterxml.jackson.core</groupId>
+		    <artifactId>jackson-databind</artifactId>
+		    <version>2.7.2</version>
+		</dependency>
+
+HttpMessageConvertor 등록
+일반적으로 브라우저에서 서블릿이나 JSP 파일을 요청하면, 서버는 클라이언트가 요청한 서블릿이나 JSP를 찾아서 실행한다. 그리고 실행 결과를 Http 응답 프로토콜 메시지 보디(body)에 저장하여 브라우저에 전송한다. 그래서 브라우저는 항상 실행 결과 화면만 표시했던 것이다.
+(p459 HTTP 응답 프로토콜의 구조 참고)
+그런데 이 응답 결과를 HTML이 아닌 JSON이나 XML로 변환하여 메시지 보디에 저장하려면 스프링에서 제공하는 변환기(Converter)를 사용해야 한다. 스프링은 HttpMessageConverter를 구현한 다양한 변환기를 제공하는데, 이 변환기를 이용하면 자바 객체를 다양한 타입으로 변환하여 HTTP 응답 보디에 설정할 수 있다.
+
+HttpMessageConverter를 구현한 클래스는 여러 가지가 있으며, 이 중에서 자바 객체를 JSON응답 보디로 변환할 때는 MappingJackson2HttpMessageConverter를 사용한다. 따라서 MappingJackson2HttpMessageConverter를 스프링 설정 파일에 등록하면 되는데, 우리는 이후에 XML 변환도 처리할 예정이므로 다음처럼 <mvc:annotation-driven>을 설정한다.
+
+presentation-layer.xml
+
+<mvc:annotation-driven></mvc:annotation-driven>
+
+스프링 설정 파일에 <mvc:annotation-driven>을 설정하면 HttpMessageConverter를 구현한 모든 변환기가 생성된다. 따라서 이후에 XML 변환에 필요한 변환기도 자동으로 등록된다.
+
+링크 추가 및 Controller 수정
+스프링 설정 파일을 수정했으면 이제 사용자가 JSON 형태로 글 목록을 요청할 수 있도록 index.jsp 파일에 링크를 추가한다.
+
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Main Page</title>
+</head>
+<body>
+	<h1>게시판 프로그램</h1>
+	<hr>
+		<a href="login.do">로그인</a><br><br><br>
+		<a href="getBoardList.do">글 목록 바로가기</a><br><br><br>
+		<a href="datTransform.do">글 목록 변환 처리</a><br>
+	<hr>
+</body>
+</html>
+
+
+그리고 BoardController 클래스에 '글 목록 변환 처리' 요청을 처리할 메소드를 다음과 같이 추가한다.
+
+@Controller
+@SessionAttributes("board")
+public class BoardController {
+	@Autowired
+	private BoardService boardService;
+	
+	@RequestMapping("/dataTransform.do")
+	@ResponseBody
+	public List<BoardVO> dataTransform(BoardVO vo){
+		vo.setSearchCondition("TITLE");
+		vo.setSearchKeyword("");
+		List<BoardVO> boardList = boardService.getBoardList(vo);
+		return boardList;
+	}
+
+dataTranform() 메소드는 글 목록을 검색하여 리턴하는 getBoardList() 메소드와 같다. 다만 메소드 위에 @ResponseBody라는 어노테이션을 추가했는데, 자바 객체를 Http 응답 프로토콜의 몸체로 변환하기 위해 사용된다.
+앞에서 스프링 컨테이너가 MappingJackson2HttpMessageConverter 변환기를 생성하도록 스프링 설정 파일에 <mvc:annotation-driven>을 추가했다. 따라서 @ResponseBody가 적용된 dataTransform() 메소드이 실행 결과는 JSON으로 변환되어 HTTP 응답 보디에 설정될 것이다.
+
+실행 결과 확인
+index.jsp 파일을 요청한 후에 '글 목록 변환 처리'링크를 클릭하면 JSON으로 변환된 결과를 확인할 수 있다.

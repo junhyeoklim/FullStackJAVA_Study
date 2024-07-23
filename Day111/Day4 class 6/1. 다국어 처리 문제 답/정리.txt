@@ -1,0 +1,231 @@
+다국어 지원이란 '국제화'라고도 하며 하나의 JSP 페이지를 다양한 언어로 서비스하는 것을 의미한다. 프레임워크에서 다국어를 지원하기 전에는 언어별로 JSP 파일들을 만들어야 했기 때문에 매우 불편했다. 하지만 프레임워크의 다국어 기능을 이용하면 JSP 화면에 출력되는 메시지 외에도 예외나 로그 메시지까지 다국어로 처리할 수 있어서 매우 편하다.
+
+메시지 파일 작성하기
+사용자가 원하는 언어로 메시지를 출력하려면 각 언어에 따른 메시지 파일을 작성해야 한다. 기본적으로 메시지 파일의 확장자는 '.properties'이며, 파일명은 언어에 해당하는 Locale 정보를 결합하여 작성한다.
+우선 영어와 한글 두 개의 언어를 지원하기 위해 두 개의 메시지 파일을 생성한다.
+
+영어 메시지 파일 작성
+message 패키지에 messageSource_en.properties 파일을 만들고 다음과 같이 영어 메시지를 프로퍼티로 등록한다.
+
+# login.jsp
+message.user.login.title=LOGIN
+message.user.login.id=ID
+message.user.login.password=PASSWORD
+message.user.login.loginBtn=LOG-IN
+
+message.user.login.language.en=English
+message.user.login.language.ko=Korean
+
+# getBoardList.jsp
+message.board.list.mainTitle=BOARD LIST
+message.board.list.welcomeMsg=! Welcome to my BOARD
+message.board.list.search.condition.title=TITLE
+message.board.list.search.condition.content=CONTENT
+message.board.list.search.condition.btn=Search
+message.board.list.table.head.seq=SEQ
+message.board.list.table.head.title=TITLE
+message.board.list.table.head.writer=WRITER
+message.board.list.table.head.regDate=REGDATE
+message.board.list.table.head.cnt=CNT
+message.board.list.link.insertBoard=Insert Board
+
+한글 메시지 파일 작성
+메시지 파일을 만들 때 프로퍼티 값을 영어로 등록하는 것은 상관없지만, 한국어를 포함한 중국어, 일본어 등의 아시아권 언어를 사용할 때는 반드시 유니코드로 변환하여 등록해야 한다. 예전에는 JDK에 포함된 native2ascii.exe를 이용하여 별도로 변환 작업을 수행해야 했다. 하지만 지금은 직접 한글을 입력해도 된다.
+따라서 다음처럼 messageSource_ko.txt 파일을 만들어 한글 메시지를 등록한다.
+
+# login.jsp
+message.user.login.title=로그인
+message.user.login.id=아이디
+message.user.login.password=비밀번호
+message.user.login.loginBtn=로그인
+
+message.user.login.language.en=영어
+message.user.login.language.ko=한글
+
+# getBoardList.jsp
+message.board.list.mainTitle=게시글 목록
+message.board.list.welcomeMsg=님! 게시판에 오신걸 환영합니다.
+message.board.list.search.condition.title=제목
+message.board.list.search.condition.content=내용
+message.board.list.search.condition.btn=검색
+message.board.list.table.head.seq=번호
+message.board.list.table.head.title=제목
+message.board.list.table.head.writer=작성자
+message.board.list.table.head.regDate=등록일
+message.board.list.table.head.cnt=조회수
+message.board.list.link.insertBoard=새글 등록
+
+그리고 나서 작성된 messageSource_ko.txt 파일의 모든 내용을 복사하여 message 패키지에 messageSource_ko.properties 파일을 만들고 거기에 붙여 넣으면 간단하게 한글 프로퍼티 파일을 만들 수 있다.
+
+# login.jsp
+message.user.login.title=\uB85C\uADF8\uC778
+message.user.login.id=\uC544\uC774\uB514
+message.user.login.password=\uBE44\uBC00\uBC88\uD638
+message.user.login.loginBtn=\uB85C\uADF8\uC778
+
+message.user.login.language.en=\uC601\uC5B4
+message.user.login.language.ko=\uD55C\uAE00
+
+# getBoardList.jsp
+message.board.list.mainTitle=\uAC8C\uC2DC\uAE00 \uBAA9\uB85D
+message.board.list.welcomeMsg=\uB2D8! \uAC8C\uC2DC\uD310\uC5D0 \uC624\uC2E0\uAC78 \uD658\uC601\uD569\uB2C8\uB2E4.
+message.board.list.search.condition.title=\uC81C\uBAA9
+message.board.list.search.condition.content=\uB0B4\uC6A9
+message.board.list.search.condition.btn=\uAC80\uC0C9
+message.board.list.table.head.seq=\uBC88\uD638
+message.board.list.table.head.title=\uC81C\uBAA9
+message.board.list.table.head.writer=\uC791\uC131\uC790
+message.board.list.table.head.regDate=\uB4F1\uB85D\uC77C
+message.board.list.table.head.cnt=\uC870\uD68C\uC218
+message.board.list.link.insertBoard=\uC0C8\uAE00 \uB4F1\uB85D
+
+MessageSource 등록
+언어별로 메시지 파일을 작성했으면 이제 스프링 설정 파일에 이 메시지 파일들을 읽어 들이는 MessageSource 클래스를 <bean> 등록해야 한다.
+
+presentation-layer.xml
+
+	<!-- 다국어 설정 -->
+	<!-- MessageSource 등록 -->
+	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basenames">
+			<list>
+				<value>message.messageSource</value>
+			</list>
+		</property>
+	</bean>
+
+
+LocaleResolver 등록
+웹브라우저가 서버에 요청하면 브라우저의 Locale 정보가 HTTP 요청 메시지 헤더에 자동으로 설정되어 전송된다. 이때, 스프링은 LocaleResolver를 통해서 클라이언트의 Locale 정보를 추출하고, 이 Locale 정보에 해당하는 언어의 메시지를 적용한다.
+
+스프링에서는 다음과 같이 네 개의 LocaleResolver를 지원하는데 만약 스프링 설정 파일에 LocaleResolver가 등록되어있지 않으면 기본으로 AcceptHeaderLocaleResolver가 적용된다.
+
+LocaleResolver 종류			기능 설명
+AcceptHeaderLocaleResolver		브라우저에서 전송된 HTTP 요청 헤더에서 Accept-Language에 설정된 Locale로 메시지를 적용한다.
+CookieLocaleResolver		Cookie에 저장된 Locale 정보를 추출하여 메시지를 적용한다.
+SessionLocaleResolver		HttpSession에 저장된 Locale 정보를 추출하여 메시지를 적용한다.
+FixedLocaleResolver		웹 요청과 무관하게 특정 Locale로 고정한다.
+
+스프링에서는 다양한 LocaleResolver를 지원하지만 세션으로부터 Locale 정보를 추출하고 유지하는 SessionLocaleResolver를 가장 많이 사용한다. 따라서 스프링 설정 파일에 SessionLocaleResolver를 등록한다.
+
+presentation-layer.xml
+
+	<!--  LocaleResolver 등록 -->
+	<bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver"></bean>
+
+여기에서 가장 중요한 점은 다른 Resolver 클래스와 마찬가지로 LocaleResolver 역시 고정된 아이디를 등록해야 한다는 것이다. 만일 localeResolver가 아닌 다른 이름으로 등록하면 다국어 처리가 동작하지 않는다.
+
+Locale 변경하기
+특정 언어로 화면을 보다가 해당 화면의 언어를 변경하고 싶을 때가 있을 수 있다. 이를 위해 스프링에서 제공하는 것이 LocaleChangeInterceptor 클래스이다. 이는 HandlerInterceptor 인터페이스를 구현한 클래스로서, 스프링 설정 파일에 인터셉터로 등록해야 한다.
+
+	<!-- LocaleChangeInterceptor 등록 -->
+	<mvc:interceptors>
+		<bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+			<property name="paramName" value="lang"/>
+		</bean>
+	</mvc:interceptors>
+
+여기에서 중요한 점은 먼저 <beans> 루트 엘리먼트에 mvc 네임스페이스를 추가해야 <mvc:interceptors> 엘리먼트를 사용할 수 있다는 것이다. 그래야 <mvc:interceptors>를 이용해서 LocaleChangeInterceptor 객체를 인터셉터로 등록할 수 있다. 그리고 LocaleChangeInterceptor를 등록할 때 Setter 주입으로 paramName 값을 "lang"으로 지정했는데, 이는 클라이언트로부터 "lang"이라는 파라미터로 특정 Locale이 전송되면 해당 Locale로 변경하겠다는 설정이다.
+
+JSP 파일 작성
+(1) 로그인 화면 처리
+JSP 파일에서 메시지 파일에 등록한 메시지로 화면을 구성하려면 스프링에서 제공하는 태그 라이브러리를 이용해야 한다. 따라서 JSP 파일에 다음처럼 taglib 지시자를 반드시 선언해야 한다.
+
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+그리고 나서 다음처럼 <spring:message/>태그의 code 속성값으로 메시지 파일에 등록된 메시지 키를 등록하면 Locale에 해당하는 메시지를 출력할 수 있다.
+
+<spring:message code="메시지 키값" />
+
+login.jsp
+
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title><spring:message code="message.user.login.title"/></title>
+</head>
+<body>
+	<h1><spring:message code="message.user.login.title"/></h1>
+	<hr>
+	<a href="login.do?lang=en"><spring:message code="message.user.login.language.en"/></a>
+	<a href="login.do?lang=ko"><spring:message code="message.user.login.language.ko"/></a>
+	<form action="login.do" method="post">
+		<table border="1">
+			<tr>
+				<td><spring:message code="message.user.login.id"/></td><td><input type="text" name="id" value="${user.id}"/></td>
+			</tr>
+			<tr>
+				<td><spring:message code="message.user.login.password"/></td><td><input type="password" name="password" value="${user.password}"/></td>
+			</tr>
+			<tr>
+				<td colspan="2"><input type="submit" value="<spring:message code="message.user.login.loginBtn"/>" /></td>
+			</tr>
+		</table>
+	</form>
+	<hr>
+</body>
+</html>
+
+getBoardList.jsp
+
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"  %>    
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>글 목록</title>
+</head>
+<body>
+	<h1><spring:message code="message.board.list.mainTitle"/></h1>
+	<h3>${userName}<spring:message code="message.board.list.welcomeMsg"/><a href="logout.do">Log-out</a></h3>
+	
+	<!-- 검색 시작 -->
+	<form action="getBoardList.do" method="post">
+		<table border="1">
+			<tr>
+				<td>
+					<select name="searchCondition">
+<!-- 					<option value="TITLE">제목</option>
+						<option value="CONTENT">내용</option> -->
+						<c:forEach items="${conditionMap}" var="option">
+							<option value="${option.value}">${option.key}</option>						
+						</c:forEach>
+					</select>
+					<input name="searchKeyword" type="text" />
+					<input type="submit" value="<spring:message code="message.board.list.search.condition.btn"/>" />
+				</td>
+			</tr>
+		</table>
+	</form>
+	<!--  검색 종료 -->
+	
+	<table border="1">
+		<tr>
+			<th><spring:message code="message.board.list.table.head.seq"/></th>
+			<th><spring:message code="message.board.list.table.head.title"/></th>
+			<th><spring:message code="message.board.list.table.head.writer"/></th>
+			<th><spring:message code="message.board.list.table.head.regDate"/></th>
+			<th><spring:message code="message.board.list.table.head.cnt"/></th>
+		</tr>
+		
+		<c:forEach items="${boardList}" var="board" >		
+			<tr>
+				<td>${board.seq}</td>
+				<td><a href="getBoard.do?seq=${board.seq}">${board.title}</a></td>
+				<td>${board.writer}</td>
+				<td>${board.regDate}</td>
+				<td>${board.cnt}</td>
+			</tr>
+		</c:forEach>
+		
+	</table>
+	<br>
+	<a href="insertBoard.jsp"><spring:message code="message.board.list.link.insertBoard"/></a>
+</body>
+</html>

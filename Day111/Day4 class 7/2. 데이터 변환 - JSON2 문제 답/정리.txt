@@ -1,0 +1,22 @@
+제이슨 변환.png를 보면 검색 조건, 검색 키워드, 그리고 파일 업로드 정보까지 포함되어 있는데 이 정보들은 출력 결과에서 제외하는 것이 맞다. 따라서 BoardVO 클래스에 이 세 변수에 해당하는 Getter 메소드를 찾아 다음과 같이 수정한다.
+
+BoardVO
+
+	@JsonIgnore
+	public String getSearchCondition() {
+		return searchCondition;
+	}
+
+	@JsonIgnore
+	public String getSearchKeyword() {
+		return searchKeyword;
+	}
+
+	@JsonIgnore
+	public MultipartFile getUploadFile() {
+		return uploadFile;
+	}
+
+BoardVO 클래스의 Getter 메소드 세 개에 @JsonIgnore를 추가로 설정했다. @JsonIgnore는 자바 객체를 JSON으로 변환할 때, 특정 변수를 변환에서 제외시킨다. 그런데 중요한 것은 @JsonIgnore는 일반적인 어노테이션과 다르게 변수 위에 설정하지 않고 Getter 메소드 위에 설정해야 한다.
+index.jsp에서 글 목록 변환 처리를 클릭하여 실행결과를 확인하자.
+세 가지 정보(searchCondition, searchKeyword, uploadFile)는 포함되지 않는 것을 확인할 수 있다.
