@@ -1,0 +1,79 @@
+applicationContext.xml
+
+	<!-- Mybatis 설정 -->
+	<bean id="sessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="classpath:sql-map-config.xml" />
+	</bean>
+
+pom.xml
+
+<!-- Mybatis -->
+<dependency>
+    <groupId>org.mybatis</groupId>
+    <artifactId>mybatis</artifactId>
+    <version>3.3.1</version>
+</dependency>
+
+<!-- Mybatis Spring -->
+		<dependency>
+		    <groupId>org.mybatis</groupId>
+		    <artifactId>mybatis-spring</artifactId>
+		    <version>1.2.4</version>
+		</dependency>
+
+
+DAO 클래스 구현 - 방법1
+SqlSessionDaoSupport 클래스를 상속하여 구현하는 것
+
+package com.springbook.biz.board.impl;
+
+import java.util.List;
+
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.mybatis.spring.support.SqlSessionDaoSupport;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import com.springbook.biz.board.BoardVO;
+
+@Repository
+public class BoardDAOMybatis extends SqlSessionDaoSupport {
+	@Autowired
+	public void setSqlSessionFactory(SqlSessionFactory sqlSessionFactory) {
+		super.setSqlSessionFactory(sqlSessionFactory);
+	}
+	
+	public void insertBoard(BoardVO vo) {
+		System.out.println("===> Mybatis로 insertBoard() 기능 처리");
+		getSqlSession().insert("BoardDAO.insertBoard", vo);
+	}
+	
+	public void updateBoard(BoardVO vo) {
+		System.out.println("===> Mybatis로 updateBoard() 기능 처리");
+		getSqlSession().insert("BoardDAO.updateBoard", vo);
+	}
+	
+	public void deleteBoard(BoardVO vo) {
+		System.out.println("===> Mybatis로 deleteBoard() 기능 처리");
+		getSqlSession().insert("BoardDAO.deleteBoard", vo);		
+	}
+	
+	public BoardVO getBoard(BoardVO vo) {
+		System.out.println("===> Mybatis로 getBoard() 기능 처리");
+		return (BoardVO)getSqlSession().selectOne("BoardDAO.getBoard", vo);	
+	}
+	
+	public List<BoardVO> getBoardList(BoardVO vo) {
+		System.out.println("===> Mybatis로 getBoardList() 기능 처리");
+		return getSqlSession().selectList("BoardDAO.getBoardList", vo);	
+	}
+}
+
+BoardServiceImpl 클래스
+
+@Service("boardService")
+public class BoardServiceImpl implements BoardService{
+	
+	@Autowired
+	private BoardDAOMybatis boardDAO;
