@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="UserDAO">
+
+	<select id="getUser" resultType="user">
+		<![CDATA[
+			SELECT * FROM USERS WHERE ID=#{id} AND PASSWORD=#{password}
+		]]>	
+	</select>
+	<select id="idCheck" resultType="user">
+		<![CDATA[
+			SELECT * FROM USERS WHERE ID=#{id}
+		]]>	
+	</select>
+	<select id="memberCount" resultType="int">
+		<![CDATA[
+			SELECT COUNT(*) FROM USERS
+		]]>	
+	</select>
+
+</mapper>
