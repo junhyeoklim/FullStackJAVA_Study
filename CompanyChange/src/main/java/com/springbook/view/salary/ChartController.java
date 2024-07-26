@@ -15,13 +15,13 @@ import com.google.gson.Gson;
 import com.springbook.biz.common.Constants;
 import com.springbook.biz.common.DataProcessor;
 import com.springbook.biz.salary.CompanyVO;
-import com.springbook.biz.salary.impl.CompanyDAO;
+import com.springbook.biz.salary.impl.CompanyDAOSpring;
 
 @Controller
 public class ChartController {
 
     @Autowired
-    private CompanyDAO companyDAO;
+    private CompanyDAOSpring companyDAO;
 
     @RequestMapping(value = "/chart.do")
     public String handleRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {

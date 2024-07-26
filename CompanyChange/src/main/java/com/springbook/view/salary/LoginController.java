@@ -10,13 +10,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.springbook.biz.common.Constants;
 import com.springbook.biz.salary.CompanyVO;
-import com.springbook.biz.salary.impl.CompanyDAO;
+import com.springbook.biz.salary.impl.CompanyDAOSpring;
 
 @Controller
 public class LoginController {
 
     @Autowired
-    private CompanyDAO companyDAO;
+    private CompanyDAOSpring companyDAO;
 
     @RequestMapping(value = "/loginOK.do", method = RequestMethod.POST)
     public String handleRequest(HttpSession session, CompanyVO vo, Model model) {

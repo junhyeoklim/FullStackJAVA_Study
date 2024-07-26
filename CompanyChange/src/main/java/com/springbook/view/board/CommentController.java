@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.springbook.biz.board.CommentService;
 import com.springbook.biz.board.CommentVO;
+import com.springbook.biz.comment.impl.CommentService;
 import com.springbook.biz.common.Response;
 
 @Controller
