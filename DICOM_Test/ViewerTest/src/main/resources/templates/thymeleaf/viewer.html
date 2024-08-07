@@ -7,14 +7,15 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <script src="https://cdn.jsdelivr.net/npm/hammerjs@2.0.8"></script>
   <script src="https://cdn.jsdelivr.net/npm/cornerstone-math@0.1.6/dist/cornerstoneMath.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/cornerstone-core@2.2.4/dist/cornerstone.js"></script>
+  <script src="https://unpkg.com/cornerstone-core"></script>
   <script src="https://cdn.jsdelivr.net/npm/cornerstone-web-image-loader@2.1.0/dist/cornerstoneWebImageLoader.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/cornerstone-wado-image-loader@3.1.0/dist/cornerstoneWADOImageLoader.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/cornerstone-tools@next"></script>
   <script src="https://cdn.jsdelivr.net/npm/dicom-parser@1.8.4/dist/dicomParser.js"></script>
-  <script src="https://unpkg.com/cornerstone-core"></script>
-  <script src="https://unpkg.com/cornerstone-wado-image-loader"></script>
-
+  <script src="/js/cornerstoneTools.min.js"></script>
+  <script src="/js/cornerstone.min.js"></script>
+  <script src="/js/cornerstoneMath.min.js"></script>
+  <script src="/js/dicomParser.min.js"></script>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -139,8 +140,9 @@
       margin-top: 10px;
     }
 
-    .interface-button {
+    .interface-button,.prev_button,.next_button,.reversal_button {
       display: flex;
+      user-select: none;
       align-items: center;
       border: none;
       background: #444;
@@ -156,7 +158,8 @@
       margin-right: 6px;
     }
 
-    .interface-button:hover {
+    .interface-button:hover,.prev_button:hover,.next_button:hover,
+    .reversal_button:hover {
       background-color: #666;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
       transform: translateY(-2px);
@@ -182,25 +185,25 @@
     }
 
     .topLeft {
-      top: 0;
-      left: 0;
+      top: 10px;
+      left: 10px;
     }
 
     .topRight {
-      top: 0;
-      right: 0;
+      top: 10px;
+      right: 10px;
     }
 
     .bottomLeft {
-      bottom: 0;
-      left: 0;
+      bottom: 10px;
+      left: 10px;
     }
 
     .bottomRight {
-      bottom: 0;
-      right: 0;
-    }
-
+    bottom: 10px;
+    right: 10px;
+	}
+	
     .block {
       display: block;
     }
@@ -220,29 +223,26 @@
     </header>
     <nav class="toolbar">
       <div class="interface-toolbar">
-        <button class="interface-button" id="defaultToolButton">
+        <button class="interface-button default-button" id="defaultToolButton">
           <i class="fas fa-hand-pointer"></i> Default Tool
         </button>
         <button class="interface-button" id="windowLevelButton">
           <i class="fas fa-adjust"></i> 윈도우 레벨
         </button>
-        <button class="interface-button">
+        <button class="prev_button">
           <i class="fas fa-arrow-left"></i> 이전
         </button>
-        <button class="interface-button">
+        <button class="next_button">
           <i class="fas fa-arrow-right"></i> 다음
         </button>
-        <button class="interface-button">
+        <button class="reversal_button" id="invertButton">
           <i class="fas fa-adjust"></i> 흑백 반전
         </button>
-        <button class="interface-button">
+        <button class="interface-button" id="image_moveButton">
           <i class="fas fa-arrows-alt"></i> 이동
         </button>
-        <button class="interface-button">
-          <i class="fas fa-arrows-alt-v"></i> 스크롤
-        </button>
-        <button class="interface-button">
-          <i class="fas fa-sync-alt"></i> 루프
+        <button class="interface-button" id="image_scroll_loopButton">
+          <i class="fas fa-sync-alt"></i> 스크롤 루프
         </button>
         <button class="interface-button">
           <i class="fas fa-play"></i> 플레이클립
@@ -290,7 +290,7 @@
         <div class="topLeft responsive-font"><span class="block">test</span></div>
         <div class="topRight responsive-font"><span class="block">test</span></div>
         <div class="bottomLeft responsive-font"><span class="block">test</span></div>
-        <div class="bottomRight responsive-font"><span class="block">test</span></div>
+        <div class="bottomRight responsive-font"><span class="block wwwc"></span></div>
         <div id="dicomImage" class="image-placeholder"></div>
       </section>
 
@@ -303,7 +303,6 @@
           <li>CTV</li>
           <li>Heart</li>
           <li>Both Lungs</li>
-          <!-- 추가 항목들... -->
         </ul>
       </aside>
     </main>
@@ -324,11 +323,19 @@
     // 이미지 로더 등록
     console.log("Configuring image loader");
     cornerstoneWADOImageLoader.configure({});
-
+    
     const element = document.getElementById('dicomImage');
     const fileId = [[${fileId}]];
     const fileUrl = [[@{/dicom(id=${fileId})}]];
-
+    
+   	// 윈도우 레벨 버튼 활성화 및 기본 도구 버튼 클릭 시 커서 변경 기능 추가
+    const defaultToolButton = document.getElementById('defaultToolButton');
+    const windowLevelButton = document.getElementById('windowLevelButton');
+   	const image_scroll_loopButton = document.getElementById('image_scroll_loopButton');
+    const image_moveButton = document.getElementById('image_moveButton');
+    const invertButton = document.getElementById('invertButton');
+    
+    
     console.log("Enabling cornerstone element");
     cornerstone.enable(element);
 
@@ -344,9 +351,17 @@
       console.log("Image loaded");
       cornerstone.displayImage(element, image);
       resizeImage();
+      const viewport = cornerstone.getViewport(element);
+      console.log(Math.round(viewport.voi.windowWidth));
+      document.querySelector('.wwwc').textContent = Math.round(viewport.voi.windowWidth) + "/" + Math.round(viewport.voi.windowCenter);
     }).catch(function(err) {
-      console.error("Error loading image:", err);
+      throw err;
     });
+    
+    // Wwwc 등록
+/*     const viewport = cornerstone.getViewport(element);
+    document.getElementById('wwwc').textContent = "WW/WC:" + Math.round(viewport.voi.windowWidth)
+    + "/" + Math.round(viewport.voi.windowCenter); */
 
     // 윈도우 크기 변경 시 이미지 크기 조절
     window.addEventListener('resize', resizeImage);
@@ -354,54 +369,75 @@
     // 초기 로드 시에도 한 번 실행
     document.addEventListener('DOMContentLoaded', resizeImage);
 
-    // 마우스 이동 시 좌표 출력
-    element.addEventListener('cornerstonetoolsmeasurementmodified', function(evt) {
-      const eventData = evt.detail;
-      const toolData = eventData.toolData;
-      const data = toolData.data[0];
-      const x = data.handles.start.x;
-      const y = data.handles.start.y;
-      console.log("X: " + x + ", Y: " + y);
-    });
-
-    // 커서 설정 코드
-    console.log("Initializing cornerstone tools");
-    cornerstoneTools.init({
-      showSVGCursors: true,
-    });
+    // 모든 도구 비활성화 함수
+    function disableAllTools() {
+        cornerstoneTools.wwwc.disable(element);
+        cornerstoneTools.pan.disable(element);
+        cornerstoneTools.zoom.disable(element);
+        cornerstoneTools.length.disable(element);
+        cornerstoneTools.mouseInput.disable(element);
+        cornerstoneTools.mouseWheelInput.disable(element);
+      }
+    
+    // 모든 도구 활성화 함수
+    function enableAllTools(){
+        cornerstoneTools.mouseInput.enable(element);
+    	cornerstoneTools.mouseWheelInput.enable(element);
+    }
 
     // 기본 도구 설정
     console.log("Adding and setting LengthTool");
-    const LengthTool = cornerstoneTools.import('tools/annotation/LengthTool');
-    cornerstoneTools.addTool(LengthTool);
-    cornerstoneTools.setToolActive('Length', { mouseButtonMask: 1 });
 
-    // 기본 도구 활성화 설정
-    document.addEventListener('DOMContentLoaded', function() {
-      setActiveButton(defaultToolButton);
-      cornerstoneTools.setToolActive('Length', { mouseButtonMask: 1 });
-      document.querySelector('.center-panel').style.cursor = customCursor;
-    });
+    // 윈도우 레벨 마우스 이벤트 함수
+    function windowLevelMouseDownHandler(e) {
+      let lastX = e.pageX;
+      let lastY = e.pageY;
+
+      function mouseMoveHandler(e) {
+          const deltaX = e.pageX - lastX;
+          const deltaY = e.pageY - lastY;
+          lastX = e.pageX;
+          lastY = e.pageY;
+
+          let viewport = cornerstone.getViewport(element);
+          viewport.voi.windowWidth += (deltaX / viewport.scale);
+          viewport.voi.windowCenter += (deltaY / viewport.scale);
+          cornerstone.setViewport(element, viewport);
+
+          document.querySelector('.wwwc').textContent = "WW/WC:" + Math.round(viewport.voi.windowWidth)
+              + "/" + Math.round(viewport.voi.windowCenter);
+      }
+
+      function mouseUpHandler() {
+          document.removeEventListener('mousemove', mouseMoveHandler);
+          document.removeEventListener('mouseup', mouseUpHandler);
+      }
+
+      document.addEventListener('mousemove', mouseMoveHandler);
+      document.addEventListener('mouseup', mouseUpHandler);
+    }
+
+    // 윈도우 레벨 마우스 이벤트 리스너 추가/제거 함수
+    function addWindowLevelMouseListener() {
+      element.addEventListener('mousedown', windowLevelMouseDownHandler);
+    }
+
+    function removeWindowLevelMouseListener() {
+      element.removeEventListener('mousedown', windowLevelMouseDownHandler);
+    }
 
     // 버튼 클릭 시 도구 활성화 설정
     document.querySelectorAll('.interface-button').forEach(button => {
       button.addEventListener('click', () => {
         setActiveButton(button);
+        removeWindowLevelMouseListener(); // 모든 버튼 클릭 시 윈도우 레벨 마우스 이벤트 제거
       });
     });
 
     // 사용자 정의 커서 적용
     console.log("Setting custom cursor for Length tool");
     const customCursor = 'url(/cross.cur) 8 8, auto';
-
-    // WwwcTool 추가 및 활성화
-    const WwwcTool = cornerstoneTools.import('tools/interaction/WwwcTool');
-    cornerstoneTools.addTool(WwwcTool);
-
-    // 윈도우 레벨 버튼 활성화 및 기본 도구 버튼 클릭 시 커서 변경 기능 추가
-    const defaultToolButton = document.getElementById('defaultToolButton');
-    const windowLevelButton = document.getElementById('windowLevelButton');
-
+    
     function setActiveButton(button) {
       document.querySelectorAll('.interface-button').forEach(btn => {
         btn.classList.remove('active');
@@ -409,30 +445,48 @@
       button.classList.add('active');
     }
 
+    // Default Tool Button 클릭 이벤트 처리
     defaultToolButton.addEventListener('click', () => {
       setActiveButton(defaultToolButton);
-      cornerstoneTools.setToolActive('Length', { mouseButtonMask: 1 });
+      disableAllTools();
       document.querySelector('.center-panel').style.cursor = customCursor;
     });
 
+    // 윈도우 레벨 Button 클릭 이벤트 처리
     windowLevelButton.addEventListener('click', () => {
       setActiveButton(windowLevelButton);
-      cornerstoneTools.setToolActive('Wwwc', { mouseButtonMask: 1 });
-      document.querySelector('.center-panel').style.cursor = customCursor;
+      disableAllTools();
+      enableAllTools();      
+      addWindowLevelMouseListener(); // 윈도우 레벨 버튼 클릭 시 마우스 이벤트 추가
+    });
+    
+    //
+    invertButton.addEventListener('click', function (e) {
+            const viewport = cornerstone.getViewport(element);
+            viewport.invert = !viewport.invert;
+            cornerstone.setViewport(element, viewport);
+    });
+    
+    // 이동 Button 클릭 이벤트 처리
+    image_moveButton.addEventListener('click', () => {
+      setActiveButton(image_moveButton);
+      disableAllTools();
+      enableAllTools();
+      cornerstoneTools.pan.activate(element, 1);     
+    });
+    
+    // 스크롤 루프 Button 이벤트 처리
+    image_scroll_loopButton.addEventListener('click', () => {
+      setActiveButton(image_scroll_loopButton);
+      disableAllTools();
+      enableAllTools();
     });
 
     // 기본 도구 활성화 설정
     document.addEventListener('DOMContentLoaded', function() {
-      setActiveButton(defaultToolButton);
-      cornerstoneTools.setToolActive('Length', { mouseButtonMask: 1 });
+      setActiveButton(defaultToolButton);      
       document.querySelector('.center-panel').style.cursor = customCursor;
     });
-
-    // WwwcTool 활성화 확인
-    windowLevelButton.addEventListener('click', () => {
-      console.log(cornerstoneTools.getToolForElement(element, 'Wwwc'));
-    });
   </script>
-
 </body>
 </html>

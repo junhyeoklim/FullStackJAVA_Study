@@ -20,6 +20,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -144,5 +145,12 @@ public class FileController {
         headers.setContentType(org.springframework.http.MediaType.APPLICATION_OCTET_STREAM);
 
         return new ResponseEntity<>(fileData, headers, HttpStatus.OK);
+    }
+    
+    @GetMapping("/dicom/ids")
+    public ResponseEntity<List<Integer>> getDicomIds() {
+        String sql = "SELECT id FROM dicom_files";
+        List<Integer> ids = jdbcTemplate.queryForList(sql, Integer.class);
+        return new ResponseEntity<>(ids, HttpStatus.OK);
     }
 }
