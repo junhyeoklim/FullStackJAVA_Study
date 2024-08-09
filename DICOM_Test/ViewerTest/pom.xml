@@ -52,16 +52,28 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.dcm4che</groupId>
-            <artifactId>dcm4che-core</artifactId>
-            <version>5.23.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.dcm4che</groupId>
-            <artifactId>dcm4che-imageio</artifactId>
-            <version>5.23.0</version>
-        </dependency>
+<!-- https://mvnrepository.com/artifact/org.dcm4che/dcm4che-core -->
+<dependency>
+    <groupId>org.dcm4che</groupId>
+    <artifactId>dcm4che-core</artifactId>
+    <version>5.32.0</version>
+</dependency>
+
+
+<!-- https://mvnrepository.com/artifact/org.dcm4che/dcm4che-imageio -->
+<dependency>
+    <groupId>org.dcm4che</groupId>
+    <artifactId>dcm4che-imageio</artifactId>
+    <version>5.32.0</version>
+</dependency>
+<!-- https://mvnrepository.com/artifact/org.dcm4che/dcm4che-parent -->
+<dependency>
+    <groupId>org.dcm4che</groupId>
+    <artifactId>dcm4che-parent</artifactId>
+    <version>5.32.0</version>
+    <type>pom</type>
+</dependency>
+
         <!-- Lombok for easier code maintenance -->
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -70,16 +82,6 @@
             <scope>provided</scope>
         </dependency>
     </dependencies>
-    <repositories>
-        <repository>
-            <id>central</id>
-            <url>https://repo.maven.apache.org/maven2</url>
-        </repository>
-        <repository>
-            <id>dcm4che-repo</id>
-            <url>https://artifacts.marc.org/maven2</url>
-        </repository>
-    </repositories>
     <build>
         <plugins>
             <plugin>

@@ -211,6 +211,30 @@
     .responsive-font {
       font-size: 0.9vw; /* 윈도우 너비의 0.9%로 설정 */
     }
+    
+.playClipModal {
+    background-color: rgba(0, 0, 0, 0.8); /* 반투명한 배경 */
+    border-radius: 10px;
+    padding: 10px;
+    z-index: 10; /* 다른 요소 위에 표시되도록 설정 */
+}
+
+.playbutton, .stopbutton, .speedbutton {
+    display: inline-block;
+    margin: 5px;
+    cursor: pointer;
+}
+
+.fpswords {
+    color: white;
+    text-align: center;
+    margin: 0 10px;
+}
+.interface-button.disabled {
+    background-color: #888; /* 비활성화된 버튼의 배경색 */
+    cursor: not-allowed; /* 비활성화된 버튼의 커서 */
+    opacity: 0.6; /* 비활성화된 버튼의 투명도 */
+}
   </style>
 </head>
 
@@ -244,7 +268,7 @@
         <button class="interface-button" id="image_scroll_loopButton">
           <i class="fas fa-sync-alt"></i> 스크롤 루프
         </button>
-        <button class="interface-button">
+        <button class="interface-button" id="play_clip">
           <i class="fas fa-play"></i> 플레이클립
         </button>
         <button class="interface-button">
@@ -286,13 +310,42 @@
         </div>
       </aside>
 
-      <section class="center-panel">
-        <div class="topLeft responsive-font"><span class="block">test</span></div>
-        <div class="topRight responsive-font"><span class="block">test</span></div>
-        <div class="bottomLeft responsive-font"><span class="block">test</span></div>
-        <div class="bottomRight responsive-font"><span class="block wwwc"></span></div>
-        <div id="dicomImage" class="image-placeholder"></div>
-      </section>
+<section class="center-panel">
+    <!-- playClipModal 추가 -->
+    <div class="playClipModal MuiBox-root css-0" style="display: none; position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%);">
+        <div class="MuiBox-root css-0">
+            <div class="playbutton active MuiBox-root css-0" data-value="play" data-tool="playclip">
+                <svg class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium" focusable="false" aria-hidden="true" viewBox="0 0 24 24">
+                    <path d="M8 5v14l11-7z"></path>
+                </svg>
+            </div>
+            <div class="fpsbutton MuiBox-root css-0">
+                <div class="speedbutton MuiBox-root css-0">
+                    <svg class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium" focusable="false" aria-hidden="true" viewBox="0 0 24 24">
+                        <path d="M15.41 16.59 10.83 12l4.58-4.59L14 6l-6 6 6 6z"></path>
+                    </svg>
+                </div>
+                <p class="fpswords">FPS : 34</p>
+                <div class="speedbutton MuiBox-root css-0">
+                    <svg class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium" focusable="false" aria-hidden="true" viewBox="0 0 24 24">
+                        <path d="M8.59 16.59 13.17 12 8.59 7.41 10 6l6 6-6 6z"></path>
+                    </svg>
+                </div>
+            </div>
+            <div class="stopbutton MuiBox-root css-0" data-value="stop" data-tool="playclip">
+                <svg class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium" focusable="false" aria-hidden="true" viewBox="0 0 24 24">
+                    <path d="M6 19h4V5H6zm8-14v14h4V5z"></path>
+                </svg>
+            </div>
+        </div>
+    </div>
+
+    <div class="topLeft responsive-font"><span class="block imageNumber"></span></div>
+    <div class="topRight responsive-font"><span class="block">test</span></div>
+    <div class="bottomLeft responsive-font"><span class="block">test</span></div>
+    <div class="bottomRight responsive-font"><span class="block wwwc"></span></div>
+    <div id="dicomImage" class="image-placeholder"></div>
+</section>
 
       <aside class="right-panel">
         <h3>Contour-based ROIs</h3>
@@ -311,7 +364,7 @@
     </footer>
   </div>
 
-  <script th:inline="javascript">
+<script th:inline="javascript">
     // cornerstone 관련 설정
     console.log("Setting external libraries");
     cornerstoneWADOImageLoader.external.cornerstone = cornerstone;
@@ -323,51 +376,46 @@
     // 이미지 로더 등록
     console.log("Configuring image loader");
     cornerstoneWADOImageLoader.configure({});
-    
+
     const element = document.getElementById('dicomImage');
-    const fileId = [[${fileId}]];
-    const fileUrl = [[@{/dicom(id=${fileId})}]];
-    
-   	// 윈도우 레벨 버튼 활성화 및 기본 도구 버튼 클릭 시 커서 변경 기능 추가
+    const fileId = [[${fileId}]]; // 서버에서 전달되는 fileId 변수
+    const fileUrl = `/dicom?id=${fileId}`;
+    const windowCursor = "blob:http://192.168.50.23:5000/da6b9d98-4462-4968-835f-7172024d8454";
+    const customCursor = 'url(/cross.cur) 8 8, auto'; // 전역 변수로 설정
     const defaultToolButton = document.getElementById('defaultToolButton');
     const windowLevelButton = document.getElementById('windowLevelButton');
-   	const image_scroll_loopButton = document.getElementById('image_scroll_loopButton');
-    const image_moveButton = document.getElementById('image_moveButton');
+    const imageMoveButton = document.getElementById('image_moveButton');
     const invertButton = document.getElementById('invertButton');
+    const imageScrollLoopButton = document.getElementById('image_scroll_loopButton');
+ 	// 플레이 클립 테스트중
+    const playClipButton = document.getElementById('play_clip');
+    const playClipModal = document.querySelector('.playClipModal');
     
-    
-    console.log("Enabling cornerstone element");
-    cornerstone.enable(element);
+    let isPlayClipActive = false;
 
-    const imageId = 'wadouri:' + fileUrl;
-    console.log("Image ID:", imageId);
-
-    function resizeImage() {
-      console.log("Resizing image");
-      cornerstone.resize(element, true);
-    }
-
-    cornerstone.loadImage(imageId).then(function(image) {
-      console.log("Image loaded");
-      cornerstone.displayImage(element, image);
-      resizeImage();
-      const viewport = cornerstone.getViewport(element);
-      console.log(Math.round(viewport.voi.windowWidth));
-      document.querySelector('.wwwc').textContent = Math.round(viewport.voi.windowWidth) + "/" + Math.round(viewport.voi.windowCenter);
-    }).catch(function(err) {
-      throw err;
+    // 플레이 클립 테스트중
+    playClipButton.addEventListener('click', () => {
+        isPlayClipActive = !isPlayClipActive;
+        if (isPlayClipActive) {
+            playClipModal.style.display = 'block';
+            playClipButton.classList.add('active'); // 버튼 활성화 표시
+            imageScrollLoopButton.disabled = true; // 스크롤 루프 버튼 비활성화
+            imageScrollLoopButton.classList.add('disabled');
+        } else {
+            playClipModal.style.display = 'none';
+            playClipButton.classList.remove('active'); // 버튼 활성화 표시 해제
+            imageScrollLoopButton.disabled = false; // 스크롤 루프 버튼 활성화
+            imageScrollLoopButton.classList.remove('disabled'); // 비활성화 상태 시각적 표시 해제
+        }
     });
     
-    // Wwwc 등록
-/*     const viewport = cornerstone.getViewport(element);
-    document.getElementById('wwwc').textContent = "WW/WC:" + Math.round(viewport.voi.windowWidth)
-    + "/" + Math.round(viewport.voi.windowCenter); */
-
-    // 윈도우 크기 변경 시 이미지 크기 조절
-    window.addEventListener('resize', resizeImage);
-
-    // 초기 로드 시에도 한 번 실행
-    document.addEventListener('DOMContentLoaded', resizeImage);
+    let currentImageIndex = 0;
+    let currentViewport = null; // 현재 뷰포트를 저장하기 위한 변수
+    let isScrollLoopActive = false; // 스크롤 루프 기능 활성화 상태 저장 변수
+	
+    // Cornerstone 요소 활성화
+    console.log("Enabling cornerstone element");
+    cornerstone.enable(element); // 요소를 활성화합니다.
 
     // 모든 도구 비활성화 함수
     function disableAllTools() {
@@ -377,116 +425,225 @@
         cornerstoneTools.length.disable(element);
         cornerstoneTools.mouseInput.disable(element);
         cornerstoneTools.mouseWheelInput.disable(element);
+        isScrollLoopActiove = false;
       }
-    
-    // 모든 도구 활성화 함수
+
+    // 도구 활성화 함수 (기존 코드)
     function enableAllTools(){
         cornerstoneTools.mouseInput.enable(element);
-    	cornerstoneTools.mouseWheelInput.enable(element);
+        cornerstoneTools.mouseWheelInput.enable(element);
+        console.log("도구 활성화됨");
     }
 
-    // 기본 도구 설정
-    console.log("Adding and setting LengthTool");
-
-    // 윈도우 레벨 마우스 이벤트 함수
-    function windowLevelMouseDownHandler(e) {
-      let lastX = e.pageX;
-      let lastY = e.pageY;
-
-      function mouseMoveHandler(e) {
-          const deltaX = e.pageX - lastX;
-          const deltaY = e.pageY - lastY;
-          lastX = e.pageX;
-          lastY = e.pageY;
-
-          let viewport = cornerstone.getViewport(element);
-          viewport.voi.windowWidth += (deltaX / viewport.scale);
-          viewport.voi.windowCenter += (deltaY / viewport.scale);
-          cornerstone.setViewport(element, viewport);
-
-          document.querySelector('.wwwc').textContent = "WW/WC:" + Math.round(viewport.voi.windowWidth)
-              + "/" + Math.round(viewport.voi.windowCenter);
-      }
-
-      function mouseUpHandler() {
-          document.removeEventListener('mousemove', mouseMoveHandler);
-          document.removeEventListener('mouseup', mouseUpHandler);
-      }
-
-      document.addEventListener('mousemove', mouseMoveHandler);
-      document.addEventListener('mouseup', mouseUpHandler);
-    }
-
-    // 윈도우 레벨 마우스 이벤트 리스너 추가/제거 함수
-    function addWindowLevelMouseListener() {
-      element.addEventListener('mousedown', windowLevelMouseDownHandler);
-    }
-
-    function removeWindowLevelMouseListener() {
-      element.removeEventListener('mousedown', windowLevelMouseDownHandler);
-    }
-
-    // 버튼 클릭 시 도구 활성화 설정
-    document.querySelectorAll('.interface-button').forEach(button => {
-      button.addEventListener('click', () => {
-        setActiveButton(button);
-        removeWindowLevelMouseListener(); // 모든 버튼 클릭 시 윈도우 레벨 마우스 이벤트 제거
-      });
-    });
-
-    // 사용자 정의 커서 적용
-    console.log("Setting custom cursor for Length tool");
-    const customCursor = 'url(/cross.cur) 8 8, auto';
-    
+    // 활성 버튼 설정 (기존 코드)
     function setActiveButton(button) {
-      document.querySelectorAll('.interface-button').forEach(btn => {
-        btn.classList.remove('active');
-      });
-      button.classList.add('active');
+        document.querySelectorAll('.interface-button').forEach(btn => {
+            if (btn !== imageScrollLoopButton) {
+                btn.classList.remove('active');
+            }
+        });
+        
+        button.classList.add('active');
+        removeWindowLevelMouseListener();
     }
 
-    // Default Tool Button 클릭 이벤트 처리
-    defaultToolButton.addEventListener('click', () => {
-      setActiveButton(defaultToolButton);
-      disableAllTools();
-      document.querySelector('.center-panel').style.cursor = customCursor;
-    });
+    // 윈도우 레벨 마우스 리스너 추가 함수 (기존 코드)
+    function addWindowLevelMouseListener() {
+        element.addEventListener('mousedown', windowLevelMouseDownHandler);
+    }
 
-    // 윈도우 레벨 Button 클릭 이벤트 처리
-    windowLevelButton.addEventListener('click', () => {
-      setActiveButton(windowLevelButton);
-      disableAllTools();
-      enableAllTools();      
-      addWindowLevelMouseListener(); // 윈도우 레벨 버튼 클릭 시 마우스 이벤트 추가
-    });
-    
-    //
-    invertButton.addEventListener('click', function (e) {
+    // 윈도우 레벨 마우스 리스너 제거 함수 (기존 코드)
+    function removeWindowLevelMouseListener() {
+        element.removeEventListener('mousedown', windowLevelMouseDownHandler);
+    }
+
+    // 윈도우 레벨 마우스 핸들러 (기존 코드)
+    function windowLevelMouseDownHandler(e) {
+        let lastX = e.pageX;
+        let lastY = e.pageY;
+
+        function mouseMoveHandler(e) {
+            const deltaX = e.pageX - lastX;
+            const deltaY = e.pageY - lastY;
+            lastX = e.pageX;
+            lastY = e.pageY;
+
+            let viewport = cornerstone.getViewport(element);
+            viewport.voi.windowWidth += (deltaX / viewport.scale);
+            viewport.voi.windowCenter += (deltaY / viewport.scale);
+            cornerstone.setViewport(element, viewport);
+
+            document.querySelector('.wwwc').textContent = Math.round(viewport.voi.windowWidth)
+                + "/" + Math.round(viewport.voi.windowCenter);
+        }
+
+        function mouseUpHandler() {
+            document.removeEventListener('mousemove', mouseMoveHandler);
+            document.removeEventListener('mouseup', mouseUpHandler);
+        }
+
+        document.addEventListener('mousemove', mouseMoveHandler);
+        document.addEventListener('mouseup', mouseUpHandler);
+    }
+		// 기본도구 버튼 이벤트
+        defaultToolButton.addEventListener('click', () => {
+            setActiveButton(defaultToolButton);
+            disableAllTools();
+            document.querySelector('.center-panel').style.cursor = customCursor;
+        });
+
+		// 윈도우 레벨 기능 버튼 이벤트
+        windowLevelButton.addEventListener('click', () => {
+            setActiveButton(windowLevelButton);
+            disableAllTools();
+            enableAllTools();      
+            addWindowLevelMouseListener();
+        });
+
+		//흑백 반전 기능 버튼 이벤트
+        invertButton.addEventListener('click', function (e) {
             const viewport = cornerstone.getViewport(element);
             viewport.invert = !viewport.invert;
             cornerstone.setViewport(element, viewport);
-    });
-    
-    // 이동 Button 클릭 이벤트 처리
-    image_moveButton.addEventListener('click', () => {
-      setActiveButton(image_moveButton);
-      disableAllTools();
-      enableAllTools();
-      cornerstoneTools.pan.activate(element, 1);     
-    });
-    
-    // 스크롤 루프 Button 이벤트 처리
-    image_scroll_loopButton.addEventListener('click', () => {
-      setActiveButton(image_scroll_loopButton);
-      disableAllTools();
-      enableAllTools();
-    });
+        });
 
-    // 기본 도구 활성화 설정
-    document.addEventListener('DOMContentLoaded', function() {
-      setActiveButton(defaultToolButton);      
-      document.querySelector('.center-panel').style.cursor = customCursor;
-    });
-  </script>
+		// 이동 기능 버튼 이벤트
+        imageMoveButton.addEventListener('click', () => {
+            setActiveButton(imageMoveButton);
+            disableAllTools();
+            enableAllTools();
+            cornerstoneTools.pan.activate(element, 1);
+            
+            element.addEventListener('cornerstoneimagerendered', () => {
+                currentViewport = cornerstone.getViewport(element);
+            });
+        });
+
+		// 스크롤 루프 버튼 이벤트
+        imageScrollLoopButton.addEventListener('click', () => {
+            isScrollLoopActive = !isScrollLoopActive; // 스크롤 루프 기능 활성화/비활성화 토글
+            if (isScrollLoopActive) {
+                imageScrollLoopButton.classList.add('active'); // 활성화된 상태로 표시
+                console.log("스크롤 루프 활성화됨");
+            } else {
+                imageScrollLoopButton.classList.remove('active'); // 버튼 활성화 표시 해제
+                console.log("스크롤 루프 비활성화됨");
+            }
+        });
+
+        // 기본 도구 활성화 설정
+        setActiveButton(defaultToolButton);
+        document.querySelector('.center-panel').style.cursor = customCursor;
+
+
+    // /dicom 엔드포인트 호출하여 DICOM 데이터 가져오기
+    fetch(fileUrl)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json(); // 데이터를 JSON으로 받음
+        })
+        .then(fileDataList => {
+            console.log("Fetched DICOM data:", fileDataList);
+
+            if (!Array.isArray(fileDataList) || fileDataList.length === 0) {
+                throw new Error('No DICOM files found');
+            }
+
+            function loadAndDisplayImage(index) {
+                const fileData = fileDataList[index];
+                if (!fileData || !fileData.file_data) {
+                    throw new Error(`Missing file_data at index ${index}`);
+                }
+
+                // Base64 디코딩 후 Blob 생성
+                const byteCharacters = atob(fileData.file_data); // Base64 디코딩
+                const byteNumbers = new Array(byteCharacters.length);
+                for (let i = 0; i < byteCharacters.length; i++) {
+                    byteNumbers[i] = byteCharacters.charCodeAt(i);
+                }
+                const byteArray = new Uint8Array(byteNumbers);
+
+                const fileBlobUrl = URL.createObjectURL(new Blob([byteArray]));
+                const imageId = 'wadouri:' + fileBlobUrl;
+
+                cornerstone.loadImage(imageId).then(function(image) {
+                    if (currentViewport) {
+                        cornerstone.displayImage(element, image);
+                        cornerstone.setViewport(element, currentViewport); // 이전 뷰포트를 설정
+                    } else {
+                        cornerstone.displayImage(element, image);
+                        currentViewport = cornerstone.getViewport(element); // 첫 이미지를 로드한 후 뷰포트 저장
+                    }
+                    
+                    resizeImage();
+                    updateImageNumber();
+                    
+                    const viewport = cornerstone.getViewport(element);
+                    document.querySelector('.wwwc').textContent = Math.round(viewport.voi.windowWidth) + "/" + Math.round(viewport.voi.windowCenter);
+                }).catch(function(err) {
+                    console.error('Error loading image:', err);
+                });
+            }
+
+            function resizeImage() {
+                console.log("Resizing image");
+                cornerstone.resize(element, true);
+            }
+
+            loadAndDisplayImage(currentImageIndex);
+
+            window.addEventListener('resize', resizeImage);
+            document.addEventListener('DOMContentLoaded', resizeImage);
+
+            // 휠 이벤트 추가
+            const wheelEvents = ['mousewheel', 'DOMMouseScroll'];
+            wheelEvents.forEach((eventType) => {
+                element.addEventListener(eventType, function (e) {
+                    
+                    e.preventDefault(); // 기본 스크롤 동작을 막습니다.
+
+                    // 현재 뷰포트를 휠 이벤트 발생 시마다 업데이트합니다.
+                    currentViewport = cornerstone.getViewport(element);
+                    
+                    //휠을 올렸을때 이벤트
+                    if (e.wheelDelta > 0 || e.detail < 0) {
+                        if (currentImageIndex < fileDataList.length - 1) {
+                            currentImageIndex++;
+                        } else if (isScrollLoopActive) {
+                            currentImageIndex = 0; // 루프가 활성화된 경우 첫 번째 이미지로 이동
+                        }
+                      //휠을 내렸을때 이벤트
+                    } else {
+                        if (currentImageIndex > 0) {
+                            currentImageIndex--;
+                        }
+                        else if (isScrollLoopActive) {
+                            currentImageIndex = fileDataList.length - 1; // 루프가 활성화된 경우 마지막 이미지로 이동
+                        }
+                    }
+                    
+                    loadAndDisplayImage(currentImageIndex);
+                    updateImageNumber(); // 이미지 번호를 업데이트합니다.
+
+                    return false;
+                });
+            });
+            
+            // 이미지 번호를 업데이트하는 함수
+            function updateImageNumber() {
+                const imageNumberElement = document.querySelector('.imageNumber');
+                imageNumberElement.textContent = `${currentImageIndex + 1}/${fileDataList.length}`;
+            }
+
+        })
+        .catch(error => {
+            console.error('Error fetching DICOM data:', error);
+        });
+</script>
+
+
+
 </body>
 </html>
