@@ -11,7 +11,6 @@
 <script src="https://unpkg.com/cornerstone-core"></script>
 <script src="https://unpkg.com/cornerstone-math"></script>
 <script src="https://unpkg.com/cornerstone-wado-image-loader"></script>
-<script src="https://unpkg.com/cornerstone-tools@4.22.1/dist/cornerstoneTools.js"></script>
 <script	src="https://cdn.jsdelivr.net/npm/cornerstone-web-image-loader@2.1.0/dist/cornerstoneWebImageLoader.js"></script>
 <script	src="https://cdn.jsdelivr.net/npm/cornerstone-wado-image-loader@3.1.0/dist/cornerstoneWADOImageLoader.js"></script>
 <script	src="https://cdn.jsdelivr.net/npm/dicom-parser@1.8.4/dist/dicomParser.js"></script>
@@ -19,7 +18,7 @@
 <script src="/js/cornerstoneMath.min.js"></script>
 <script src="/js/dicomParser.min.js"></script>
 <script src="/js/cornerstoneTools.min.js"></script>
-
+<script src="https://unpkg.com/cornerstone-tools@4.22.1/dist/cornerstoneTools.js"></script>
 <style>
 body {
 	font-family: Arial, sans-serif;
@@ -680,7 +679,10 @@ annotationModal.addEventListener('mouseleave', function (e) {
 
 // Cornerstone 요소 활성화
 console.log("Enabling cornerstone element");
+// cornerstone 도구 초기화
+cornerstoneTools.init();
 cornerstone.enable(element); // 요소를 활성화합니다.
+
 
 // 모든 도구 비활성화 함수
 function disableAllTools() {
@@ -805,7 +807,7 @@ document.querySelectorAll('.tool-button').forEach(button => {
         switch(tool) {
             case 'defaultTool':
                 setActiveButton(event.currentTarget);
-                disableAllTools();
+                //disableAllTools();
                 document.querySelector('.center-panel').style.cursor = customCursor;
                 break;
 
@@ -821,15 +823,22 @@ document.querySelectorAll('.tool-button').forEach(button => {
                 cornerstone.setViewport(element, viewport);
                 break;
 
-            case 'imageMove':
-                setActiveButton(event.currentTarget);
-                disableAllTools();
-                enableAllTools();
-                cornerstoneTools.pan.activate(element, 1);
-                element.addEventListener('cornerstoneimagerendered', () => {
-                    currentViewport = cornerstone.getViewport(element);
-                });
-                break;
+			case 'imageMove':
+			setActiveButton(event.currentTarget);
+
+			// Pan Tool 활성화
+			cornerstoneTools.addTool(cornerstoneTools.PanTool);
+			cornerstoneTools.setToolActive('Pan', { mouseButtonMask: 1 });
+
+			console.log("Pan tool activated");
+
+			// 이미지가 렌더링된 후 도구가 올바르게 활성화되었는지 확인
+			element.addEventListener('cornerstoneimagerendered', () => {
+			    currentViewport = cornerstone.getViewport(element);
+			    console.log("Viewport updated", currentViewport);
+			});
+
+			    break;
 
             case 'scrollLoop':
                 isScrollLoopActive = !isScrollLoopActive; // 스크롤 루프 기능 활성화/비활성화 토글
@@ -983,24 +992,24 @@ fetch(fileUrl)
             throw new Error('No DICOM files found');
         }
 
-        function loadAndDisplayImage(index) {
-            const fileData = fileDataList[index];
-            if (!fileData || !fileData.file_data) {
-                throw new Error(`Missing file_data at index ${index}`);
-            }
-
-            // Base64 디코딩 후 Blob 생성
+        const imageIds = fileDataList.map((fileData, index) => {
             const byteCharacters = atob(fileData.file_data); // Base64 디코딩
             const byteNumbers = new Array(byteCharacters.length);
             for (let i = 0; i < byteCharacters.length; i++) {
                 byteNumbers[i] = byteCharacters.charCodeAt(i);
             }
             const byteArray = new Uint8Array(byteNumbers);
-
             const fileBlobUrl = URL.createObjectURL(new Blob([byteArray]));
-            const imageId = 'wadouri:' + fileBlobUrl;
+            return 'wadouri:' + fileBlobUrl;
+        });
 
-            cornerstone.loadImage(imageId).then(function(image) {
+        const stack = {
+            currentImageIdIndex: currentImageIndex,
+            imageIds: imageIds,
+        };
+
+        function loadAndDisplayImage(index) {
+            cornerstone.loadImage(imageIds[index]).then(function(image) {
                 // 처음 이미지를 로드할 때 원본 크기를 기억합니다.
                 if (!originalImageSize) {
                     originalImageSize = { width: image.columns, height: image.rows };
@@ -1014,8 +1023,19 @@ fetch(fileUrl)
                     currentViewport = cornerstone.getViewport(element);
                 }
 
-                currentViewport = cornerstone.getViewport(element);
-                updateImageNumber();
+                // 스택 상태 설정
+                cornerstoneTools.addStackStateManager(element, ['stack']);
+                cornerstoneTools.addToolState(element, 'stack', stack);
+
+				// 이미지 렌더링 시마다 호출되는 이벤트 리스너 추가
+				element.addEventListener('cornerstoneimagerendered', function() {
+				    const stackState = cornerstoneTools.getToolState(element, 'stack');
+				    if (stackState && stackState.data.length > 0) {
+				        const stackData = stackState.data[0];
+				        currentImageIndex = stackData.currentImageIdIndex; // 현재 이미지 인덱스를 가져옴
+				        updateImageNumber(); // 이미지 번호 업데이트
+				    }
+				});
 
                 const viewport = cornerstone.getViewport(element);
                 document.querySelector('.wwwc').textContent = Math.round(viewport.voi.windowWidth) + "/" + Math.round(viewport.voi.windowCenter);
@@ -1059,46 +1079,30 @@ fetch(fileUrl)
             resizeImage();
         });
 
-        // 휠 이벤트 추가
-        const wheelEvents = ['mousewheel', 'DOMMouseScroll'];
-        wheelEvents.forEach((eventType) => {
-            element.addEventListener(eventType, function (e) {
-                e.preventDefault();
+        // Cornerstone Tools 설정
+        const StackScrollMouseWheelTool = cornerstoneTools.StackScrollMouseWheelTool;
+		
+		// 스크롤 방향을 반대로 하기 위한 설정 추가
+		const stackScrollOptions = {
+		    configuration: {
+		        invert: true, // 휠 스크롤 방향을 반대로 설정
+				loop: true
+		    }
+		};
+		
+        cornerstoneTools.addTool(StackScrollMouseWheelTool, stackScrollOptions);
+        cornerstoneTools.setToolActive('StackScrollMouseWheel', {});
 
-                if (!currentViewport) {
-                    currentViewport = cornerstone.getViewport(element);
-                }
 
-                if (e.wheelDelta > 0 || e.detail < 0) {
-                    if (currentImageIndex < fileDataList.length - 1) {
-                        currentImageIndex++;
-                    } else if (isScrollLoopActive) {
-                        currentImageIndex = 0;
-                    }
-                } else {
-                    if (currentImageIndex > 0) {
-                        currentImageIndex--;
-                    } else if (isScrollLoopActive) {
-                        currentImageIndex = fileDataList.length - 1;
-                    }
-                }
-
+        // 클립 재생 함수
+        function startClipPlayback() {
+            if (isPlaying) clearInterval(playInterval); // 기존 인터벌을 삭제하여 FPS 변경을 반영
+            isPlaying = true;
+            playInterval = setInterval(() => {
+                currentImageIndex = (currentImageIndex + 1) % fileDataList.length;
                 loadAndDisplayImage(currentImageIndex);
-                updateImageNumber();
-
-                return false;
-            });
-        });
-
-		// 클립 재생 함수
-		function startClipPlayback() {
-    		if (isPlaying) clearInterval(playInterval); // 기존 인터벌을 삭제하여 FPS 변경을 반영
-    		isPlaying = true;
-    		playInterval = setInterval(() => {
-        		currentImageIndex = (currentImageIndex + 1) % fileDataList.length;
-        		loadAndDisplayImage(currentImageIndex);
-    		}, 1000 / fps);
-		}
+            }, 1000 / fps);
+        }
 
         // 클립 정지 함수
         function stopClipPlayback() {
@@ -1109,7 +1113,7 @@ fetch(fileUrl)
         // 전역 변수에 할당하여 외부에서 접근 가능하게 설정
         stopClipPlaybackGlobal = stopClipPlayback;
 
-     // FPS 조정 버튼 클릭 이벤트
+        // FPS 조정 버튼 클릭 이벤트
         document.querySelector('.fpsbutton').addEventListener('click', (event) => {
             if (event.target.closest('.speedbutton')) {
                 const button = event.target.closest('.speedbutton');
@@ -1151,6 +1155,7 @@ fetch(fileUrl)
     .catch(error => {
         console.error('Error fetching DICOM data:', error);
     });
+
 </script>
 
 </body>
