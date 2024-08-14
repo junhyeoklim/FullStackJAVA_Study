@@ -148,6 +148,28 @@ public class FileController {
 			}
 		}
 	}
+	
+	@PostMapping("/saveAnnotations")
+	public ResponseEntity<String> saveAnnotations(@RequestBody Map<String, Object> payload) {
+	    try {
+	        // 전달된 파일 ID와 주석 데이터를 가져옵니다.
+	        Long fileId = Long.parseLong(payload.get("fileId").toString());
+	        String annotations = payload.get("annotations").toString();
+
+	        // 디버깅: 받은 데이터 출력
+	        System.out.println("Received fileId: " + fileId);
+	        System.out.println("Received annotations: " + annotations);
+	        
+	        // 주석 데이터를 데이터베이스에 저장합니다.
+	        String sql = "UPDATE dicom_files SET annotations = ? WHERE id = ?";
+	        jdbcTemplate.update(sql, annotations, fileId);
+
+	        return new ResponseEntity<>("주석이 성공적으로 저장되었습니다.", HttpStatus.OK);
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return new ResponseEntity<>("주석 저장에 실패했습니다.", HttpStatus.INTERNAL_SERVER_ERROR);
+	    }
+	}
 
 	@GetMapping("/dicom")
 	public ResponseEntity<List<Map<String, Object>>> getFile(@RequestParam("id") int id) {
@@ -158,12 +180,13 @@ public class FileController {
 	        System.out.println("Modality retrieved: " + modality);
 
 	        // 2. 해당 MODALITY 값을 가진 모든 파일 데이터를 가져옵니다.
-	        String fileSql = "SELECT file_name, file_data, pname FROM dicom_files WHERE modality = ?";
+	        String fileSql = "SELECT file_name, file_data, pname, annotations FROM dicom_files WHERE modality = ?";
 	        List<Map<String, Object>> fileDataList = jdbcTemplate.query(fileSql, new Object[]{modality}, (rs, rowNum) -> {
 	            Map<String, Object> map = new HashMap<>();
 	            map.put("file_name", rs.getString("file_name"));
 	            map.put("file_data", Base64.getEncoder().encodeToString(rs.getBytes("file_data"))); // Base64로 인코딩
 	            map.put("pname", rs.getString("pname"));
+	            map.put("annotations", rs.getString("annotations")); // 주석 데이터를 추가
 	            return map;
 	        });
 	        System.out.println("File data list size: " + fileDataList.size());
