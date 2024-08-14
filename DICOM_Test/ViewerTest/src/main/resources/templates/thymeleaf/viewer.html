@@ -17,8 +17,13 @@
 <script src="/js/cornerstone.min.js"></script>
 <script src="/js/cornerstoneMath.min.js"></script>
 <script src="/js/dicomParser.min.js"></script>
+<<<<<<< HEAD
 <script src="https://unpkg.com/cornerstone-tools@4.22.1/dist/cornerstoneTools.js"></script>
 
+=======
+<script src="/js/cornerstoneTools.min.js"></script>
+<script src="https://unpkg.com/cornerstone-tools@4.22.1/dist/cornerstoneTools.js"></script>
+>>>>>>> b7cb9a6af6c6d288cc38ebeaf75763bcc3c8af8c
 <style>
 body {
 	font-family: Arial, sans-serif;
@@ -779,11 +784,26 @@ cornerstoneTools.init();
 cornerstone.enable(element); // 요소를 활성화합니다.
 
 
+<<<<<<< HEAD
 // 메뉴 숨김 함수
 function hideToolMenu(){
     toolModal.style.display = 'none';
     toolModal.classList.remove('custom-width'); // 숨길 때 클래스 제거
     toolButton.classList.remove('custom-active'); // 버튼 활성화 효과 제거
+=======
+// 모든 도구 비활성화 함수
+function disableAllTools() {
+    cornerstoneTools.wwwc.disable(element);
+    cornerstoneTools.pan.disable(element);
+    cornerstoneTools.zoom.disable(element);
+    cornerstoneTools.length.disable(element);
+    cornerstoneTools.magnify.disable(element);
+    cornerstoneTools.rotate.disable(element);
+    cornerstoneTools.mouseInput.disable(element);
+    cornerstoneTools.mouseWheelInput.disable(element);
+    deactivateZoom();
+    isScrollLoopActive = false;
+>>>>>>> b7cb9a6af6c6d288cc38ebeaf75763bcc3c8af8c
 }
 
 function hideAnnotationMenu(){
@@ -995,7 +1015,7 @@ document.querySelectorAll('.tool-button').forEach(button => {
         switch(tool) {
             case 'defaultTool':
                 setActiveButton(event.currentTarget);
-                disableAllTools();
+                //disableAllTools();
                 document.querySelector('.center-panel').style.cursor = customCursor;
                 break;
 
@@ -1011,12 +1031,29 @@ document.querySelectorAll('.tool-button').forEach(button => {
                 break;
 
 			case 'imageMove':
+<<<<<<< HEAD
 				activateNomalTool('Pan', event.currentTarget);
 
 				// 이미지가 렌더링된 후 도구가 올바르게 활성화되었는지 확인
 				element.addEventListener('cornerstoneimagerendered', () => {
 				    currentViewport = cornerstone.getViewport(element);
 				});
+=======
+			setActiveButton(event.currentTarget);
+
+			// Pan Tool 활성화
+			cornerstoneTools.addTool(cornerstoneTools.PanTool);
+			cornerstoneTools.setToolActive('Pan', { mouseButtonMask: 1 });
+
+			console.log("Pan tool activated");
+
+			// 이미지가 렌더링된 후 도구가 올바르게 활성화되었는지 확인
+			element.addEventListener('cornerstoneimagerendered', () => {
+			    currentViewport = cornerstone.getViewport(element);
+			    console.log("Viewport updated", currentViewport);
+			});
+
+>>>>>>> b7cb9a6af6c6d288cc38ebeaf75763bcc3c8af8c
 			    break;
 
             case 'scrollLoop':
@@ -1220,8 +1257,12 @@ fetch(fileUrl)
         if (!Array.isArray(fileDataList) || fileDataList.length === 0) {
             throw new Error('No DICOM files found');
         }
+<<<<<<< HEAD
         
         // Base64 디코딩 후 Blob 생성
+=======
+
+>>>>>>> b7cb9a6af6c6d288cc38ebeaf75763bcc3c8af8c
         const imageIds = fileDataList.map((fileData, index) => {
             const byteCharacters = atob(fileData.file_data); // Base64 디코딩
             const byteNumbers = new Array(byteCharacters.length);
@@ -1257,6 +1298,13 @@ fetch(fileUrl)
                 cornerstoneTools.addStackStateManager(element, ['stack']);
                 cornerstoneTools.addToolState(element, 'stack', stack);
 
+<<<<<<< HEAD
+=======
+                // 스택 상태 설정
+                cornerstoneTools.addStackStateManager(element, ['stack']);
+                cornerstoneTools.addToolState(element, 'stack', stack);
+
+>>>>>>> b7cb9a6af6c6d288cc38ebeaf75763bcc3c8af8c
 				// 이미지 렌더링 시마다 호출되는 이벤트 리스너 추가
 				element.addEventListener('cornerstoneimagerendered', function() {
 				    const stackState = cornerstoneTools.getToolState(element, 'stack');
@@ -1266,7 +1314,10 @@ fetch(fileUrl)
 				        updateImageNumber(); // 이미지 번호 업데이트
 				    }
 				});
+<<<<<<< HEAD
 				
+=======
+>>>>>>> b7cb9a6af6c6d288cc38ebeaf75763bcc3c8af8c
 
                 const viewport = cornerstone.getViewport(element);
                 document.querySelector('.wwwc').textContent = Math.round(viewport.voi.windowWidth) + "/" + Math.round(viewport.voi.windowCenter);
@@ -1316,14 +1367,29 @@ fetch(fileUrl)
             resizeImage();
         });
 
+<<<<<<< HEAD
         // Cornerstone MouseWheelTools 설정
         const StackScrollMouseWheelTool = cornerstoneTools.StackScrollMouseWheelTool;
 		
+=======
+        // Cornerstone Tools 설정
+        const StackScrollMouseWheelTool = cornerstoneTools.StackScrollMouseWheelTool;
+		
+		// 스크롤 방향을 반대로 하기 위한 설정 추가
+		const stackScrollOptions = {
+		    configuration: {
+		        invert: true, // 휠 스크롤 방향을 반대로 설정
+				loop: true
+		    }
+		};
+		
+>>>>>>> b7cb9a6af6c6d288cc38ebeaf75763bcc3c8af8c
         cornerstoneTools.addTool(StackScrollMouseWheelTool, stackScrollOptions);
         cornerstoneTools.setToolActive('StackScrollMouseWheel', {});
 
 
         // 클립 재생 함수
+<<<<<<< HEAD
 		function startClipPlayback() {
     		if (isPlaying) clearInterval(playInterval); // 기존 인터벌을 삭제하여 FPS 변경을 반영
     		isPlaying = true;
@@ -1341,6 +1407,16 @@ fetch(fileUrl)
         		});
     		}, 1000 / fps);
 		}
+=======
+        function startClipPlayback() {
+            if (isPlaying) clearInterval(playInterval); // 기존 인터벌을 삭제하여 FPS 변경을 반영
+            isPlaying = true;
+            playInterval = setInterval(() => {
+                currentImageIndex = (currentImageIndex + 1) % fileDataList.length;
+                loadAndDisplayImage(currentImageIndex);
+            }, 1000 / fps);
+        }
+>>>>>>> b7cb9a6af6c6d288cc38ebeaf75763bcc3c8af8c
 
         // 클립 정지 함수
         function stopClipPlayback() {
