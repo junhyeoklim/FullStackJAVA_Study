@@ -32,6 +32,5 @@ public class HomeController {
 	 public String showEmployeeEditePage() {
 		 return "admin/employeeView";  // "WEB-INF/views/admin/employeeView.jsp"를 의미
 	 }
-	 
 }
 

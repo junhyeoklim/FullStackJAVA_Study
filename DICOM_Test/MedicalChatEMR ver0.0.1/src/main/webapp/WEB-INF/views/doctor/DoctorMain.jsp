@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -8,12 +8,22 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Medical Dashboard</title>
-<link
-	href='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.css'
-	rel='stylesheet' />
-<script
-	src='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.js'></script>
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />
+<link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.css' rel='stylesheet' />
+<script	src='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.js'></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/hammerjs@2.0.8"></script>
+<script	src="https://cdn.jsdelivr.net/npm/cornerstone-math@0.1.6/dist/cornerstoneMath.js"></script>
+<script src="https://unpkg.com/cornerstone-core"></script>
+<script src="https://unpkg.com/cornerstone-math"></script>
+<script src="https://unpkg.com/cornerstone-wado-image-loader"></script>
+<script	src="https://cdn.jsdelivr.net/npm/cornerstone-web-image-loader@2.1.0/dist/cornerstoneWebImageLoader.js"></script>
+<script	src="https://cdn.jsdelivr.net/npm/cornerstone-wado-image-loader@3.1.0/dist/cornerstoneWADOImageLoader.js"></script>
+<script	src="https://cdn.jsdelivr.net/npm/dicom-parser@1.8.4/dist/dicomParser.js"></script>
+<script src="${contextPath}/js/cornerstone/cornerstone.min.js"></script>
+<script src="${contextPath}/js/cornerstone/cornerstoneMath.min.js"></script>
+<script src="${contextPath}/js/cornerstone/dicomParser.min.js"></script>
+<script	src="https://unpkg.com/cornerstone-tools@4.22.1/dist/cornerstoneTools.js"></script>
 <style>
 html, body {
 	margin: 0;
@@ -192,6 +202,66 @@ nav {
 	overflow-y: auto;
 }
 
+/* 기본 상태 - 두 개씩 나란히 배치 */
+.responsive-view {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.responsive-view .dicomImage {
+    flex: 1 1 calc(50% - 10px); /* 두 열로 배치 */
+    height: 200px; /* 고정된 높이 설정 */
+    background-color: #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 1024px 이하에서 한 열로 배치 */
+@media (max-width: 1024px) {
+    .responsive-view {
+        display: grid;
+        grid-template-columns: 1fr; /* 한 열로 배치 */
+        gap: 10px;
+    }
+    .responsive-view .dicomImage {
+        flex: 1 1 100%; /* 한 줄씩 배치 */
+        height: 200px; /* 고정된 높이 유지 */
+    }
+}
+
+/* 768px 이하에서 가로 스크롤 생기도록 설정 */
+@media (max-width: 768px) {
+    .responsive-view {
+        display: block;
+        white-space: nowrap; /* div들이 한 줄로 나열되도록 설정 */
+        overflow-x: auto; /* 좌우 스크롤 활성화 */
+    }
+
+    .responsive-view .dicomImage {
+        display: inline-block; /* 한 줄로 나열 */
+        width: 300px; /* 고정된 너비 */
+        height: 300px; /* 고정된 높이 */
+    }
+}
+
+/* 1024px 이상으로 돌아왔을 때 기본 2열 그리드로 복귀 */
+@media (min-width: 1025px) {
+    .responsive-view {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        overflow-x: hidden;
+    }
+    .responsive-view .dicomImage {
+        flex: 1 1 calc(50% - 10px); /* 두 열로 배치 */
+        height: 200px; /* 고정된 높이 설정 */
+    }
+}
 .section h2 {
 	margin-top: 0;
 	margin-bottom: -3px;
@@ -209,20 +279,67 @@ nav {
 	grid-area: symptoms;
 }
 
-.view {
-	grid-area: view;
-	display: flex;
-	flex-wrap: wrap;
-	height: auto;
-	gap: 10px;
+.section.view {
+    grid-area: view;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    height: 100%;
+    overflow-y: auto; /* 세로 스크롤 추가 */
+    overflow-x: hidden; /* 가로 스크롤은 숨김 */
 }
 
 .view div {
-	flex: 1 1 calc(50% - 10px);
-	height: calc(100%/ 2 - 10px);
-	background-color: #ddd;
-	padding-top: 30px;
+    flex: 1 1 calc(50% - 10px); /* 각 div가 2열로 배치되도록 설정 */
+    height: calc(100% / 2 - 10px); /* 높이를 2열로 배치된 요소들에 맞게 조정 */
+    background-color: #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
+
+.responsive-view .dicomImage {
+    flex: 1 1 calc(50% - 10px); /* 두 열로 배치 */
+    height: 200px; /* 고정된 높이 설정 */
+    cursor: pointer;
+}
+
+/* 900px 이하에서 한 열로 배치 */
+@media (max-width: 900px) {
+    .responsive-view .dicomImage {
+        flex: 1 1 100%; /* 한 줄씩 배치 */
+        height: 200px; /* 고정된 높이 유지 */
+    }
+}
+
+/* 600px 이하에서 가로 스크롤 생기도록 설정 */
+@media (max-width: 600px) {
+    .responsive-view {
+        overflow-x: auto; /* 좌우 스크롤 활성화 */
+        white-space: nowrap; /* div들이 한 줄로 나열되도록 설정 */
+    }
+
+    .responsive-view .dicomImage {
+        display: inline-block; /* 한 줄로 나열 */
+        width: 300px; /* 고정된 너비 */
+        height: 300px; /* 고정된 높이 */
+    }
+}
+
+/* 901px 이상에서 2열 그리드로 복귀 */
+@media (min-width: 901px) {
+    .responsive-view {
+        overflow-x: hidden; /* 다시 기본 설정으로 복귀 */
+        white-space: normal; /* 기본 줄바꿈 상태로 복귀 */
+    }
+
+    .responsive-view .dicomImage {
+        display: flex; /* 다시 flexbox 레이아웃 적용 */
+        flex: 1 1 calc(50% - 10px); /* 두 열로 배치 */
+        height: 200px; /* 고정된 높이 유지 */
+    }
+}
+
 
 .status {
 	grid-area: status;
@@ -402,6 +519,7 @@ footer p {
 </head>
 
 <body>
+<span id="contextPath" hidden>${contextPath}</span>
 	<header>
 		<nav>
 			<div class="logo">
@@ -552,11 +670,12 @@ footer p {
 				<h2>증상</h2>
 				<textarea id="symptoms" name="symptoms" placeholder="증상을 입력하세요"></textarea>
 			</div>
-			<div class="section view" style="grid-row: span 2;">
-				<div>이미지뷰</div>
-				<div>이미지뷰</div>
-				<div>이미지뷰</div>
-				<div>이미지뷰</div>
+			<!-- 이미지 확인 테스트  -->
+			<div class="section view responsive-view" style="grid-row: span 2;">
+				<div class="dicomImage" data-value="0"></div>
+				<div class="dicomImage" data-value="1"></div>
+				<div class="dicomImage" data-value="2"></div>
+				<div class="dicomImage" data-value="3"></div>
 			</div>
 
 			<!-- 질병 API -->
@@ -644,6 +763,7 @@ footer p {
 			</div>
 		</section>
 	</main>
+	<input type="text" id="fileId" value="${fileId}" hidden/>
 	<script>
 		$(document)
 				.ready(
@@ -1075,6 +1195,186 @@ footer p {
 				}
 			});
 		}
+		
+		
+		
+		
+	    // cornerstone 관련 설정
+	    console.log("Setting external libraries");
+	    cornerstoneWADOImageLoader.external.cornerstone = cornerstone;
+	    cornerstoneWebImageLoader.external.cornerstone = cornerstone;
+	    cornerstoneTools.external.cornerstone = cornerstone;
+	    cornerstoneTools.external.Hammer = Hammer;
+	    cornerstoneWADOImageLoader.external.dicomParser = dicomParser;
+
+	    // 이미지 로더 등록
+	    console.log("Configuring image loader");
+	    cornerstoneWADOImageLoader.configure({});
+	    
+	    let originalImageSize = null;
+	    let currentViewport = null;
+	    let contextPath = $('#contextPath').text();
+
+	    const elements = document.querySelectorAll('.dicomImage'); // 모든 dicomImage div 요소 선택
+	    const fileId = document.getElementById('fileId').value; // 서버에서 전달되는 fileId 변수
+	    const fileUrl = `${contextPath}/dicom?id=${fileId}`;
+
+	    // 모든 dicomImage 요소를 cornerstone에 활성화
+	    elements.forEach(element => {
+	        cornerstone.enable(element);
+	    });
+
+	    // /dicom 엔드포인트 호출하여 DICOM 데이터 가져오기
+	    fetch(fileUrl)
+	        .then(response => {
+	            if (!response.ok) {
+	                throw new Error(`HTTP error! status: ${response.status}`);
+	            }
+	            return response.json(); // 데이터를 JSON으로 받음
+	        })
+	        .then(fileDataList => {
+	            console.log("Fetched DICOM data:", fileDataList);
+	            if (!Array.isArray(fileDataList) || fileDataList.length === 0) {
+	                throw new Error('No DICOM files found');
+	            }
+
+	            // Base64 디코딩 후 Blob 생성 및 SOPInstanceUID 저장
+	            const imageIds = fileDataList.map((fileData, index) => {
+	                const byteCharacters = atob(fileData.file_data); // Base64 디코딩
+	                const byteNumbers = new Array(byteCharacters.length);
+	                for (let i = 0; i < byteCharacters.length; i++) {
+	                    byteNumbers[i] = byteCharacters.charCodeAt(i);
+	                }
+	                const byteArray = new Uint8Array(byteNumbers);
+	                const fileBlobUrl = URL.createObjectURL(new Blob([byteArray]));
+	                return 'wadouri:' + fileBlobUrl;
+	            });
+
+	            function loadAndDisplayImage(index) {
+	                if (index >= elements.length) return; // 요소가 부족하면 함수 종료
+
+	                const element = elements[index]; // 각 div 요소에 해당하는 element 선택
+	                cornerstone.loadImage(imageIds[index]).then(function(image) {
+
+	                    // 처음 이미지를 로드할 때 원본 크기를 기억합니다.
+	                    if (!originalImageSize) {
+	                        originalImageSize = { width: image.columns, height: image.rows };
+	                    }
+
+	                    if (currentViewport) {
+	                        cornerstone.displayImage(element, image);
+	                        cornerstone.setViewport(element, currentViewport);
+	                    } else {
+	                        cornerstone.displayImage(element, image);
+	                        currentViewport = cornerstone.getViewport(element);
+	                    }
+
+	                    // 로드 후 즉시 리사이즈
+	                    resizeImage(element, image);
+
+	                }).catch(function(err) {
+	                    console.error('Error loading image:', err);
+	                });
+	            }
+
+	            // div 요소에 순서대로 이미지를 로드합니다.
+	            imageIds.forEach((imageId, index) => {
+	                loadAndDisplayImage(index);
+	            });
+
+	        })
+	        .catch(error => {
+	            console.error('Error fetching DICOM data:', error);
+	        });
+
+	    function resizeImage(element, image) {
+	        console.log("Resizing image");
+
+	        // 현재 뷰포트가 있으면 복사하고, 없으면 새로운 뷰포트를 생성
+	        let updatedViewport = currentViewport ? {...currentViewport} : cornerstone.getDefaultViewportForImage(element, image);
+
+	        // 현재 뷰포트의 스케일을 조정 (원본 이미지 크기를 기준으로)
+	        if (originalImageSize) {
+	            const containerWidth = element.clientWidth;
+	            const containerHeight = element.clientHeight;
+	            const scale = Math.min(containerWidth / originalImageSize.width, containerHeight / originalImageSize.height, 1);
+
+	            // 기존의 뷰포트 값을 유지하면서 scale만 업데이트
+	            updatedViewport.scale = scale;
+	        }
+
+	        // 뷰포트 설정 적용
+	        cornerstone.setViewport(element, updatedViewport);
+	        cornerstone.resize(element, true);
+	    }
+	    
+	    
+	    
+	 // 각 dicomImage 요소에 클릭 이벤트 추가
+document.querySelectorAll('.dicomImage').forEach((element) => {
+    element.addEventListener('click', function() {
+
+        // 서버로 POST 요청 전송
+        fetch(contextPath+'/viewer', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ fileId: fileId })
+        })
+        .then(response => {
+            if (response.ok) {
+                // 성공적으로 처리된 경우, fileId를 쿼리 파라미터로 전달하여 새로운 페이지로 이동
+                window.location.href = contextPath +`/viewer?fileId=${fileId}`;
+            } else {
+                console.error('서버 응답 오류');
+            }
+        })
+        .catch(error => {
+            console.error('요청 중 오류 발생', error);
+        });
+    });
+});
+
+window.addEventListener('resize', function() {
+    adjustLayout();
+});
+function adjustLayout() {
+    const screenWidth = window.innerWidth;
+    
+    // 900px 이상일 경우 2x2 레이아웃으로 설정
+    if (screenWidth >= 901) {
+        document.querySelectorAll('.responsive-view .dicomImage').forEach(element => {
+            element.style.flex = "1 1 calc(50% - 10px)";
+            element.style.height = "200px";
+            element.style.display = "flex";
+        });
+    } 
+    // 900px 이하일 경우 1열 레이아웃으로 설정
+    else if (screenWidth < 900 && screenWidth > 600) {
+        document.querySelectorAll('.responsive-view .dicomImage').forEach(element => {
+            element.style.flex = "1 1 100%";
+            element.style.height = "200px";
+            element.style.display = "flex";
+        });
+    }
+    // 600px 이하일 경우 inline-block 레이아웃 설정
+    else if (screenWidth <= 600) {
+        document.querySelectorAll('.responsive-view .dicomImage').forEach(element => {
+            element.style.display = "inline-block";
+            element.style.width = "300px";
+            element.style.height = "300px";
+        });
+    }
+}
+
+// 페이지 로드 시 레이아웃 조정
+adjustLayout();
+		
+		
+		
+		
+		
 	</script>
 </body>
 <footer> </footer>
