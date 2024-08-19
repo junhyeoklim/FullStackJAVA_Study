@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -9,21 +9,29 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Medical Dashboard</title>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
-<link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.css' rel='stylesheet' />
-<script	src='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.js'></script>
+<link
+	href='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.css'
+	rel='stylesheet' />
+<script
+	src='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.js'></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/hammerjs@2.0.8"></script>
-<script	src="https://cdn.jsdelivr.net/npm/cornerstone-math@0.1.6/dist/cornerstoneMath.js"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/cornerstone-math@0.1.6/dist/cornerstoneMath.js"></script>
 <script src="https://unpkg.com/cornerstone-core"></script>
 <script src="https://unpkg.com/cornerstone-math"></script>
 <script src="https://unpkg.com/cornerstone-wado-image-loader"></script>
-<script	src="https://cdn.jsdelivr.net/npm/cornerstone-web-image-loader@2.1.0/dist/cornerstoneWebImageLoader.js"></script>
-<script	src="https://cdn.jsdelivr.net/npm/cornerstone-wado-image-loader@3.1.0/dist/cornerstoneWADOImageLoader.js"></script>
-<script	src="https://cdn.jsdelivr.net/npm/dicom-parser@1.8.4/dist/dicomParser.js"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/cornerstone-web-image-loader@2.1.0/dist/cornerstoneWebImageLoader.js"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/cornerstone-wado-image-loader@3.1.0/dist/cornerstoneWADOImageLoader.js"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/dicom-parser@1.8.4/dist/dicomParser.js"></script>
 <script src="${contextPath}/js/cornerstone/cornerstone.min.js"></script>
 <script src="${contextPath}/js/cornerstone/cornerstoneMath.min.js"></script>
 <script src="${contextPath}/js/cornerstone/dicomParser.min.js"></script>
-<script	src="https://unpkg.com/cornerstone-tools@4.22.1/dist/cornerstoneTools.js"></script>
+<script
+	src="https://unpkg.com/cornerstone-tools@4.22.1/dist/cornerstoneTools.js"></script>
 <style>
 html, body {
 	margin: 0;
@@ -195,6 +203,7 @@ nav {
 }
 
 .section {
+	diplay: grid;
 	padding: 10px;
 	border: 1px solid #ddd;
 	border-radius: 8px;
@@ -202,32 +211,31 @@ nav {
 	overflow-y: auto;
 }
 
+.section .dicom{
+	width: 100px;
+	height: 600px;
+}
+
 /* 기본 상태 - 두 개씩 나란히 배치 */
 .responsive-view {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    height: 100%;
-    overflow-y: auto;
-    overflow-x: hidden;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+	height: 100%;
+	overflow-y: auto;
+	overflow-x: hidden;
 }
 
 .responsive-view .dicomImage {
-    flex: 1 1 calc(50% - 10px); /* 두 열로 배치 */
-    height: 200px; /* 고정된 높이 설정 */
-    background-color: #ddd;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+	flex: 1 1 calc(50% - 10px); /* 두 열로 배치 */
+	height: 200px; /* 고정된 높이 설정 */
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
-/* 1024px 이하에서 한 열로 배치 */
-@media (max-width: 1024px) {
-    .responsive-view {
-        display: grid;
-        grid-template-columns: 1fr; /* 한 열로 배치 */
-        gap: 10px;
-    }
+/* 1000px 이하에서 한 열로 배치 */
+@media (max-width: 1000px) {
     .responsive-view .dicomImage {
         flex: 1 1 100%; /* 한 줄씩 배치 */
         height: 200px; /* 고정된 높이 유지 */
@@ -237,11 +245,9 @@ nav {
 /* 768px 이하에서 가로 스크롤 생기도록 설정 */
 @media (max-width: 768px) {
     .responsive-view {
-        display: block;
         white-space: nowrap; /* div들이 한 줄로 나열되도록 설정 */
         overflow-x: auto; /* 좌우 스크롤 활성화 */
     }
-
     .responsive-view .dicomImage {
         display: inline-block; /* 한 줄로 나열 */
         width: 300px; /* 고정된 너비 */
@@ -249,19 +255,14 @@ nav {
     }
 }
 
-/* 1024px 이상으로 돌아왔을 때 기본 2열 그리드로 복귀 */
-@media (min-width: 1025px) {
-    .responsive-view {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-        overflow-x: hidden;
-    }
+/* 1000px 이상으로 돌아왔을 때 기본 2열 그리드로 복귀 */
+@media (min-width: 1001px) {
     .responsive-view .dicomImage {
         flex: 1 1 calc(50% - 10px); /* 두 열로 배치 */
         height: 200px; /* 고정된 높이 설정 */
     }
 }
+
 .section h2 {
 	margin-top: 0;
 	margin-bottom: -3px;
@@ -278,68 +279,73 @@ nav {
 .symptoms {
 	grid-area: symptoms;
 }
+.section.dicom{
+	width: 80%; /* 기존의 크기에서 줄임 */
+    margin: 0 auto; /* 가운데 정렬 */
+}
 
-.section.view {
-    grid-area: view;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    height: 100%;
-    overflow-y: auto; /* 세로 스크롤 추가 */
-    overflow-x: hidden; /* 가로 스크롤은 숨김 */
+.section .view {
+	grid-area: view;
+	display: flex;
+	flex-wrap: wrap;
+	margin-bottom: 5px;
+	gap: 8px;
+	height: 100%;
+	overflow-y: auto; /* 세로 스크롤 추가 */
+	overflow-x: hidden; /* 가로 스크롤은 숨김 */
 }
 
 .view div {
-    flex: 1 1 calc(50% - 10px); /* 각 div가 2열로 배치되도록 설정 */
-    height: calc(100% / 2 - 10px); /* 높이를 2열로 배치된 요소들에 맞게 조정 */
+    flex: 1 1 calc(50% - 8px); /* 각 div의 너비 조정 */
+    height: 150px; /* 높이 조정 */
     background-color: #ddd;
     display: flex;
     align-items: center;
     justify-content: center;
 }
-
 .responsive-view .dicomImage {
     flex: 1 1 calc(50% - 10px); /* 두 열로 배치 */
     height: 200px; /* 고정된 높이 설정 */
-    cursor: pointer;
+    background-color: #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden; /* 이미지가 컨테이너를 넘어가지 않도록 설정 */
 }
 
 /* 900px 이하에서 한 열로 배치 */
-@media (max-width: 900px) {
-    .responsive-view .dicomImage {
-        flex: 1 1 100%; /* 한 줄씩 배치 */
-        height: 200px; /* 고정된 높이 유지 */
-    }
+@media ( max-width : 900px) {
+	.responsive-view .dicomImage {
+		flex: 1 1 100%; /* 한 줄씩 배치 */
+		height: 200px; /* 고정된 높이 유지 */
+	}
 }
 
 /* 600px 이하에서 가로 스크롤 생기도록 설정 */
-@media (max-width: 600px) {
-    .responsive-view {
-        overflow-x: auto; /* 좌우 스크롤 활성화 */
-        white-space: nowrap; /* div들이 한 줄로 나열되도록 설정 */
-    }
-
-    .responsive-view .dicomImage {
-        display: inline-block; /* 한 줄로 나열 */
-        width: 300px; /* 고정된 너비 */
-        height: 300px; /* 고정된 높이 */
-    }
+@media ( max-width : 600px) {
+	.responsive-view {
+		overflow-x: auto; /* 좌우 스크롤 활성화 */
+		white-space: nowrap; /* div들이 한 줄로 나열되도록 설정 */
+	}
+	.responsive-view .dicomImage {
+		display: inline-block; /* 한 줄로 나열 */
+		width: 300px; /* 고정된 너비 */
+		height: 300px; /* 고정된 높이 */
+	}
 }
 
 /* 901px 이상에서 2열 그리드로 복귀 */
-@media (min-width: 901px) {
-    .responsive-view {
-        overflow-x: hidden; /* 다시 기본 설정으로 복귀 */
-        white-space: normal; /* 기본 줄바꿈 상태로 복귀 */
-    }
-
-    .responsive-view .dicomImage {
-        display: flex; /* 다시 flexbox 레이아웃 적용 */
-        flex: 1 1 calc(50% - 10px); /* 두 열로 배치 */
-        height: 200px; /* 고정된 높이 유지 */
-    }
+@media ( min-width : 901px) {
+	.responsive-view {
+		overflow-x: hidden; /* 다시 기본 설정으로 복귀 */
+		white-space: normal; /* 기본 줄바꿈 상태로 복귀 */
+	}
+	.responsive-view .dicomImage {
+		display: flex; /* 다시 flexbox 레이아웃 적용 */
+		flex: 1 1 calc(50% - 10px); /* 두 열로 배치 */
+		height: 200px; /* 고정된 높이 유지 */
+	}
 }
-
 
 .status {
 	grid-area: status;
@@ -514,12 +520,15 @@ footer p {
 	max-height: 250px; /* 원하는 최대 높이 설정 */
 	overflow-y: auto; /* 스크롤 생성 */
 }
+.buttonSection{
+	margin-bottom: 10px;
+}
 </style>
 
 </head>
 
 <body>
-<span id="contextPath" hidden>${contextPath}</span>
+	<span id="contextPath" hidden>${contextPath}</span>
 	<header>
 		<nav>
 			<div class="logo">
@@ -671,11 +680,16 @@ footer p {
 				<textarea id="symptoms" name="symptoms" placeholder="증상을 입력하세요"></textarea>
 			</div>
 			<!-- 이미지 확인 테스트  -->
-			<div class="section view responsive-view" style="grid-row: span 2;">
-				<div class="dicomImage" data-value="0"></div>
-				<div class="dicomImage" data-value="1"></div>
-				<div class="dicomImage" data-value="2"></div>
-				<div class="dicomImage" data-value="3"></div>
+			<div class="section dicom">
+				<div class="buttonSection">
+					<button class="viewer">자세히 보기</button>
+				</div>
+				<div class="view  responsive-view"  style="grid-row: span 2;">
+					<div class="dicomImage" data-value="0"></div>
+					<div class="dicomImage" data-value="1"></div>
+					<div class="dicomImage" data-value="2"></div>
+					<div class="dicomImage" data-value="3"></div>
+				</div>
 			</div>
 
 			<!-- 질병 API -->
@@ -763,7 +777,7 @@ footer p {
 			</div>
 		</section>
 	</main>
-	<input type="text" id="fileId" value="${fileId}" hidden/>
+	<input type="text" id="pid" value="${patientInfo.pid}" hidden />
 	<script>
 		$(document)
 				.ready(
@@ -1216,8 +1230,8 @@ footer p {
 	    let contextPath = $('#contextPath').text();
 
 	    const elements = document.querySelectorAll('.dicomImage'); // 모든 dicomImage div 요소 선택
-	    const fileId = document.getElementById('fileId').value; // 서버에서 전달되는 fileId 변수
-	    const fileUrl = `${contextPath}/dicom?id=${fileId}`;
+	    const pid = document.getElementById('pid').value; // 서버에서 전달되는 pid 변수
+	    const fileUrl = `${contextPath}/dicom?pid=${patientInfo.pid}`;
 
 	    // 모든 dicomImage 요소를 cornerstone에 활성화
 	    elements.forEach(element => {
@@ -1310,31 +1324,29 @@ footer p {
 	    
 	    
 	    
-	 // 각 dicomImage 요소에 클릭 이벤트 추가
-document.querySelectorAll('.dicomImage').forEach((element) => {
-    element.addEventListener('click', function() {
+	 // 자세히 보기 버튼 이벤트
+	    $('.viewer').on('click', function() {
+	        // 서버로 POST 요청 전송
+	        fetch(contextPath + '/viewer', {
+	            method: 'POST',
+	            headers: {
+	                'Content-Type': 'application/json'
+	            },
+	            body: JSON.stringify({ pid: pid })
+	        })
+	        .then(response => {
+	            if (response.ok) {
+	                // 성공적으로 처리된 경우, pid를 쿼리 파라미터로 전달하여 새로운 페이지로 이동
+	                window.location.href = contextPath + `/viewer?pid=${patientInfo.pid}`;
+	            } else {
+	                console.error('서버 응답 오류');
+	            }
+	        })
+	        .catch(error => {
+	            console.error('요청 중 오류 발생', error);
+	        });
+	    });
 
-        // 서버로 POST 요청 전송
-        fetch(contextPath+'/viewer', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ fileId: fileId })
-        })
-        .then(response => {
-            if (response.ok) {
-                // 성공적으로 처리된 경우, fileId를 쿼리 파라미터로 전달하여 새로운 페이지로 이동
-                window.location.href = contextPath +`/viewer?fileId=${fileId}`;
-            } else {
-                console.error('서버 응답 오류');
-            }
-        })
-        .catch(error => {
-            console.error('요청 중 오류 발생', error);
-        });
-    });
-});
 
 window.addEventListener('resize', function() {
     adjustLayout();

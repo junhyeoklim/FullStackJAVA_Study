@@ -37,8 +37,9 @@ body {
 	flex: 1;
 }
 
+
 .left-panel, .right-panel {
-	width: 20%;
+	width: 10%;
 	background-color: #2a2a2a;
 	padding: 10px;
 }
@@ -251,6 +252,7 @@ p.fpswords {
 	color: white;
 	width: 60%;
 	line-height: 30px;
+	user-select: none;
 }
 
 .interface-button.disabled {
