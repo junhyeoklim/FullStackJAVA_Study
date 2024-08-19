@@ -271,8 +271,8 @@ cornerstoneWADOImageLoader.configure({});
 const element = document.getElementById('dicomImage');
 const playButton = document.querySelector('.playClipModal .fa-play').parentElement;
 const stopButton = document.querySelector('.playClipModal .fa-stop').parentElement;
-const fileId = [[${fileId}]]; // 서버에서 전달되는 fileId 변수
-const fileUrl = `/dicom?id=${fileId}`;
+const pid = [[${pid}]]; // 서버에서 전달되는 pid 변수
+const fileUrl = `/dicom?pid=${pid}`;
 const customCursor = 'url(/img/cross.cur) 8 8, auto'; // 전역 변수로 설정
 
 const toolButton = document.querySelector('.interface-button i.fa-toolbox').parentElement;
@@ -1491,7 +1491,7 @@ function saveAnnotation() {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ fileId: fileId, annotations: annotations })
+                body: JSON.stringify({ pid: pid, annotations: annotations })
             }).then(response => {
                 if (response.ok) {
                     Swal.fire(

@@ -55,42 +55,40 @@ public class FileController {
 	}
 
 	@GetMapping("/doctor") 
-	public String doctor() { 
-		return "doctorUi"; 
+	public String doctor(Model model) {
+	    // Map 생성 및 값 추가
+	    Map<String, Object> patientInfo = new HashMap<>();
+	    patientInfo.put("pname", "HONG GIL DONG");
+	    patientInfo.put("pid", 14162);
+	    patientInfo.put("modality", "ct");
+
+	    // Model에 Map을 추가
+	    model.addAttribute("patientInfo", patientInfo);
+
+	    return "doctorUi"; // 업로드 후 doctorUi로 리다이렉트
 	}
 
 
-	@PostMapping("/upload")
-	public String handleFileUpload(@RequestParam("file") MultipartFile file, Model model) {
-		if (file.isEmpty()) {
-			return "error"; // 업로드 실패 시 처리
-		}
-
-		int fileId;	
-		try {
-			fileId = saveFileToDatabase(file);
-		} catch (IOException | SQLException e) {
-			e.printStackTrace();
-			return "error"; // 저장 실패 시 처리
-		}
-
-		model.addAttribute("fileId", fileId);
-		
-		 
-		return "doctorUi"; // 업로드 후 viewer.html로 리다이렉트
-	}
+	/*
+	 * @PostMapping("/upload") public String handleFileUpload(Model model) {
+	 * 
+	 * model.addAttribute("fileId", "HONG GIL DONG");
+	 * 
+	 * 
+	 * return "doctorUi"; // 업로드 후 viewer.html로 리다이렉트 }
+	 */
 	
 	@PostMapping("/viewer")
 	public String handleViewerRequest(@RequestBody Map<String, Integer> data, Model model) {
 		System.out.println("hi");
-	    int fileId = data.get("fileId");
-	    model.addAttribute("fileId", fileId);
+	    int pid = data.get("pid");
+	    model.addAttribute("pid", pid);
 	    return "viewer"; // viewer 페이지로 리턴
 	}
 	
 	@GetMapping("/viewer")
-	public String showViewerPage(@RequestParam("fileId") int fileId, Model model) {
-	    model.addAttribute("fileId", fileId);
+	public String showViewerPage(@RequestParam("pid") int pid, Model model) {
+	    model.addAttribute("pid", pid);
 	    return "viewer.html"; // viewer 페이지로 이동
 	}
 	
@@ -336,16 +334,10 @@ public class FileController {
 
 
 	@GetMapping("/dicom")
-	public ResponseEntity<List<Map<String, Object>>> getFile(@RequestParam("id") int id) {
+	public ResponseEntity<List<Map<String, Object>>> getFile(@RequestParam("pid") int pid) {
 		try {
-			// 1. ID를 통해 해당 레코드의 MODALITY 값을 가져옵니다.
-			String modalitySql = "SELECT modality FROM dicom_files WHERE id = ?";
-			String modality = jdbcTemplate.queryForObject(modalitySql, new Object[]{id}, String.class);
-			System.out.println("Modality retrieved: " + modality);
-
-			// 2. 해당 MODALITY 값을 가진 모든 파일 데이터를 가져옵니다.
-			String fileSql = "SELECT file_name, file_data, pname, modality, sop_instance_uid, annotations FROM dicom_files WHERE modality = ?";
-			List<Map<String, Object>> fileDataList = jdbcTemplate.query(fileSql, new Object[]{modality}, (rs, rowNum) -> {
+			String fileSql = "SELECT file_name, file_data, pname, modality, sop_instance_uid, annotations FROM dicom_files WHERE pid = ?";
+			List<Map<String, Object>> fileDataList = jdbcTemplate.query(fileSql, new Object[]{pid}, (rs, rowNum) -> {
 				Map<String, Object> map = new HashMap<>();
 				map.put("file_name", rs.getString("file_name"));
 				map.put("file_data", Base64.getEncoder().encodeToString(rs.getBytes("file_data"))); // Base64로 인코딩
@@ -357,12 +349,12 @@ public class FileController {
 			});
 			System.out.println("File data list size: " + fileDataList.size());
 
-			// 3. 파일 데이터가 없을 경우 404를 반환합니다.
+			// 1. 파일 데이터가 없을 경우 404를 반환합니다.
 			if (fileDataList.isEmpty()) {
 				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 			}
 
-			// 4. 파일 데이터 리스트를 JSON으로 반환합니다.
+			// 2. 파일 데이터 리스트를 JSON으로 반환합니다.
 			HttpHeaders headers = new HttpHeaders();
 			headers.setContentType(org.springframework.http.MediaType.APPLICATION_JSON);
 
