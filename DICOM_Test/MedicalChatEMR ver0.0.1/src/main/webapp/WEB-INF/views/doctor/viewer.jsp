@@ -358,8 +358,8 @@ toolButton.addEventListener('click', function (e) {
 
     // toolModal 위치 조정 (버튼 클릭 시에만 위치 설정)
     const buttonRect = toolButton.getBoundingClientRect();
-    toolModal.style.top = `${buttonRect.bottom}px`;
-    toolModal.style.left = `${buttonRect.left}px`;
+    toolModal.style.top = buttonRect.bottom+'px';
+    toolModal.style.left = buttonRect.left+'px';
 
     // 메뉴 표시/숨김 토글
     if (toolModal.style.display === 'none' || !toolModal.style.display) {
@@ -595,8 +595,8 @@ annotationButton.addEventListener('click', function (e) {
     e.stopPropagation(); // 이벤트 버블링 방지
 
     const buttonRect = annotationButton.getBoundingClientRect();
-    annotationModal.style.top = `${buttonRect.bottom}px`;
-    annotationModal.style.left = `${buttonRect.left}px`;
+    annotationModal.style.top = buttonRect.bottom+'px';
+    annotationModal.style.left = buttonRect.left+'px';
 
     // 메뉴 표시/숨김 토글
     if (annotationModal.style.display === 'none' || !annotationModal.style.display) {
@@ -667,8 +667,8 @@ imageLayoutButton.addEventListener('click', function (e) {
 
     // 모달 위치를 imageLayoutButton 버튼 아래로 조정
     const buttonRect = imageLayoutButton.getBoundingClientRect();
-    layoutModal.style.top = `${buttonRect.bottom}px`;
-    layoutModal.style.left = `${buttonRect.left}px`;
+    layoutModal.style.top = buttonRect.bottom+'px';
+    layoutModal.style.left = buttonRect.left+'px';
 
     // 메뉴 표시/숨김 토글
     if (layoutModal.style.display === 'none' || !layoutModal.style.display) {
@@ -753,8 +753,8 @@ refreshButton.addEventListener('click', function (e) {
     e.stopPropagation(); // 이벤트 버블링 방지
 
     const buttonRect = refreshButton.getBoundingClientRect();
-    refreshModal.style.top = `${buttonRect.bottom}px`;
-    refreshModal.style.left = `${buttonRect.left}px`;
+    refreshModal.style.top = buttonRect.bottom+'px';
+    refreshModal.style.left = buttonRect.left+'px';
 
     // 메뉴 표시/숨김 토글
     if (refreshModal.style.display === 'none' || !refreshModal.style.display) {
@@ -1126,7 +1126,7 @@ fetch(fileUrl)
         	console.log("fileId:", fileId);
             const imageNumberElement = document.querySelector('.imageNumber');
             const imagePnameElement = document.querySelector('.imagePname');
-            imageNumberElement.textContent = `${currentImageIndex + 1}/${fileDataList.length}`;
+            imageNumberElement.textContent = (currentImageIndex + 1)+'/'+fileDataList.length;
             imagePnameElement.textContent = fileDataList[0]["pname"];
         }
 
@@ -1204,7 +1204,7 @@ fetch(fileUrl)
                     fps++;
                 }
 
-                document.querySelector('.fpswords').textContent = `FPS : ${fps}`;
+                document.querySelector('.fpswords').textContent = 'FPS :'+ fps;
 
                 if (isPlaying) {
                     startClipPlayback(); // FPS 변경에 따라 클립 재생을 업데이트
@@ -1546,7 +1546,7 @@ function getSOPInstanceUIDFromImageId(imageId) {
 function playClip(){
     isPlayClipActive = !isPlayClipActive;
     if (isPlayClipActive) {
-        document.querySelector('.fpswords').textContent = `FPS : ${fps}`;
+        document.querySelector('.fpswords').textContent = 'FPS :'+ fps;
         playClipModal.style.display = 'block';
         event.currentTarget.classList.add('active'); // 버튼 활성화 표시
         playButton.classList.remove('active');

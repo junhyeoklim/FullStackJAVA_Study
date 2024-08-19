@@ -15,9 +15,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.groupdocs.conversion.Converter;
-import com.groupdocs.conversion.options.convert.ImageConvertOptions;
-
 import javax.imageio.ImageIO;
 import javax.sql.DataSource;
 
@@ -245,55 +242,54 @@ public class FileController {
 		}
 	}
 
-	// JPG 다운로드
-	@GetMapping("/downloadJPG")
-	public ResponseEntity<InputStreamResource> downloadJPG(@RequestParam List<String> fileNames, @RequestParam String pname, @RequestParam String modality) throws IOException {
-		if (fileNames.size() == 1) {
-			String fileSql = "SELECT file_data FROM dicom_files WHERE file_name = ?";
-			byte[] fileData = jdbcTemplate.queryForObject(fileSql, new Object[]{fileNames.get(0)}, byte[].class);
-
-			ByteArrayInputStream bais = new ByteArrayInputStream(fileData);
-			BufferedImage image = convertDicomToJPG(bais);
-
-			ByteArrayOutputStream imageBaos = new ByteArrayOutputStream();
-			ImageIO.write(image, "jpg", imageBaos);
-
-			InputStreamResource resource = new InputStreamResource(new ByteArrayInputStream(imageBaos.toByteArray()));
-			return ResponseEntity.ok()
-					.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileNames.get(0).replace(".dcm", ".jpg") + "\"")
-					.contentType(MediaType.IMAGE_JPEG)
-					.body(resource);
-		} else {
-			String zipFileName = pname +"_" + modality + "_images.zip";
-			ByteArrayOutputStream baos = new ByteArrayOutputStream();
-			ZipOutputStream zos = new ZipOutputStream(baos);
-
-			for (String fileName : fileNames) {
-				String fileSql = "SELECT file_data FROM dicom_files WHERE file_name = ?";
-				byte[] fileData = jdbcTemplate.queryForObject(fileSql, new Object[]{fileName}, byte[].class);
-
-				ByteArrayInputStream bais = new ByteArrayInputStream(fileData);
-				BufferedImage image = convertDicomToJPG(bais);
-
-				ByteArrayOutputStream imageBaos = new ByteArrayOutputStream();
-				ImageIO.write(image, "jpg", imageBaos);
-
-				ZipEntry zipEntry = new ZipEntry(fileName.replace(".dcm", ".jpg"));
-				zos.putNextEntry(zipEntry);
-				zos.write(imageBaos.toByteArray());
-				zos.closeEntry();
-			}
-
-			zos.close();
-
-			InputStreamResource resource = new InputStreamResource(new ByteArrayInputStream(baos.toByteArray()));
-			return ResponseEntity.ok()
-					.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + zipFileName + "\"")
-					.contentType(MediaType.APPLICATION_OCTET_STREAM)
-					.body(resource);
-		}
-	}
-
+	/*
+	 * // JPG 다운로드
+	 * 
+	 * @GetMapping("/downloadJPG") public ResponseEntity<InputStreamResource>
+	 * downloadJPG(@RequestParam List<String> fileNames, @RequestParam String
+	 * pname, @RequestParam String modality) throws IOException { if
+	 * (fileNames.size() == 1) { String fileSql =
+	 * "SELECT file_data FROM dicom_files WHERE file_name = ?"; byte[] fileData =
+	 * jdbcTemplate.queryForObject(fileSql, new Object[]{fileNames.get(0)},
+	 * byte[].class);
+	 * 
+	 * ByteArrayInputStream bais = new ByteArrayInputStream(fileData); BufferedImage
+	 * image = convertDicomToJPG(bais);
+	 * 
+	 * ByteArrayOutputStream imageBaos = new ByteArrayOutputStream();
+	 * ImageIO.write(image, "jpg", imageBaos);
+	 * 
+	 * InputStreamResource resource = new InputStreamResource(new
+	 * ByteArrayInputStream(imageBaos.toByteArray())); return ResponseEntity.ok()
+	 * .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" +
+	 * fileNames.get(0).replace(".dcm", ".jpg") + "\"")
+	 * .contentType(MediaType.IMAGE_JPEG) .body(resource); } else { String
+	 * zipFileName = pname +"_" + modality + "_images.zip"; ByteArrayOutputStream
+	 * baos = new ByteArrayOutputStream(); ZipOutputStream zos = new
+	 * ZipOutputStream(baos);
+	 * 
+	 * for (String fileName : fileNames) { String fileSql =
+	 * "SELECT file_data FROM dicom_files WHERE file_name = ?"; byte[] fileData =
+	 * jdbcTemplate.queryForObject(fileSql, new Object[]{fileName}, byte[].class);
+	 * 
+	 * ByteArrayInputStream bais = new ByteArrayInputStream(fileData); BufferedImage
+	 * image = convertDicomToJPG(bais);
+	 * 
+	 * ByteArrayOutputStream imageBaos = new ByteArrayOutputStream();
+	 * ImageIO.write(image, "jpg", imageBaos);
+	 * 
+	 * ZipEntry zipEntry = new ZipEntry(fileName.replace(".dcm", ".jpg"));
+	 * zos.putNextEntry(zipEntry); zos.write(imageBaos.toByteArray());
+	 * zos.closeEntry(); }
+	 * 
+	 * zos.close();
+	 * 
+	 * InputStreamResource resource = new InputStreamResource(new
+	 * ByteArrayInputStream(baos.toByteArray())); return ResponseEntity.ok()
+	 * .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" +
+	 * zipFileName + "\"") .contentType(MediaType.APPLICATION_OCTET_STREAM)
+	 * .body(resource); } }
+	 */
 	// DICOM 파일 삭제
 	@PostMapping("/deleteDICOM")
 	public ResponseEntity<String> deleteDICOM(@RequestParam String fileName) {
@@ -308,24 +304,23 @@ public class FileController {
 	}
 
 
-	private BufferedImage convertDicomToJPG(InputStream dicomInputStream) throws IOException {
-		// GroupDocs Converter 인스턴스 생성
-		Converter converter = new Converter(dicomInputStream);
-
-		// JPG로 변환 옵션 설정
-		ImageConvertOptions options = new ImageConvertOptions();
-		options.setFormat(com.groupdocs.conversion.filetypes.ImageFileType.Jpg);
-
-		// 변환 결과를 ByteArrayOutputStream으로 저장
-		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-		converter.convert(() -> outputStream, options);
-
-		// ByteArrayInputStream을 통해 BufferedImage로 변환
-		ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(outputStream.toByteArray());
-		BufferedImage image = ImageIO.read(byteArrayInputStream);
-
-		return image;
-	}
+	/*
+	 * private BufferedImage convertDicomToJPG(InputStream dicomInputStream) throws
+	 * IOException { // GroupDocs Converter 인스턴스 생성 Converter converter = new
+	 * Converter(dicomInputStream);
+	 * 
+	 * // JPG로 변환 옵션 설정 ImageConvertOptions options = new ImageConvertOptions();
+	 * options.setFormat(com.groupdocs.conversion.filetypes.ImageFileType.Jpg);
+	 * 
+	 * // 변환 결과를 ByteArrayOutputStream으로 저장 ByteArrayOutputStream outputStream = new
+	 * ByteArrayOutputStream(); converter.convert(() -> outputStream, options);
+	 * 
+	 * // ByteArrayInputStream을 통해 BufferedImage로 변환 ByteArrayInputStream
+	 * byteArrayInputStream = new ByteArrayInputStream(outputStream.toByteArray());
+	 * BufferedImage image = ImageIO.read(byteArrayInputStream);
+	 * 
+	 * return image; }
+	 */
 
 
 	@GetMapping("/dicom")
