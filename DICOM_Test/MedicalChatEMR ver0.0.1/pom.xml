@@ -10,9 +10,9 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.emr.www</groupId>
-	<artifactId>MedicalChatEMR</artifactId>
+	<artifactId>MedicalChatEMR2</artifactId>
 	<version>1.0.0</version>
-	<name>MedicalChatEMR</name>
+	<name>MedicalChatEMR2</name>
 	<description>Test</description>
 	<url />
 	<licenses>
