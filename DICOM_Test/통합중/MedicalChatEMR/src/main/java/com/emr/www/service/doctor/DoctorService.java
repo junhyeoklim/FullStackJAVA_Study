@@ -94,6 +94,13 @@ public class DoctorService {
         return doctorDto;
     }
     
+    // 의사 ID로 조회
+    public DoctorEntity getDoctorByNo(int doctorNo) {
+        return doctorRepository.findByNo(doctorNo)
+                .orElseThrow(() -> new IllegalArgumentException("해당 No로 의사를 찾을 수 없습니다: " + doctorNo));
+    }
+    
+    
     //환자 진료 작성 데이터 저장 - 의사
     @Transactional //트랜잭션 적용
     public void saveMedicalRecord(MedicalRecordDTO recordDTO, int doctorNo) {

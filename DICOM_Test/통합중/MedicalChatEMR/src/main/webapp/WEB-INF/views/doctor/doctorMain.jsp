@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -17,26 +16,18 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <!--비활동 함수-->
 <script src="/js/common/activity-tracker.js"></script>
+
 <!--CornerStone 기능 및 ContextPath 설정  -->
 <link rel="icon" href="/img/medical.ico" />
 <script src="https://cdn.jsdelivr.net/npm/hammerjs@2.0.8"></script>
-<script
-	src="https://cdn.jsdelivr.net/npm/cornerstone-math@0.1.6/dist/cornerstoneMath.js"></script>
+<script	src="https://cdn.jsdelivr.net/npm/cornerstone-math@0.1.6/dist/cornerstoneMath.js"></script>
 <script src="https://unpkg.com/cornerstone-core"></script>
 <script src="https://unpkg.com/cornerstone-math"></script>
 <script src="https://unpkg.com/cornerstone-wado-image-loader"></script>
-<script
-	src="https://cdn.jsdelivr.net/npm/cornerstone-web-image-loader@2.1.0/dist/cornerstoneWebImageLoader.js"></script>
-<script
-	src="https://cdn.jsdelivr.net/npm/cornerstone-wado-image-loader@3.1.0/dist/cornerstoneWADOImageLoader.js"></script>
-<script
-	src="https://cdn.jsdelivr.net/npm/dicom-parser@1.8.4/dist/dicomParser.js"></script>
-<script src="/js/cornerstone/cornerstone.min.js"></script>
-<script src="/js/cornerstone/cornerstoneMath.min.js"></script>
-<script src="/js/cornerstone/dicomParser.min.js"></script>
-<script
-	src="https://unpkg.com/cornerstone-tools@4.22.1/dist/cornerstoneTools.js"></script>
-
+<script	src="https://cdn.jsdelivr.net/npm/cornerstone-web-image-loader@2.1.0/dist/cornerstoneWebImageLoader.js"></script>
+<script	src="https://cdn.jsdelivr.net/npm/cornerstone-wado-image-loader@3.1.0/dist/cornerstoneWADOImageLoader.js"></script>
+<script	src="https://cdn.jsdelivr.net/npm/dicom-parser@1.8.4/dist/dicomParser.js"></script>
+<script	src="https://unpkg.com/cornerstone-tools@4.22.1/dist/cornerstoneTools.js"></script>
 <style>
 html, body {
 	margin: 0;
@@ -209,6 +200,11 @@ nav {
 	overflow: hidden; /* 기본적으로 섹션 내에서 스크롤을 감춤 */
 }
 
+.section .dicom {
+	width: 100px;
+	height: 600px;
+}
+
 .section h2 {
 	margin: 0;
 	padding: 10px;
@@ -233,25 +229,13 @@ nav {
 }
 
 .history {
+	height: 200px;
+	overflow-y: auto;
 	grid-area: history;
 }
 
 .symptoms {
 	grid-area: symptoms;
-}
-
-.view {
-	grid-area: view;
-	display: flex;
-	flex-wrap: wrap;
-	height: auto;
-	gap: 10px;
-}
-
-.view div {
-	flex: 1 1 calc(50% - 10px);
-	height: calc(100%/ 2 - 10px);
-	background-color: #ddd;
 }
 
 .status {
@@ -560,6 +544,142 @@ ul, #patientList {
 	color: lightgray;
 }
 
+/*다이콤 view 스타일*/
+.viewer {
+	background-color: #28a745; /* 주된 녹색 색상 */
+	margin: 10px;
+	user-select: none;
+	color: white; /* 글자색을 흰색으로 설정 */
+	padding: 5px 10px; /* 버튼 안쪽 여백 */
+	border: none; /* 테두리 제거 */
+	border-radius: 8px; /* 둥근 모서리 */
+	font-size: 0.75em; /* 글자 크기 설정 */
+	font-weight: bold; /* 글자를 굵게 표시 */
+	cursor: pointer; /* 커서가 손가락 모양으로 변경 */
+	transition: background-color 0.3s, transform 0.2s, box-shadow 0.2s;
+}
+
+.viewer:hover {
+	background-color: #218838; /* 호버 시 조금 더 짙은 녹색으로 변경 */
+	transform: translateY(-2px); /* 호버 시 버튼을 약간 위로 이동 */
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 호버 시 그림자 추가 */
+}
+
+.viewer:active {
+	background-color: #1e7e34; /* 클릭 시 더 짙은 녹색 */
+	transform: translateY(0); /* 클릭 시 원래 위치로 복원 */
+	box-shadow: none; /* 클릭 시 그림자 제거 */
+}
+
+.view div {
+	flex: 1 1 calc(50% - 8px); /* 각 div의 너비 조정 */
+	height: 150px; /* 높이 조정 */
+	background-color: #ddd;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.responsive-view .dicomImage {
+	flex: 1 1 calc(50% - 10px); /* 두 열로 배치 */
+	height: 280px; /* 고정된 높이 설정 */
+	background-color: #ddd;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	overflow: hidden; /* 이미지가 컨테이너를 넘어가지 않도록 설정 */
+}
+
+.section.dicom {
+	grid-area: view;
+	flex-wrap: wrap;
+	margin-bottom: 5px;
+	gap: 8px;
+	height: 100%;
+	overflow-y: auto; 
+	overflow-x: hidden; 
+} 
+
+
+.responsive-view .dicomImage {
+	flex: 1 1 calc(50% - 10px); /* 두 열로 배치 */
+	height: 300px; /* 고정된 높이 설정 */
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+/* 1000px 이하에서 한 열로 배치 */
+@media ( max-width : 1000px) {
+	.responsive-view .dicomImage {
+		flex: 1 1 100%; /* 한 줄씩 배치 */
+		height: 280px; /* 고정된 높이 유지 */
+	}
+}
+
+/* 768px 이하에서 가로 스크롤 생기도록 설정 */
+@media ( max-width : 768px) {
+	.responsive-view {
+		white-space: nowrap; /* div들이 한 줄로 나열되도록 설정 */
+		overflow-x: auto; /* 좌우 스크롤 활성화 */
+	}
+	.responsive-view .dicomImage {
+		display: inline-block; /* 한 줄로 나열 */
+		width: 300px; /* 고정된 너비 */
+		height: 280px; /* 고정된 높이 */
+	}
+}
+
+/* 기본 상태 - 두 개씩 나란히 배치 */
+.responsive-view {
+	display: flex;
+	flex-wrap: wrap;
+	padding-left: 5px;
+	padding-right: 5px;
+	gap: 10px;
+	height: 90%;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+/* 1000px 이상으로 돌아왔을 때 기본 2열 그리드로 복귀 */
+@media ( min-width : 1001px) {
+	.responsive-view .dicomImage {
+		flex: 1 1 calc(50% - 10px); /* 두 열로 배치 */
+		height: 300px; /* 고정된 높이 설정 */
+	}
+}
+/* 900px 이하에서 한 열로 배치 */
+@media ( max-width : 900px) {
+	.responsive-view .dicomImage {
+		flex: 1 1 100%; /* 한 줄씩 배치 */
+		height: 300px; /* 고정된 높이 유지 */
+	}
+}
+/* 600px 이하에서 가로 스크롤 생기도록 설정 */
+@media ( max-width : 600px) {
+	.responsive-view {
+		overflow-x: auto; /* 좌우 스크롤 활성화 */
+		white-space: nowrap; /* div들이 한 줄로 나열되도록 설정 */
+	}
+	.responsive-view .dicomImage {
+		display: inline-block; /* 한 줄로 나열 */
+		width: 300px; /* 고정된 너비 */
+		height: 300px; /* 고정된 높이 */
+	}
+}
+
+/* 901px 이상에서 2열 그리드로 복귀 */
+@media ( min-width : 901px) {
+	.responsive-view {
+		overflow-x: hidden; /* 다시 기본 설정으로 복귀 */
+		white-space: normal; /* 기본 줄바꿈 상태로 복귀 */
+	}
+	.responsive-view .dicomImage {
+		display: flex; /* 다시 flexbox 레이아웃 적용 */
+		flex: 1 1 calc(50% - 10px); /* 두 열로 배치 */
+		height: 300px; /* 고정된 높이 유지 */
+	}
+}
 /* 모달 스타일 */
 .modal {
 	display: none;
@@ -595,66 +715,6 @@ ul, #patientList {
 	text-decoration: none;
 	cursor: pointer;
 }
-
-.viewer {
-	background-color: #28a745; /* 주된 녹색 색상 */
-	user-select: none;
-	color: white; /* 글자색을 흰색으로 설정 */
-	padding: 5px 10px; /* 버튼 안쪽 여백 */
-	border: none; /* 테두리 제거 */
-	border-radius: 8px; /* 둥근 모서리 */
-	font-size: 0.75em; /* 글자 크기 설정 */
-	font-weight: bold; /* 글자를 굵게 표시 */
-	cursor: pointer; /* 커서가 손가락 모양으로 변경 */
-	transition: background-color 0.3s, transform 0.2s, box-shadow 0.2s;
-	color: white; /* 부드러운 전환 효과 */
-}
-/* 기본 상태 - 두 개씩 나란히 배치 */
-.responsive-view {
-	display: flex;
-	flex-wrap: wrap;
-	gap: 10px;
-	height: 100%;
-	overflow-y: auto;
-	overflow-x: hidden;
-}
-
-.responsive-view .dicomImage {
-	flex: 1 1 calc(50% - 10px); /* 두 열로 배치 */
-	height: 200px; /* 고정된 높이 설정 */
-	display: flex;
-	align-items: center;
-	justify-content: center;
-}
-
-/* 1000px 이하에서 한 열로 배치 */
-@media ( max-width : 1000px) {
-	.responsive-view .dicomImage {
-		flex: 1 1 100%; /* 한 줄씩 배치 */
-		height: 200px; /* 고정된 높이 유지 */
-	}
-}
-
-/* 768px 이하에서 가로 스크롤 생기도록 설정 */
-@media ( max-width : 768px) {
-	.responsive-view {
-		white-space: nowrap; /* div들이 한 줄로 나열되도록 설정 */
-		overflow-x: auto; /* 좌우 스크롤 활성화 */
-	}
-	.responsive-view .dicomImage {
-		display: inline-block; /* 한 줄로 나열 */
-		width: 300px; /* 고정된 너비 */
-		height: 300px; /* 고정된 높이 */
-	}
-}
-
-/* 1000px 이상으로 돌아왔을 때 기본 2열 그리드로 복귀 */
-@media ( min-width : 1001px) {
-	.responsive-view .dicomImage {
-		flex: 1 1 calc(50% - 10px); /* 두 열로 배치 */
-		height: 200px; /* 고정된 높이 설정 */
-	}
-}
 </style>
 </head>
 
@@ -667,7 +727,7 @@ ul, #patientList {
 			<button id="messages-btn" class="nav-btn">Message</button>
 			<button id="chat-ai-btn" class="nav-btn">CHAT AI</button>
 			<div class="profile-info">
-				<img id="profile-image" src="doctorProfile.png" alt="Profile Image">
+				<img id="profile-image" src="/images/ProfileImage/doctorProfile.jpg" alt="Profile Image">
 				<div class="status-indicator"></div>
 				<form id="logout-form" action="/logout" method="POST">
 					<button id="logout-btn" class="logout-btn">Log Out</button>
@@ -747,10 +807,6 @@ ul, #patientList {
 							<th>진료 날짜</th>
 							<th>담당 의사</th>
 						</tr>
-						<tr class="test"> 
-							<th><span class="studyDate">20230404</span></th>
-							<th><span>good</span></th>
-						</tr>
 					</thead>
 					<tbody>
 						<tr>
@@ -791,14 +847,7 @@ ul, #patientList {
 					<button id="saveDataBtn" style="display: none;">저장</button>
 				</div>
 			</div>
-
-			<!-- 			<div class="section view" style="grid-row: span 2;">
-				<div>정보 없음</div>
-				<div>정보 없음</div>
-				<div>정보 없음</div>
-				<div>정보 없음</div>
-			</div> -->
-			<!-- DICOM 이미지 영역  -->
+			<!-- 이미지 확인 테스트  -->
 			<div class="section dicom">
 				<div class="buttonSection">
 					<button class="viewer">자세히 보기</button>
@@ -810,6 +859,7 @@ ul, #patientList {
 					<div class="dicomImage" data-value="3"></div>
 				</div>
 			</div>
+
 
 			<div class="section search diagnosis" style="grid-column: span 1;">
 				<h2>질병 검색</h2>
@@ -880,9 +930,29 @@ ul, #patientList {
 			</div>
 		</section>
 	</main>
-	<input type="text" id="pid" hidden />
-	<input type="text" id="studydate" hidden />
+	
 	<script>
+  	// cornerstone 관련 설정
+	cornerstoneWADOImageLoader.external.cornerstone = cornerstone;
+	cornerstoneWebImageLoader.external.cornerstone = cornerstone;
+	cornerstoneTools.external.cornerstone = cornerstone;
+	cornerstoneTools.external.Hammer = Hammer;
+	cornerstoneWADOImageLoader.external.dicomParser = dicomParser;
+
+	// 이미지 로더 등록
+	cornerstoneWADOImageLoader.configure({});
+	
+	let dicomImagesLoaded = false;
+	// 전역 변수로 선언
+	let globalPid = null;
+	let globalStudydate = null;
+	const elements = document.querySelectorAll('.dicomImage'); // 모든 dicomImage div 요소 선택
+	
+	// 모든 dicomImage 요소를 cornerstone에 활성화
+	elements.forEach(element => {
+	    cornerstone.enable(element);
+	});
+
 	  let diagnosisMode = false;
 	  let previousHighlightChartNum = null; // 이전 하이라이트 기록 번호 저장
 	  let selectedPatientNo = null; // 선택된 환자 번호 저장
@@ -895,8 +965,8 @@ ul, #patientList {
 	  $(document).ready(function () {
             initializeCalendar(); 
             initializePatientList(); 
-            initializeTabs(); 
-            initializeProfileDropdown(); 
+            initializeTabs();
+            initializeProfileDropdown();
             initializeChatModal(); 
             bindEventHandlers();
       });
@@ -1015,24 +1085,26 @@ ul, #patientList {
 				console.error(error);
 			}
 		}
-		
+/* 		
 		// 기록의 히스토리 업데이트 함수
 		function updateRecordHistory(records) {
 			const historySection = document.querySelector('.section.history tbody');
 			historySection.innerHTML = '';
 
-			records.forEach(function(record) {
+			records.forEach(function(record) {				
 				const row = document.createElement('tr');
 				row.setAttribute('data-chart-num', record.chartNum); // chartNum 속성 추가
 				row.innerHTML = '<td>' + record.visitDate + '</td><td>' + record.doctorName + '</td>';
 				row.addEventListener('click', function() {
 					updateRecordSections(record);
 					highlightRecord(record.chartNum); // 선택한 기록을 회색으로 표시
-				});
+					console.log("record.chartNum : ",record.chartNum);
+				});			
+				
 				historySection.appendChild(row);
-			});
+			});			
 		}
-		
+ */		
 		
 		// 환자의 기록 섹션 업데이트 함수
 		function updateRecordSections(record) {
@@ -1049,6 +1121,8 @@ ul, #patientList {
 		    updateDiagnosisTable(record.diagnoses);
 		    updatePrescriptionsTable(record.prescriptions);
 		    updateDrugsTable(record.drugs);
+		    console.log("hi");
+		    console.log("record.chartNum : ",record.chartNum);
 		}
 		
 		// 테이블 갱신 함수들 (진단, 처방, 약물)
@@ -1115,6 +1189,9 @@ ul, #patientList {
 		// 상태 설정 함수 (별도로 분리)
 		function setStatus(status, color) {
 			$('.status-indicator').css('background-color', color); // 상태 색 변경
+			 // 상태를 변경한 후 드롭다운 메뉴 닫기
+		    var dropdown = document.querySelector('.dropdown-menu');
+		    dropdown.style.display = 'none';
 		}
 
       function initializePatientList() {
@@ -1173,8 +1250,7 @@ ul, #patientList {
                 const data = await response.json();
                 
                 // 환자 정보 및 상태 업데이트
-                updatePatientInfo(data);
-                showPatientInfo(patientNo);
+                updatePatientInfo(data);                
                 
                 // 선택된 환자 번호 저장
                 selectedPatientNo = patientNo;
@@ -1226,12 +1302,13 @@ ul, #patientList {
                 if (!response.ok) throw new Error('진료 기록 불러오기 실패');
 
                 const records = await response.json();
-                updateRecordHistory(records);
+                updateRecordHistory(records,patientNo);
 
                 // 최신 기록을 첫 번째로 불러와서 하이라이트 처리
                 if (records.length > 0) {
-                    updateRecordSections(records[0]);
+                    updateRecordSections(records[0]);                    
                     highlightRecord(records[0].chartNum); // 첫 번째 기록 하이라이트
+                    showPatientInfo(patientNo,formatDateForDcm(records[0].visitDate));
                 }
 
             } catch (error) {
@@ -1240,7 +1317,7 @@ ul, #patientList {
       }
 
    // 진료 기록 리스트 갱신 및 하이라이트 적용
-      function updateRecordHistory(records) {
+      function updateRecordHistory(records,patientNo) {
             const historySection = document.querySelector('.section.history tbody');
             historySection.innerHTML = '';
 
@@ -1249,12 +1326,23 @@ ul, #patientList {
                 row.setAttribute('data-chart-num', record.chartNum); // chartNum 속성 추가
                 row.innerHTML = '<td>' + record.visitDate + '</td><td>' + record.doctorName + '</td>';
                 row.addEventListener('click', function () {
+                	// 값 불러오기 테스트
+                	console.log("patientNo : ",patientNo);
+                	console.log("record.visitDate : ",formatDateForDcm(record.visitDate));
+                	showPatientInfo(patientNo,formatDateForDcm(record.visitDate));
                     updateRecordSections(record); // 기록 클릭 시 해당 기록 업데이트
                     highlightRecord(record.chartNum); // 클릭한 기록 하이라이트
                 });
                 historySection.appendChild(row);
             });
         }
+   
+   	  // 방문 날짜 값 변화
+      function formatDateForDcm(visitDate) {
+    	    const datePart = visitDate.split('T')[0]; // '2024-08-26' 부분만 추출
+    	    const formattedDate = datePart.replace(/-/g, ''); // '20240826'으로 변환
+    	    return formattedDate;
+    	}
 
    // 기록의 섹션 업데이트 함수
      function updateRecordSections(record) {
@@ -1370,21 +1458,20 @@ ul, #patientList {
             $('#waiting-patients').show();
             $('#all-patients').hide();
       }
-
       function initializeProfileDropdown() {
-            document.getElementById('profile-image').addEventListener('click', function (event) {
-                var dropdown = document.querySelector('.dropdown-menu');
-                dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
-                event.stopPropagation();
-            });
+          document.getElementById('profile-image').addEventListener('click', function (event) {
+              var dropdown = document.querySelector('.dropdown-menu');
+              dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+              event.stopPropagation();
+          });
 
-            document.addEventListener('click', function (event) {
-                var dropdown = document.querySelector('.dropdown-menu');
-                if (!event.target.matches('#profile-image') && !dropdown.contains(event.target)) {
-                    dropdown.style.display = 'none';
-                }
-            });
-      }
+          document.addEventListener('click', function (event) {
+              var dropdown = document.querySelector('.dropdown-menu');
+              if (!event.target.matches('#profile-image') && !dropdown.contains(event.target)) {
+                  dropdown.style.display = 'none';
+              }
+          });
+    }
    // 오늘 날짜인지 확인하는 함수
       function isToday(date) {
         const today = new Date();
@@ -1756,25 +1843,7 @@ ul, #patientList {
             closeDiagnosisMode(); // 진료 작성 모드 종료 > 진료 본거 바로 다 가져올 수 있도록 하기 재호출?
       }
       
-      
-      
-		// cornerstone 관련 설정
-		cornerstoneWADOImageLoader.external.cornerstone = cornerstone;
-		cornerstoneWebImageLoader.external.cornerstone = cornerstone;
-		cornerstoneTools.external.cornerstone = cornerstone;
-		cornerstoneTools.external.Hammer = Hammer;
-		cornerstoneWADOImageLoader.external.dicomParser = dicomParser;
 
-		// 이미지 로더 등록
-		cornerstoneWADOImageLoader.configure({});
-
-		let dicomImagesLoaded = false;
-		const elements = document.querySelectorAll('.dicomImage'); // 모든 dicomImage div 요소 선택
-
-		// 모든 dicomImage 요소를 cornerstone에 활성화
-		elements.forEach(element => {
-		    cornerstone.enable(element);
-		});
 
 		// DICOM 파일 로드 전 기존 이미지 삭제 함수
 		function clearDicomImages() {
@@ -1797,7 +1866,7 @@ ul, #patientList {
 		        }
 
 		        $.ajax({
-		            url: '/getDicomFile',
+		            url: '/dicom/getDicomFile',
 		            method: 'GET',
 		            data: { file_name: fileData.file_name },  // file_name 또는 sop_instance_uid 전달
 		            success: function(data) {
@@ -1866,65 +1935,67 @@ ul, #patientList {
 		    }
 		}
 
-		// 환자 번호를 토대로 stdy값 가져오는거 테스트 중
-		function showPatientInfo(patientNo) {
-		    $.ajax({
-		        url: '/getPatientInfo',
-		        method: 'GET',
-		        data: { no: patientNo }, // 환자 ID를 전달
-		        success: function(data) {
-		            // 서버로부터 받은 환자 정보를 HTML에 표시
-		            const patient = data;
-		            $('#pid').val(patient.no);
-		            // studydate 값 설정 (첫 번째 DICOM 파일의 studydate 값으로 설정)
-		            if (patient.dicomFiles && patient.dicomFiles.length > 0) {
-		                $('#studydate').val(patient.dicomFiles[0].studydate);
-		                loadDicomImageList(patient.dicomFiles, patient.no); // 파일 목록과 환자 ID 전달
-		                
-		                console.log("pid : ", $('#pid').val());
-		                console.log("studydate : ", $('#studydate').val());
-		            } else {
-		                clearDicomImages(); // DICOM 파일이 없는 경우 이미지 제거
-		            }
-		        },
-		        error: function(xhr, status, error) {
-		            console.error("Error fetching patient info:", xhr.responseText);
-		        }
-		    });
+		// 환자 번호를 토대로 study값 가져오는거 테스트 중
+		function showPatientInfo(patientNo,visitDate) {
+    		$.ajax({
+        		url: '/dicom/getPatientInfo',
+        		method: 'GET',
+        		data: { no: patientNo, studydate: visitDate},
+        		success: function(data) {
+            		const patient = data;
+            		// 버튼 요소에 데이터 저장
+            		$('.viewer').data('pid', patientNo);
+            		if (patient.dicomFiles && patient.dicomFiles.length > 0) {
+                		$('.viewer').data('studydate', patient.dicomFiles[0].studydate);
+                		loadDicomImageList(patient.dicomFiles, patient.no);
+                		console.log("hi1");
+            		} else {
+            			console.log("hi2");
+                		clearDicomImages();
+            		}
+        		},
+        		error: function(xhr, status, error) {
+            		console.error("Error fetching patient info:", xhr.responseText);
+        		}
+    		});
 		}
 
 		// 자세히 보기 버튼 이벤트
 		$('.viewer').on('click', function() {
-		    const pid = document.getElementById('pid').value;
-		    const studydate = document.getElementById('studydate').value;
+    		// 버튼 요소에 저장된 데이터 가져오기
+    		const pid = $(this).data('pid');
+    		const studydate = $(this).data('studydate');
+			console.log("pid : ",pid);
+			console.log("studydate : ",studydate);
+    		if (!pid || !dicomImagesLoaded) { 
+        		return;
+    		}
 
-		    if (!pid || !dicomImagesLoaded) {  // pid가 없거나 이미지가 로드되지 않았다면
-		        return;  // 요청을 보내지 않고 함수 종료
-		    }
+    		// form 생성
+    		const form = document.createElement('form');
+    		form.method = 'POST';
+    		form.action = '/dicom/viewer';
 
-		    // form 생성
-		    const form = document.createElement('form');
-		    form.method = 'POST';
-		    form.action = '/viewer';  // viewer.html 페이지로 POST 요청
-
-		    // pid와 studydate을 form 데이터로 추가
-		    const pidInput = document.createElement('input');
-		    pidInput.type = 'hidden';
-		    pidInput.name = 'pid';
-		    pidInput.value = pid;
+    		// pid와 studydate을 form 데이터로 추가
+    		const pidInput = document.createElement('input');
+    		pidInput.type = 'hidden';
+    		pidInput.name = 'pid';
+    		pidInput.value = pid;
 
 		    const studydateInput = document.createElement('input');
-		    studydateInput.type = 'hidden';
-		    studydateInput.name = 'studydate';
-		    studydateInput.value = studydate;
+    		studydateInput.type = 'hidden';
+    		studydateInput.name = 'studydate';
+    		studydateInput.value = studydate;
 
 		    form.appendChild(pidInput);
-		    form.appendChild(studydateInput);
+    		form.appendChild(studydateInput);
 
 		    // form을 body에 추가하고 제출
-		    document.body.appendChild(form);
-		    form.submit();
+    		document.body.appendChild(form);
+    		form.submit();
 		});
+
+
 
 		// 페이지 로드 시 레이아웃 조정
 		adjustLayout();
@@ -1957,7 +2028,7 @@ ul, #patientList {
 		    if (screenWidth >= 901) {
 		        document.querySelectorAll('.responsive-view .dicomImage').forEach(element => {
 		            element.style.flex = "1 1 calc(50% - 10px)";
-		            element.style.height = "200px";
+		            element.style.height = "300px";
 		            element.style.display = "flex";
 		        });
 		    } 
@@ -1978,8 +2049,6 @@ ul, #patientList {
 		        });
 		    }
 		}
-      
-      
 
     </script>
 </body>

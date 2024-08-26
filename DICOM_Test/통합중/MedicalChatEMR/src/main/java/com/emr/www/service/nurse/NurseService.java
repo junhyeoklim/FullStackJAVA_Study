@@ -78,5 +78,11 @@ public class NurseService {
 
 		return nurseDto;
 	}
+	
+	// 간호사 ID로 조회 - 수간호사
+    public NurseEntity getNurseByNo(int nurseNo) {
+        return nurseRepository.findByNo(nurseNo)
+                .orElseThrow(() -> new IllegalArgumentException("해당 ID로 간호사를 찾을 수 없습니다: " + nurseNo));
+    }
 
 }

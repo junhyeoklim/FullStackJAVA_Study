@@ -9,7 +9,7 @@
 <link rel="icon" href="/img/medical.ico" />
 <link rel="stylesheet"	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <link rel="stylesheet"	href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
-<link rel="stylesheet" href="/css/viewer.css">
+<link rel="stylesheet" href="/css/dicom/viewer.css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script	src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
 <script	src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
@@ -257,7 +257,7 @@ const playButton = document.querySelector('.playClipModal .fa-play').parentEleme
 const stopButton = document.querySelector('.playClipModal .fa-stop').parentElement;
 const pid = document.getElementById('pid').value; 
 const studydate = document.getElementById('studydate').value;
-const fileUrl = viewerPath + '/dicom?pid=' + pid + '&studydate=' + studydate;
+const fileUrl = viewerPath + '/dicom/getDicom?pid=' + pid + '&studydate=' + studydate;
 const customCursor = 'url(/img/cross.cur) 8 8, auto'; // 전역 변수로 설정
 
 
@@ -361,7 +361,7 @@ toolButton.addEventListener('click', function (e) {
 // 진료대기 목록 버튼 이벤트
 $('.dashboard-Button').click(function() {
     // 서버로 GET 요청 보내기
-    window.location.href = '/doctorUI';
+    window.location.href = '/doctor/main';
 });
 
 // 파일 다운로드 및 삭제 버튼 이벤트
@@ -382,7 +382,7 @@ $(".dcmDownLoad").click(function () {
         if (result.isConfirmed) {
             // 전역 변수를 직접 사용
             const xhr = new XMLHttpRequest();
-            xhr.open('POST', '/downloadDICOM', true);
+            xhr.open('POST', '/dicom/downloadDICOM', true);
             xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
             xhr.responseType = 'blob';  // Blob 타입의 응답을 받음
             xhr.onload = function () {
@@ -516,7 +516,7 @@ $(".dcmDelete").click(function () {
             // AJAX 요청으로 파일 삭제
             $.ajax({
                 type: "POST",
-                url: "/deleteDICOM",
+                url: "/dicom/deleteDICOM",
                 data: {
                     fileName: currentImageName // 현재 표시 중인 이미지 파일 이름을 전송
                 },
@@ -1902,7 +1902,7 @@ function saveAnnotation() {
             // AJAX 요청으로 주석 데이터 저장
             $.ajax({
                 type: "POST",
-                url: "/saveAnnotations",
+                url: "/dicom/saveAnnotations",
                 contentType: "application/json",
                 data: JSON.stringify({
                     sopInstanceUID: sopInstanceUID, // SOPInstanceUID 전송

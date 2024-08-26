@@ -25,7 +25,7 @@ public class DoctorEntity {
 
     private String name;
 
-    @Column(unique = true, nullable = false,  columnDefinition = "CHAR(8)")
+    @Column(unique = true, nullable = false,  columnDefinition = "CHAR(14)")
     private String securityNum;
 
     @Column(unique = true, nullable = false)
@@ -33,7 +33,7 @@ public class DoctorEntity {
 
     private String phone;
 
-    @Column(unique = true, nullable = false, length = 8)
+    @Column(unique = true, nullable = false, columnDefinition = "CHAR(8)")
     private String licenseId;
 
     private String password;

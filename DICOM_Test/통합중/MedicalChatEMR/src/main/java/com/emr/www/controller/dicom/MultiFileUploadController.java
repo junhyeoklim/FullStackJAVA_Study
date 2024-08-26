@@ -1,10 +1,10 @@
-package com.emr.www.controller.doctor;
+package com.emr.www.controller.dicom;
+
 
 import org.dcm4che3.data.Attributes;
 import org.dcm4che3.data.Tag;
 import org.dcm4che3.io.DicomInputStream;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,9 +27,6 @@ import java.util.Map;
 public class MultiFileUploadController {
 
     @Autowired
-    private JdbcTemplate jdbcTemplate;
-
-    @Autowired
     private DataSource dataSource;
     
     @GetMapping("/multi")
@@ -38,7 +35,7 @@ public class MultiFileUploadController {
     }
 
     @PostMapping("/upload-multiple")
-    public String handleMultipleFileUpload(@RequestParam("files") List<MultipartFile> files, Model model, RedirectAttributes redirectAttributes) {
+    public String handleMultipleFileUpload(@RequestParam List<MultipartFile> files, Model model, RedirectAttributes redirectAttributes) {
         if (files.isEmpty()) {
             return "error"; // 파일이 없을 경우 처리
         }

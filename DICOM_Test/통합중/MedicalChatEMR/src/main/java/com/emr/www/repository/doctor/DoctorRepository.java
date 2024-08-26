@@ -20,10 +20,11 @@ public interface DoctorRepository extends JpaRepository<DoctorEntity, Integer>, 
 
 	//로그인 및 회원가입
 	Optional<DoctorEntity> findByLicenseId(String licenseId);
+
 	Optional<DoctorEntity> findByLicenseIdAndPassword(String licenseId, String password);
-	
+
 	//진료 기록에 담당 의사 이름 찾기 위함 
-    Optional<DoctorEntity> findByNo(int no);
+	Optional<DoctorEntity> findByNo(int no);
 
 	//수간호사
 	@Query("SELECT d FROM DoctorEntity d WHERE (:name IS NULL OR d.name LIKE %:name%) AND (:position IS NULL OR d.position = :position)")
@@ -34,4 +35,9 @@ public interface DoctorRepository extends JpaRepository<DoctorEntity, Integer>, 
 
 	@Query("SELECT d FROM DoctorEntity d WHERE :position IS NULL OR d.position = :position")
 	List<DoctorEntity> findByPosition(@Param("position") String position);
+
+	Optional<DoctorEntity> findBySecurityNum(String SecurityNum);
+
+	List<DoctorEntity> findByName(String name);
+
 }

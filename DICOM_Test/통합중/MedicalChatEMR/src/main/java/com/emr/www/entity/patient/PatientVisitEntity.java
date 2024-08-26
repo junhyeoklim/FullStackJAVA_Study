@@ -1,7 +1,6 @@
 package com.emr.www.entity.patient;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 import com.emr.www.entity.doctor.DoctorEntity;
@@ -9,7 +8,6 @@ import com.emr.www.entity.nurse.NurseEntity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -29,31 +27,50 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "PatientVisits")
 public class PatientVisitEntity {
+	
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int no;
 
-	private String patientName;
-	private String securityNum;
-	private String visitReason;
-	private String nurseName;
-	private String visitHistory;
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(columnDefinition = "INT")
+    private int no;
 
-	//  @ManyToOne
-	//  @JoinColumn(name = "securityNum", referencedColumnName = "securityNum")
-	//  private PatientRegistrationEntity patient;
+    @Column
+    private LocalDate visitDate;
+    
+    @Column
+    private LocalTime visitTime;
+    
+    @Column
+    private String patientName;
+    
+    @Column
+    private String securityNum;
+    
+    @Column
+    private String visitReason;
+    
+    @Column
+    private String doctorName;
+    
+    @Column
+    private String nurseName;
+//    private String visitHistory;
 
-	@ManyToOne
-	@JoinColumn(name = "patientNo", referencedColumnName = "no")
-	private PatientRegistrationEntity patient;
+//    @ManyToOne
+//    @JoinColumn(name = "securityNum", referencedColumnName = "securityNum")
+//    private PatientRegistrationEntity patient;
+    
+    @ManyToOne
+    @JoinColumn(name = "patientNo", referencedColumnName = "no", columnDefinition = "INT")
+    private PatientRegistrationEntity patient;
 
-	@ManyToOne
-	@JoinColumn(name = "doctorNo", referencedColumnName = "no")
-	private DoctorEntity doctor;
+    @ManyToOne
+    @JoinColumn(name = "doctorNo", referencedColumnName = "no", columnDefinition = "INT")
+    private DoctorEntity doctor;
 
-	@ManyToOne
-	@JoinColumn(name = "nurseNo", referencedColumnName = "no")
-	private NurseEntity nurse;
-
+    @ManyToOne
+    @JoinColumn(name = "nurseNo", referencedColumnName = "no", columnDefinition = "INT")
+    private NurseEntity nurse;
 }

@@ -27,6 +27,7 @@ import com.emr.www.dto.patient.MedicalRecordDTO;
 import com.emr.www.dto.patient.PatientDTO;
 import com.emr.www.dto.patient.PatientRegistrationsDTO;
 import com.emr.www.dto.patient.PatientSummaryDTO;
+import com.emr.www.dto.patient.PatientVisitDTO;
 import com.emr.www.entity.doctor.DoctorEntity;
 import com.emr.www.entity.nurse.NurseEntity;
 import com.emr.www.entity.patient.PatientRegistrationEntity;
@@ -46,15 +47,14 @@ public class PatientController {
 	@Autowired
 	private NurseService nurseService;
 
-	
 	@Autowired
 	private PatientService patientService;
-	
+
 	@Autowired
-  	private PatientRegistrationRepository patientRepository;
-	
-    private static final Logger log = LoggerFactory.getLogger(PatientService.class);
-    
+	private PatientRegistrationRepository patientRepository;
+
+	private static final Logger log = LoggerFactory.getLogger(PatientService.class);
+
 	// 주민등록번호 유효성 검사 API
 	@PostMapping("/validateSecurityNum")
 	@ResponseBody
@@ -110,74 +110,37 @@ public class PatientController {
 		}
 	}
 
-	// 환자 내원(이름 기준으로 환자 정보를 검색하는 API)
+	// 이름으로 환자 검색 API
 	@GetMapping("/search")
-	@ResponseBody
-	public ResponseEntity<List<PatientDTO>> searchPatientsByName(@RequestParam("name") String name) {
-		log.info("검색 요청: 입력된 이름: {}", name); // 검색 요청 시 입력된 이름 로깅
-
-		if (name.trim().isEmpty()) {
-			log.info("빈 검색어로 요청됨");
-			return ResponseEntity.ok(new ArrayList<>()); // 빈 리스트 반환
-		}
-
-		// 입력된 이름을 포함하는 환자 목록을 조회합니다.
-		List<PatientRegistrationEntity> patients = patientRepository.findByNameContaining(name);
-		List<PatientDTO> patientDTOs = new ArrayList<>();
-
-		// 조회된 환자 엔티티를 DTO로 변환합니다.
-		for (PatientRegistrationEntity patient : patients) {
+	public ResponseEntity<List<PatientDTO>> searchPatients(@RequestParam String name) {
+		List<PatientRegistrationEntity> patients = patientRepository.findByNameStartingWith(name);
+		List<PatientDTO> patientDTOs = patients.stream().map(patient -> {
 			PatientDTO dto = new PatientDTO();
 			BeanUtils.copyProperties(patient, dto);
-			patientDTOs.add(dto);
-
-			// 검색된 환자의 이름과 주민등록번호 로깅
-			log.info("검색 결과: 이름: {}, 주민등록번호: {}", patient.getName(), patient.getSecurityNum());
-		}
-
-		if (patientDTOs.isEmpty()) {
-			log.info("검색 결과가 없습니다. 입력된 이름: {}", name);
-		}
-
+			return dto;
+		}).collect(Collectors.toList());
 		return ResponseEntity.ok(patientDTOs);
 	}
 
 	// 환자의 내원 정보를 등록
-	@PostMapping("/visit")
-	@ResponseBody
-	public ResponseEntity<String> registerPatientVisit(@RequestBody PatientDTO patientVisitDTO) {
-		log.info("환자 내원 정보: {}", patientVisitDTO);
+	@PostMapping("/visitPatient")
+	public ResponseEntity<String> registerPatientVisit(@RequestBody PatientVisitDTO patientVisitDTO) {
 
-		// 환자의 이름과 주민등록번호로 기존 환자를 찾습니다.
-		PatientRegistrationEntity patient = patientRepository.findByNameAndSecurityNum(patientVisitDTO.getName(),
-				patientVisitDTO.getSecurityNum());
-
-	    // 환자, 의사, 간호사 정보를 기반으로 환자 방문 정보를 저장
-//	    patientService.registerPatientVisit(patientVisitDTO);
-	    
-	    return ResponseEntity.ok("환자 내원이 성공적으로 등록되었습니다.");
-	    
-//		if (patient != null) {
-//			// 내원 정보를 등록하는 로직 (예: 내원 내역 테이블에 저장)
-//			// patientService.registerVisit(patient, patientVisitDTO); // 내원 정보 저장 로직
-//
-//			return ResponseEntity.ok("환자 내원이 성공적으로 처리되었습니다.");
-//		} else {
-//			return ResponseEntity.badRequest().body("해당 정보와 일치하는 환자가 존재하지 않습니다.");
-//		}
+	    log.info("환자 내원 등록 요청 수신(받은 JSON 데이터): {}\n", patientVisitDTO);
+	    try {
+	        // 환자 내원 등록 서비스 호출
+	        patientService.registerPatientVisit(patientVisitDTO);
+	        log.info("환자 내원 등록 성공: {}\n", patientVisitDTO);
+	        return ResponseEntity.ok("내원이 성공적으로 등록되었습니다.");
+	    } catch (IllegalArgumentException e) {
+	        log.error("환자 내원 등록 중 오류 발생 (잘못된 입력): {}\n", e.getMessage());
+	        return ResponseEntity.badRequest().body(e.getMessage());
+	    } catch (Exception e) {
+	        log.error("환자 내원 등록 중 시스템 오류 발생: {}\n", e.getMessage(), e);
+	        return ResponseEntity.status(500).body("내원 등록 중 오류가 발생했습니다.");
+	    }
 	}
-	
-//    @GetMapping("/search")
-//    public ResponseEntity<Page<PatientDTO>> searchPatients(
-//            @RequestParam String name, 
-//            @RequestParam int page, 
-//            @RequestParam int size) {
-//        if (name.length() < 2) {
-//            return ResponseEntity.ok(Page.empty());  // 두 글자 미만이면 빈 결과 반환
-//        }
-//        Page<PatientDTO> patients = patientService.searchPatientsByName(name, page, size);
-//        return ResponseEntity.ok(patients);
-//    }
+
 
 	@GetMapping("/doctors")
 	public ResponseEntity<List<DoctorDTO>> getAllDoctors() {
@@ -190,67 +153,45 @@ public class PatientController {
 	@GetMapping("/nurses")
 	public ResponseEntity<List<NurseDTO>> getAllNurses() {
 		List<NurseEntity> nurses = nurseService.getAllNurses();
-		List<NurseDTO> nurseDTOs = nurses.stream().map(nurseService::convertGetAllNurseDataToDto).collect(Collectors.toList());
+		List<NurseDTO> nurseDTOs = nurses.stream().map(nurseService::convertEntityToDto).collect(Collectors.toList());
 		return ResponseEntity.ok(nurseDTOs);
 	}
-	
-	
 
-//    // 환자 이름으로 검색
-//    @GetMapping("/search")
-//    public ResponseEntity<List<PatientDTO>> searchPatientsByName(@RequestParam("name") String name) {
-//        List<PatientDTO> patients = patientService.findByName(name);
-//        return ResponseEntity.ok(patients);
-//    }
-//
-//    // 환자 내원 처리
-//    @PostMapping("/visit")
-//    public ResponseEntity<String> registerPatientVisit(@RequestBody PatientDTO patientVisitDTO) {
-//        log.info("환자 내원 정보: {}", patientVisitDTO);
-//        
-//        PatientDTO patient = patientService.getPatientByNameAndSecurityNum(
-//                patientVisitDTO.getName(), patientVisitDTO.getSecurityNum());
-//
-//        if (patient != null) {
-//            // 필요한 내원 정보를 업데이트하거나 저장하는 로직 추가
-//            patientService.registerPatientVisit(patient, patientVisitDTO);
-//            return ResponseEntity.ok("환자 내원이 성공적으로 처리되었습니다.");
-//        } else {
-//            return ResponseEntity.badRequest().body("해당 정보와 일치하는 환자가 존재하지 않습니다.");
-//        }
-//    }
-/* --------------------------------------------------------------공통 로직--------------------------------------------------------- */
-    
- // 환자 목록 페이징 처리 (PatientSummaryDTO 사용)
- // 환자 목록을 offset과 limit을 사용해서 부분적으로 불러옴
-    @GetMapping("/patientList") //-- 간호사, 의사
-    @ResponseBody
-    public ResponseEntity<List<PatientSummaryDTO>> getPatients(@RequestParam int offset, @RequestParam int limit) {
-    	 List<PatientSummaryDTO> patients = patientService.getPatients(offset, limit);
-         if (patients.isEmpty()) {
-             return ResponseEntity.noContent().build(); // 빈 응답
-         }
-         return ResponseEntity.ok(patients);
-    }
-    
-    // 특정 환자의 기본 정보 조회 (PatientDetailsDTO 사용) -- 간호사, 의사
-    @GetMapping("/info/{patientNo}")
-    public ResponseEntity<PatientRegistrationsDTO> getPatientBasicInfo(@PathVariable int patientNo) {
-        PatientRegistrationsDTO patientDetails = patientService.getPatientDetails(patientNo);
-        if (patientDetails == null) {
-            return ResponseEntity.noContent().build(); // 빈 응답
-        }
-        return ResponseEntity.ok(patientDetails);
-    }
-    
-    // 특정 환자의 진료 기록 및 관련 데이터 가져오기 -- 간호사 , 의사
-    @GetMapping("/recordsPatientNo/{patientNo}")
-    public ResponseEntity<List<MedicalRecordDTO>> getPatientMedicalRecords(@PathVariable int patientNo) {
-        List<MedicalRecordDTO> medicalRecords = patientService.getPatientMedicalRecords(patientNo);
-        return ResponseEntity.ok(medicalRecords);
-    }
-    
-    // 진단 작성 모드로 진료 기록 저장
+	/*
+	 * --------------------------------------------------------------공통
+	 * 로직---------------------------------------------------------
+	 */
+
+	// 환자 목록 페이징 처리 (PatientSummaryDTO 사용)
+	// 환자 목록을 offset과 limit을 사용해서 부분적으로 불러옴
+	@GetMapping("/patientList") //-- 간호사, 의사
+	@ResponseBody
+	public ResponseEntity<List<PatientSummaryDTO>> getPatients(@RequestParam int offset, @RequestParam int limit) {
+		List<PatientSummaryDTO> patients = patientService.getPatients(offset, limit);
+		if (patients.isEmpty()) {
+			return ResponseEntity.noContent().build(); // 빈 응답
+		}
+		return ResponseEntity.ok(patients);
+	}
+
+	// 특정 환자의 기본 정보 조회 (PatientDetailsDTO 사용) -- 간호사, 의사
+	@GetMapping("/info/{patientNo}")
+	public ResponseEntity<PatientRegistrationsDTO> getPatientBasicInfo(@PathVariable int patientNo) {
+		PatientRegistrationsDTO patientDetails = patientService.getPatientDetails(patientNo);
+		if (patientDetails == null) {
+			return ResponseEntity.noContent().build(); // 빈 응답
+		}
+		return ResponseEntity.ok(patientDetails);
+	}
+
+	// 특정 환자의 진료 기록 및 관련 데이터 가져오기 -- 간호사 , 의사
+	@GetMapping("/recordsPatientNo/{patientNo}")
+	public ResponseEntity<List<MedicalRecordDTO>> getPatientMedicalRecords(@PathVariable int patientNo) {
+		List<MedicalRecordDTO> medicalRecords = patientService.getPatientMedicalRecords(patientNo);
+		return ResponseEntity.ok(medicalRecords);
+	}
+
+	// 진단 작성 모드로 진료 기록 저장
 	/*
 	 * @PostMapping("/recordsSave") public ResponseEntity<MedicalRecordDTO>
 	 * saveMedicalRecord(@RequestBody MedicalRecordDTO request) {

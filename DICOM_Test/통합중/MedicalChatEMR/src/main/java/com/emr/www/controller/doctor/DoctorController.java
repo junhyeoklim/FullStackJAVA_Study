@@ -41,12 +41,11 @@ public class DoctorController {
 	private DataSource dataSource;
 
 	@GetMapping("/main")
-	public String showDoctorMainPage(Model model) {
-	    // 환자 정보 리스트를 저장할 리스트
+	public String showDoctorMainPage(Model model) {	    // 환자 정보 리스트를 저장할 리스트
 	    List<Map<String, Object>> patientList = new ArrayList<>();
 
 	    // SQL 쿼리: 환자 정보를 조회합니다.
-	    String sql = "SELECT no, name FROM PatientRegistrations";
+	    String sql = "SELECT no, name, securityNum, gender, address, phone, email, bloodType, height, weight, allergies, bloodPressure, temperature, smokingStatus FROM PatientRegistrations";
 
 	    // 데이터베이스 연결 및 쿼리 실행
 	    try (Connection conn = dataSource.getConnection();
@@ -71,7 +70,7 @@ public class DoctorController {
 	    model.addAttribute("patientList", patientList);
 
 	    // JSP 파일로 반환
-		return "doctor/doctorMain"; // "WEB-INF/views/doctor/DoctorMain.jsp"를 의미
+	    return "doctor/DoctorMain";// "WEB-INF/views/doctor/DoctorMain.jsp"를 의미
 	}
 
 	@PostMapping("/saveRecord")

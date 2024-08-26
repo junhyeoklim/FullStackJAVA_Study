@@ -631,6 +631,26 @@ footer {
 .smoking-status-selection .radio-group input[type="radio"] {
 	margin-right: 5px;
 }
+
+.patient-search-results {
+	position: absolute;
+	z-index: 1000;
+	background-color: #fff;
+	border: 1px solid #ccc;
+	max-height: 150px;
+	overflow-y: auto;
+	box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+	width: 498px; /* 입력 필드와 동일한 너비로 설정 */
+}
+
+.search-result-item {
+	padding: 8px 12px;
+	border-bottom: 1px solid #ddd;
+}
+
+.search-result-item:hover {
+	background-color: #ADD8E6; /* 호버링 시 배경 색상 */
+}
 </style>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
@@ -641,7 +661,7 @@ footer {
 <body>
 	<header>
 		<div class="logo">
-			<img src="/Img/Logo.png" alt="Logo" class="nav-logo">
+			<img src="/img/Logo.png" alt="Logo" class="nav-logo">
 		</div>
 		<nav>
 			<button id="patient-register-btn" class="nav-btn">환자등록</button>
@@ -651,7 +671,7 @@ footer {
 			<button id="messages-btn" class="nav-btn">메시지</button>
 			<button id="chat-ai-btn" class="nav-btn">CHAT AI</button>
 			<div class="profile-info">
-				<img id="profile-image" src="doctorProfile.png" alt="Profile Image">
+				<img id="profile-image" src="/images/ProfileImage/현율무_jisoo.png" alt="Profile Image">
 				<div class="status-indicator"></div>
 				<button id="logout-btn" class="logout-btn">로그아웃</button>
 				<div class="dropdown-menu">
@@ -928,13 +948,13 @@ footer {
 			<h2>신규 환자 등록</h2>
 			<form id="patientRegisterForm" method="POST" action="registerPatient">
 				<div class="form-group">
-					<label for="patientName">이름:</label> <input type="text"
-						id="patientName" name="patientName" required>
+					<label for="registerPatientName">이름:</label> <input type="text"
+						id="registerPatientName" name="registerPatientName" required>
 				</div>
 				<div class="form-group">
-					<label for="patientSecurityNum">주민등록번호:</label> <input type="text"
-						id="patientSecurityNum" name="patientSecurityNum" maxlength="14"
-						required>
+					<label for="registerPatientSecurityNum">주민등록번호:</label> <input
+						type="text" id="registerPatientSecurityNum"
+						name="registerPatientSecurityNum" maxlength="14" required>
 				</div>
 				<div class="gender-selection">
 					<label>성별:</label>
@@ -1044,7 +1064,7 @@ footer {
 			<h2>환자 내원</h2>
 			<form id="patientVisitForm">
 				<div class="form-group">
-					<label for="visitDate">일자:</label> <input type="date"
+					<label for="visitDate">내원(진료) 일자:</label> <input type="date"
 						id="visitDate" name="visitDate" required>
 				</div>
 				<div class="form-group">
@@ -1052,18 +1072,16 @@ footer {
 						id="visitTime" name="visitTime" required>
 				</div>
 				<div class="form-group">
-					<label for="patientName">성명:</label> <input type="text"
-						id="patientName" name="patientName" required
+					<label for="visitPatientName">성명:</label> <input type="text"
+						id="visitPatientName" name="visitPatientName" required
 						oninput="searchPatients(this.value)">
-					<div id="patientSearchResults"
-						style="border: 1px solid #ccc; display: none; max-height: 150px; overflow-y: auto;"></div>
-					<button id="prevPage" onclick="prevPage()" style="display: none;">이전</button>
-					<button id="nextPage" onclick="nextPage()" style="display: none;">다음</button>
+					<div id="patientSearchResults" class="patient-search-results"></div>
 				</div>
+
 				<div class="form-group">
-					<label for="patientSecurityNum">주민등록번호:</label> <input type="text"
-						id="patientSecurityNum" name="patientSecurityNum" maxlength="14"
-						required>
+					<label for="visitPatientSecurityNum">주민등록번호:</label> <input
+						type="text" id="visitPatientSecurityNum"
+						name="visitPatientSecurityNum" maxlength="14" required>
 				</div>
 				<div class="form-group">
 					<label for="visitReason">내원 사유(증상):</label>
@@ -1071,14 +1089,14 @@ footer {
 				</div>
 				<div class="form-group">
 					<label for="doctorSelect">담당 의사:</label> <select id="doctorSelect"
-						name="doctorNo" required>
+						name="doctorName" required>
 						<option value="">의사를 선택하세요</option>
 					</select>
 				</div>
 
 				<div class="form-group">
 					<label for="nurseSelect">담당 간호사:</label> <select id="nurseSelect"
-						name="nurseNo" required>
+						name="nurseN" required>
 						<option value="">간호사를 선택하세요</option>
 					</select>
 				</div>
@@ -1090,561 +1108,614 @@ footer {
 	</div>
 
 	<script>
-        // 메시지 버튼 클릭 이벤트
-        document.getElementById('messages-btn').addEventListener('click', function () {
-            const rightSidebar = document.querySelector('.rightSidebar');
-            const content = document.querySelector('.content');
-
-            if (rightSidebar.classList.contains('hidden')) {
-                rightSidebar.classList.remove('hidden');
-                content.style.width = 'calc(100% - 600px)'; // 좌우 사이드바를 고려한 너비
-            } else {
-                rightSidebar.classList.add('hidden');
-                content.style.width = 'calc(100% - 300px)'; // 왼쪽 사이드바만 고려한 너비
-            }
-        });
-
-        // 메시지 전송 기능 (예시)
-        document.getElementById('sendMessage').addEventListener('click', function () {
-            const messageInput = document.getElementById('messageInput');
-            const message = messageInput.value.trim();
-
-            if (message) {
-                const chatMessages = document.querySelector('.chat-messages');
-                const messageElement = document.createElement('p');
-                messageElement.textContent = message;
-                chatMessages.appendChild(messageElement);
-                messageInput.value = '';
-
-                // 여기에 실제 메시지 전송 로직을 추가해야 합니다.
-            }
-        });
-
-        // 캘린더 기능
-document.addEventListener('DOMContentLoaded', function() {
-    var calendarEl = document.getElementById('calendar');
-
-    var calendar = new FullCalendar.Calendar(calendarEl, {
-        initialView: 'dayGridMonth',
-        locale: 'ko',
-        headerToolbar: {
-            left: 'prev,next today',
-            center: 'title',
-            right: 'dayGridMonth,timeGridWeek,timeGridDay'
-        },
-        dayHeaderContent: function(arg) {
-            var dayName = arg.text;
-            var element = document.createElement('span');
-            element.innerHTML = dayName;
-            element.style.fontSize = '1.4em';  // 요일 폰트 크기 증가
-            element.style.fontWeight = 'bold';  // 요일을 굵게 표시
-            return { domNodes: [element] };
-        },
-        dayCellContent: function(arg) {
-            var dayOfWeek = arg.date.getDay();
-            var dateText = arg.dayNumberText.replace('일', '');
-            
-            var element = document.createElement('div');
-            element.innerHTML = dateText;
-            element.style.fontSize = '1.4em';  // 날짜 숫자 폰트 크기 증가
-            element.style.fontWeight = 'bold';  // 날짜 숫자를 굵게 표시
-            
-            if (dayOfWeek === 0) {  // 일요일
-                element.style.color = 'red';
-            } else if (dayOfWeek === 6) {  // 토요일
-                element.style.color = 'blue';
-            }
-            
-            return { domNodes: [element] };
-        },
-        dateClick: function(info) {
-            var clickedDate = new Date(info.dateStr);
-            var calendarDate = calendar.getDate();
-
-            if (clickedDate.getMonth() < calendarDate.getMonth() && clickedDate.getFullYear() === calendarDate.getFullYear() ||
-                clickedDate.getFullYear() < calendarDate.getFullYear()) {
-                calendar.prev();
-            } else if (clickedDate.getMonth() > calendarDate.getMonth() && clickedDate.getFullYear() === calendarDate.getFullYear() ||
-                       clickedDate.getFullYear() > calendarDate.getFullYear()) {
-                calendar.next();
-            } else {
-                alert('Date: ' + info.dateStr);
-            }
-        },
-        events: [
-            {
-                title: 'All Day Event',
-                start: '2023-08-01'
-            },
-            {
-                title: 'Long Event',
-                start: '2023-08-07',
-                end: '2023-08-10'
-            }
-        ]
-    });
-
-    calendar.render();
-});
-
-
-
-        // 탭 전환 기능
-        function showAllPatients() {
-            document.getElementById('all-patients').style.display = 'block';
-            document.getElementById('managed-patients').style.display = 'none';
-            document.getElementById('tab-all-patients').classList.add('active');
-            document.getElementById('tab-managed-patients').classList.remove('active');
-        }
-
-        function showManagedPatients() {
-            document.getElementById('all-patients').style.display = 'none';
-            document.getElementById('managed-patients').style.display = 'block';
-            document.getElementById('tab-all-patients').classList.remove('active');
-            document.getElementById('tab-managed-patients').classList.add('active');
-        }
-
-        // 모달 기능
-        const patientRegisterModal = document.getElementById('patientRegisterModal');
-        const patientVisitModal = document.getElementById('patientVisitModal');
-        const patientRegisterBtn = document.getElementById('patient-register-btn');
-        const patientVisitBtn = document.getElementById('patient-visit-btn');
-        const closeBtns = document.getElementsByClassName('close');
-
-        patientRegisterBtn.onclick = function () {
-            patientRegisterModal.style.display = 'block';
-        }
-
-        patientVisitBtn.onclick = function () {
-            patientVisitModal.style.display = 'block';
-        }
-
-        for (let closeBtn of closeBtns) {
-            closeBtn.onclick = function () {
-                patientRegisterModal.style.display = 'none';
-                patientVisitModal.style.display = 'none';
-            }
-        }
-
-        window.onclick = function (event) {
-            if (event.target == patientRegisterModal) {
-                patientRegisterModal.style.display = 'none';
-            }
-            if (event.target == patientVisitModal) {
-                patientVisitModal.style.display = 'none';
-            }
-        }
-
-        // 프로필 이미지 클릭 시 드롭다운 메뉴 표시
-        document.getElementById('profile-image').addEventListener('click', function (event) {
-            event.stopPropagation();
-            document.querySelector('.dropdown-menu').style.display = 'block';
-        });
-
-        // 문서 클릭 시 드롭다운 메뉴 숨기기
-        document.addEventListener('click', function () {
-            document.querySelector('.dropdown-menu').style.display = 'none';
-        });
-
-        // 상태 변경 기능
-        function setStatus(status, color) {
-            document.querySelector('.status-indicator').style.backgroundColor = color;
-            // 여기에 서버로 상태 변경을 전송하는 로직을 추가할 수 있습니다.
-        }
-
-        // 전화번호 자동 포맷팅 기능
-        document.getElementById('patientPhone').addEventListener('input', function (e) {
-            let x = e.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,4})(\d{0,4})/);
-            e.target.value = !x[2] ? x[1] : x[1] + '-' + x[2] + (x[3] ? '-' + x[3] : '');
-        });
-
-
-
-		
-		// 다음 주소api 불러오기
-        function loadDaumPostcodeScript() {
-            return new Promise((resolve, reject) => {
-                if (typeof daum !== 'undefined') {
-                    resolve();
-                    return;
-                }
-                const script = document.createElement('script');
-                script.src = "//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js";
-                script.onload = resolve;
-                script.onerror = reject;
-                document.head.appendChild(script);
-            });
-        }
-        async function execDaumPostcode() {
-            try {
-                await loadDaumPostcodeScript();
-                new daum.Postcode({
-                    oncomplete: function (data) {
-                        // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-
-                        // 각 주소의 노출 규칙에 따라 주소를 조합한다.
-                        // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-                        var addr = ''; // 주소 변수
-
-                        //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-                        if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-                            addr = data.roadAddress;
-                        } else { // 사용자가 지번 주소를 선택했을 경우(J)
-                            addr = data.jibunAddress;
-                        }
-
-                        console.log(addr)
-
-                        // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                        document.getElementById('patientPostcode').value = data.zonecode;
-                        document.getElementById('patientAddress').value = addr;
-                        // 커서를 상세주소 필드로 이동한다.
-                        document.getElementById('patientDetailAddress').focus();
-
-                        console.log(document.getElementById('partientPostcode'));
-
-                    }
-
-                }).open();
-            } catch (error) {
-                console.error('Failed to load Daum Postcode script:', error);
-                alert('우편번호 서비스를 불러오는 데 실패했습니다. 잠시 후 다시 시도해 주세요.');
-            }
-        }
-        
-        // 이메일 도메인 선택 기능
-		document.getElementById('emailDomainSelect').addEventListener('change', function() {
-		    var domainInput = document.getElementById('patientEmailDomain');
-		    if (this.value !== "") {
-		        domainInput.value = this.value;
-		        domainInput.readOnly = true;
-		    } else {
-		        domainInput.value = "";
-		        domainInput.readOnly = false;
-		    }
-		});
-		        
-		// 주민등록번호 자동 포맷팅 기능 (환자 등록)
-		document.getElementById('patientSecurityNum').addEventListener('input', function (e) {
-		    formatSecurityNum(e.target);
-		});
-		
-		// 주민등록번호 자동 포맷팅 기능 (환자 내원)
-		document.getElementById('patientVisitModal').querySelector('[name="patientSecurityNum"]').addEventListener('input', function (e) {
-		    formatSecurityNum(e.target);
-		});
-		
-		// 주민등록번호 포맷팅 함수
-		function formatSecurityNum(input) {
-		    let x = input.value.replace(/\D/g, '').match(/(\d{0,6})(\d{0,7})/);
-		    input.value = !x[2] ? x[1] : x[1] + '-' + x[2];
-		}
-		
-		// 키 글자수 제한
-		document.getElementById('patientHeight').addEventListener('input', function() {
-		    if (this.value.length > 6) {
-		        this.value = this.value.slice(0, 6);
-		    }
-		});
-
-		// 체중 글자수 제한
-		document.getElementById('patientWeight').addEventListener('input', function() {
-		    if (this.value.length > 6) {
-		        this.value = this.value.slice(0, 6);
-		    }
-		});
-		
-		// 혈압 "/"만 가능하게 제한
-		document.getElementById('patientBloodPressure').addEventListener('input', function() {
-		    // 현재 입력된 값에서 숫자, 소수점, 슬래시("/")만 남기고 필터링
-		    this.value = this.value.replace(/[^0-9./]/g, '');
-		    
-		});
-		
-		// 체온 글자수 제한
-		document.getElementById('patientTemperature').addEventListener('input', function() {
-		    if (this.value.length > 4) {
-		        this.value = this.value.slice(0, 4);
-		    }
-		});
-		
-
-
-		// 환자등록 폼 제출 로직
-		document.getElementById('patientRegisterForm').addEventListener('submit', function(e) {
-		    e.preventDefault();
-		
-		    const securityNumInput = document.getElementById('patientSecurityNum');
-		    const securityNum = securityNumInput.value;
-		
-		    // 주민등록번호 유효성 검사
-		    fetch('/api/patients/validateSecurityNum', {
-		        method: 'POST',
-		        headers: {
-		            'Content-Type': 'application/json',
-		        },
-		        body: JSON.stringify({ securityNum: securityNum })
-		    })
-		    .then(response => {
-		        if (response.ok) {
-		            return response.text();
-		        } else {
-		            return response.text().then(text => {
-		                throw new Error(text || 'Invalid security number');
-		            });
-		        }
-		    })
-		    .then(message => {
-		        // 유효성 검사 통과 시 환자 등록 로직 실행
-		        submitPatientRegistrationForm();
-		    })
-		    .catch(error => {
-		        console.error('Error:', error);
-		        alert('유효성 검사 중 오류가 발생했습니다: ' + error.message);
-		    });
-		});
-
-		// 실제 환자 등록 로직
-		function submitPatientRegistrationForm() {
-		    // 폼 데이터 수집
-		    const formData = new FormData(document.getElementById('patientRegisterForm'));
-		    const patientData = {};
-		
-		    formData.forEach((value, key) => {
-		        switch(key) {
-		            case 'patientEmailId':
-		            case 'patientEmailDomain':
-		                if (!patientData.email) patientData.email = '';
-		                patientData.email += value + (key === 'patientEmailId' ? '@' : '');
-		                break;
-		            case 'patientRhFactor':
-		            case 'patientABOBloodType':
-		                if (!patientData.bloodType) patientData.bloodType = '';
-		                patientData.bloodType += value;
-		                break;
-		            case 'patientName':
-		                patientData.name = value;
-		                break;
-		            case 'patientSecurityNum':
-		                patientData.securityNum = value;
-		                break;
-		            case 'patientGender':
-		                patientData.gender = value;
-		                break;
-		            case 'patientPostcode':
-		            case 'patientAddress':
-		            case 'patientDetailAddress':
-		                if (!patientData.address) patientData.address = '';
-		                patientData.address += value + ' ';
-		                break;
-		            case 'patientPhone':
-		                patientData.phone = value;
-		                break;
-		            case 'patientHeight':
-		                patientData.height = value;
-		                break;
-		            case 'patientWeight':
-		                patientData.weight = value;
-		                break;
-		            case 'patientAllergies':
-		                patientData.allergies = value.trim() === '' ? null : value;
-		                break;
-		            case 'patientBloodPressure':
-		                patientData.bloodPressure = value.trim() === '' ? null : value;
-		                break;
-		            case 'patientTemperature':
-		                patientData.temperature = value;
-		                break;
-		            case 'patientSmokingStatus':
-		                patientData.smokingStatus = value;
-		                break;
-		            default:
-		                patientData[key] = value;
-		        }
-		    });
-		
-		    // AJAX 요청을 통해 환자 등록
-			fetch('/api/patients/registerPatient', {
-			    method: 'POST',
-			    headers: {
-			        'Content-Type': 'application/json', // Content-Type을 JSON으로 설정
-			    },
-			    body: JSON.stringify(patientData) // JSON 형식으로 변환하여 전송
-			})
-			.then(response => {
-			    if (response.status === 409) {
-			        throw new Error('중복된 주민등록번호가 있습니다.');
-			    } else if (!response.ok) {
-			        return response.text().then(text => {
-			            throw new Error(text || '환자 등록 중 오류가 발생했습니다.');
-			        });
-			    }
-			    return response.json();
-			})
-			.then(data => {
-			    alert('환자가 성공적으로 등록되었습니다.');
-			    document.getElementById('patientRegisterModal').style.display = 'none';
-			    // 필요한 경우 페이지 새로고침 또는 환자 목록 업데이트
-			})
-			.catch(error => {
-			    console.error('Error:', error);
-			    alert('환자 등록 중 오류가 발생했습니다: ' + error.message);
-			});
-		}
-
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////
-		
-		function searchPatients(query) {
-		    if (query.length < 2) {
-		        document.getElementById('patientSearchResults').style.display = 'none';
-		        return;
-		    }
-		
-		    fetch(`/api/patients/search?name=${query}`)
-		        .then(response => response.json())
-		        .then(data => {
-		            const resultsDiv = document.getElementById('patientSearchResults');
-		            resultsDiv.innerHTML = '';
-		            if (data.length > 0) {
-		                data.forEach(patient => {
-		                    const option = document.createElement('div');
-		                    option.textContent = patient.name + ", " + patient.securityNum ;
-		                    option.style.cursor = 'pointer';
-		                    option.onclick = () => {
-		                        document.getElementById('patientName').value = patient.name;
-		                        document.getElementById('patientSecurityNum').value = patient.securityNum;
-		                        resultsDiv.style.display = 'none';
-		                    };
-		                    resultsDiv.appendChild(option);
-		                });
-		                resultsDiv.style.display = 'block';
-		            } else {
-		                resultsDiv.style.display = 'none';
-		            }
-		        })
-		        .catch(error => {
-		            console.error('Error:', error);
-		        });
-		}
-		
-		let currentPage = 0;
-		
-		function searchPatients(name) {
-		    if (name.length > 1) {  // 두 글자 이상 입력되었을 때만 검색
-		        fetch(`/api/patient/search?name=${name}&page=${currentPage}&size=10`)
-		            .then(response => response.json())
-		            .then(data => {
-		                const results = document.getElementById('patientSearchResults');
-		                results.innerHTML = '';  // 이전 결과를 지움
-		                
-		                data.content.forEach(patient => {
-		                    const div = document.createElement('div');
-		                    div.textContent = `${patient.name} - ${patient.securityNum}`;
-		                    div.style.padding = '5px';
-		                    div.style.cursor = 'pointer';
-		                    div.onclick = () => selectPatient(patient);
-		                    results.appendChild(div);
-		                });
-		
-		                // 드롭다운 표시
-		                results.style.display = 'block';
-		
-		                // 페이징 버튼 처리
-		                document.getElementById('prevPage').style.display = currentPage > 0 ? 'inline' : 'none';
-		                document.getElementById('nextPage').style.display = data.totalPages > currentPage + 1 ? 'inline' : 'none';
-		            });
-		    } else {
-		        // 입력이 두 글자 미만인 경우 검색 결과를 숨김
-		        document.getElementById('patientSearchResults').style.display = 'none';
-		        document.getElementById('prevPage').style.display = 'none';
-		        document.getElementById('nextPage').style.display = 'none';
-		    }
-		}
-		
-		function selectPatient(patient) {
-		    document.getElementById('patientName').value = patient.name;
-		    document.getElementById('patientSecurityNum').value = patient.securityNum;
-		    document.getElementById('patientSearchResults').style.display = 'none';  // 선택 후 드롭다운 숨김
-		}
-		
-		function prevPage() {
-		    if (currentPage > 0) {
-		        currentPage--;
-		        searchPatients(document.getElementById('patientName').value);
-		    }
-		}
-		
-		function nextPage() {
-		    currentPage++;
-		    searchPatients(document.getElementById('patientName').value);
-		}
-
-		// 의사 목록 불러오기
-		fetch('/api/patients/doctors')
-		    .then(response => response.json())
-		    .then(doctors => {
-		        const doctorSelect = document.getElementById('doctorSelect');
-		        // 이름을 기준으로 ㄱㄴㄷ순으로 정렬
-        		doctors.sort((a, b) => a.name.localeCompare(b.name, 'ko-KR'));
-		        doctors.forEach(doctor => {
-		            const option = document.createElement('option');
-		            option.value = doctor.no; // 의사의 ID를 value로 사용
-		            //option.text = `${doctor.name} (${doctor.departmentId})`; // 의사의 이름과 부서를 표시
-		            option.text = doctor.name + "(" + doctor.departmentId + ")"; // 의사의 이름과 부서를 표시
-		            doctorSelect.appendChild(option);
-		        });
-		    });
+	    document.addEventListener('DOMContentLoaded', function() {
+	        // 메시지 버튼 클릭 이벤트
+	        const messagesBtn = document.getElementById('messages-btn');
+	        if (messagesBtn) {
+	            messagesBtn.addEventListener('click', function () {
+	                const rightSidebar = document.querySelector('.rightSidebar');
+	                const content = document.querySelector('.content');
 	
-	    // 간호사 목록 불러오기
-	    fetch('/api/patients/nurses')
-	        .then(response => response.json())
-	        .then(nurses => {
-	            const nurseSelect = document.getElementById('nurseSelect');
-                // 이름을 기준으로 ㄱㄴㄷ순으로 정렬
-       	 		nurses.sort((a, b) => a.name.localeCompare(b.name, 'ko-KR'));
-	            nurses.forEach(nurse => {
-	                const option = document.createElement('option');
-	                option.value = nurse.no; // 간호사의 ID를 value로 사용
-	                option.text = nurse.position+ " " + nurse.name + "(" + nurse.departmentId + ")"; // 간호사의 이름을 표시
-	                nurseSelect.appendChild(option);
+	                if (rightSidebar.classList.contains('hidden')) {
+	                    rightSidebar.classList.remove('hidden');
+	                    content.style.width = 'calc(100% - 600px)'; // 좌우 사이드바를 고려한 너비
+	                } else {
+	                    rightSidebar.classList.add('hidden');
+	                    content.style.width = 'calc(100% - 300px)'; // 왼쪽 사이드바만 고려한 너비
+	                }
 	            });
-	        });
-        
-		document.getElementById('patientVisitForm').addEventListener('submit', function (e) {
-		    e.preventDefault();
-		
-		    const visitData = {
-		        visitDate: document.getElementById('visitDate').value,
-		        patientName: document.getElementById('patientName').value,
-		        securityNum: document.getElementById('patientSecurityNum').value,
-		        visitReason: document.getElementById('visitReason').value,
-		        doctorNo: document.getElementById('doctorSelect').value,
-		        nurseNo: document.getElementById('nurseSelect').value
-		    };
-		
-		    fetch('/api/patients/visit', {
-		        method: 'POST',
-		        headers: {
-		            'Content-Type': 'application/json',
-		        },
-		        body: JSON.stringify(visitData)
-		    })
-		    .then(response => {
-		        if (response.ok) {
-		            alert('내원이 성공적으로 등록되었습니다.');
-		            document.getElementById('patientVisitModal').style.display = 'none';
-		        } else {
-		            throw new Error('내원 등록 중 오류가 발생했습니다.');
-		        }
-		    })
-		    .catch(error => {
-		        console.error('Error:', error);
-		        alert('내원 등록 중 오류가 발생했습니다: ' + error.message);
-		    });
-		});
-
-    </script>
+	        }
+	
+	        // 메시지 전송 기능 (예시)
+	        const sendMessageBtn = document.getElementById('sendMessage');
+	        if (sendMessageBtn) {
+	            sendMessageBtn.addEventListener('click', function () {
+	                const messageInput = document.getElementById('messageInput');
+	                if (messageInput) {
+	                    const message = messageInput.value.trim();
+	                    if (message) {
+	                        const chatMessages = document.querySelector('.chat-messages');
+	                        const messageElement = document.createElement('p');
+	                        messageElement.textContent = message;
+	                        chatMessages.appendChild(messageElement);
+	                        messageInput.value = '';
+	                        // 여기에 실제 메시지 전송 로직을 추가해야 합니다.
+	                    }
+	                }
+	            });
+	        }
+	
+	        // 캘린더 기능
+	        const calendarEl = document.getElementById('calendar');
+	        if (calendarEl) {
+	            var calendar = new FullCalendar.Calendar(calendarEl, {
+	                initialView: 'dayGridMonth',
+	                locale: 'ko',
+	                headerToolbar: {
+	                    left: 'prev,next today',
+	                    center: 'title',
+	                    right: 'dayGridMonth,timeGridWeek,timeGridDay'
+	                },
+	                dayHeaderContent: function(arg) {
+	                    var dayName = arg.text;
+	                    var element = document.createElement('span');
+	                    element.innerHTML = dayName;
+	                    element.style.fontSize = '1.4em';  // 요일 폰트 크기 증가
+	                    element.style.fontWeight = 'bold';  // 요일을 굵게 표시
+	                    return { domNodes: [element] };
+	                },
+	                dayCellContent: function(arg) {
+	                    var dayOfWeek = arg.date.getDay();
+	                    var dateText = arg.dayNumberText.replace('일', '');
+	                    var element = document.createElement('div');
+	                    element.innerHTML = dateText;
+	                    element.style.fontSize = '1.4em';  // 날짜 숫자 폰트 크기 증가
+	                    element.style.fontWeight = 'bold';  // 날짜 숫자를 굵게 표시
+	                    
+	                    if (dayOfWeek === 0) {  // 일요일
+	                        element.style.color = 'red';
+	                    } else if (dayOfWeek === 6) {  // 토요일
+	                        element.style.color = 'blue';
+	                    }
+	                    return { domNodes: [element] };
+	                },
+	                dateClick: function(info) {
+	                    var clickedDate = new Date(info.dateStr);
+	                    var calendarDate = calendar.getDate();
+	
+	                    if (clickedDate.getMonth() < calendarDate.getMonth() && clickedDate.getFullYear() === calendarDate.getFullYear() ||
+	                        clickedDate.getFullYear() < calendarDate.getFullYear()) {
+	                        calendar.prev();
+	                    } else if (clickedDate.getMonth() > calendarDate.getMonth() && clickedDate.getFullYear() === calendarDate.getFullYear() ||
+	                            clickedDate.getFullYear() > calendarDate.getFullYear()) {
+	                        calendar.next();
+	                    } else {
+	                        alert('Date: ' + info.dateStr);
+	                    }
+	                },
+	                events: [
+	                    {
+	                        title: 'All Day Event',
+	                        start: '2023-08-01'
+	                    },
+	                    {
+	                        title: 'Long Event',
+	                        start: '2023-08-07',
+	                        end: '2023-08-10'
+	                    }
+	                ]
+	            });
+	
+	            calendar.render();
+	        }
+	
+	        // 탭 전환 기능
+	        function showAllPatients() {
+	            const allPatients = document.getElementById('all-patients');
+	            const managedPatients = document.getElementById('managed-patients');
+	            const tabAllPatients = document.getElementById('tab-all-patients');
+	            const tabManagedPatients = document.getElementById('tab-managed-patients');
+	
+	            if (allPatients && managedPatients && tabAllPatients && tabManagedPatients) {
+	                allPatients.style.display = 'block';
+	                managedPatients.style.display = 'none';
+	                tabAllPatients.classList.add('active');
+	                tabManagedPatients.classList.remove('active');
+	            }
+	        }
+	
+	        function showManagedPatients() {
+	            const allPatients = document.getElementById('all-patients');
+	            const managedPatients = document.getElementById('managed-patients');
+	            const tabAllPatients = document.getElementById('tab-all-patients');
+	            const tabManagedPatients = document.getElementById('tab-managed-patients');
+	
+	            if (allPatients && managedPatients && tabAllPatients && tabManagedPatients) {
+	                allPatients.style.display = 'none';
+	                managedPatients.style.display = 'block';
+	                tabAllPatients.classList.remove('active');
+	                tabManagedPatients.classList.add('active');
+	            }
+	        }
+	
+	        // 모달 기능
+	        const patientRegisterModal = document.getElementById('patientRegisterModal');
+	        const patientVisitModal = document.getElementById('patientVisitModal');
+	        const patientRegisterBtn = document.getElementById('patient-register-btn');
+	        const patientVisitBtn = document.getElementById('patient-visit-btn');
+	        const closeBtns = document.getElementsByClassName('close');
+	
+	        if (patientRegisterBtn && patientRegisterModal) {
+	            patientRegisterBtn.onclick = function () {
+	                patientRegisterModal.style.display = 'block';
+	            }
+	        }
+	
+	        if (patientVisitBtn && patientVisitModal) {
+	            patientVisitBtn.onclick = function () {
+	                patientVisitModal.style.display = 'block';
+	            }
+	        }
+	
+	        if (closeBtns) {
+	            for (let closeBtn of closeBtns) {
+	                closeBtn.onclick = function () {
+	                    if (patientRegisterModal) patientRegisterModal.style.display = 'none';
+	                    if (patientVisitModal) patientVisitModal.style.display = 'none';
+	                }
+	            }
+	        }
+	
+	        window.onclick = function (event) {
+	            if (event.target == patientRegisterModal) {
+	                patientRegisterModal.style.display = 'none';
+	            }
+	            if (event.target == patientVisitModal) {
+	                patientVisitModal.style.display = 'none';
+	            }
+	        }
+	
+	        // 프로필 이미지 클릭 시 드롭다운 메뉴 표시
+	        const profileImage = document.getElementById('profile-image');
+	        const dropdownMenu = document.querySelector('.dropdown-menu');
+	        if (profileImage && dropdownMenu) {
+	            profileImage.addEventListener('click', function (event) {
+	                event.stopPropagation();
+	                dropdownMenu.style.display = 'block';
+	            });
+	
+	            // 문서 클릭 시 드롭다운 메뉴 숨기기
+	            document.addEventListener('click', function () {
+	                dropdownMenu.style.display = 'none';
+	            });
+	        }
+	
+	        // 상태 변경 기능
+	        function setStatus(status, color) {
+	            const statusIndicator = document.querySelector('.status-indicator');
+	            if (statusIndicator) {
+	                statusIndicator.style.backgroundColor = color;
+	                // 여기에 서버로 상태 변경을 전송하는 로직을 추가할 수 있습니다.
+	            }
+	        }
+	
+	        // 전화번호 자동 포맷팅 기능
+	        const patientPhone = document.getElementById('patientPhone');
+	        if (patientPhone) {
+	            patientPhone.addEventListener('input', function (e) {
+	                let x = e.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,4})(\d{0,4})/);
+	                e.target.value = !x[2] ? x[1] : x[1] + '-' + x[2] + (x[3] ? '-' + x[3] : '');
+	            });
+	        }
+	
+	        // 주소 검색 API 기능
+	        function loadDaumPostcodeScript() {
+	            return new Promise((resolve, reject) => {
+	                if (typeof daum !== 'undefined') {
+	                    resolve();
+	                    return;
+	                }
+	                const script = document.createElement('script');
+	                script.src = "//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js";
+	                script.onload = resolve;
+	                script.onerror = reject;
+	                document.head.appendChild(script);
+	            });
+	        }
+	
+	        async function execDaumPostcode() {
+	            try {
+	                await loadDaumPostcodeScript();
+	                new daum.Postcode({
+	                    oncomplete: function (data) {
+	                        var addr = ''; // 주소 변수
+	
+	                        if (data.userSelectedType === 'R') {
+	                            addr = data.roadAddress;
+	                        } else {
+	                            addr = data.jibunAddress;
+	                        }
+	
+	                        const postcodeInput = document.getElementById('patientPostcode');
+	                        const addressInput = document.getElementById('patientAddress');
+	                        const detailAddressInput = document.getElementById('patientDetailAddress');
+	
+	                        if (postcodeInput && addressInput && detailAddressInput) {
+	                            postcodeInput.value = data.zonecode;
+	                            addressInput.value = addr;
+	                            detailAddressInput.focus();
+	                        }
+	                    }
+	                }).open();
+	            } catch (error) {
+	                console.error('Failed to load Daum Postcode script:', error);
+	                alert('우편번호 서비스를 불러오는 데 실패했습니다. 잠시 후 다시 시도해 주세요.');
+	            }
+	        }
+	
+	        const postcodeBtn = document.querySelector('.postcode-input-group button');
+	        if (postcodeBtn) {
+	            postcodeBtn.addEventListener('click', execDaumPostcode);
+	        }
+	
+	        // 이메일 도메인 선택 기능
+	        const emailDomainSelect = document.getElementById('emailDomainSelect');
+	        if (emailDomainSelect) {
+	            emailDomainSelect.addEventListener('change', function() {
+	                const domainInput = document.getElementById('patientEmailDomain');
+	                if (domainInput) {
+	                    if (this.value !== "") {
+	                        domainInput.value = this.value;
+	                        domainInput.readOnly = true;
+	                    } else {
+	                        domainInput.value = "";
+	                        domainInput.readOnly = false;
+	                    }
+	                }
+	            });
+	        }
+	
+	        // 주민등록번호 자동 포맷팅 기능 (환자 등록)
+	        const registerPatientSecurityNum = document.getElementById('registerPatientSecurityNum');
+	        if (registerPatientSecurityNum) {
+	            registerPatientSecurityNum.addEventListener('input', function (e) {
+	                formatSecurityNum(e.target);
+	            });
+	        }
+	
+	        // 주민등록번호 자동 포맷팅 기능 (환자 내원)
+	        const visitPatientSecurityNum = document.getElementById('visitPatientSecurityNum');
+	        if (visitPatientSecurityNum) {
+	            visitPatientSecurityNum.addEventListener('input', function (e) {
+	                formatSecurityNum(e.target);
+	            });
+	        }
+	
+	        // 주민등록번호 포맷팅 함수
+	        function formatSecurityNum(input) {
+	            let x = input.value.replace(/\D/g, '').match(/(\d{0,6})(\d{0,7})/);
+	            input.value = !x[2] ? x[1] : x[1] + '-' + x[2];
+	        }
+	
+	        // 키 글자수 제한
+	        const patientHeight = document.getElementById('patientHeight');
+	        if (patientHeight) {
+	            patientHeight.addEventListener('input', function() {
+	                if (this.value.length > 6) {
+	                    this.value = this.value.slice(0, 6);
+	                }
+	            });
+	        }
+	
+	        // 체중 글자수 제한
+	        const patientWeight = document.getElementById('patientWeight');
+	        if (patientWeight) {
+	            patientWeight.addEventListener('input', function() {
+	                if (this.value.length > 6) {
+	                    this.value = this.value.slice(0, 6);
+	                }
+	            });
+	        }
+	
+	        // 혈압 "/"만 가능하게 제한
+	        const patientBloodPressure = document.getElementById('patientBloodPressure');
+	        if (patientBloodPressure) {
+	            patientBloodPressure.addEventListener('input', function() {
+	                this.value = this.value.replace(/[^0-9./]/g, '');
+	            });
+	        }
+	
+	        // 체온 글자수 제한
+	        const patientTemperature = document.getElementById('patientTemperature');
+	        if (patientTemperature) {
+	            patientTemperature.addEventListener('input', function() {
+	                if (this.value.length > 4) {
+	                    this.value = this.value.slice(0, 4);
+	                }
+	            });
+	        }
+	
+	        // 환자등록 폼 제출 로직
+	        const patientRegisterForm = document.getElementById('patientRegisterForm');
+	        if (patientRegisterForm) {
+	            patientRegisterForm.addEventListener('submit', function(e) {
+	                e.preventDefault();
+	                const securityNumInput = document.getElementById('registerPatientSecurityNum');
+	                const securityNum = securityNumInput ? securityNumInput.value : '';
+	
+	                // 주민등록번호 유효성 검사
+	                fetch('/api/patients/validateSecurityNum', {
+	                    method: 'POST',
+	                    headers: {
+	                        'Content-Type': 'application/json',
+	                    },
+	                    body: JSON.stringify({ securityNum: securityNum })
+	                })
+	                .then(response => {
+	                    if (response.ok) {
+	                        return response.text();
+	                    } else {
+	                        return response.text().then(text => {
+	                            throw new Error(text || '유효하지 않은 주민등록번호입니다.');
+	                        });
+	                    }
+	                })
+	                .then(message => {
+	                    // 유효성 검사 통과 시 환자 등록 로직 실행
+	                    submitPatientRegistrationForm();
+	                })
+	                .catch(error => {
+	                    console.error('Error:', error);
+	                    alert('유효성 검사 중 오류가 발생했습니다: ' + error.message);
+	                });
+	            });
+	        }
+	
+	        // 실제 환자 등록 로직
+	        function submitPatientRegistrationForm() {
+	            const formData = new FormData(document.getElementById('patientRegisterForm'));
+	            const patientData = {};
+	
+	            formData.forEach((value, key) => {
+	                switch(key) {
+	                    case 'registerPatientName':
+	                        patientData.name = value;
+	                        break;
+	                    case 'registerPatientSecurityNum':
+	                        patientData.securityNum = value;
+	                        break;
+	                    case 'patientEmailId':
+	                    case 'patientEmailDomain':
+	                        if (!patientData.email) patientData.email = '';
+	                        patientData.email += value + (key === 'patientEmailId' ? '@' : '');
+	                        break;
+	                    case 'patientRhFactor':
+	                    case 'patientABOBloodType':
+	                        if (!patientData.bloodType) patientData.bloodType = '';
+	                        patientData.bloodType += value;
+	                        break;
+	                    case 'patientGender':
+	                        patientData.gender = value;
+	                        break;
+	                    case 'patientPostcode':
+	                    case 'patientAddress':
+	                    case 'patientDetailAddress':
+	                        if (!patientData.address) patientData.address = '';
+	                        patientData.address += value + ' ';
+	                        break;
+	                    case 'patientPhone':
+	                        patientData.phone = value;
+	                        break;
+	                    case 'patientHeight':
+	                        patientData.height = value;
+	                        break;
+	                    case 'patientWeight':
+	                        patientData.weight = value;
+	                        break;
+	                    case 'patientAllergies':
+	                        patientData.allergies = value.trim() === '' ? null : value;
+	                        break;
+	                    case 'patientBloodPressure':
+	                        patientData.bloodPressure = value.trim() === '' ? null : value;
+	                        break;
+	                    case 'patientTemperature':
+	                        patientData.temperature = value;
+	                        break;
+	                    case 'patientSmokingStatus':
+	                        patientData.smokingStatus = value;
+	                        break;
+	                    default:
+	                        patientData[key] = value;
+	                }
+	            });
+	
+	            // AJAX 요청을 통해 환자 등록
+	            fetch('/api/patients/registerPatient', {
+	                method: 'POST',
+	                headers: {
+	                    'Content-Type': 'application/json', // Content-Type을 JSON으로 설정
+	                },
+	                body: JSON.stringify(patientData) // JSON 형식으로 변환하여 전송
+	            })
+	            .then(response => {
+	                if (response.status === 409) {
+	                    throw new Error('중복된 주민등록번호가 있습니다.');
+	                } else if (!response.ok) {
+	                    return response.text().then(text => {
+	                        throw new Error(text || '환자 등록 중 오류가 발생했습니다.');
+	                    });
+	                }
+	                return response.json();
+	            })
+	            .then(data => {
+	                alert('환자가 성공적으로 등록되었습니다.');
+	                document.getElementById('patientRegisterModal').style.display = 'none';
+	                // 필요한 경우 페이지 새로고침 또는 환자 목록 업데이트
+	            })
+	            .catch(error => {
+	                console.error('Error:', error);
+	                alert('환자 등록 중 오류가 발생했습니다: ' + error.message);
+	            });
+	        }
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+	        // 환자 이름을 검색하여 자동 완성 목록을 표시하는 함수
+	        function searchPatients(query) {
+	            const resultsDiv = document.getElementById('patientSearchResults');
+	            if (!resultsDiv) return;
+	
+	            if (query.length < 2) {
+	                resultsDiv.style.display = 'none';
+	                return;
+	            }
+	
+	            fetch(`/api/patients/search?name=${query}`)
+	                .then(response => response.json())
+	                .then(data => {
+	                    resultsDiv.innerHTML = ''; // 기존 검색 결과 삭제
+	                    if (data.length > 0) {
+	                        const filteredData = data.filter(patient => 
+	                            patient.name.startsWith(query) || patient.securityNum.startsWith(query)
+	                        );
+	
+	                        if (filteredData.length > 0) {
+	                            filteredData.forEach(patient => {
+	                                const option = document.createElement('div');
+	                                option.textContent = patient.name + '   ' + patient.securityNum; // 이름 (주민등록번호)
+	                                option.style.cursor = 'pointer';
+	                                option.className = 'search-result-item'; // 클래스 추가
+	                                option.onclick = () => {
+	                                    // 성명과 주민등록번호 필드에 선택된 환자 정보 입력
+	                                    const visitPatientName = document.getElementById('visitPatientName');
+	                                    const visitPatientSecurityNum = document.getElementById('visitPatientSecurityNum');
+	                                    const visitPatientNo = document.getElementById('visitPatientNo'); // 환자 no를 위한 hidden input
+	                                    if (visitPatientName && visitPatientSecurityNum) {
+	                                        visitPatientName.value = patient.name;
+	                                        visitPatientSecurityNum.value = patient.securityNum;
+	                                        resultsDiv.style.display = 'none'; // 검색 결과 숨기기
+	                                    }
+	                                };
+	                                resultsDiv.appendChild(option);
+	                            });
+	                            resultsDiv.style.display = 'block';
+	                        } else {
+	                            resultsDiv.style.display = 'none';
+	                        }
+	                    } else {
+	                        resultsDiv.style.display = 'none';
+	                    }
+	                })
+	                .catch(error => {
+	                    console.error('Error:', error);
+	                });
+	        }
+	
+	        // 검색된 환자 목록에서 선택 시 이벤트
+	        const visitPatientNameInput = document.getElementById('visitPatientName');
+	        if (visitPatientNameInput) {
+	            visitPatientNameInput.addEventListener('input', function () {
+	                searchPatients(this.value);
+	            });
+	        }
+	
+	        // 의사 목록 불러오기
+	        const doctorSelect = document.getElementById('doctorSelect');
+	        if (doctorSelect) {
+	            fetch(`/api/patients/doctors`)
+	                .then(response => response.json())
+	                .then(doctors => {
+	                    // 이름을 기준으로 ㄱㄴㄷ순으로 정렬
+	                    doctors.sort((a, b) => a.name.localeCompare(b.name, 'ko-KR'));
+	                    doctors.forEach(doctor => {
+	                        const option = document.createElement('option');
+	                        // option.value = doctor.name; // 의사의 이름만 value로 사용
+	                        option.value = doctor.name; // 의사의 'no'를 value로 설정
+	                        option.text = doctor.name + "(" + doctor.departmentId + ")"; // 의사의 이름과 부서를 표시
+	                        doctorSelect.appendChild(option);
+	                    });
+	                });
+	        }
+	
+	        // 간호사 목록 불러오기
+	        const nurseSelect = document.getElementById('nurseSelect');
+	        if (nurseSelect) {
+	            fetch('/api/patients/nurses')
+	                .then(response => response.json())
+	                .then(nurses => {
+	                    // 이름을 기준으로 ㄱㄴㄷ순으로 정렬
+	                    nurses.sort((a, b) => a.name.localeCompare(b.name, 'ko-KR'));
+	                    nurses.forEach(nurse => {
+	                        const option = document.createElement('option');
+	                        //option.value = nurse.name; // 간호사의 이름만 value로 사용
+	                        option.value = nurse.name; // 간호사의 'no'를 value로 설정
+	                        option.text = nurse.position + " " + nurse.name + "(" + nurse.departmentId + ")"; // 간호사의 이름을 표시
+	                        nurseSelect.appendChild(option);
+	                    });
+	                });
+	        }
+	
+	        // 환자 내원 폼 제출 로직
+	        function submitPatientVisitForm() {
+	            const formData = new FormData(document.getElementById('patientVisitForm'));
+	            const visitData = {};
+	
+	            formData.forEach((value, key) => {
+	                switch(key) {
+	                    case 'visitDate':
+	                        visitData.visitDate = value;
+	                        break;
+	                    case 'visitTime':
+	                        visitData.visitTime = value;
+	                        break;
+	                    case 'visitPatientName':
+	                        visitData.patientName = encodeURIComponent(value); // 인코딩 추가
+	                        break;
+	                    case 'visitPatientSecurityNum':
+	                        visitData.securityNum = value;
+	                        break;
+	                    case 'visitReason':
+	                        visitData.visitReason = encodeURIComponent(value); // 인코딩 추가
+	                        break;
+	                    case 'doctorSelect':
+	                        visitData.doctorName = value; // 의사의 'no'를 전송
+	                        break;
+	                    case 'nurseSelect':
+	                        visitData.nurseName = value; // 간호사의 'no'를 전송
+	                        break;
+	                    default:
+	                        visitData[key] = value;
+	                }
+	            });
+	
+				console.log("Sending Visit Data: ", JSON.stringify(visitData)); // 데이터를 콘솔에 출력하여 확인
+				
+	            // AJAX 요청을 통해 환자 내원 등록
+	            fetch('/api/patients/visitPatient', {
+	                method: 'POST',
+	                headers: {
+	                    'Content-Type': 'application/json',
+	                },
+	                body: JSON.stringify(visitData)
+	            })
+	            .then(response => {
+	                if (!response.ok) {
+	                    return response.text().then(text => { throw new Error(text || '내원 등록 중 오류가 발생했습니다.'); });
+	                }
+	                alert('환자내원이 성공적으로 등록되었습니다.');
+	                return response.text();
+	            })
+	            .then(message => {
+	                alert(message);
+	                document.getElementById('patientVisitModal').style.display = 'none';
+	                // 필요한 경우 페이지 새로고침 또는 환자 목록 업데이트
+	            })
+	            .catch(error => {
+	                console.error('Error:', error);
+	                alert('내원 등록 중 오류가 발생했습니다: ' + error.message);
+	            });
+	        }
+	    });
+	</script>
 </body>
 
 </html>
