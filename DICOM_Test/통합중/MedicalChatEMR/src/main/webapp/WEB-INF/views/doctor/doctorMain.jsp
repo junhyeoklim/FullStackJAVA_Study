@@ -727,7 +727,7 @@ ul, #patientList {
 			<button id="messages-btn" class="nav-btn">Message</button>
 			<button id="chat-ai-btn" class="nav-btn">CHAT AI</button>
 			<div class="profile-info">
-				<img id="profile-image" src="/images/ProfileImage/doctorProfile.jpg" alt="Profile Image">
+				<img id="profile-image" src="" alt="Profile Image">
 				<div class="status-indicator"></div>
 				<form id="logout-form" action="/logout" method="POST">
 					<button id="logout-btn" class="logout-btn">Log Out</button>
@@ -1326,10 +1326,7 @@ ul, #patientList {
                 row.setAttribute('data-chart-num', record.chartNum); // chartNum 속성 추가
                 row.innerHTML = '<td>' + record.visitDate + '</td><td>' + record.doctorName + '</td>';
                 row.addEventListener('click', function () {
-                	// 값 불러오기 테스트
-                	console.log("patientNo : ",patientNo);
-                	console.log("record.visitDate : ",formatDateForDcm(record.visitDate));
-                	showPatientInfo(patientNo,formatDateForDcm(record.visitDate));
+                	showPatientInfo(patientNo,formatDateForDcm(record.visitDate)); // 환자 정보에 해당되는 DICOM 이미지 가져오기
                     updateRecordSections(record); // 기록 클릭 시 해당 기록 업데이트
                     highlightRecord(record.chartNum); // 클릭한 기록 하이라이트
                 });
@@ -1337,12 +1334,23 @@ ul, #patientList {
             });
         }
    
-   	  // 방문 날짜 값 변화
-      function formatDateForDcm(visitDate) {
-    	    const datePart = visitDate.split('T')[0]; // '2024-08-26' 부분만 추출
-    	    const formattedDate = datePart.replace(/-/g, ''); // '20240826'으로 변환
-    	    return formattedDate;
+   	 // 방문 날짜 값 변화
+	function formatDateForDcm(visitDate) {
+	    // Date 객체를 통해 날짜를 파싱할 수 있는 형식으로 변환
+	    const dateObj = new Date(visitDate);
+    
+	    // 유효한 날짜인지 확인
+	    if (isNaN(dateObj.getTime())) {
+	        return;
     	}
+
+    	// 년, 월, 일을 YYYYMMDD 형식으로 변환
+    	const year = dateObj.getFullYear();
+    	const month = (dateObj.getMonth() + 1).toString().padStart(2, '0'); // 월은 0부터 시작하므로 +1 필요
+    	const day = dateObj.getDate().toString().padStart(2, '0');
+
+	    return year + month + day;
+	}
 
    // 기록의 섹션 업데이트 함수
      function updateRecordSections(record) {
@@ -1935,7 +1943,7 @@ ul, #patientList {
 		    }
 		}
 
-		// 환자 번호를 토대로 study값 가져오는거 테스트 중
+		// 환자 번호를 토대로 study값 가져오기
 		function showPatientInfo(patientNo,visitDate) {
     		$.ajax({
         		url: '/dicom/getPatientInfo',
